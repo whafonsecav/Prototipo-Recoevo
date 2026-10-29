@@ -1,6 +1,6 @@
 # Construye la escena completa de RECOEVO para un formato (h = 1920×1080, v = 1080×1920) y la guarda en .blend.
 # Uso: blender -b --factory-startup --python construir_escena.py -- --aspecto h [--tiempos tiempos.json]
-#      [--salida ../blend/recoevo_h.blend] [--anclas ../blend/anclas_h.json] [--glb ../exportes/recoevo_v3.glb]
+#      [--salida ../blend/recoevo_h.blend] [--anclas ../blend/anclas_h.json] [--glb ../exportes/recoevo.glb]
 import sys
 import os
 import json

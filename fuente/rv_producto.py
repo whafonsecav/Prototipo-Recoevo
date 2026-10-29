@@ -1,5 +1,5 @@
-# RECOEVO v3 (prototipo del plan de fábrica del 29-oct-2026): triturador doméstico a pedal, 32 × 34 × 52 cm, ≈5 kg.
-# Geometría alineada con la lista de materiales v3 (01_RECOEVO_PLAN_DE_FABRICA_2026-10-29/Herramientas_modelo/build/data.py)
+# RECOEVO (diseño del plan de fábrica, 29-oct-2026): triturador doméstico a pedal, 32 × 34 × 52 cm, ≈5 kg.
+# Geometría alineada con la lista de materiales del plan de fábrica (01_RECOEVO_PLAN_DE_FABRICA_2026-10-29/Herramientas_modelo/build/data.py)
 # y la hoja de ingeniería (palanca 2:1: 24 cm al pie y 12 cm a la cremallera; pie 60 mm → cremallera 30 mm → ≈143° de eje).
 # Origen = centro del piso bajo el equipo; frente hacia -Y; eje de cuchillas paralelo a X. Medidas en metros.
 import math

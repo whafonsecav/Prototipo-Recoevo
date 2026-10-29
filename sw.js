@@ -1,9 +1,9 @@
 /* Guarda todo en la tablet para que el prototipo funcione sin internet en el evento. */
-const VERSION = "recoevo-v3-3";
+const VERSION = "recoevo-cache-4";
 const ARCHIVOS = [
   "./", "index.html", "manifest.webmanifest", "assets/css/app.css",
   "assets/vendor/three.min.js", "assets/js/partes.js", "assets/js/glb.js", "assets/js/controles.js", "assets/js/app.js",
-  "assets/fonts/Lexend.woff2", "assets/fonts/Nunito.woff2", "assets/modelo/recoevo_v3.glb",
+  "assets/fonts/Lexend.woff2", "assets/fonts/Nunito.woff2", "assets/modelo/recoevo.glb",
   "assets/img/logo.svg", "assets/img/isotipo.svg", "assets/img/icono-192.png", "assets/img/icono-512.png",
   ...["olor", "filtro", "reciclado", "seguro", "balde", "pedal", "aserrin", "flecha", "ciclo", "cuchillas", "tiras", "check"]
     .map(i => `assets/img/iconos/icono_${i}.svg`)

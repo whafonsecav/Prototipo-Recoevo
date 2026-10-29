@@ -1,5 +1,5 @@
-/* RECOEVO v3 · qué es cada pieza (fuente: lista de materiales y hoja de ingeniería del plan de fábrica v3, 29-oct-2026).
-   Cada pieza: nodos del modelo 3D que la forman, ancla para el punto táctil, ícono de la marca y texto en lenguaje sencillo. */
+/* RECOEVO · qué es cada pieza (fuente: lista de materiales y hoja de ingeniería del plan de fábrica, 29-oct-2026).
+   Cada pieza: nodos del modelo que la forman, ancla para el punto táctil, ícono de la marca y texto en lenguaje sencillo. */
 window.PARTES = [
   {
     id: "tapa", nodos: ["G_tapa"], ancla: "A_tapa", icono: "olor",

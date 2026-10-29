@@ -149,7 +149,7 @@ def tarjeta_comparacion(aspecto):
     filas = [('Triturador eléctrico importado', '+ luz y filtros', '$1,3 – 1,7 M', False),
              ('Compostera de patio', 'necesita patio', '$410 – 660 mil', False),
              ('Caneca con pedal 44 L', 'solo guarda', '$204 mil', False),
-             ('RECOEVO v3', 'tritura · sin luz · trae 5 bolsas', '$199.900', True)]
+             ('RECOEVO', 'tritura · sin luz · trae 5 bolsas', '$199.900', True)]
     alto_f = 66 if h_ else 76
     alto = 30 + 48 + len(filas) * alto_f + 44
     im, pad = caja_redonda(ancho, alto, 24, (255, 255, 255, 232), True)

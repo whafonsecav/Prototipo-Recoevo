@@ -1,5 +1,5 @@
-/* RECOEVO v3 · prototipo interactivo para tablet.
-   Mismo modelo 3D del video (exportado de Blender). Tocar una pieza abre su ficha; «Separar» despieza el equipo;
+/* RECOEVO · prototipo interactivo para tablet.
+   El mismo equipo del video (exportado de Blender). Tocar una pieza abre su ficha; «Separar» despieza el equipo;
    «Cómo funciona» muestra el uso paso a paso; si nadie toca la pantalla, entra en modo vitrina. */
 (function () {
   "use strict";
@@ -77,7 +77,7 @@
   tamano();
 
   // ---------------------------------------------------------------- carga
-  cargarGLB("assets/modelo/recoevo_v3.glb", p => { $("#barra i").style.width = (p * 100).toFixed(0) + "%"; })
+  cargarGLB("assets/modelo/recoevo.glb", p => { $("#barra i").style.width = (p * 100).toFixed(0) + "%"; })
     .then(({ escena: m, porNombre }) => {
       modelo = m; N = porNombre;
       escena.add(modelo);

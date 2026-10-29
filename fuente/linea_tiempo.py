@@ -1,7 +1,7 @@
 # Arma la línea de tiempo del video a partir de las frases grabadas:
 #   · narracion_48k.wav (voz colocada con pausas), musica_bucle.wav (cierra en bucle sin corte), mezcla.wav
 #   · tiempos.json (eventos de animación para Blender), subs.json + RECOEVO_subtitulos.srt, tarjetas.json
-# Uso (Python de tts-env): python linea_tiempo.py ../audio/guion_v2.json ../audio/voz_v2 ../audio/musica_cruda.wav ../audio
+# Uso (Python de tts-env): python linea_tiempo.py ../audio/guion_frases.json ../audio/voz_frases ../audio/musica_cruda.wav ../audio
 import os
 import sys
 import json
