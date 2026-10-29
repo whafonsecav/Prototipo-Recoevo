@@ -5,6 +5,10 @@ Esta página muestra el equipo en 3D para explorarlo en una tablet durante el ev
 
 **Abrir:** https://whafonsecav.github.io/Prototipo-Recoevo/
 
+**Videos del evento** (1 min 49 s, en bucle, con subtítulos):
+[horizontal 16:9](https://whafonsecav.github.io/Prototipo-Recoevo/video/RECOEVO_video_evento_16x9.mp4) ·
+[vertical 9:16](https://whafonsecav.github.io/Prototipo-Recoevo/video/RECOEVO_video_evento_9x16.mp4)
+
 ## Cómo se usa
 - **Deslizar** con un dedo: girar el equipo. **Pellizcar**: acercar o alejar.
 - **Tocar una pieza** (o un punto verde): se abre su ficha con qué hace y de qué está hecha.
