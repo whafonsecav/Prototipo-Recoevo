@@ -1,5 +1,5 @@
 /* Guarda todo en la tablet para que el prototipo funcione sin internet en el evento. */
-const VERSION = "recoevo-v3-2";
+const VERSION = "recoevo-v3-3";
 const ARCHIVOS = [
   "./", "index.html", "manifest.webmanifest", "assets/css/app.css",
   "assets/vendor/three.min.js", "assets/js/partes.js", "assets/js/glb.js", "assets/js/controles.js", "assets/js/app.js",

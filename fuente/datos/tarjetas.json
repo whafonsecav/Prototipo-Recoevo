@@ -1,0 +1,58 @@
+[
+ {
+  "ini": 1.2,
+  "fin": 8.057,
+  "grande": "33.000 t",
+  "texto": "de basura al día van a rellenos en Colombia",
+  "pie": "Solo 1 de cada 5 se aprovecha · Superservicios, 2024"
+ },
+ {
+  "ini": 8.307,
+  "fin": 16.116,
+  "grande": "≈6.000 t/día",
+  "texto": "llegan a Doña Juana: más de la mitad es orgánico",
+  "pie": "Licencia hasta ≈2029 · UAESP"
+ },
+ {
+  "ini": 13.916,
+  "fin": 16.316,
+  "grande": "7 de 10",
+  "texto": "vecinos de Usme dicen que los perros rompen las bolsas",
+  "pie": "Entrevistas del equipo, 2026",
+  "segunda": true
+ },
+ {
+  "ini": 16.816,
+  "fin": 27.91,
+  "grande": "+94 %",
+  "texto": "de los fertilizantes del país es importado",
+  "pie": "Investigación del equipo"
+ },
+ {
+  "ini": 20.416,
+  "fin": 31.116999999999997,
+  "grande": "+187 %",
+  "texto": "subió la urea entre 2021 y 2022",
+  "pie": "El campo paga por el abono que la ciudad entierra",
+  "segunda": true
+ },
+ {
+  "ini": 31.817,
+  "fin": 34.986000000000004,
+  "grande": "Decreto 0772",
+  "texto": "de 2026: separar en casa es obligatorio",
+  "pie": "Ruta de orgánicos al menos 1 vez por semana · Minvivienda"
+ },
+ {
+  "ini": 34.936,
+  "fin": 40.146,
+  "grande": "6 de 10",
+  "texto": "vecinos separarían si tuvieran con qué",
+  "pie": "4 de 10 ya reutilizan cáscaras · entrevistas del equipo"
+ },
+ {
+  "ini": 88.69699999999999,
+  "fin": 101.188,
+  "tipo": "comparacion"
+ }
+]

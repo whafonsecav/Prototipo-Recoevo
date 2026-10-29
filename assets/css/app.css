@@ -140,3 +140,10 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   .sello { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .punto i { animation: none; } * { transition-duration: .01s !important; } }
+
+/* eslogan de la marca: «Menos relleno, más vida.» («más vida.» en Verde Brote sobre Verde Monte) */
+.eslogan {
+  align-self: flex-start; margin-top: 4px; padding: 5px 12px; border-radius: 999px; background: var(--monte);
+  color: #fff; font-family: "Lexend"; font-weight: 600; font-size: 14px; letter-spacing: .2px;
+}
+.eslogan b { color: var(--brote); font-weight: 700; }

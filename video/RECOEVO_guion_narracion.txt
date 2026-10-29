@@ -1,0 +1,113 @@
+RECOEVO · VIDEO DE PRODUCTO PARA EL EVENTO DE INVERSIONISTAS
+Guion de narración — VERSIÓN GRABADA (29-oct-2026)
+Voz: clon «william_3reels» de ClonacionVoz, motor OmniVoice (el mismo de la app), velocidad 1,10×.
+Duración del video: 1:49.4 (109.4 s), en bucle: el último fotograma es igual al primero.
+La voz arranca en 0:01 y termina 2,4 s antes del final; la música cierra el bucle sin corte.
+
+Columna VOZ: lo que dice la narración. Columna PANTALLA: el subtítulo (con cifras).
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+PROBLEMÁTICA 1 · LA BASURA DE LA CIUDAD  (cocina colombiana, el equipo frente al mesón)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[0:01.0 – 0:07.8]
+  VOZ:      Cada día, Colombia lleva treinta y tres mil toneladas de basura a los rellenos, y aprovecha solo una de cada cinco.
+  PANTALLA: Cada día, Colombia lleva 33.000 toneladas de basura a los rellenos, y aprovecha solo 1 de cada 5.
+
+[0:08.2 – 0:15.5]
+  VOZ:      A Doña Juana llegan unas seis mil toneladas al día: más de la mitad es orgánico, y su licencia vence hacia dos mil veintinueve.
+  PANTALLA: A Doña Juana llegan unas 6.000 toneladas al día: más de la mitad es orgánico, y su licencia vence hacia 2029.
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+PROBLEMÁTICA 2 · EL CAMPO SIN ABONO  (la ventana con la sábila)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[0:16.4 – 0:27.7]
+  VOZ:      Y el campo paga lo contrario: importamos más del noventa y cuatro por ciento de los fertilizantes, y entre dos mil veintiuno y dos mil veintidós la urea subió ciento ochenta y siete por ciento.
+  PANTALLA: Y el campo paga lo contrario: importamos más del 94 % de los fertilizantes, y entre 2021 y 2022 la urea subió 187 %.
+
+[0:28.2 – 0:30.7]
+  VOZ:      La ciudad entierra lo que el campo necesita.
+  PANTALLA: La ciudad entierra lo que el campo necesita.
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+LA CONSECUENCIA · HAY QUE SEPARAR EN CASA
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[0:31.7 – 0:34.3]
+  VOZ:      Desde julio, separar en casa es obligatorio.
+  PANTALLA: Desde julio, separar en casa es obligatorio.
+
+[0:34.7 – 0:39.4]
+  VOZ:      Y en nuestras entrevistas, seis de cada diez vecinos separarían si tuvieran con qué.
+  PANTALLA: Y en nuestras entrevistas, 6 de cada 10 vecinos separarían si tuvieran con qué.
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+LA SOLUCIÓN · RECOEVO, CÓMO SE USA  (tapa, cáscaras, pedal derecho con rayos X, pedal izquierdo, balde)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[0:40.5 – 0:45.1]
+  VOZ:      Por eso creamos Recoevo: un triturador de cocina a pedal, sin electricidad.
+  PANTALLA: Por eso creamos RECOEVO: un triturador de cocina a pedal, sin electricidad.
+
+[0:45.6 – 0:47.8]
+  VOZ:      Abres la tapa y echas las cáscaras.
+  PANTALLA: Abres la tapa y echas las cáscaras.
+
+[0:49.1 – 0:53.3]
+  VOZ:      Cierras, pisas el pedal derecho, y trece cuchillas las cortan en tiras.
+  PANTALLA: Cierras, pisas el pedal derecho, y 13 cuchillas las cortan en tiras.
+
+[0:54.6 – 0:57.2]
+  VOZ:      Con el izquierdo cae aserrín que frena el olor.
+  PANTALLA: Con el izquierdo cae aserrín que frena el olor.
+
+[0:58.5 – 1:02.6]
+  VOZ:      Y abajo, un balde de diez litros con bolsa compostable: una por semana.
+  PANTALLA: Y abajo, un balde de 10 litros con bolsa compostable: una por semana.
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+POR DENTRO · VISTA EXPLOSIONADA  (la cocina se desvanece, el equipo flota y se despieza con etiquetas)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[1:04.8 – 1:06.5]
+  VOZ:      Por dentro, todo es mecánico.
+  PANTALLA: Por dentro, todo es mecánico.
+
+[1:11.5 – 1:16.5]
+  VOZ:      Una cremallera de acero gira un piñón con trinquete, como la rueda libre de una bicicleta.
+  PANTALLA: Una cremallera de acero gira un piñón con trinquete, como la rueda libre de una bicicleta.
+
+[1:17.6 – 1:20.6]
+  VOZ:      Y mueve trece cuchillas que pasan entre un peine fijo.
+  PANTALLA: Y mueve 13 cuchillas que pasan entre un peine fijo.
+
+[1:21.7 – 1:26.7]
+  VOZ:      La tapa tiene junta y filtro de carbón, y si está abierta, un seguro bloquea el pedal.
+  PANTALLA: La tapa tiene junta y filtro de carbón, y si está abierta, un seguro bloquea el pedal.
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+POR QUÉ ES LA MEJOR OPCIÓN + LLAMADO A LA ACCIÓN  (se arma y vuelve exactamente al primer fotograma)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[1:28.6 – 1:33.9]
+  VOZ:      Un triturador eléctrico importado cuesta más de un millón de pesos, y gasta luz y filtros.
+  PANTALLA: Un triturador eléctrico importado cuesta más de $1 millón, y gasta luz y filtros.
+
+[1:34.3 – 1:40.7]
+  VOZ:      Recoevo cuesta ciento noventa y nueve mil novecientos, IVA incluido: menos que una caneca de pedal grande.
+  PANTALLA: RECOEVO cuesta $199.900, IVA incluido: menos que una caneca de pedal grande.
+
+[1:41.1 – 1:44.0]
+  VOZ:      Casi diecinueve millones de hogares lo necesitan.
+  PANTALLA: Casi 19 millones de hogares lo necesitan.
+
+[1:44.5 – 1:47.0]
+  VOZ:      Súmate a Recoevo: menos relleno, más vida.
+  PANTALLA: Súmate a RECOEVO: menos relleno, más vida.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Tarjetas de cifras en pantalla: 33.000 t/día y 1 de cada 5 (Superservicios 2024) · Doña Juana ≈6.000 t/día,
+más de la mitad orgánico, licencia hasta ≈2029 (UAESP) · 7 de cada 10 vecinos de Usme: perros rompen las bolsas
+(entrevistas del equipo) · más del 94 % de fertilizantes importado · urea +187 % entre 2021 y 2022 ·
+Decreto 0772 de 2026 (Minvivienda) · 6 de cada 10 separarían si tuvieran con qué · 4 de cada 10 ya reutilizan cáscaras.
+Comparación: triturador eléctrico importado $1,3–1,7 M (+ luz y filtros) · compostera de patio $410–660 mil ·
+caneca con pedal 44 L $204 mil · RECOEVO v3 $199.900 con IVA (investigación A7 del plan de fábrica, oct-2026).
+Cierre: logo + «Súmate a esta iniciativa» + eslogan «Menos relleno, más vida.» + QR a https://whafonsecav.github.io/Prototipo-Recoevo/
+
+Nota honesta: las cifras de Usme salen de 10 entrevistas cualitativas del equipo (no es una encuesta estadística).
+Para la voz, «Recoevo» se escribió «Reco Evo» en dos frases (el modelo decía «Recuevo»); suena «Re-co-e-vo».
