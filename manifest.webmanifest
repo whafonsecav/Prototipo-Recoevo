@@ -1,0 +1,16 @@
+{
+  "name": "RECOEVO · Prototipo interactivo",
+  "short_name": "RECOEVO",
+  "description": "Triturador de cocina a pedal, sin electricidad: explora cada pieza.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#FBF5E8",
+  "theme_color": "#154734",
+  "lang": "es-CO",
+  "icons": [
+    { "src": "assets/img/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

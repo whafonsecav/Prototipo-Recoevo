@@ -1,0 +1,142 @@
+/* RECOEVO · prototipo interactivo — paleta y tipografías del manual de marca */
+@font-face { font-family: "Lexend"; src: url("../fonts/Lexend.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Nunito"; src: url("../fonts/Nunito.woff2") format("woff2"); font-weight: 200 1000; font-display: swap; }
+
+:root {
+  --evo: #0E9A48; --monte: #154734; --crema: #FBF5E8; --sol: #F2B227; --brote: #A4D65E; --tinta: #1C2721;
+  --vidrio: rgba(251, 245, 232, 0.72); --borde: rgba(255, 255, 255, 0.65);
+  --sombra: 0 18px 50px rgba(21, 71, 52, 0.22), 0 2px 8px rgba(21, 71, 52, 0.12);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
+body {
+  font-family: "Nunito", system-ui, sans-serif; color: var(--tinta);
+  background: radial-gradient(120% 90% at 50% 38%, #FFFDF8 0%, var(--crema) 48%, #EFE6D2 100%);
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+#lienzo { position: fixed; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+
+/* marca y precio */
+.marca { position: fixed; top: max(18px, env(safe-area-inset-top)); left: 22px; display: flex; flex-direction: column; gap: 4px; pointer-events: none; }
+.logo { height: 38px; width: auto; }
+.sello { font-size: 13px; font-weight: 700; color: var(--monte); opacity: .72; letter-spacing: .2px; padding-left: 2px; }
+.precio {
+  position: fixed; top: max(18px, env(safe-area-inset-top)); right: 22px; padding: 10px 16px; border-radius: 999px;
+  background: var(--vidrio); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--borde); box-shadow: var(--sombra);
+  font-family: "Lexend"; font-weight: 700; font-size: 18px; color: var(--monte); pointer-events: none;
+}
+.precio small { font-family: "Nunito"; font-weight: 700; font-size: 12px; opacity: .7; margin-left: 4px; }
+
+/* puntos táctiles */
+#puntos { position: fixed; inset: 0; pointer-events: none; }
+.punto {
+  position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+  display: grid; place-items: center; pointer-events: auto; opacity: 0; transition: opacity .35s ease;
+}
+.punto.visible { opacity: 1; }
+.punto:not(.visible) { pointer-events: none; }
+.punto i {
+  width: 18px; height: 18px; border-radius: 50%; background: var(--evo); border: 3px solid #fff;
+  box-shadow: 0 0 0 0 rgba(14, 154, 72, .45), 0 3px 10px rgba(0, 0, 0, .2); animation: latido 2.4s infinite;
+}
+@keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(14,154,72,.45), 0 3px 10px rgba(0,0,0,.2); } 70% { box-shadow: 0 0 0 14px rgba(14,154,72,0), 0 3px 10px rgba(0,0,0,.2); } 100% { box-shadow: 0 0 0 0 rgba(14,154,72,0), 0 3px 10px rgba(0,0,0,.2); } }
+
+/* pista inicial */
+#pista {
+  position: fixed; left: 50%; bottom: calc(118px + env(safe-area-inset-bottom)); transform: translate(-50%, 8px); margin: 0;
+  padding: 9px 16px; border-radius: 999px; background: rgba(21, 71, 52, .82); color: #fff; font-weight: 700; font-size: 15px;
+  opacity: 0; transition: opacity .5s, transform .5s; pointer-events: none; white-space: nowrap;
+}
+#pista.visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* dock inferior: pocas acciones, grandes para el dedo */
+.dock {
+  position: fixed; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  display: flex; gap: 8px; padding: 8px; border-radius: 26px;
+  background: var(--vidrio); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--borde); box-shadow: var(--sombra); transition: opacity .3s, transform .3s;
+}
+.boton {
+  display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 20px; border-radius: 19px;
+  font-family: "Lexend"; font-weight: 600; font-size: 17px; color: var(--monte); transition: background .2s, transform .15s, color .2s;
+}
+.boton svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.boton:active { transform: scale(.96); }
+.boton:hover { background: rgba(21, 71, 52, .07); }
+.boton.activo { background: var(--monte); color: #fff; }
+.boton.redondo { padding: 0; width: 56px; justify-content: center; }
+.con-recorrido #b-funciona { background: var(--monte); color: #fff; }
+
+/* recorrido «cómo funciona» */
+#recorrido {
+  position: fixed; left: 50%; top: max(84px, calc(env(safe-area-inset-top) + 70px)); transform: translate(-50%, -12px);
+  width: min(560px, calc(100% - 32px)); padding: 16px 22px; border-radius: 22px; text-align: center;
+  background: var(--vidrio); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--borde); box-shadow: var(--sombra); opacity: 0; pointer-events: none; transition: opacity .4s, transform .4s;
+}
+.con-recorrido #recorrido { opacity: 1; transform: translate(-50%, 0); }
+#recorrido p { margin: 8px 0 4px; font-family: "Lexend"; font-weight: 600; font-size: 19px; color: var(--monte); line-height: 1.3; }
+#recorrido small { opacity: .6; font-weight: 700; }
+#recorrido-pasos { display: flex; gap: 6px; justify-content: center; }
+#recorrido-pasos i { width: 28px; height: 5px; border-radius: 3px; background: rgba(21, 71, 52, .18); transition: background .3s; }
+#recorrido-pasos i.on { background: var(--evo); }
+
+/* velo + modal translúcido */
+#velo {
+  position: fixed; inset: 0; background: rgba(21, 71, 52, .18); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .35s;
+}
+.con-modal #velo { opacity: 1; pointer-events: auto; }
+#modal {
+  position: fixed; right: 24px; top: 50%; transform: translate(24px, -50%); width: min(400px, calc(100% - 32px));
+  max-height: calc(100% - 160px); overflow: auto; padding: 24px 24px 18px; border-radius: 28px;
+  background: rgba(251, 245, 232, .78); backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid var(--borde); box-shadow: var(--sombra); opacity: 0; pointer-events: none;
+  transition: opacity .35s ease, transform .45s cubic-bezier(.2, .8, .2, 1);
+}
+.con-modal #modal { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
+.con-modal .dock { opacity: 0; pointer-events: none; transform: translate(-50%, 20px); }
+.con-modal #puntos { opacity: 0; }
+#modal .cabeza { display: flex; gap: 14px; align-items: center; margin-right: 30px; }
+#modal .cabeza img { width: 44px; height: 44px; padding: 8px; border-radius: 14px; background: #fff; box-shadow: 0 2px 8px rgba(21,71,52,.12); }
+#modal small { font-weight: 800; font-size: 12px; color: var(--evo); letter-spacing: .6px; }
+#modal h2 { margin: 2px 0 0; font-family: "Lexend"; font-weight: 700; font-size: 23px; line-height: 1.15; color: var(--monte); }
+#modal .corto { font-family: "Lexend"; font-weight: 500; font-size: 17px; color: var(--evo); margin: 16px 0 6px; }
+#modal p { font-size: 16.5px; line-height: 1.5; margin: 6px 0 12px; }
+#modal ul { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 7px; }
+#modal li { font-size: 13.5px; font-weight: 700; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.75); color: var(--monte); border: 1px solid rgba(21,71,52,.12); }
+#modal .x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; font-size: 26px; line-height: 1; color: var(--monte); background: rgba(255,255,255,.7); }
+#modal .flechas { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(21,71,52,.1); padding-top: 12px; }
+#modal .flechas button { min-height: 46px; padding: 0 14px; border-radius: 14px; font-family: "Lexend"; font-weight: 600; color: var(--monte); }
+#modal .flechas button:active { background: rgba(21,71,52,.08); }
+
+/* vitrina: la interfaz se aparta */
+.vitrina .dock { opacity: .55; }
+.vitrina #pista { opacity: 0; }
+
+/* carga */
+#carga {
+  position: fixed; inset: 0; display: grid; place-content: center; justify-items: center; gap: 16px;
+  background: var(--crema); transition: opacity .6s; z-index: 10;
+}
+#carga.fuera { opacity: 0; pointer-events: none; }
+#carga p { margin: 0; font-weight: 700; color: var(--monte); }
+#barra { width: 180px; height: 5px; border-radius: 3px; background: rgba(21,71,52,.12); overflow: hidden; }
+#barra i { display: block; width: 0; height: 100%; background: var(--evo); transition: width .2s; }
+
+/* vertical (tablet de pie / celular) */
+@media (orientation: portrait) {
+  #modal { right: 50%; top: auto; bottom: 16px; transform: translate(50%, 30px); max-height: 58%; }
+  .con-modal #modal { transform: translate(50%, 0); }
+  .boton span { font-size: 16px; }
+}
+@media (max-width: 560px) {
+  .boton { padding: 0 14px; min-height: 52px; }
+  .boton span { font-size: 14px; }
+  .logo { height: 30px; }
+  .precio { font-size: 15px; padding: 8px 12px; }
+  .sello { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .punto i { animation: none; } * { transition-duration: .01s !important; } }

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>RECOEVO · Prototipo interactivo</title>
+  <meta name="description" content="Explora el triturador RECOEVO v3: toca cada pieza para ver qué hace, sepáralo y mira cómo funciona.">
+  <meta name="theme-color" content="#154734">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/icono-192.png">
+  <link rel="apple-touch-icon" href="assets/img/icono-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+  <canvas id="lienzo" aria-label="Modelo 3D de RECOEVO. Desliza para girar, pellizca para acercar, toca una pieza."></canvas>
+
+  <header class="marca">
+    <img src="assets/img/logo.svg" alt="recoevo" class="logo">
+    <span class="sello">Prototipo v3 · a pedal, sin electricidad</span>
+  </header>
+  <div class="precio" aria-label="Precio">$199.900 <small>IVA incluido</small></div>
+
+  <div id="puntos" aria-hidden="false"></div>
+
+  <p id="pista">Desliza para girar · toca una pieza para conocerla</p>
+
+  <div id="recorrido" role="status" aria-live="polite">
+    <div id="recorrido-pasos"><i></i><i></i><i></i><i></i></div>
+    <p id="recorrido-texto"></p>
+    <small>Toca la pantalla para salir</small>
+  </div>
+
+  <nav class="dock" aria-label="Acciones">
+    <button id="b-separar" class="boton">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+      <span>Separar piezas</span>
+    </button>
+    <button id="b-funciona" class="boton">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg>
+      <span>Cómo funciona</span>
+    </button>
+    <button id="b-centrar" class="boton redondo" aria-label="Volver a la vista inicial">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg>
+    </button>
+  </nav>
+
+  <div id="velo"></div>
+  <section id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <button id="modal-cerrar" class="x" aria-label="Cerrar">×</button>
+    <div class="cabeza">
+      <img id="modal-icono" alt="" width="44" height="44">
+      <div>
+        <small id="modal-n"></small>
+        <h2 id="modal-titulo"></h2>
+      </div>
+    </div>
+    <p id="modal-corto" class="corto"></p>
+    <p id="modal-texto"></p>
+    <ul id="modal-datos"></ul>
+    <div class="flechas">
+      <button id="modal-ant" aria-label="Pieza anterior">‹ Anterior</button>
+      <button id="modal-sig" aria-label="Pieza siguiente">Siguiente ›</button>
+    </div>
+  </section>
+
+  <div id="carga">
+    <img src="assets/img/isotipo.svg" alt="" width="72" height="72">
+    <div id="barra"><i></i></div>
+    <p>Cargando el prototipo…</p>
+  </div>
+
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/js/partes.js"></script>
+  <script src="assets/js/glb.js"></script>
+  <script src="assets/js/controles.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
