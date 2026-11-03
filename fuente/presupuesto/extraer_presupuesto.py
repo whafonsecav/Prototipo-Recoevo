@@ -387,9 +387,18 @@ for pref, fuente in DETALLE:
     print(f"detalle: {fila['nombre'][:45]:45s} {len(hijos):3d} filas · suma {miles(suma)} = {miles(total)}")
 
 
+# ---------------------------------------------------------------- sin la meta del 35 % (pedido de William para la web, 3-nov-2026)
+# Se quitan la tabla 12 («¿Se cumple la meta?»), el dato de la meta, y las frases que la mencionan. El Excel no cambia.
+for p in out["partes"]:
+    p["tablas"] = [t for t in p["tablas"] if not (t["tipo"] == "calculo" and t["fila"]["titulo"].startswith("¿Se cumple la meta"))]
+    p["texto"] = p["texto"].replace("Las tablas 12, 13 y 14 son", "Las tablas 13 y 14 son")
+out["datos"]["filas"] = [f for f in out["datos"]["filas"] if not f["nombre"].startswith("Meta de utilidad")]
+frases = re.split(r"(?<=\.)\s+", out["conclusion"]["texto"])
+out["conclusion"]["texto"] = " ".join(f for f in frases if "meta" not in f.lower())
+
 inv, mat, prod, adm = buscar("4. "), buscar("Materiales"), buscar("6. "), buscar("7. ")
 gasto, uti, precio = buscar("9. "), buscar("11. "), buscar("Precio al público")
-meta, pe, pe_mes = buscar("RESULTADO: utilidad sobre"), buscar("RESULTADO: punto de equilibrio"), buscar("¿En qué mes se logra")
+pe, pe_mes = buscar("RESULTADO: punto de equilibrio"), buscar("¿En qué mes se logra")
 roi, rec_mes = buscar("RESULTADO: retorno"), buscar("¿En qué mes se recupera")
 pp = lambda f: f"${miles(f['pp'][0])} por producto"
 out["costo"] = dict(fila=gasto["id"], valor=gasto["pp"], nota="Todo incluido: máquinas, arranque, producción, nómina, ventas e intereses, "
@@ -399,9 +408,7 @@ out["preguntas"] = [
     dict(n=2, titulo="Costo de materiales", fila=mat["id"], valor=mat["total"], nota=f"10 años · {pp(mat)}"),
     dict(n=3, titulo="Costo de producción", fila=prod["id"], valor=prod["total"], nota=f"10 años · {pp(prod)}"),
     dict(n=4, titulo="Gastos administrativos", fila=adm["id"], valor=adm["total"], nota=f"10 años, con toda la nómina · {pp(adm)}"),
-    dict(n=5, titulo="Utilidad neta", fila=uti["id"], valor=uti["total"],
-         nota=f"10 años · {round(meta['valor'][0] * 100, 1):.1f} % sobre el costo (meta 35 %)".replace(".", ",", 1),
-         alerta=meta["valor"][0] < 0.35),
+    dict(n=5, titulo="Utilidad neta", fila=uti["id"], valor=uti["total"], nota=f"10 años, después de impuestos · {pp(uti)}"),
     dict(n=6, titulo="Precio de venta", fila=precio["id"], valor=precio["valor"], nota="Al público, con IVA. Sube con la inflación."),
     dict(n=7, titulo="Punto de equilibrio", fila=pe["id"], valor=pe["valor"], unidad="al mes",
          nota=f"Productos al mes para no perder · se logra en el mes {pe_mes['valor'][0]}"),

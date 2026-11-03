@@ -322,9 +322,9 @@
       if ((k === "$" || k === "$s") && Math.abs(v) >= MILLON) valor.append("$" + miles(v / MILLON), el("small", {}, " millones"));
       else valor.append(k[0] === "%" ? fmt(v, k, { dec: 0 }) : fmt(v, k === "$s" ? "$" : k, { completo: true }));
       if (p.unidad) valor.append(el("small", {}, " " + p.unidad));
-      ol.append(el("li", {}, el("button", { type: "button", class: "pregunta" + (p.alerta ? " alerta" : ""), "data-ir": p.fila },
+      ol.append(el("li", {}, el("button", { type: "button", class: "pregunta", "data-ir": p.fila },
         el("span", { class: "p-num", "aria-hidden": "true" }, p.n), el("span", { class: "p-titulo" }, p.titulo), valor,
-        el("span", { class: "p-nota" }, p.nota), p.alerta ? el("span", { class: "p-alerta" }, "✘ No llega a la meta de los socios") : null)));
+        el("span", { class: "p-nota" }, p.nota))));
     }
   }
 
