@@ -1,17 +1,15 @@
 /* RECOEVO · página del presupuesto realista.
-   Dibuja las tablas del presupuesto ejecutivo (presupuesto/datos.js, generado desde el Excel) con la misma agrupación con
-   la que se guardó el libro. Todo el detalle se abre con + / − en la misma tabla; la «i» solo explica qué es cada cosa. */
+   Dibuja las tablas del presupuesto ejecutivo (presupuesto/datos.js, generado desde el Excel), todas agrupadas al abrir.
+   Todo el detalle se abre con + / − en la misma tabla; la «i» solo explica qué es cada cosa. */
 (function () {
   "use strict";
   const P = window.PRESUPUESTO;
   const $ = (s, r = document) => r.querySelector(s);
   const MILLON = 1e6;
-  const estado = { pesos: false, abiertos: new Map(), inicial: new Map() };
+  const abiertos = new Map();     // id de fila con detalle → abierta (true) o agrupada (false)
   const filas = new Map();        // id → { f, tabla, padre, el }
-  const tipoNivel = new Map();    // id de fila que se abre → 0 (total de tabla) o 1+ (rubro con detalle)
   const toggles = new Map();      // id → botones + / −
-  const dependientes = [];        // { el, padres }: se esconde si algún padre está cerrado
-  const numeros = [];             // cifras que cambian con «Pesos completos»
+  const dependientes = [];        // { el, padres }: se esconde si algún padre está agrupado
 
   if (!P) { $("#tablas").textContent = "No se pudo cargar el presupuesto."; return; }
 
@@ -28,7 +26,7 @@
     if (k === "$" || k === "$s") {
       const a = Math.abs(v);
       if (a > 0 && a < 0.5) return "menos de $1";
-      const t = !estado.pesos && !opc.completo && a >= MILLON
+      const t = !opc.completo && a >= MILLON
         ? "$" + miles(a / MILLON, a >= 100 * MILLON ? 0 : 1) + " M"
         : "$" + miles(a);
       return k === "$s" ? (v < 0 ? "▼ " : "▲ ") + t : menos + t;
@@ -44,12 +42,9 @@
     if (typeof v === "number") {
       if (k === "$s") e.classList.add(v < 0 ? "neg" : "pos");
       else if (v < 0) e.classList.add("menos");
-      if (k === "$" || k === "$s") numeros.push({ e, v, k, opc });
     }
     return e;
   }
-
-  function repintar() { for (const n of numeros) n.e.textContent = fmt(n.v, n.k, n.opc); }
 
   function el(tag, attrs = {}, ...hijos) {
     const e = document.createElement(tag);
@@ -77,11 +72,7 @@
   // ---------------------------------------------------------------- agrupar y desagrupar
   function registrar(f, tabla, padre, elemento) { filas.set(f.id, { f, tabla, padre, el: elemento }); }
 
-  function abrible(id, abierto, nivel) {
-    estado.abiertos.set(id, !!abierto);
-    estado.inicial.set(id, !!abierto);
-    tipoNivel.set(id, nivel);
-  }
+  function abrible(id) { abiertos.set(id, false); }          // todo arranca agrupado
 
   function botonToggle(id, nombre) {
     const b = el("button", { type: "button", class: "tg", "data-tg": id, "data-nombre": nombre }, el("span", { "aria-hidden": "true" }));
@@ -95,42 +86,25 @@
   }
 
   function aplicar() {
-    for (const d of dependientes) d.el.hidden = !d.padres.every(id => estado.abiertos.get(id));
+    for (const d of dependientes) d.el.hidden = !d.padres.every(id => abiertos.get(id));
     for (const [id, bs] of toggles) {
-      const ab = !!estado.abiertos.get(id);
+      const ab = !!abiertos.get(id);
       for (const b of bs) {
         b.setAttribute("aria-expanded", ab);
         b.firstChild.textContent = ab ? "−" : "+";
         b.setAttribute("aria-label", (ab ? "Agrupar " : "Desagrupar ") + b.dataset.nombre);
       }
     }
-    marcarNivel();
   }
 
-  function preset(n) {
-    const m = new Map();
-    for (const [id, nv] of tipoNivel) m.set(id, n === "excel" ? estado.inicial.get(id) : n === "1" ? false : n === "2" ? nv === 0 : true);
-    return m;
-  }
-
-  function marcarNivel() {
-    let marcado = false;
-    for (const b of document.querySelectorAll("[data-nivel]")) {
-      const igual = !marcado && [...preset(b.dataset.nivel)].every(([k, v]) => !!estado.abiertos.get(k) === !!v);
-      b.setAttribute("aria-pressed", igual);
-      if (igual) marcado = true;
-    }
-  }
-
-  function nivel(n) { estado.abiertos = preset(n); aplicar(); }
-  function alternar(id) { estado.abiertos.set(id, !estado.abiertos.get(id)); aplicar(); }
+  function alternar(id) { abiertos.set(id, !abiertos.get(id)); aplicar(); }
 
   // abre lo necesario para que se vea una fila, la muestra y la marca un momento
   function ir(id) {
     const r = filas.get(id);
     if (!r) return;
-    for (let p = r.padre; p; p = filas.get(p).padre) estado.abiertos.set(p, true);
-    if (tipoNivel.has(id)) estado.abiertos.set(id, true);
+    for (let p = r.padre; p; p = filas.get(p).padre) abiertos.set(p, true);
+    if (abiertos.has(id)) abiertos.set(id, true);
     aplicar();
     r.el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
     r.el.classList.remove("resaltar");
@@ -142,8 +116,6 @@
   const COLS = [["c-can", "Cantidad (10 años)"], ["c-uni", "Unidad"], ["c-pre", "Precio de cada unidad"],
                 ["c-tot", "Total 10 años"], ["c-pro", "Promedio por año"], ["c-pp", "Por producto"]];
 
-  function cabAnios() { return P.anios.map((a, i) => el("th", { scope: "col", class: "c-an", title: a }, "Año " + i)); }
-
   function tablaSuma(t) {
     const f = t.fila;
     const info = { num: f.num, titulo: f.titulo };
@@ -151,7 +123,7 @@
     const fila = (x, nv, padres) => {
       const kids = x.hijos && x.hijos.length;
       const nombre = nv === 0 ? x.titulo : x.nombre;
-      if (kids) abrible(x.id, x.abierto, nv);
+      if (kids) abrible(x.id);
       const det = x.cant && x.precio && conUnidad(x.unidad)
         ? el("span", { class: "det" }, `${fmt(...x.cant)} ${x.unidad} × ${fmt(...x.precio, { completo: true })}`) : null;
       const tr = el("tr", { class: `n${Math.min(nv, 3)} ${x.color || ""}`, "data-tg": kids ? x.id : null },
@@ -173,11 +145,6 @@
         }
         tr.append(td);
       }
-      P.anios.forEach((_, i) => {
-        const td = el("td", { class: "c-an" });
-        if (x.anios && x.anios[i] !== null) num(td, x.anios[i], x.tanios);
-        tr.append(td);
-      });
       registrar(x, info, padres[padres.length - 1], tr);
       if (padres.length) dependientes.push({ el: tr, padres: [...padres] });
       cuerpo.append(tr);
@@ -185,7 +152,7 @@
     };
     fila(f, 0, []);
     const cab = el("tr", {}, el("th", { scope: "col", class: "c-con" }, "Concepto"),
-      COLS.map(([c, txt]) => el("th", { scope: "col", class: c }, txt)), cabAnios());
+      COLS.map(([c, txt]) => el("th", { scope: "col", class: c }, txt)));
     const tabla = el("table", { class: "t-suma" }, el("caption", { class: "sr" }, `Tabla ${f.num}: ${f.titulo}`), el("thead", {}, cab), cuerpo);
     return el("section", { class: "tabla", id: "tabla-" + f.num },
       el("div", { class: "desliza", role: "region", "aria-label": `Tabla ${f.num}` }, tabla),
@@ -205,7 +172,7 @@
   function tablaCalculo(t) {
     const f = t.fila;
     const info = { num: f.num, titulo: f.titulo };
-    if (f.hijos.length) abrible(f.id, f.abierto, 0);
+    if (f.hijos.length) abrible(f.id);
     const cab = el("div", { class: `calc-cab ${f.color || ""}`, "data-tg": f.hijos.length ? f.id : null },
       el("div", { class: "calc-titulo" },
         f.hijos.length ? botonToggle(f.id, f.titulo) : null,
@@ -233,7 +200,7 @@
   function tablaProductos(p) {
     const info = { num: "0", titulo: p.titulo };
     const raiz = { id: p.id, nombre: p.nombre, que: p.que, porque: p.porque };
-    abrible(p.id, p.abierto, 0);
+    abrible(p.id);
     const principal = el("tr", { class: `n0 ${p.color || ""}`, "data-tg": p.id },
       el("th", { scope: "row", class: "c-con" }, el("div", { class: "con" }, botonToggle(p.id, p.nombre),
         el("span", { class: "num", "aria-label": "Tabla 0" }, "0"), el("span", { class: "nom" }, p.nombre, botonInfo(raiz, p.nombre)))),
@@ -264,19 +231,23 @@
 
   function tablaDatos(d) {
     const info = { num: "0b", titulo: d.titulo };
+    const id = "datos";
+    abrible(id);
+    const cab = el("div", { class: "tabla-cab", "data-tg": id }, botonToggle(id, d.titulo), el("span", { class: "num" }, "0b"), el("h4", {}, d.titulo));
+    registrar({ id, nombre: d.titulo }, info, null, cab);
     const cuerpo = el("tbody");
     for (const x of d.filas) {
       const tr = el("tr", { class: "n1" },
         el("th", { scope: "row", class: "c-con" }, el("div", { class: "con" }, el("span", { class: "nom" }, x.nombre, botonInfo(x, x.nombre)))),
         el("td", { class: "c-val" }, valorDato(x)));
-      registrar(x, info, null, tr);
+      registrar(x, info, id, tr);
       cuerpo.append(tr);
     }
     const tabla = el("table", { class: "t-datos" }, el("caption", { class: "sr" }, "Tabla 0b: " + d.titulo),
       el("thead", {}, el("tr", {}, el("th", { scope: "col", class: "c-con" }, "Dato"), el("th", { scope: "col", class: "c-val" }, "Valor"))), cuerpo);
-    return el("section", { class: "tabla", id: "tabla-0b" },
-      el("div", { class: "tabla-cab" }, el("span", { class: "num" }, "0b"), el("h4", {}, d.titulo)),
-      el("div", { class: "desliza" }, tabla));
+    const caja = el("div", { class: "desliza" }, tabla);
+    dependientes.push({ el: caja, padres: [id] });
+    return el("section", { class: "tabla", id: "tabla-0b" }, cab, caja);
   }
 
   // ---------------------------------------------------------------- «i»: qué es (sin cálculos: las cifras están en la tabla)
@@ -364,8 +335,6 @@
   document.addEventListener("click", e => {
     const info = e.target.closest("[data-info]");
     if (info) { abrirInfo(info.dataset.info); return; }
-    const nv = e.target.closest("[data-nivel]");
-    if (nv) { nivel(nv.dataset.nivel); return; }
     const a = e.target.closest("[data-ir]");
     if (a) { ir(a.dataset.ir); return; }
     const tg = e.target.closest("[data-tg]");
@@ -375,8 +344,6 @@
   dlg.addEventListener("click", e => { if (e.target === dlg) cerrar(false); });
   dlg.addEventListener("cancel", e => { e.preventDefault(); cerrar(false); });
   window.addEventListener("popstate", () => { if (dlg.open) cerrar(true); });
-  $("#sw-pesos").addEventListener("change", e => { estado.pesos = e.target.checked; repintar(); });
-  $("#sw-anios").addEventListener("change", e => document.documentElement.classList.toggle("ver-anios", e.target.checked));
 
   // enlace directo a una fila: …/presupuesto/#r108 la muestra en su tabla
   const h = location.hash.slice(1);
