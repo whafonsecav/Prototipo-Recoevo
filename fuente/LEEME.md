@@ -6,7 +6,7 @@ El paso a paso completo está en `LEEME.txt` de la carpeta de entregables en Dri
 
 | Script | Qué hace |
 |---|---|
-| `rv_producto.py` | Modelo del prototipo v3 (piezas y medidas de la lista de materiales v3) |
+| `rv_producto.py` | Modelo del producto (piezas y medidas de la lista de materiales del plan de fábrica) |
 | `rv_cocina.py`, `rv_estudio.py` | Cocina colombiana y estudio limpio |
 | `rv_anim.py` | Uso, rayos X, explosionada, cámaras y etiquetas |
 | `construir_escena.py` | Arma la escena por formato (16:9 / 9:16) y exporta el `.glb` |

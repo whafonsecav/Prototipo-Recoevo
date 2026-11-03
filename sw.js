@@ -1,21 +1,24 @@
-/* Guarda todo en la tablet para que el prototipo funcione sin internet en el evento. */
-const VERSION = "recoevo-cache-5";
-const ARCHIVOS = [
-  "./", "index.html", "manifest.webmanifest", "assets/css/app.css",
-  "assets/vendor/three.min.js", "assets/js/partes.js", "assets/js/glb.js", "assets/js/controles.js", "assets/js/app.js",
-  "assets/fonts/Lexend.woff2", "assets/fonts/Nunito.woff2", "assets/modelo/recoevo.glb",
-  "assets/img/logo.svg", "assets/img/isotipo.svg", "assets/img/icono-192.png", "assets/img/icono-512.png",
-  ...["olor", "filtro", "reciclado", "seguro", "balde", "pedal", "aserrin", "flecha", "ciclo", "cuchillas", "tiras", "check"]
+/* RECOEVO · funcionamiento sin conexión.
+   Primero la red (siempre lo más nuevo); si no hay internet, lo guardado. Los videos van siempre directo por la red. */
+const VERSION = "recoevo-web-1";
+const BASICOS = [
+  "./", "index.html", "manifest.webmanifest", "assets/css/marca.css", "assets/css/prototipo.css",
+  "assets/fonts/Lexend.woff2", "assets/fonts/Nunito.woff2", "assets/img/logo.svg", "assets/img/logo-negativo.svg",
+  "assets/img/isotipo.svg", "assets/img/icono-192.png",
+  "prototipo/", "assets/vendor/three.min.js", "assets/modelo/recoevo.glb",
+  ...["partes", "glb", "controles", "app"].map(n => `assets/js/prototipo/${n}.js`),
+  ...["olor", "filtro", "reciclado", "seguro", "balde", "pedal", "material_seco", "flecha", "ciclo", "cuchillas", "tiras", "check"]
     .map(i => `assets/img/iconos/icono_${i}.svg`)
 ];
-self.addEventListener("install", e => e.waitUntil(caches.open(VERSION).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting())));
-self.addEventListener("activate", e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k))))
+self.addEventListener("install", e => e.waitUntil(caches.open(VERSION).then(c => c.addAll(BASICOS)).then(() => self.skipWaiting())));
+self.addEventListener("activate", e => e.waitUntil(caches.keys()
+  .then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k))))
   .then(() => self.clients.claim())));
 self.addEventListener("fetch", e => {
-  if (e.request.method !== "GET" || e.request.url.includes("/video/")) return;   // los videos van directo por la red
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
-    const copia = resp.clone();
-    caches.open(VERSION).then(c => c.put(e.request, copia));
+  const r = e.request, url = new URL(r.url);
+  if (r.method !== "GET" || url.origin !== location.origin || /\.(mp4|mp3)$/i.test(url.pathname) || r.headers.has("range")) return;
+  e.respondWith(fetch(r).then(resp => {
+    if (resp.ok && resp.type === "basic") { const copia = resp.clone(); caches.open(VERSION).then(c => c.put(r, copia)); }
     return resp;
-  }).catch(() => caches.match("index.html"))));
+  }).catch(() => caches.match(r).then(g => g || (r.mode === "navigate" ? caches.match("./") : Response.error()))));
 });

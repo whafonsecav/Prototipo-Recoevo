@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RECOEVO · Estudio de campo</title>
+<meta name="description" content="Resultados del estudio de campo de RECOEVO en Villa Rosita, Usme: 8 entrevistas, fotos y videos.">
+<meta name="theme-color" content="#154734">
+<link rel="icon" href="../assets/img/icono-192.png">
+<link rel="stylesheet" href="lib/reveal.css">
+<link rel="stylesheet" href="lib/maplibre-gl.css">
+<style>
+@font-face{font-family:"Inter Tight";src:url(lib/fonts/inter-tight-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215}
+@font-face{font-family:"Inter Tight";src:url(lib/fonts/inter-tight-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-024F,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF}
+@font-face{font-family:"Fraunces";src:url(lib/fonts/fraunces-latin-wght-italic.woff2) format("woff2");font-weight:100 900;font-style:italic}
+@font-face{font-family:"JB Mono";src:url(lib/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800}
+:root{
+  --bg:#05070A;--card:#0F161B;--line:#1C272E;--ink:#F3F5EF;--soft:#C9D1CC;--mute:#8D9A95;--dim:#56635E;
+  --lime:#B8F35A;--green:#4CD98A;--amber:#FFB547;--coral:#FF6B5B;--sky:#62C8FF;--violet:#B79CFF;
+  --sans:"Inter Tight",system-ui,sans-serif;--serif:"Fraunces",Georgia,serif;--mono:"JB Mono",ui-monospace,monospace;
+}
+html,body,.reveal-viewport{background:var(--bg)!important;margin:0}
+.reveal{font-family:var(--sans);color:var(--ink);font-size:40px;letter-spacing:-.01em}
+.reveal .slides{text-align:left}
+.reveal .slides section:not(.stack){width:1920px;height:1080px;padding:0;box-sizing:border-box;top:0!important;overflow:hidden}
+.pt .reveal .slides section:not(.stack){width:var(--pw,900px);height:var(--ph,1920px)}
+.reveal .progress{height:4px;color:var(--lime);background:rgba(255,255,255,.05)}
+.reveal h1,.reveal h2,.reveal h3,.reveal p{margin:0;text-transform:none;font-family:var(--sans);color:inherit;letter-spacing:-.035em;line-height:1}
+.reveal img,.reveal video{margin:0;max-width:none;max-height:none}
+.reveal a{color:inherit;text-decoration:none}
+/* ===== layout ===== */
+.pad{position:absolute;inset:0;padding:96px 130px 140px;display:flex;flex-direction:column;box-sizing:border-box}
+.fill{flex:1;min-height:0}
+.center{justify-content:center}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.split.l{grid-template-columns:1.15fr .85fr}.split.vs1{grid-template-columns:auto auto 1fr;gap:34px}.split.vs2{grid-template-columns:auto 1fr 1fr;gap:34px}.split.vs3{grid-template-columns:auto 1fr;gap:60px;max-width:1300px}.split.r{grid-template-columns:.85fr 1.15fr}
+.cols{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:26px}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.97) 0%,rgba(5,7,10,.86) 46%,rgba(5,7,10,.25) 100%)}
+.shade-b{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,7,10,.97) 0%,rgba(5,7,10,.6) 50%,rgba(5,7,10,.15) 100%)}
+.glow{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none}
+.grain{position:fixed;inset:-50%;pointer-events:none;z-index:40;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}100%{transform:translate(0,0)}}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:80px 80px;-webkit-mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 75%)}
+/* ===== type ===== */
+.kicker{font-family:var(--mono);font-size:21px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.kicker::before{content:"";width:40px;height:2px;background:currentColor}
+.kicker .n{padding:6px 12px;border:1.5px solid currentColor;border-radius:10px;letter-spacing:.1em}
+.k-amber{color:var(--amber)}.k-coral{color:var(--coral)}.k-sky{color:var(--sky)}.k-violet{color:var(--violet)}
+.t1{font-size:74px;font-weight:760;letter-spacing:-.04em;line-height:1.02;margin-top:28px;max-width:1500px}
+.t1 em{font-style:normal}
+.h-hero{font-size:150px;font-weight:800;letter-spacing:-.055em;line-height:.9}
+.lead{font-size:36px;line-height:1.35;color:var(--soft);font-weight:400;letter-spacing:-.01em}
+.mute{color:var(--mute)}.lime{color:var(--lime)}.amber{color:var(--amber)}.coral{color:var(--coral)}.sky{color:var(--sky)}.violet{color:var(--violet)}.green{color:var(--green)}
+.grad{background:linear-gradient(90deg,var(--lime),var(--green) 60%,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+.quote{font-family:var(--serif);font-style:italic;font-weight:380;letter-spacing:-.02em;line-height:1.12}
+.who{font-family:var(--mono);font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-style:normal}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.foot{position:absolute;left:130px;right:130px;bottom:48px;display:flex;justify-content:space-between;gap:30px;font-family:var(--mono);font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+/* ===== components ===== */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1.5px solid rgba(255,255,255,.08);border-radius:30px;padding:36px 40px;box-sizing:border-box;position:relative}
+.photo{border-radius:26px;overflow:hidden;position:relative;box-shadow:0 40px 120px rgba(0,0,0,.55);background:#0B1014;cursor:zoom-in}
+.photo img,.photo video{width:100%;height:100%;object-fit:cover;display:block}
+.photo::after{content:"";position:absolute;right:16px;top:16px;width:44px;height:44px;border-radius:14px;background:rgba(5,7,10,.6) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F3F5EF' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7'/%3E%3C/svg%3E") center/22px no-repeat;opacity:.8}
+.tag{position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:16px;letter-spacing:.1em;text-transform:uppercase;background:rgba(5,7,10,.78);backdrop-filter:blur(8px);padding:9px 14px;border-radius:11px;color:#DDE3DF;max-width:calc(100% - 60px)}
+.vbadge{position:absolute;left:18px;top:18px;font-family:var(--mono);font-size:15px;letter-spacing:.12em;background:var(--coral);color:#05070A;padding:6px 11px;border-radius:9px;font-weight:700}
+.ic{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;flex:none;color:var(--lime);background:radial-gradient(120% 120% at 0% 0%,rgba(184,243,90,.16),rgba(255,255,255,.02) 60%);border:1.5px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.ic svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.ic.sm{width:62px;height:62px;border-radius:19px}.ic.sm svg{width:32px;height:32px}
+.ic.lg{width:112px;height:112px;border-radius:32px}.ic.lg svg{width:58px;height:58px}
+.ic.coral{color:var(--coral);background:radial-gradient(120% 120% at 0% 0%,rgba(255,107,91,.2),rgba(255,255,255,.02) 60%)}
+.ic.amber{color:var(--amber);background:radial-gradient(120% 120% at 0% 0%,rgba(255,181,71,.2),rgba(255,255,255,.02) 60%)}
+.ic.sky{color:var(--sky);background:radial-gradient(120% 120% at 0% 0%,rgba(98,200,255,.2),rgba(255,255,255,.02) 60%)}
+.ic.violet{color:var(--violet);background:radial-gradient(120% 120% at 0% 0%,rgba(183,156,255,.2),rgba(255,255,255,.02) 60%)}
+.so{border-left:4px solid var(--lime);padding:2px 0 2px 28px}
+.so .l{font-family:var(--mono);font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+.so .t{font-size:31px;line-height:1.3;color:var(--ink);margin-top:10px;font-weight:500;letter-spacing:-.012em}
+.so .r{font-size:26px;line-height:1.3;color:var(--mute);margin-top:14px}
+.so .r b{color:var(--lime);font-weight:600}
+.so.coral{border-color:var(--coral)}.so.coral .l{color:var(--coral)}.so.amber{border-color:var(--amber)}.so.amber .l{color:var(--amber)}.so.violet{border-color:var(--violet)}.so.violet .l{color:var(--violet)}.so.sky{border-color:var(--sky)}.so.sky .l{color:var(--sky)}
+.big{font-size:190px;font-weight:820;letter-spacing:-.06em;line-height:.82}
+.big small{font-size:.36em;color:var(--mute);font-weight:700;letter-spacing:-.03em}
+.statl{font-size:26px;color:var(--mute);line-height:1.3;margin-top:14px}
+/* evidencia clicable */
+[data-ev]{cursor:pointer}
+.evb{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding:10px 16px;border-radius:12px;background:rgba(184,243,90,.1);border:1.5px solid rgba(184,243,90,.35);cursor:pointer;white-space:nowrap;transition:.2s}
+.evb:hover{background:rgba(184,243,90,.2)}
+.evb::before{content:"";width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B8F35A' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 6h16M4 12h16M4 18h10'/%3E%3C/svg%3E") center/contain no-repeat}
+.evn{border-bottom:3px dotted rgba(184,243,90,.55)}
+.evq{cursor:pointer}.evq::after{content:" ▶";font-family:var(--mono);font-style:normal;font-size:.55em;color:var(--lime);vertical-align:middle;opacity:.8}
+.evn:hover{border-bottom-color:var(--lime)}
+.row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+/* map */
+#map{position:absolute;inset:0;background:#05070A}
+.hud{position:absolute;inset:0;pointer-events:none;z-index:5}
+.hud .vign{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(5,7,10,.75) 100%)}
+.hud .corner{position:absolute;width:60px;height:60px;border-color:rgba(184,243,90,.7);border-style:solid;border-width:0}
+.hud .c1{left:70px;top:70px;border-left-width:3px;border-top-width:3px}.hud .c2{right:70px;top:70px;border-right-width:3px;border-top-width:3px}
+.hud .c3{left:70px;bottom:70px;border-left-width:3px;border-bottom-width:3px}.hud .c4{right:70px;bottom:70px;border-right-width:3px;border-bottom-width:3px}
+.hud .data{position:absolute;right:110px;top:104px;text-align:right;font-family:var(--mono);color:var(--soft);font-size:19px;letter-spacing:.12em;line-height:1.9;text-shadow:0 2px 12px #000}
+.hud .data b{color:var(--lime);font-weight:500}
+.hud .rec{position:absolute;left:110px;top:104px;font-family:var(--mono);font-size:19px;letter-spacing:.16em;color:var(--soft);display:flex;align-items:center;gap:12px;text-shadow:0 2px 12px #000}
+.hud .rec i{width:12px;height:12px;border-radius:50%;background:var(--coral);box-shadow:0 0 14px var(--coral);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.hud .cross{position:absolute;left:50%;top:50%;width:70px;height:70px;transform:translate(-50%,-50%);opacity:.5}
+.hud .cross::before,.hud .cross::after{content:"";position:absolute;background:var(--lime)}
+.hud .cross::before{left:50%;top:0;bottom:0;width:1.5px}.hud .cross::after{top:50%;left:0;right:0;height:1.5px}
+.compass{position:absolute;right:110px;top:230px;width:120px;z-index:6}
+.pt .compass{right:90px;top:250px}
+.maplabel{position:absolute;left:130px;bottom:130px;z-index:6;text-shadow:0 4px 30px rgba(0,0,0,.7)}
+.maplabel .place{font-size:160px;font-weight:820;letter-spacing:-.06em;line-height:.9}
+.mapnote{position:absolute;right:130px;bottom:130px;width:640px;z-index:6;opacity:0;background:rgba(8,12,15,.8);backdrop-filter:blur(16px)}
+.pinmk{width:30px;height:30px;position:relative}
+.pinmk i{position:absolute;inset:0;border-radius:50%;background:var(--lime);box-shadow:0 0 0 7px rgba(184,243,90,.25),0 0 40px var(--lime)}
+.pinmk b{position:absolute;inset:0;border-radius:50%;border:3px solid var(--lime);animation:ping 2s infinite}
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(7);opacity:0}}
+.zonelbl{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#05070A;background:var(--lime);padding:8px 14px;border-radius:10px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.maplibregl-ctrl-attrib{font-size:11px!important;background:rgba(0,0,0,.4)!important;color:#aaa!important}.maplibregl-ctrl-attrib a{color:#ccc!important}
+/* chain */
+.chain{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;margin-top:50px}
+.chain .ln{position:absolute;left:8%;right:8%;top:62px;height:4px;background:#2A3A42;transform-origin:left}
+.cn{text-align:center;position:relative;z-index:2}
+.cn .ic{margin:0 auto;width:128px;height:128px;border-radius:38px;background-color:#0F161B}
+.cn .ic svg{width:62px;height:62px}
+.cn .tt{font-size:29px;font-weight:680;margin-top:22px;letter-spacing:-.02em;line-height:1.1}
+.cn .nn{font-family:var(--mono);font-size:19px;color:var(--mute);margin-top:10px}
+.brk{position:absolute;top:40px;width:44px;height:44px;z-index:3;display:grid;place-items:center;border-radius:50%;background:var(--coral);color:#05070A;font-weight:800;font-size:22px;font-family:var(--mono);box-shadow:0 0 30px rgba(255,107,91,.7);right:-22px}
+/* heat */
+.heat{display:grid;grid-template-columns:170px repeat(17,1fr);gap:6px;font-family:var(--mono)}
+.heat .h{font-size:15px;color:var(--mute);padding-bottom:10px;writing-mode:vertical-rl;transform:rotate(180deg);height:150px;display:flex;align-items:center;font-family:var(--sans);font-weight:560}
+.heat .r{font-size:21px;color:var(--soft);display:flex;flex-direction:column;justify-content:center}
+.heat .r small{font-size:14px;color:var(--dim);font-family:var(--sans)}
+.heat .c{height:48px;border-radius:9px;display:grid;place-items:center;font-size:19px;font-weight:700;color:rgba(5,7,10,.85)}
+.heat .c[data-ev]:hover{outline:2px solid #fff}
+/* hyp */
+.hyp{display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:34px;padding:26px 0;border-bottom:1.5px solid var(--line)}
+.hyp .id{font-family:var(--mono);font-size:26px;color:var(--mute)}
+.hyp .txt{font-size:40px;font-weight:640;letter-spacing:-.025em;line-height:1.1}
+.hyp .txt small{display:block;font-size:25px;color:var(--mute);font-weight:400;margin-top:10px;letter-spacing:0}
+.verdict{padding:14px 26px;border-radius:999px;font-weight:720;font-size:26px;white-space:nowrap}
+.v-ok{background:rgba(76,217,138,.14);color:var(--green);border:1.5px solid rgba(76,217,138,.4)}
+.v-mid{background:rgba(255,181,71,.12);color:var(--amber);border:1.5px solid rgba(255,181,71,.4)}
+.v-new{background:rgba(98,200,255,.12);color:var(--sky);border:1.5px solid rgba(98,200,255,.4)}
+/* ficha */
+.ficha{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 30px;margin-top:30px}
+.ficha div{border-top:1.5px solid var(--line);padding-top:16px}
+.ficha dt{font-family:var(--mono);font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+.ficha dd{margin:0;font-size:20px;line-height:1.32;color:#D6DDD8}
+.ficha dd i{font-style:italic;color:var(--soft)}
+.ficha dd.simple{margin-top:10px;font-size:19px;color:var(--soft);padding:9px 12px;border-radius:10px;background:rgba(184,243,90,.07);border-left:3px solid var(--lime)}
+.ficha dd.simple b{color:var(--lime);font-weight:600}
+/* receipt */
+.receipt{width:500px;background:#F1F2EC;color:#0B1014;border-radius:22px 22px 0 0;padding:40px 44px 56px;box-shadow:0 60px 140px rgba(0,0,0,.6);transform:rotate(-3deg);position:relative;font-family:var(--mono);margin:0 auto}
+.receipt::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:22px;background:linear-gradient(-45deg,transparent 11px,#F1F2EC 0) 0 0/22px 22px,linear-gradient(45deg,transparent 11px,#F1F2EC 0) 0 0/22px 22px}
+.receipt .li{display:flex;justify-content:space-between;font-size:19px;letter-spacing:.06em;padding:11px 0;border-bottom:1.5px dashed #BFC4BC}
+.stamp{position:absolute;right:-40px;bottom:64px;transform:rotate(-14deg);border:5px solid var(--coral);color:var(--coral);padding:12px 20px;border-radius:14px;font-family:var(--mono);font-weight:800;font-size:24px;letter-spacing:.1em;background:rgba(241,242,236,.92);text-align:center;line-height:1.2}
+/* faces row */
+.people{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}
+.pf{text-align:center}.pf .id{font-family:var(--mono);font-size:19px;color:var(--soft);margin-top:12px}.pf .v{font-size:30px;font-weight:760;margin-top:4px}
+/* prototype */
+.proto{display:grid;grid-template-columns:1fr 560px 1fr;gap:50px;align-items:center}
+.call{display:flex;gap:20px;align-items:flex-start}
+.call.rt{flex-direction:row-reverse;text-align:right}
+.call .ct{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.12}
+.call .cw{font-size:21px;color:var(--mute);margin-top:8px;line-height:1.3}
+.call .cw b{color:var(--amber);font-weight:600}
+.qr{display:flex;gap:22px;align-items:center;padding:14px 24px 14px 14px;border-radius:24px;background:rgba(184,243,90,.08);border:1.5px solid rgba(184,243,90,.35)}
+.qr img{width:140px;height:140px;border-radius:12px;display:block}
+/* divider */
+.divnum{font-family:var(--mono);font-size:30px;color:var(--lime);letter-spacing:.2em}
+
+/* ===== MODAL DE EVIDENCIA ===== */
+.modal{position:fixed;inset:0;z-index:100;display:none;background:rgba(3,5,7,.78);backdrop-filter:blur(10px);font-family:var(--sans);color:var(--ink)}
+.modal.on{display:flex;align-items:center;justify-content:center}
+.mbox{width:min(1100px,94vw);max-height:90vh;display:flex;flex-direction:column;background:#0B1115;border:1px solid #22303A;border-radius:22px;box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+.mhead{padding:26px 30px 18px;border-bottom:1px solid #1C272E}
+.mhead .k{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime)}
+.mhead h3{font-size:clamp(20px,2.4vw,30px);font-weight:720;letter-spacing:-.02em;margin:8px 0 0;line-height:1.15}
+.mhead .how{font-size:14px;color:var(--mute);margin-top:10px;line-height:1.45}
+.mhead .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.chipf{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:7px 11px;border-radius:9px;border:1px solid #2A3A44;background:#10181D;color:var(--soft);cursor:pointer}
+.chipf.on{background:var(--lime);color:#05070A;border-color:var(--lime)}
+.mclose{position:absolute;right:18px;top:16px;width:40px;height:40px;border-radius:12px;border:1px solid #2A3A44;background:#10181D;color:#fff;font-size:20px;cursor:pointer}
+.mlist{overflow:auto;padding:10px 30px 26px}
+.it{padding:16px 0;border-bottom:1px solid #16212A}
+.it .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--mute)}
+.it .meta b{color:var(--lime);font-weight:600;font-size:13px}
+.it .q{font-size:13px;color:var(--dim);margin-top:8px;line-height:1.4}
+.it .e{font-family:var(--serif);font-style:italic;font-size:clamp(16px,1.6vw,20px);line-height:1.45;color:#EDF1EC;margin-top:8px}
+.it .o{font-size:14px;line-height:1.5;color:var(--mute);margin-top:8px;padding:10px 12px;background:#0E161B;border-radius:10px;display:none}
+.it.lit .o{display:block}
+.it .tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:7px 12px;border-radius:9px;border:1px solid #2A3A44;background:#121B21;color:var(--soft);cursor:pointer}
+.btn.play{color:#05070A;background:var(--lime);border-color:var(--lime)}
+.btn.play.on{background:var(--coral);border-color:var(--coral)}
+.ctag{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:7px;background:#16212A;color:var(--soft)}
+.lvl{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:3px 8px 3px 4px;border-radius:7px;background:#16212A}
+.grp{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin:18px 0 0}
+/* ===== VISOR DE FOTOS ===== */
+.lbx{position:fixed;inset:0;z-index:110;display:none;background:rgba(2,3,5,.94)}
+.lbx.on{display:block}
+.lstage{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none}
+.lstage.drag{cursor:grabbing}
+.lstage img,.lstage video{position:absolute;left:50%;top:50%;max-width:92vw;max-height:84vh;transform-origin:center;user-select:none;-webkit-user-drag:none}
+.ltools{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:8px;background:rgba(16,24,29,.9);border:1px solid #2A3A44;padding:8px;border-radius:14px;z-index:2}
+.ltools button{width:46px;height:46px;border-radius:10px;border:0;background:#1A252C;color:#fff;font-size:22px;cursor:pointer;font-family:var(--mono)}
+.ltools .z{min-width:70px;display:grid;place-items:center;color:var(--soft);font-family:var(--mono);font-size:13px}
+.lcap{position:absolute;left:24px;top:22px;right:90px;color:var(--soft);font-family:var(--sans);font-size:16px;line-height:1.4;z-index:2}
+.lcap b{color:var(--lime);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
+.lclose{position:absolute;right:20px;top:18px;width:46px;height:46px;border-radius:12px;border:1px solid #2A3A44;background:#10181D;color:#fff;font-size:22px;cursor:pointer;z-index:2}
+
+/* ===== VERSIÓN VERTICAL (móvil) ===== */
+.pt .pad{padding:150px 54px 130px;justify-content:center}
+.pt .pad>.fill{flex:0 0 auto}
+.pt .cols.fill>.photo{height:470px}
+.pt .cols.fill>div>.photo{height:300px;flex:none!important}
+.pt .t1{font-size:60px;margin-top:22px}
+.pt .so .t{font-size:30px}.pt .so .r{font-size:26px}
+.pt .card{padding:30px 32px}
+.pt .cover h1{font-size:170px!important}.pt .cv-sub{font-size:44px!important}
+.pt .foot{left:54px;right:54px;bottom:44px;font-size:14px;flex-direction:column;gap:6px}
+.pt .split,.pt .split.l,.pt .split.r,.pt .split.vs1,.pt .split.vs2,.pt .split.vs3{grid-template-columns:1fr;gap:44px}
+.pt .split.vs1>.photo,.pt .split.vs2>.photo,.pt .split.vs3>.photo{justify-self:center}
+.pt .cols{grid-template-columns:repeat(var(--pn,1),1fr);gap:22px}
+.pt .t1{font-size:70px}
+.pt .h-hero{font-size:132px}
+.pt .big{font-size:170px}
+.pt .shade{background:linear-gradient(0deg,rgba(5,7,10,.98) 0%,rgba(5,7,10,.88) 55%,rgba(5,7,10,.35) 100%)}
+.pt .ph-l{height:var(--pph,560px)!important}
+.pt .hide-pt:not(.photo){display:none!important}
+/* móvil: todas las fotos visibles en cuadrícula de 2 columnas */
+.pt .cols.fill{grid-template-columns:1fr 1fr!important;gap:16px}
+.pt .cols.fill>.photo{height:330px!important}
+.pt .cols.fill>.photo:first-child{grid-column:1/-1;height:460px!important}
+.pt .fauna-g>.card{grid-column:1/-1}
+.pt .split.vs1{grid-template-columns:1fr 1fr!important;gap:18px}
+.pt .split.vs1>.photo{height:600px!important;width:100%;aspect-ratio:auto!important}
+.pt .split.vs1>.so,.pt .split.vs3>.so{grid-column:1/-1}
+.pt .split.vs3>.photo{height:640px!important}
+.pt .only-ls{display:none!important}
+.only-pt{display:none}.pt .only-pt{display:block}.pt .heatT.only-pt{display:grid}html:not(.pt) .heatT{display:none!important}
+.pt .chain{grid-template-columns:1fr;gap:16px;margin-top:34px}
+.pt .chain .ln{left:64px;right:auto;width:4px;top:40px;bottom:40px;height:auto;transform-origin:top}
+.pt .cn{display:flex;align-items:center;gap:30px;text-align:left}
+.pt .cn .ic{margin:0;width:96px;height:96px}.pt .cn .ic svg{width:48px;height:48px}.pt .brks{margin-top:34px!important;gap:16px}
+.pt .cn .tt{margin-top:0}
+.pt .brk{right:auto;left:92px;top:auto;bottom:-32px}
+.heatT{display:grid;grid-template-columns:250px repeat(8,1fr) 60px;gap:5px;font-family:var(--mono)}
+.heatT .hh{font-size:17px;color:var(--soft);text-align:center;padding-bottom:6px}
+.heatT .rl{font-family:var(--sans);font-size:19px;font-weight:600;display:flex;align-items:center;line-height:1.1}
+.heatT .c{height:54px;border-radius:8px;display:grid;place-items:center;font-size:18px;font-weight:700;color:rgba(5,7,10,.85)}
+.pt .heat{grid-template-columns:120px repeat(17,1fr);gap:4px}
+.pt .heat .h{height:280px;font-size:17px}
+.pt .heat .c{height:96px;font-size:18px;border-radius:8px}
+.pt .heat .r{font-size:17px}.pt .heat .r small{display:none}
+.pt .hyp{grid-template-columns:70px 1fr;gap:20px}.pt .hyp .verdict{grid-column:2;justify-self:start}
+.pt .ficha{grid-template-columns:1fr 1fr;gap:26px 30px}
+.pt .ficha dd{font-size:26px}.pt .ficha dd.simple{font-size:24px}.pt .ficha dt{font-size:19px}
+.pt .people{grid-template-columns:repeat(4,1fr);gap:26px 14px}
+.pt .proto{grid-template-columns:1fr;gap:30px}
+.pt .proto .pimg{height:440px!important;width:440px!important;margin:0 auto}
+.pt .call.rt{flex-direction:row;text-align:left}
+.pt .maplabel{left:54px;bottom:150px}.pt .maplabel .place{font-size:110px}
+.pt .mapnote{left:54px;right:54px;width:auto;bottom:380px}
+.pt .hud .data{right:80px;top:110px;font-size:16px}.pt .hud .rec{left:80px;top:110px;font-size:14px}.pt .hud .c1,.pt .hud .c2{top:60px}.pt .hud .c1,.pt .hud .c3{left:40px}.pt .hud .c2,.pt .hud .c4{right:40px}
+.pt .receipt{transform:rotate(-2deg);width:470px}
+.pt .stamp{right:-8px;bottom:auto;top:40px;font-size:19px;padding:10px 14px}
+
+
+/* ===== portada: carrusel ===== */
+.kb{position:absolute;inset:0;overflow:hidden;background:#05070A;z-index:0;isolation:isolate}
+.kb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:saturate(1) brightness(.9);will-change:transform,opacity;transform-origin:50% 50%}
+.cover .shade{background:linear-gradient(90deg,rgba(5,7,10,.9) 0%,rgba(5,7,10,.66) 38%,rgba(5,7,10,.18) 72%,rgba(5,7,10,.05) 100%),linear-gradient(0deg,rgba(5,7,10,.75) 0%,rgba(5,7,10,0) 32%)}
+.pt .cover .shade{background:linear-gradient(0deg,rgba(5,7,10,.92) 0%,rgba(5,7,10,.7) 55%,rgba(5,7,10,.25) 100%)}
+.cover .pad p,.cover .pad .cols div,.cover .pad .cv-team div{text-shadow:0 2px 18px rgba(0,0,0,.65)}.cover .pad h1{filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+.kbdots{position:absolute;right:130px;bottom:100px;display:flex;gap:10px;z-index:6}
+.kbdots i{width:34px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);transition:background .6s}
+.kbdots i.on{background:var(--lime)}
+.cv-logo{height:118px;width:auto;display:block;align-self:flex-start;object-fit:contain}
+.pt .cv-logo{height:96px}.pt .kbdots{right:54px;bottom:120px}
+/* ===== logo institucional en las láminas ===== */
+.poli{position:absolute;right:130px;top:40px;height:46px;width:auto;opacity:.75;z-index:7;pointer-events:none;margin:0}
+.pt .poli{right:54px;top:56px;height:44px}
+#loader .ld-logo{height:64px;width:auto;display:block;margin-bottom:26px;opacity:.9;align-self:flex-start}
+
+/* ===== MÓVIL: sin efectos que parpadean en GPUs de celular ===== */
+.pt .grain{display:none}
+.pt .glow{display:none}
+.pt *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.pt .kb img{filter:none;will-change:auto;transform:none!important}
+.pt .photo{box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.pt .tag{background:rgba(5,7,10,.88)}
+.pt .mapnote{background:rgba(8,12,15,.94)}
+.fauna-g{grid-template-columns:1fr 1fr 1fr .8fr}
+/* indicación para avanzar (móvil) */
+.swipe{position:absolute;left:0;right:0;bottom:150px;display:none;flex-direction:column;align-items:center;gap:10px;z-index:8;color:var(--lime);font-family:var(--mono);font-size:22px;letter-spacing:.14em;text-transform:uppercase;pointer-events:none}
+.pt .swipe{display:flex}
+.swipe svg{width:56px;height:56px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-14px);opacity:1}}
+.pt .reveal .controls{color:var(--lime)}
+.pt .reveal .controls .navigate-down,.pt .reveal .controls .navigate-up{transform:scale(1.35)}
+/* ===== PANTALLA DE CARGA ===== */
+#loader{position:fixed;inset:0;z-index:200;background:radial-gradient(ellipse at 30% 20%,#0E1A12 0%,#05070A 60%);display:flex;align-items:center;justify-content:center;font-family:var(--sans);color:var(--ink);transition:opacity .8s}
+#loader.off{opacity:0;pointer-events:none}
+#loader .box{width:min(760px,88vw)}
+#loader .brand{font-size:clamp(54px,9vw,120px);font-weight:840;letter-spacing:-.06em;line-height:.9;background:linear-gradient(90deg,var(--lime),var(--green) 60%,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+#loader .sub{font-size:clamp(15px,1.6vw,20px);color:var(--mute);margin-top:14px;line-height:1.4}
+#loader .bar{height:6px;border-radius:3px;background:#16211C;margin-top:36px;overflow:hidden}
+#loader .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lime),var(--sky));border-radius:3px;transition:width .25s}
+#loader .pct{font-family:var(--mono);font-size:14px;color:var(--soft);margin-top:12px;display:flex;justify-content:space-between;letter-spacing:.08em}
+#loader ul{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--mute)}
+#loader li{display:flex;justify-content:space-between;border-bottom:1px solid #16211C;padding-bottom:8px}
+#loader li b{color:var(--soft);font-weight:500}#loader li.ok b{color:var(--lime)}
+#loader .go{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap;opacity:.35;pointer-events:none;transition:opacity .4s}
+#loader .go.ready{opacity:1;pointer-events:auto}
+#loader button{font-family:var(--sans);font-size:18px;font-weight:700;padding:16px 26px;border-radius:14px;border:1.5px solid rgba(184,243,90,.4);background:rgba(184,243,90,.08);color:var(--ink);cursor:pointer}
+#loader button.primary{background:var(--lime);color:#05070A;border-color:var(--lime)}
+#loader .note{font-size:13px;color:var(--dim);margin-top:18px;line-height:1.45}
+/* botón fijo para volver al menú de la web */
+.volver-menu{position:fixed;z-index:100000;top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));display:inline-flex;align-items:center;gap:4px;min-height:46px;padding:0 16px 0 10px;border-radius:999px;background:#154734;color:#fff;text-decoration:none;font:600 16px/1 "Inter Tight",system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25)}
+.volver-menu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.volver-menu:active{transform:scale(.95)}
+.reveal .controls{z-index:30}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i-pot" viewBox="0 0 48 48"><path d="M9 21h30v11a9 9 0 0 1-9 9H18a9 9 0 0 1-9-9z"/><path d="M5 21h38"/><path d="M20 15h8"/><path d="M17 10c0-2 2-2 2-4M24 10c0-2 2-2 2-4M31 10c0-2 2-2 2-4"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 48 48"><path d="M13 19h22l-2 20a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4z"/><path d="M18 19l6-7 6 7"/><path d="M21 9l3 3 3-3"/><path d="M19 29h10"/></symbol>
+  <symbol id="i-shut" viewBox="0 0 48 48"><path d="M9 42V17L24 9l15 8v25"/><path d="M18 42V27h12v15"/><path d="M4 42h40"/><path d="M33 22h2"/></symbol>
+  <symbol id="i-dog" viewBox="0 0 48 48"><path d="M14 15l-5 11 6 2"/><path d="M34 15l5 11-6 2"/><path d="M14 15c3-3 6-4 10-4s7 1 10 4v13c0 7-5 12-10 12s-10-5-10-12z"/><circle cx="19.5" cy="24" r="1.4" fill="currentColor"/><circle cx="28.5" cy="24" r="1.4" fill="currentColor"/><path d="M21 33c1.8 1.4 4.2 1.4 6 0"/><path d="M24 29v4"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 48 48"><path d="M5 18h23a5 5 0 1 0-5-5"/><path d="M5 26h32a5 5 0 1 1-5 5"/><path d="M5 34h14"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 48 48"><path d="M4 13h24v21H4z"/><path d="M28 20h8l7 7v7H28"/><circle cx="12" cy="36" r="4"/><circle cx="35" cy="36" r="4"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 48 48"><path d="M8 20v8h6l17 8V12L14 20z"/><path d="M37 18a8 8 0 0 1 0 12"/><path d="M14 28l3 10h5l-2-10"/></symbol>
+  <symbol id="i-bin" viewBox="0 0 48 48"><path d="M11 14h26"/><path d="M20 14v-4h8v4"/><path d="M14 14l2 26a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3l2-26"/><path d="M24 34V24"/><path d="M24 28c-4 0-6-2-6-6 4 0 6 2 6 6zM24 26c3 0 5-2 5-5-3 0-5 2-5 5z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 48 48"><circle cx="17" cy="16" r="5.5"/><circle cx="32" cy="17" r="4.5"/><path d="M6 39c0-6.5 5-11 11-11s11 4.5 11 11"/><path d="M28 30c1.2-1.2 2.6-1.8 4-1.8 5 0 9 4 9 10"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 48 48"><path d="M24 42V22"/><path d="M24 27c0-8-6-12-14-12 0 8 6 12 14 12z"/><path d="M24 22c0-7 5-11 13-11 0 7-5 11-13 11z"/><path d="M14 42h20"/></symbol>
+  <symbol id="i-rabbit" viewBox="0 0 48 48"><path d="M19 22c-2-6-2-14 1-15s5 8 5 14"/><path d="M29 22c2-6 2-14-1-15s-5 8-5 14"/><circle cx="24" cy="31" r="10"/><circle cx="20.5" cy="30" r="1.3" fill="currentColor"/><circle cx="27.5" cy="30" r="1.3" fill="currentColor"/><path d="M22.5 35h3"/></symbol>
+  <symbol id="i-plant" viewBox="0 0 48 48"><path d="M13 28h22l-3 14H16z"/><path d="M24 28V17"/><path d="M24 21c-5 0-8-3-8-8 5 0 8 3 8 8z"/><path d="M24 18c4 0 7-3 7-7-4 0-7 3-7 7z"/></symbol>
+  <symbol id="i-house" viewBox="0 0 48 48"><path d="M7 22L24 9l17 13"/><path d="M12 19v21h24V19"/><path d="M20 40V29h8v11"/></symbol>
+  <symbol id="i-store" viewBox="0 0 48 48"><path d="M8 17l3-9h26l3 9"/><path d="M6 17a6 6 0 0 0 12 0 6 6 0 0 0 12 0 6 6 0 0 0 12 0"/><path d="M10 24v16h28V24"/><path d="M20 40V30h8v10"/></symbol>
+  <symbol id="i-leader" viewBox="0 0 48 48"><circle cx="24" cy="23" r="6"/><path d="M12 43c0-7 5-11 12-11s12 4 12 11"/><path d="M24 4l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 48 48"><path d="M24 17c-3-3-12-3-13 6s5 18 9 18c2 0 3-1 4-1s2 1 4 1c4 0 10-9 9-18s-10-9-13-6z"/><path d="M24 17c0-4 2-7 5-9"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 48 48"><rect x="18" y="6" width="12" height="22" rx="6"/><path d="M12 22a12 12 0 0 0 24 0"/><path d="M24 34v8M18 42h12"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 48 48"><path d="M4 24h5l3-8 4 16 4-22 4 28 4-18 4 10 3-6h9"/></symbol>
+  <symbol id="i-split" viewBox="0 0 48 48"><path d="M8 13h32M8 24h14M8 35h22"/><path d="M28 24h12"/><path d="M36 20l4 4-4 4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 48 48"><path d="M6 24V8h16l20 20-14 14z"/><circle cx="14" cy="16" r="2.5"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 48 48"><path d="M7 41h34"/><rect x="11" y="26" width="6" height="15" rx="1.5"/><rect x="21" y="16" width="6" height="25" rx="1.5"/><rect x="31" y="8" width="6" height="33" rx="1.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 48 48"><path d="M6 16h8l3-5h14l3 5h8v24H6z"/><circle cx="24" cy="27" r="7"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 48 48"><path d="M4 24s7-12 20-12 20 12 20 12-7 12-20 12S4 24 4 24z"/><circle cx="24" cy="24" r="5"/></symbol>
+  <symbol id="i-plugoff" viewBox="0 0 48 48"><path d="M18 6v8M30 6v8"/><path d="M14 14h20v8a10 10 0 0 1-20 0z"/><path d="M24 32v10"/><path d="M6 6l36 36"/></symbol>
+  <symbol id="i-odor" viewBox="0 0 48 48"><path d="M15 38c-4-5 4-9 0-14s4-9 0-14"/><path d="M24 38c-4-5 4-9 0-14s4-9 0-14"/><path d="M33 38c-4-5 4-9 0-14s4-9 0-14"/><path d="M6 43L42 5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 48 48"><rect x="10" y="20" width="28" height="22" rx="4"/><path d="M16 20v-6a8 8 0 0 1 16 0v6"/><circle cx="24" cy="31" r="2.5"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><circle cx="24" cy="24" r="13"/><path d="M24 4v7M24 37v7M4 24h7M37 24h7M9.9 9.9l5 5M33.1 33.1l5 5M9.9 38.1l5-5M33.1 14.9l5-5"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 48 48"><path d="M7 41h34"/><path d="M12 41l3-18h18l3 18"/><circle cx="24" cy="32" r="5"/><path d="M24 32l3-3"/><path d="M18 23v-6h12v6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 48 48"><circle cx="15" cy="24" r="8"/><path d="M23 24h19M36 24v7M42 24v5"/></symbol>
+  <symbol id="i-tractor" viewBox="0 0 48 48"><circle cx="14" cy="33" r="8"/><circle cx="37" cy="37" r="5"/><path d="M7 26V13h14l4 12h13v10"/><path d="M21 13v12"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 48 48"><path d="M38 18A16 16 0 0 0 10 16"/><path d="M10 7v9h9"/><path d="M10 30a16 16 0 0 0 28 2"/><path d="M38 41v-9h-9"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 48 48"><path d="M18 6h12M20 6v12L9 38a3 3 0 0 0 3 4h24a3 3 0 0 0 3-4L28 18V6"/><path d="M14 30h20"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M29 18.5c-1-1.5-3-2.5-5-2.5-3 0-5 1.6-5 3.6 0 5 10 2.8 10 8.2 0 2.2-2.2 3.7-5.2 3.7-2 0-4-1-5.2-2.6M24 12v4M24 32v4"/></symbol>
+  <symbol id="i-building" viewBox="0 0 48 48"><path d="M5 42h38M10 42V21M19 42V21M29 42V21M38 42V21M6 21h36L24 8z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></symbol>
+  <symbol id="i-question" viewBox="0 0 48 48"><circle cx="15" cy="17" r="5"/><circle cx="33" cy="17" r="5"/><path d="M5 40c0-6 4.5-10 10-10s10 4 10 10"/><path d="M23 40c0-6 4.5-10 10-10s10 4 10 10"/><path d="M21 7a3 3 0 1 1 3 3v2"/></symbol>
+  <symbol id="i-rat" viewBox="0 0 48 48"><path d="M8 30c0-7 6-12 14-12 6 0 11 3 13 8l6 2-4 4H14"/><circle cx="31" cy="25" r="1.3" fill="currentColor"/><path d="M26 19c0-3 2-5 5-5s4 2 4 5"/><path d="M8 30c-3 0-4 3-2 5s6 1 8-3"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 48 48"><path d="M4 10h6l5 22h22l4-15H13"/><circle cx="18" cy="39" r="3"/><circle cx="34" cy="39" r="3"/></symbol>
+  <symbol id="i-mud" viewBox="0 0 48 48"><path d="M4 34c6-4 10 4 16 0s10 4 16 0 8 2 8 2"/><path d="M4 40c6-4 10 4 16 0s10 4 16 0 8 2 8 2"/><path d="M24 26c-4 0-6-3-6-6 0-5 6-12 6-12s6 7 6 12c0 3-2 6-6 6z"/></symbol>
+ </defs>
+</svg>
+<div class="grain"></div>
+<a class="volver-menu" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
+<div id="loader"><div class="box">
+  <img class="ld-logo" src="media/logo_poli.png" alt="Politécnico Grancolombiano">
+  <div class="mono" style="font-size:13px;letter-spacing:.18em;color:var(--lime)">PROCESO ADMINISTRATIVO · INFORME DE TRABAJO DE CAMPO</div>
+  <div class="brand" style="margin-top:18px">RECOEVO</div>
+  <div class="sub">Puedes comenzar ya: los videos y las fotos terminan de cargar mientras avanzas. En el celular, desliza hacia arriba para pasar de lámina.</div>
+  <div class="bar"><i id="ldbar"></i></div>
+  <div class="pct"><span id="ldmsg">Iniciando…</span><span id="ldpct">0 %</span></div>
+  <ul>
+    <li id="ld-t"><span>Mapa satelital</span><b>0 / 0</b></li>
+    <li id="ld-v"><span>Videos</span><b>0 / 0</b></li>
+    <li id="ld-i"><span>Fotos</span><b>0 / 0</b></li>
+    <li id="ld-d" class="ok"><span>Frases y datos</span><b>listo</b></li>
+  </ul>
+  <div class="go" id="ldgo"><button class="primary" id="ldfs">Comenzar en pantalla completa</button><button id="ldst">Comenzar</button></div>
+  <div class="note" id="ldnote"></div>
+</div></div>
+
+<div class="reveal"><div class="slides">
+
+<!-- 01 PORTADA -->
+<section class="cover">
+  <div class="kb">
+    <img src="media/shut_prohibido.jpg" alt="" style="object-position:70% 50%">
+    <img src="media/perro_icopor.jpg" alt="" style="object-position:45% 60%">
+    <img src="media/bolsas_anden.jpg" alt="" style="object-position:60% 60%">
+    <img src="media/llanta_cascaras.jpg" alt="" style="object-position:50% 55%">
+  </div>
+  <div class="shade"></div>
+  <div class="glow" style="width:900px;height:900px;left:-300px;top:-200px;background:var(--lime);opacity:.13"></div>
+  <div class="kbdots"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="swipe"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 28l10-10 10 10"/><path d="M14 38l10-10 10 10" opacity=".5"/></svg>Desliza hacia arriba</div>
+  <div class="pad center">
+    <img class="a cv-logo" src="media/logo_poli.png" alt="Politécnico Grancolombiano">
+    <div class="kicker a" style="margin-top:34px">Proceso Administrativo · Informe de trabajo de campo</div>
+    <h1 class="a" style="font-size:230px;font-weight:840;letter-spacing:-.065em;line-height:.85;margin-top:40px"><span class="grad">RECOEVO</span></h1>
+    <p class="a cv-sub" style="font-size:52px;font-weight:600;letter-spacing:-.03em;line-height:1.12;margin-top:36px;max-width:1250px">Percepciones, dinámicas y problemáticas frente al manejo de residuos orgánicos en las calles de Usme</p>
+    <div class="cols a cv-meta" style="--n:4;--pn:2;margin-top:54px;max-width:1500px;gap:30px">
+      <div><div class="mono lime" style="font-size:16px">Institución</div><div style="font-size:27px;margin-top:8px;line-height:1.25">Politécnico Grancolombiano</div></div>
+      <div><div class="mono lime" style="font-size:16px">Asignatura · Docente</div><div style="font-size:27px;margin-top:8px;line-height:1.25">Proceso Administrativo<br><span class="mute">Ingrid Zoraida Sandoval Pérez</span></div></div>
+      <div><div class="mono lime" style="font-size:16px">Acompañamiento en campo</div><div style="font-size:27px;margin-top:8px;line-height:1.25">Willington Javier Ortiz Amador<br><span class="mute">Centro de Emprendimiento</span></div></div>
+      <div><div class="mono lime" style="font-size:16px">Trabajo de campo</div><div style="font-size:27px;margin-top:8px;line-height:1.25">19 sep 2026 · 2:30 a 5:00 p. m.<br><span class="mute">Villa Rosita, Usme · Bogotá</span></div></div>
+    </div>
+    <div class="a cv-team" style="margin-top:34px;max-width:1500px;border-top:1.5px solid rgba(255,255,255,.14);padding-top:22px"><div class="mono lime" style="font-size:16px">Estudiantes · orden alfabético por apellido</div><div style="font-size:29px;margin-top:10px;line-height:1.35;font-weight:600">Ricardo Beltrán <span class="mute">·</span> William Fonseca <span class="mute">·</span> Samuel Medina <span class="mute">·</span> Faber Ortiz <span class="mute">·</span> Camila Riaño</div></div>
+  </div>
+  <div class="foot"><span>Politécnico Grancolombiano · Proceso Administrativo</span><span>Informe de trabajo de campo · Fase 1 urbana</span></div>
+</section>
+
+<!-- 02 MAPA -->
+<section data-fx="map">
+  <div id="map"></div>
+  <div class="hud">
+    <div class="vign"></div>
+    <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+    <div class="rec"><i></i>ZONA DE ESTUDIO</div>
+    <div class="data">LAT <b id="hlat">4.5009</b> N<br>LON <b id="hlon">74.0859</b> O</div>
+    <div class="cross"></div>
+  </div>
+  <div class="maplabel"><div class="kicker" id="mapk">Dónde hicimos la investigación</div><div class="place" id="mapp" style="margin-top:20px">Colombia</div></div>
+  <div class="compass" id="compass"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="rgba(5,7,10,.6)" stroke="rgba(184,243,90,.5)" stroke-width="2"/><g id="rose"><path d="M60 14 L68 60 L60 54 L52 60Z" fill="#B8F35A"/><path d="M60 106 L68 60 L60 66 L52 60Z" fill="#56635E"/><text x="60" y="12" text-anchor="middle" font-family="JB Mono" font-size="15" fill="#B8F35A" dy="-1">N</text><text x="60" y="118" text-anchor="middle" font-family="JB Mono" font-size="13" fill="#C9D1CC">S</text><text x="113" y="65" text-anchor="middle" font-family="JB Mono" font-size="13" fill="#C9D1CC">E</text><text x="7" y="65" text-anchor="middle" font-family="JB Mono" font-size="13" fill="#C9D1CC">O</text></g></svg><div class="mono" style="font-size:13px;color:var(--mute);text-align:center;margin-top:6px">RUMBO <b id="hbrg" style="color:var(--lime)">0°</b></div></div>
+  <div class="card mapnote">
+    <div class="kicker">Hallazgo de ubicación</div>
+    <p style="font-size:42px;font-weight:720;letter-spacing:-.03em;line-height:1.08;margin-top:20px">Villa Rosita está en el borde urbano: los cultivos empiezan a pocas cuadras.</p>
+    <p style="font-size:24px;color:var(--mute);margin-top:16px;line-height:1.35">El residuo orgánico se genera muy cerca de quien podría usarlo como abono. El recorrido del compost puede ser corto.</p>
+  </div>
+</section>
+
+<!-- 03 SUPUESTOS -->
+<section>
+  <div class="gridbg"></div>
+  <div class="pad">
+    <div class="kicker a">Objetivo del trabajo de campo</div>
+    <h2 class="t1 a">Validamos tres supuestos del proyecto antes de diseñar la solución</h2>
+    <div class="cols a" style="--n:3;margin-top:70px">
+      <div class="card"><div class="ic sky"><svg><use href="#i-house"/></svg></div><div class="mono sky" style="font-size:18px;margin-top:30px">Supuesto 1</div><p style="font-size:36px;font-weight:660;margin-top:12px;line-height:1.15">Las sobras de comida son un problema real para hogares y comercios.</p></div>
+      <div class="card"><div class="ic sky"><svg><use href="#i-bag"/></svg></div><div class="mono sky" style="font-size:18px;margin-top:30px">Supuesto 2</div><p style="font-size:36px;font-weight:660;margin-top:12px;line-height:1.15">Casi nadie separa lo orgánico del resto de la basura.</p></div>
+      <div class="card"><div class="ic sky"><svg><use href="#i-bin"/></svg></div><div class="mono sky" style="font-size:18px;margin-top:30px">Supuesto 3</div><p style="font-size:36px;font-weight:660;margin-top:12px;line-height:1.15">Las personas usarían un sistema para separarlo.</p></div>
+    </div>
+    <p class="lead a" style="margin-top:50px">En emprendimiento, primero se valida el problema con usuarios reales. Solo después se valida la solución.</p>
+  </div>
+  <div class="foot"><span>Guía de entrevista semiestructurada: hogares y locales de comida</span><span class="pg"></span></div>
+</section>
+
+<!-- 04 MÉTODO -->
+<section>
+  <div class="pad">
+    <div class="kicker a">Método</div>
+    <h2 class="t1 a">8 entrevistas convertidas en 220 frases codificadas y verificables</h2>
+    <div class="cols a" style="--n:5;--pn:2;margin-top:56px">
+      <div><div class="big num" style="font-size:150px" data-count="8">8</div><div class="statl">personas entrevistadas</div></div>
+      <div><div class="big num" style="font-size:150px" data-count="66">66</div><div class="statl">minutos de audio</div></div>
+      <div><div class="big num lime" style="font-size:150px" data-count="220">220</div><div class="statl">frases analizadas</div></div>
+      <div><div class="big num" style="font-size:150px" data-count="17">17</div><div class="statl">temas codificados</div></div>
+      <div><div class="big num" style="font-size:150px" data-count="26">26</div><div class="statl">fotos y videos</div></div>
+    </div>
+    <div class="cols a" style="--n:6;--pn:2;margin-top:70px;gap:22px">
+      <div><div class="ic sm"><svg><use href="#i-mic"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">1 · Grabar</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Entrevistas abiertas en la calle, con autorización firmada</div></div>
+      <div><div class="ic sm"><svg><use href="#i-wave"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">2 · Verificar</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Re-transcripción con Whisper para validar los textos</div></div>
+      <div><div class="ic sm"><svg><use href="#i-split"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">3 · Dividir</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Cada respuesta se separa en frases con una idea</div></div>
+      <div><div class="ic sm"><svg><use href="#i-tag"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">4 · Codificar</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Cada frase recibe temas, dos veces y por separado</div></div>
+      <div><div class="ic sm"><svg><use href="#i-bars"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">5 · Contar</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Cuántas personas mencionan cada tema</div></div>
+      <div><div class="ic sm"><svg><use href="#i-camera"/></svg></div><div style="font-size:25px;font-weight:680;margin-top:16px">6 · Observar</div><div style="font-size:20px;color:var(--mute);margin-top:6px;line-height:1.3">Fotos y videos analizados por aparte</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Cada cifra de esta presentación se puede cliquear para ver sus frases</span><span class="pg"></span></div>
+</section>
+
+<!-- 05 PARTICIPANTES -->
+<section>
+  <div class="pad">
+    <div class="kicker a">Participantes</div>
+    <h2 class="t1 a">Entrevistamos a 8 personas: 3 hogares, 3 comercios y 2 que son ambos</h2>
+    <div id="people" class="cols a" style="--n:4;--pn:2;margin-top:40px;gap:20px"></div>
+    <p class="a" style="font-size:23px;color:var(--mute);margin-top:26px;line-height:1.4">Según la autorización firmada, nadie aparece con su nombre: cada persona tiene un código (E01–E08). Toca una tarjeta para leer todo lo que dijo. Los agricultores se entrevistarán en la fase 2.</p>
+  </div>
+  <div class="foot"><span>3 hogares · 3 comercios · 2 hogar y comercio · 2 líderes comunitarios · 10 grabaciones</span><span class="pg"></span></div>
+</section>
+
+<!-- 06 RESUMEN -->
+<section>
+  <div class="glow" style="width:900px;height:900px;right:-300px;top:-300px;background:var(--lime);opacity:.08"></div>
+  <div class="pad">
+    <div class="kicker a">Resumen ejecutivo</div>
+    <h2 class="t1 a">El problema es real, ya existe un hábito que se puede aprovechar y las condiciones para participar son claras</h2>
+    <div class="cols" style="--n:3;margin-top:56px">
+      <div class="card a" data-ev="sat_neg"><div class="ic coral lg"><svg><use href="#i-shut"/></svg></div><div class="mono coral" style="font-size:18px;margin-top:34px">1 · Problema</div><p style="font-size:40px;font-weight:720;letter-spacing:-.03em;line-height:1.1;margin-top:14px"><span class="evn" data-np="sat_bajo">7</span> de 8 personas están insatisfechas con el manejo de residuos del barrio.</p></div>
+      <div class="card a" data-ev="apr"><div class="ic lg"><svg><use href="#i-sprout"/></svg></div><div class="mono lime" style="font-size:18px;margin-top:34px">2 · Oportunidad</div><p style="font-size:40px;font-weight:720;letter-spacing:-.03em;line-height:1.1;margin-top:14px"><span class="evn" data-np="apr">3</span> de 8 ya reutilizan sobras en su casa o negocio, sin ningún programa.</p></div>
+      <div class="card a" data-ev="dis"><div class="ic sky lg"><svg><use href="#i-key"/></svg></div><div class="mono sky" style="font-size:18px;margin-top:34px">3 · Condición</div><p style="font-size:40px;font-weight:720;letter-spacing:-.03em;line-height:1.1;margin-top:14px">Nadie rechazó la idea. Piden pedagogía, líderes, recolección e incentivo.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca cada tarjeta para ver las frases que la sustentan</span><span class="pg"></span></div>
+</section>
+
+<!-- 07 DIVISOR 1 -->
+<section>
+  <div class="gridbg"></div>
+  <div class="pad center">
+    <div class="divnum a">PARTE 1</div>
+    <h2 class="h-hero a" style="margin-top:30px">Lo que dijeron</h2>
+    <p class="lead a" style="margin-top:36px;max-width:1150px">Hallazgos de las entrevistas. Cada número indica cuántas de las 8 personas lo mencionaron.</p>
+  </div>
+</section>
+
+<!-- 08 H1 SHUT -->
+<section>
+  <div class="bg" style="background-image:url(media/shut_prohibido.jpg);background-position:72% 50%"></div>
+  <div class="shade"></div>
+  <div class="pad center">
+    <div class="kicker k-coral a"><span class="n">01</span> Foco del problema</div>
+    <h2 class="t1 a" style="max-width:1050px"><span class="evn" data-ev="pun" data-np="pun">8</span> de 8 personas señalan el shut y las esquinas como el lugar donde se acumula la basura</h2>
+    <p data-ev="u:A1-T19-2" title="Toca para leer la frase completa" class="evq quote a" style="font-size:44px;margin-top:44px;max-width:950px">“Aquí en el shut hay un desorden tenaz, porque mandan a los niños… y la riegan.” <span class="who">E01 · Hogar</span></p>
+    <div class="so coral a" style="margin-top:44px;max-width:980px">
+      <div class="l">Qué significa</div>
+      <div class="t">El problema no se ve dentro de las casas sino en el trayecto: la bolsa sale sin horario, queda por fuera del shut y se desborda.</div>
+      <div class="r">Para RECOEVO → <b>retener lo orgánico en casa hasta que lo recojan ataca justo ese punto.</b></div>
+    </div>
+    <div class="row a" style="margin-top:34px"><span class="evb" data-ev="pun">Ver las <span data-nu="pun">30</span> frases</span></div>
+  </div>
+  <div class="foot"><span>Código “El shut y las esquinas” · el tema más mencionado</span><span class="pg"></span></div>
+</section>
+
+<!-- 09 CADENA -->
+<section data-fx="chain">
+  <div class="pad">
+    <div class="kicker k-coral a"><span class="n">02</span> Recorrido del residuo</div>
+    <h2 class="t1 a">El manejo de las sobras falla en tres puntos: en la cocina, en la calle y en la recolección</h2>
+    <div class="chain">
+      <div class="ln"></div>
+      <div class="cn"><div class="ic"><svg><use href="#i-pot"/></svg></div><div><div class="tt">Se genera en la cocina</div><div class="nn">hogares y locales</div></div></div>
+      <div class="cn" data-ev="mez"><div class="ic coral"><svg><use href="#i-bag"/></svg></div><div><div class="tt">Todo va a una bolsa</div><div class="nn"><span class="evn" data-np="mez">5</span> de 8</div></div><div class="brk">1</div></div>
+      <div class="cn" data-ev="pun"><div class="ic coral"><svg><use href="#i-shut"/></svg></div><div><div class="tt">Se deja en esquina o shut</div><div class="nn"><span class="evn" data-np="pun">8</span> de 8</div></div></div>
+      <div class="cn" data-ev="rom"><div class="ic coral"><svg><use href="#i-dog"/></svg></div><div><div class="tt">Perros y recicladores la abren</div><div class="nn"><span class="evn" data-np="rom">6</span> de 8</div></div><div class="brk">2</div></div>
+      <div class="cn" data-ev="viento"><div class="ic coral"><svg><use href="#i-wind"/></svg></div><div><div class="tt">El viento y la lluvia la riegan</div><div class="nn"><span class="evn" data-np="viento">3</span> de 8</div></div></div>
+      <div class="cn" data-ev="rut_queja"><div class="ic coral"><svg><use href="#i-truck"/></svg></div><div><div class="tt">El carro no llega a tiempo</div><div class="nn"><span class="evn" data-np="rut_queja">5</span> de 8</div></div><div class="brk">3</div></div>
+    </div>
+    <div class="cols a brks" style="--n:3;margin-top:56px">
+      <div class="card" style="padding:28px 32px"><div class="mono coral" style="font-size:17px">Falla 1 · Cocina</div><div style="font-size:29px;font-weight:650;margin-top:10px;line-height:1.2">Lo orgánico se mezcla con papel, plástico y basura del baño. Así ya no sirve para compost.</div></div>
+      <div class="card" style="padding:28px 32px"><div class="mono coral" style="font-size:17px">Falla 2 · Calle</div><div style="font-size:29px;font-weight:650;margin-top:10px;line-height:1.2">La bolsa queda expuesta. El olor atrae animales y la rompen.</div></div>
+      <div class="card" style="padding:28px 32px"><div class="mono coral" style="font-size:17px">Falla 3 · Recolección</div><div style="font-size:29px;font-weight:650;margin-top:10px;line-height:1.2">Si el carro no pasa o pasa sin horario, la bolsa espera en la calle.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca cada paso para ver quién lo dijo · RECOEVO puede actuar en los tres puntos</span><span class="pg"></span></div>
+</section>
+
+<!-- 10 PERROS -->
+<section>
+  <div class="glow" style="width:700px;height:700px;left:-200px;bottom:-300px;background:var(--amber);opacity:.12"></div>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">03</span> Animales y plagas</div>
+    <h2 class="t1 a"><span class="evn" data-ev="rom" data-np="rom">6</span> de 8 dicen que perros y recicladores rompen las bolsas. El olor de lo orgánico los atrae.</h2>
+    <div class="split l fill" style="margin-top:44px">
+      <div class="a">
+        <p data-ev="u:A3-T32-3" title="Toca para leer la frase completa" class="evq quote" style="font-size:66px">“Hay más perros que gente acá en el sector.”</p>
+        <div class="who" style="margin-top:16px">E02 · Comerciante y líder comunal</div>
+        <div class="cols" style="--n:2;margin-top:40px">
+          <div class="card" data-ev="fau" style="padding:26px 30px;display:flex;gap:20px;align-items:center"><div class="ic amber sm"><svg><use href="#i-rat"/></svg></div><div><div class="num amber" style="font-size:52px;font-weight:800"><span class="evn" data-np="fau">6</span><span class="mute" style="font-size:28px">/8</span></div><div style="font-size:21px;color:var(--mute)">mencionan perros, ratas o zancudos</div></div></div>
+          <div class="card" data-ev="rom" style="padding:26px 30px;display:flex;gap:20px;align-items:center"><div class="ic amber sm"><svg><use href="#i-dog"/></svg></div><div><div class="num amber" style="font-size:52px;font-weight:800"><span class="evn" data-np="rom">6</span><span class="mute" style="font-size:28px">/8</span></div><div style="font-size:21px;color:var(--mute)">dicen que rompen las bolsas</div></div></div>
+        </div>
+        <div class="so amber" style="margin-top:40px">
+          <div class="l">Qué significa</div>
+          <div class="t">Separar no basta. Si lo orgánico sigue oliendo, los animales lo van a buscar.</div>
+          <div class="r">Para RECOEVO → <b>tapa con junta y filtro de carbón activado contra el olor.</b></div>
+        </div>
+      </div>
+      <div class="photo a ph-l" style="height:100%;--pph:620px" data-cap="Perro junto al shut rosado, con residuos en la calle."><img src="media/perro_frente_shut.jpg" alt="Perro frente al shut" style="object-position:40% 50%"><span class="tag">Observado · perro junto al shut</span></div>
+    </div>
+  </div>
+  <div class="foot"><span class="evq" data-ev="u:A4-T04-5" style="cursor:pointer">“Cada perro coge una bolsa y se abre para un punto” · E03</span><span class="pg"></span></div>
+</section>
+
+<!-- 11 SERVICIO -->
+<section data-fx="receipt">
+  <div class="pad">
+    <div class="kicker k-coral a"><span class="n">04</span> Servicio de recolección</div>
+    <h2 class="t1 a"><span class="evn" data-ev="rut_queja" data-np="rut_queja">5</span> de 8 se quejan del servicio de recolección, aunque lo pagan en la factura</h2>
+    <div class="split r fill" style="margin-top:40px">
+      <div class="a" data-ev="precio"><div class="receipt">
+        <div style="font-size:17px;letter-spacing:.2em;color:#56635E">FACTURA DE ENERGÍA · E05</div>
+        <div style="font-family:var(--sans);font-size:32px;font-weight:760;letter-spacing:-.02em;margin:8px 0 22px">Cobro de aseo</div>
+        <div class="li"><span>Periodo</span><span>Mensual</span></div>
+        <div class="li"><span>Tipo de zona</span><span>Comercial</span></div>
+        <div class="li" style="border:0;padding-top:22px"><span>Valor mencionado</span></div>
+        <div class="num" style="font-family:var(--sans);font-size:100px;font-weight:820;letter-spacing:-.05em;line-height:1">$<span data-count="40">40</span>.000</div>
+        <div class="stamp">EL CARRO NO PASA<br>HACE 3 MESES</div>
+      </div></div>
+      <div class="a">
+        <div class="cols" style="--n:1;gap:18px">
+          <div class="card" data-ev="precio" style="padding:20px 26px"><div class="mono coral" style="font-size:16px">Costo</div><div style="font-size:25px;font-weight:600;margin-top:6px;line-height:1.25">Una comerciante (E05) paga <b>$40.000</b> al mes. Un residente (E06) dice pagar entre <b>$130.000 y $160.000</b> por piso, “todo comercial”, y lo considera caro. Las cifras no cuadran: hay que verificarlas.</div></div>
+          <div class="card" data-ev="residencial" style="padding:20px 26px"><div class="mono coral" style="font-size:16px">Diferencia por zona</div><div style="font-size:25px;font-weight:600;margin-top:6px;line-height:1.25">Un comerciante compara: en su barrio residencial el carro “pasa cumplido”; en la zona comercial, “pasa de afán”.</div></div>
+          <div class="card" data-ev="rut_ok" style="padding:20px 26px"><div class="mono green" style="font-size:16px">Dato que no coincide</div><div style="font-size:25px;font-weight:600;margin-top:6px;line-height:1.25">Una residente (E07) dice que el carro pasa día de por medio y cumple. Se debe verificar.</div></div>
+        </div>
+        <div class="so coral" style="margin-top:24px">
+          <div class="l">Qué significa</div>
+          <div class="t">Cuando el carro no pasa, la esquina se vuelve el lugar de disposición.</div>
+          <div class="r">Para RECOEVO → <b>lo orgánico debe esperar en casa, tapado y sin olor, hasta que pase la ruta.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Valores tal como los dijeron los participantes; no se verificaron facturas</span><span class="pg"></span></div>
+</section>
+
+<!-- 12 SATISFACCIÓN -->
+<section data-fx="faces">
+  <div class="pad">
+    <div class="kicker k-coral a"><span class="n">05</span> Satisfacción</div>
+    <h2 class="t1 a"><span class="evn" data-ev="sat_neg" data-np="sat_bajo">7</span> de 8 personas están insatisfechas con el manejo de residuos del barrio</h2>
+    <div class="people a" id="facesrow" style="margin-top:50px"></div>
+    <div class="split fill" style="margin-top:36px;align-items:start">
+      <div class="a" id="facebars-sat"></div>
+      <div class="a">
+        <div class="so coral">
+          <div class="l">Cómo se calculó</div>
+          <div class="t" style="font-size:27px">Solo se calificaron las frases en que la persona <b>evalúa la situación del barrio o del servicio</b>, de 1 (muy insatisfecho) a 5 (muy satisfecho), según criterios fijos. Las frases sobre la propia casa no se califican. Cada carita es el promedio de una persona.</div>
+          <div class="row" style="margin-top:22px"><span class="evb" data-ev="sat">Ver las <span data-nu="sat">86</span> frases calificadas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Ninguna frase fue calificada como “muy satisfecho” · dos codificadores independientes</span><span class="pg"></span></div>
+</section>
+
+<!-- 13 POR QUÉ NO CAMBIA -->
+<section>
+  <div class="pad">
+    <div class="kicker k-violet a"><span class="n">06</span> Barreras</div>
+    <h2 class="t1 a">El hábito, la desconfianza en los vecinos y la ausencia del Estado frenan el cambio</h2>
+    <div class="cols" style="--n:3;margin-top:50px">
+      <div class="card a" data-ev="cul"><div class="row" style="justify-content:space-between"><div class="ic violet"><svg><use href="#i-clock"/></svg></div><div class="num violet" style="font-size:60px;font-weight:800"><span class="evn" data-np="cul">7</span><span class="mute" style="font-size:32px">/8</span></div></div><div style="font-size:38px;font-weight:720;margin-top:24px;letter-spacing:-.03em">El hábito</div><div style="font-size:23px;color:var(--mute);margin-top:8px;line-height:1.3">Viven “a las carreras”. Separar no hace parte de la rutina.</div><p data-ev="u:A3-T08-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:31px;margin-top:22px">“Es una cultura que se puede demorar 100 años.” <span class="who">E02</span></p></div>
+      <div class="card a" data-ev="fre"><div class="row" style="justify-content:space-between"><div class="ic violet"><svg><use href="#i-question"/></svg></div><div class="num violet" style="font-size:60px;font-weight:800"><span class="evn" data-np="fre">5</span><span class="mute" style="font-size:32px">/8</span></div></div><div style="font-size:38px;font-weight:720;margin-top:24px;letter-spacing:-.03em">¿Y si los demás no?</div><div style="font-size:23px;color:var(--mute);margin-top:8px;line-height:1.3">Nadie quiere ser el único que lo hace.</div><p data-ev="u:A6-T40-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:31px;margin-top:22px">“¿Qué hacemos tres o cuatro si diez no lo hacen?” <span class="who">E05</span></p></div>
+      <div class="card a" data-ev="est"><div class="row" style="justify-content:space-between"><div class="ic violet"><svg><use href="#i-building"/></svg></div><div class="num violet" style="font-size:60px;font-weight:800"><span class="evn" data-np="est">4</span><span class="mute" style="font-size:32px">/8</span></div></div><div style="font-size:38px;font-weight:720;margin-top:24px;letter-spacing:-.03em">Estado ausente</div><div style="font-size:23px;color:var(--mute);margin-top:8px;line-height:1.3">Hay multas en el papel, pero nadie vigila. Las peticiones no tienen respuesta.</div><p data-ev="u:A3-T36-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:31px;margin-top:22px">“Estamos abandonados por la alcaldía.” <span class="who">E02</span></p></div>
+    </div>
+    <div class="so violet a" style="margin-top:40px">
+      <div class="l">Qué significa</div>
+      <div class="t">Una campaña sola no alcanza. La solución debe ser fácil, colectiva y visible: que se note que otros vecinos ya la usan.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca cada tarjeta para ver todas las frases</span><span class="pg"></span></div>
+</section>
+
+<!-- 14 YA APROVECHAN -->
+<section>
+  <div class="glow" style="width:1000px;height:1000px;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--lime);opacity:.1"></div>
+  <div class="pad">
+    <div class="kicker a"><span class="n">07</span> Hábito existente</div>
+    <h2 class="t1 a"><span class="evn" data-ev="apr" data-np="apr">3</span> de 8 ya reutilizan sobras de comida en su casa o negocio, sin ningún programa</h2>
+    <div class="cols" style="--n:3;margin-top:50px">
+      <div class="card a" data-ev="apr_E04"><div class="ic"><svg><use href="#i-rabbit"/></svg></div><div class="mono lime" style="font-size:17px;margin-top:26px">E04 · Fruver</div><div style="font-size:34px;font-weight:700;margin-top:10px;line-height:1.15">Regala las cáscaras a vecinos que crían conejos y pollos</div><p data-ev="u:A5-T08-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:28px;margin-top:18px;color:var(--soft)">“A la larga eso no se pierde.”</p></div>
+      <div class="card a" data-ev="apr_E05"><div class="ic"><svg><use href="#i-dog"/></svg></div><div class="mono lime" style="font-size:17px;margin-top:26px">E05 · Comercio y hogar</div><div style="font-size:34px;font-weight:700;margin-top:10px;line-height:1.15">Da las sobras a sus perros y muele la cáscara de huevo para las matas</div><p data-ev="u:A6-T18-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:28px;margin-top:18px;color:var(--soft)">“Esas se las molemos y se las echamos a las materas.”</p></div>
+      <div class="card a" data-ev="apr_E08"><div class="ic"><svg><use href="#i-plant"/></svg></div><div class="mono lime" style="font-size:17px;margin-top:26px">E08 · Comercio</div><div style="font-size:34px;font-weight:700;margin-top:10px;line-height:1.15">Guarda las cáscaras de huevo y las usa como abono en su jardín</div><p data-ev="u:A9-T49-1,A9-T49-2" title="Toca para leer la frase completa" class="evq quote" style="font-size:28px;margin-top:18px;color:var(--soft)">“Se la echo a las maticas, como abono.”</p></div>
+    </div>
+    <div class="so a" style="margin-top:40px">
+      <div class="l">Qué significa · Insight</div>
+      <div class="t">La costumbre de reutilizar ya existe, aunque en pequeño. RECOEVO no tiene que crear un hábito desde cero: tiene que <b>organizarlo y darle un destino</b>.</div>
+      <div class="r">Otras 2 personas lo conocen del campo o lo han pensado (E02, E03), pero no lo hacen hoy. <span class="evb" data-ev="agr" style="margin-left:10px">Ver</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Solo se cuentan prácticas actuales · tema que surgió en campo, no estaba en la guía</span><span class="pg"></span></div>
+</section>
+
+<!-- 15 DISPOSICIÓN -->
+<section data-fx="dumbbell">
+  <div class="pad">
+    <div class="kicker a"><span class="n">08</span> Disposición a participar</div>
+    <h2 class="t1 a">Nadie rechazó la idea: <span class="evn" data-ev="dis_fav_p" data-np="dis_fav_p">4</span> de 7 están a favor y <span class="evn" data-ev="dis_cond_p" data-np="dis_cond_p">3</span> ponen condiciones</h2>
+    <div class="split fill" style="margin-top:36px;align-items:center">
+      <svg id="dumb" class="a" viewBox="0 0 820 700" style="width:100%;height:620px;overflow:visible"></svg>
+      <div class="a">
+        <div class="so">
+          <div class="l">Cómo leerlo</div>
+          <div class="t" style="font-size:28px">Cada fila es una persona. <span class="coral">●</span> muestra qué tan satisfecha está hoy y <span class="lime">●</span> qué tan dispuesta está a participar. <b>La distancia entre los dos es la oportunidad.</b></div>
+        </div>
+        <div class="so" style="margin-top:34px">
+          <div class="l">Cómo se calculó</div>
+          <div class="t" style="font-size:25px">Solo se califican las frases en que la persona opina sobre participar en una solución: 1 = rechazo, 3 = “sí, pero…”, 5 = se ofrece o propone. A favor = promedio ≥ 3,5. E06 no opinó sobre soluciones.</div>
+          <div class="row" style="margin-top:20px"><span class="evb" data-ev="dis">Ver las <span data-nu="dis">43</span> frases</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>A favor: E01, E03, E04, E07 · Con condiciones: E02, E05, E08</span><span class="pg"></span></div>
+</section>
+
+<!-- 16 CONDICIONES -->
+<section>
+  <div class="pad">
+    <div class="kicker k-sky a"><span class="n">09</span> Condiciones para participar</div>
+    <h2 class="t1 a">Para participar piden pedagogía, líderes que respalden, recolección e incentivos</h2>
+    <div class="cols" style="--n:2;margin-top:46px;gap:22px">
+      <div class="card a" data-ev="cond_pedagogia" style="display:flex;gap:26px"><div class="ic sky"><svg><use href="#i-mega"/></svg></div><div style="flex:1"><div class="row" style="justify-content:space-between"><div style="font-size:36px;font-weight:720">Que se enseñe</div><div class="num sky" style="font-size:40px;font-weight:800"><span class="evn" data-np="cond_pedagogia">5</span>/8</div></div><p data-ev="u:A5-T30-1,A5-T30-2" title="Toca para leer la frase completa" class="evq quote" style="font-size:27px;margin-top:10px;color:var(--soft)">“Folleticos, pósteres… videos en TikTok.”</p><div style="font-size:22px;color:var(--sky);margin-top:10px">→ Pedagogía corta y visual</div></div></div>
+      <div class="card a" data-ev="cond_lideres" style="display:flex;gap:26px"><div class="ic sky"><svg><use href="#i-users"/></svg></div><div style="flex:1"><div class="row" style="justify-content:space-between"><div style="font-size:36px;font-weight:720">Entrar por los líderes</div><div class="num sky" style="font-size:40px;font-weight:800"><span class="evn" data-np="cond_lideres">3</span>/8</div></div><p data-ev="u:A3-T28-2,A3-T30-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:27px;margin-top:10px;color:var(--soft)">“Hay asamblea en el salón comunal. Ahí se puede empezar.”</p><div style="font-size:22px;color:var(--sky);margin-top:10px">→ Junta de Acción Comunal como aliada</div></div></div>
+      <div class="card a" data-ev="cond_recoleccion" style="display:flex;gap:26px"><div class="ic sky"><svg><use href="#i-truck"/></svg></div><div style="flex:1"><div class="row" style="justify-content:space-between"><div style="font-size:36px;font-weight:720">Que alguien recoja</div><div class="num sky" style="font-size:40px;font-weight:800"><span class="evn" data-np="cond_recoleccion">2</span>/8</div></div><p data-ev="u:A3-T14-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:27px;margin-top:10px;color:var(--soft)">“Si no hay una persona que recoja todos los días, es difícil.”</p><div style="font-size:22px;color:var(--sky);margin-top:10px">→ Coordinar con la ruta de orgánicos</div></div></div>
+      <div class="card a" data-ev="cond_incentivo" style="display:flex;gap:26px"><div class="ic sky"><svg><use href="#i-coin"/></svg></div><div style="flex:1"><div class="row" style="justify-content:space-between"><div style="font-size:36px;font-weight:720">Incentivo o regalo</div><div class="num sky" style="font-size:40px;font-weight:800"><span class="evn" data-np="cond_incentivo">2</span>/8</div></div><p data-ev="u:A5-T32-3" title="Toca para leer la frase completa" class="evq quote" style="font-size:27px;margin-top:10px;color:var(--soft)">“Si ya tú me la regalas, ya me motivo.”</p><div style="font-size:22px;color:var(--sky);margin-top:10px">→ Pensar incentivos para los primeros hogares</div></div></div>
+    </div>
+    <p class="a" style="font-size:24px;color:var(--mute);margin-top:30px;line-height:1.4">También: ver que funciona en otras partes (<span class="evn" data-ev="cond_ejemplo">2 personas</span>) y que sea práctico (<span class="evn" data-ev="cond_practico">2</span>). E01 acepta aportar tiempo o dinero a cambio del beneficio (<span class="evn" data-ev="cond_costo">ver</span>).</p>
+  </div>
+  <div class="foot"><span>Una persona puede poner más de una condición</span><span class="pg"></span></div>
+</section>
+
+<!-- 17 CAMPO -->
+<section>
+  <div class="bg" style="background-image:url(media/mapa/sat_z16.jpg)"></div>
+  <div class="shade"></div>
+  <div class="pad center">
+    <div class="kicker a"><span class="n">10</span> Relación con el campo</div>
+    <h2 class="t1 a" style="max-width:1100px"><span class="evn" data-ev="agr" data-np="agr">4</span> de 8 relacionan las sobras con el abono y critican el uso de químicos</h2>
+    <div class="a" style="margin-top:40px;display:grid;gap:20px;max-width:1000px">
+      <div style="display:flex;gap:22px;align-items:center"><div class="ic sm"><svg><use href="#i-flask"/></svg></div><p data-ev="u:A3-T20-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:36px">“Lo químico enferma a la gente.” <span class="who">E02</span></p></div>
+      <div style="display:flex;gap:22px;align-items:center"><div class="ic sm"><svg><use href="#i-coin"/></svg></div><p data-ev="u:A10-T02-1,A10-T04-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:36px">“El abono en Colombia se trae de otro país.” <span class="who">E05</span></p></div>
+      <div style="display:flex;gap:22px;align-items:center"><div class="ic sm"><svg><use href="#i-tractor"/></svg></div><p data-ev="u:A3-T16-1" title="Toca para leer la frase completa" class="evq quote" style="font-size:36px">“Crecí en el campo. Nosotros ya recogíamos todo eso para echarle a las plantas.” <span class="who">E02</span></p></div>
+    </div>
+    <div class="so a" style="margin-top:44px;max-width:1000px">
+      <div class="l">Qué significa</div>
+      <div class="t">El compost tiene sentido para ellos por experiencia propia o familiar. Es un argumento que se puede usar en la pedagogía.</div>
+      <div class="r">Para RECOEVO → <b>validar la demanda de los agricultores en la fase 2.</b></div>
+    </div>
+  </div>
+  <div class="foot"><span>Imagen: borde urbano-rural de Villa Rosita (Esri World Imagery)</span><span class="pg"></span></div>
+</section>
+
+<!-- 18 DIVISOR 2 -->
+<section>
+  <div class="bg" style="background-image:url(media/mural_cuida_tu_shut.jpg);filter:brightness(.45) saturate(.8)"></div>
+  <div class="shade-b"></div>
+  <div class="pad center">
+    <div class="divnum a">PARTE 2</div>
+    <h2 class="h-hero a" style="margin-top:30px">Lo que vimos</h2>
+    <p class="lead a" style="margin-top:36px;max-width:1200px">Observación directa del recorrido: 22 fotos y 4 videos analizados por aparte. Cada imagen solo prueba lo que muestra.</p>
+    <div class="cols a" style="--n:3;--pn:3;margin-top:56px;max-width:1100px">
+      <div><div class="big num" style="font-size:110px">22</div><div class="statl">fotografías</div></div>
+      <div><div class="big num" style="font-size:110px">4</div><div class="statl">videos cortos</div></div>
+      <div><div class="big num lime" style="font-size:110px">6</div><div class="statl">hallazgos observacionales</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 O1 SHUT DESBORDADO -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">O1</span> Punto de acopio</div>
+    <h2 class="t1 a">El shut está desbordado y, loma arriba, las esquinas se vuelven botaderos, a pesar del aviso de multa</h2>
+    <div class="cols fill a" style="--n:3;--pn:1;margin-top:40px">
+      <div class="photo" data-cap="Shut rosado con la puerta abierta, residuos por fuera y un cartel de “¡Prohibido!” que advierte multas."><img src="media/shut_prohibido.jpg" alt=""><span class="tag">Cartel de multa · puerta abierta</span></div>
+      <div class="photo hide-pt" data-cap="Calle en pendiente en la parte alta del barrio: residuos acumulados en una esquina, lejos del shut principal. Fuente: Google Street View (la fecha de captura no es la del trabajo de campo)."><img src="media/basuras_loma.jpg" alt="" style="object-position:30% 60%"><span class="tag">Parte alta · esquina con basura · Street View</span></div>
+      <div class="photo hide-pt" data-cap="Mural “Cuida tu shut” junto a una ladera con residuos."><img src="media/mural_cuida_tu_shut.jpg" alt=""><span class="tag">Mural “Cuida tu shut”</span></div>
+    </div>
+    <div class="so amber a" style="margin-top:34px">
+      <div class="l">Qué significa</div>
+      <div class="t">El problema no está en un solo punto: el shut se llena y quien vive lejos, loma arriba, deja la bolsa en la esquina más cercana. Ni el mural ni la multa lo han cambiado.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Coincide con lo que dijeron 8 de 8 · foto de la loma: Google Street View · toca para ampliar</span><span class="pg"></span></div>
+</section>
+
+<!-- 20 O2 FAUNA -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">O2</span> Fauna</div>
+    <h2 class="t1 a">Perros, palomas y ratas se alimentan de los residuos orgánicos expuestos</h2>
+    <div class="cols fauna-g fill a" style="--n:4;--pn:1;margin-top:40px">
+      <div class="photo" data-cap="Perro echado junto a una bolsa y un recipiente de icopor con restos de comida, en una zona verde."><img src="media/perro_icopor.jpg" alt="" style="object-position:40% 60%"><span class="tag">Perro comiendo de un icopor</span></div>
+      <div class="photo hide-pt" data-cap="Perro buscando entre bolsas y costales en la ladera usada como botadero."><img src="media/perro_basura_ladera.jpg" alt="" style="object-position:55% 40%"><span class="tag">Perro entre bolsas en la ladera</span></div>
+      <div class="photo hide-pt" data-cap="Punto de arrojo: una persona revisa residuos mientras perros y palomas buscan comida."><img src="media/botadero_reciclaje_1.jpg" alt="" style="object-position:30% 50%"><span class="tag">Palomas y perros en el botadero</span></div>
+      <div class="card" data-ev="ratas" style="display:flex;flex-direction:column;justify-content:center;gap:18px"><div class="ic amber"><svg><use href="#i-rat"/></svg></div><div style="font-size:36px;font-weight:720;letter-spacing:-.02em;line-height:1.1">Ratas y ratones</div><div class="num amber" style="font-size:64px;font-weight:800"><span class="evn" data-np="ratas">4</span><span class="mute" style="font-size:32px"> de 8</span></div><div style="font-size:22px;color:var(--mute);line-height:1.35">los mencionaron. No se fotografiaron: se mueven de noche y bajo la basura.</div><p class="evq quote" data-ev="ratas" style="font-size:26px;color:var(--soft)">“Los ratoncitos salen de debajo de la basura.”</p></div>
+    </div>
+    <div class="so amber a" style="margin-top:34px">
+      <div class="l">Qué significa</div>
+      <div class="t">Lo que atrae a los animales es la comida expuesta, no el plástico. Contener lo orgánico reduce el problema de fauna.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Coincide con lo que dijeron 6 de 8 sobre perros y plagas · ratas: solo relatado, no fotografiado</span><span class="pg"></span></div>
+</section>
+
+<!-- 21 O3 RECICLAJE INFORMAL -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">O3</span> Actividad en el botadero</div>
+    <h2 class="t1 a">El botadero es un lugar activo: unos llegan a dejar bolsas y otros a buscar material reciclable</h2>
+    <div class="split vs1 fill a" style="margin-top:40px">
+      <div class="photo ph-l" style="height:100%;aspect-ratio:9/16;--pph:760px" data-cap="Video: personas llegan con bolsas y cartón al botadero junto al shut; palomas y un perro alrededor." data-video="media/video_shut_botan.mp4"><video src="media/video_shut_botan.mp4" muted loop playsinline autoplay></video><span class="vbadge">VIDEO</span><span class="tag">Llegan a dejar bolsas</span></div>
+      <div class="photo ph-l hide-pt" style="height:100%;aspect-ratio:9/16" data-cap="Video: recicladores separan material entre los residuos, con perros alrededor." data-video="media/video_recicladores.mp4"><video src="media/video_recicladores.mp4" muted loop playsinline autoplay></video><span class="vbadge">VIDEO</span><span class="tag">Buscan reciclables</span></div>
+      <div class="so amber">
+        <div class="l">Qué significa</div>
+        <div class="t">El reciclaje informal ya ocurre en la calle: quien recicla abre las bolsas para sacar plástico y cartón, y lo orgánico queda regado.</div>
+        <div class="r">Para RECOEVO → <b>si lo orgánico sale de la bolsa general, el reciclador trabaja con material limpio y no hay reguero.</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Coincide con lo que dijeron sobre recicladores (E02, E03, E05, E07) · toca los videos para verlos</span><span class="pg"></span></div>
+</section>
+
+<!-- 22 O4 OTROS GENERADORES -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">O4</span> Fuentes de orgánicos</div>
+    <h2 class="t1 a">Los vendedores ambulantes también generan orgánicos en la calle, y aún no los entrevistamos</h2>
+    <div class="split vs3 fill a" style="margin-top:40px">
+      <div class="photo ph-l" style="height:100%;aspect-ratio:9/16;--pph:760px" data-cap="Video: vendedor ambulante de fruta; cáscaras en el suelo y un perro cerca." data-video="media/video_vendedor_cascaras.mp4"><video src="media/video_vendedor_cascaras.mp4" muted loop playsinline autoplay></video><span class="vbadge">VIDEO</span><span class="tag">Cáscaras en la calle</span></div>
+      <div class="so amber">
+        <div class="l">Qué significa</div>
+        <div class="t">En el video se ven cáscaras de fruta tiradas junto al carro del vendedor, con un perro cerca. Los puntos de venta de alimentos concentran lo orgánico en un solo lugar.</div>
+        <div class="r">Para RECOEVO → <b>validar con vendedores y más fruvers si concentran volumen suficiente para una ruta.</b> Solo entrevistamos a un fruver (E04).</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Hallazgo observacional · de fruvers solo hay una entrevista (E04)</span><span class="pg"></span></div>
+</section>
+
+<!-- 23 O5 TERRENO Y EQUIPAMIENTO -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a"><span class="n">O5 · O6</span> Terreno y equipamiento</div>
+    <h2 class="t1 a">Las vías destapadas complican la recolección, y en los locales ya se usan canecas de pedal</h2>
+    <div class="cols fill a" style="--n:3;--pn:1;margin-top:40px">
+      <div class="photo" data-cap="Vía sin pavimentar con charcos y barro frente a las viviendas."><img src="media/calle_barro.jpg" alt=""><span class="tag">O5 · Vía destapada y charcos</span></div>
+      <div class="photo hide-pt" data-cap="Bolsas de basura dejadas sobre el andén, sin contenedor."><img src="media/bolsas_anden.jpg" alt=""><span class="tag">O5 · Bolsas en el andén</span></div>
+      <div class="photo hide-pt" data-cap="Caneca de pedal con bolsa en un local comercial del sector."><img src="media/caneca_pedal_local.jpg" alt=""><span class="tag">O6 · Caneca de pedal en un local</span></div>
+    </div>
+    <div class="cols a" style="--n:2;margin-top:30px">
+      <div class="so amber"><div class="l">O5 · Qué significa</div><div class="t" style="font-size:27px">La ruta debe funcionar con barro y pendientes: equipo liviano, con ruedas o fácil de cargar.</div></div>
+      <div class="so amber"><div class="l">O6 · Qué significa</div><div class="t" style="font-size:27px">Accionar una caneca con el pie ya es un gesto conocido. El pedal de RECOEVO no es un hábito extraño.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca las fotos para ampliarlas</span><span class="pg"></span></div>
+</section>
+
+<!-- 24 TRIANGULACIÓN -->
+<section>
+  <div class="pad">
+    <div class="kicker k-amber a">Lo dicho frente a lo visto</div>
+    <h2 class="t1 a">Lo que contaron las personas coincide con lo que observamos en la calle</h2>
+    <div class="cols fill a" style="--n:4;--pn:2;margin-top:40px">
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0"><div class="photo" style="flex:1" data-cap="Bolsas en el andén."><img src="media/bolsas_anden.jpg" alt=""></div><p class="quote evn" data-ev="tri1" style="font-size:27px">“Una noche antes sacan la basura.”</p><p class="mono green" style="font-size:16px">✓ Visto · bolsas en el andén</p></div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0"><div class="photo" style="flex:1" data-cap="Llanta con cáscaras de banano y plásticos mezclados."><img src="media/llanta_cascaras.jpg" alt=""></div><p class="quote evn" data-ev="u:A1-T05-3" style="font-size:27px">“Todo es un revoltijo.”</p><p class="mono green" style="font-size:16px">✓ Visto · cáscaras con plástico</p></div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0"><div class="photo" style="flex:1" data-cap="Perro entre residuos en la ladera."><img src="media/perro_basura_ladera.jpg" alt=""></div><p class="quote evn" data-ev="u:A4-T04-4" style="font-size:27px">“Los perros se encargan de romper bolsas.”</p><p class="mono green" style="font-size:16px">✓ Visto · perro entre bolsas</p></div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0"><div class="photo" style="flex:1" data-cap="Vía destapada con charcos."><img src="media/calle_barro.jpg" alt=""></div><p class="quote evn" data-ev="tri4" style="font-size:27px">“Cuando llueve se forma un pichal.”</p><p class="mono green" style="font-size:16px">✓ Visto · vía sin pavimentar</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca cada cita para ver la frase original</span><span class="pg"></span></div>
+</section>
+
+<!-- 25 MAPA DE CALOR -->
+<section data-fx="heat">
+  <div class="pad" style="padding-top:84px">
+    <div class="kicker a">Síntesis</div>
+    <h2 class="t1 a" style="font-size:62px">Mapa de temas: quién habló de qué</h2>
+    <p class="a" style="font-size:23px;color:var(--mute);margin-top:14px;line-height:1.35">Cada casilla indica cuántas frases de esa persona tocan ese tema. Las columnas llenas son temas compartidos por casi todos. <b style="color:var(--ink)">Toca cualquier casilla para leer las frases.</b></p>
+    <div id="heat" class="heat a only-ls" style="margin-top:26px"></div><div id="heatT" class="heatT a only-pt" style="margin-top:26px"></div>
+  </div>
+  <div class="foot"><span>Matriz del Framework Method · color por dimensión</span><span class="pg"></span></div>
+</section>
+
+<!-- 26 RIGOR -->
+<section data-fx="rigor">
+  <div class="pad">
+    <div class="kicker k-sky a">Confiabilidad</div>
+    <h2 class="t1 a">El análisis es confiable: los temas se saturaron, dos codificadores coinciden y el audio está verificado</h2>
+    <div class="cols" style="--n:3;margin-top:46px">
+      <div class="card a"><div class="row"><div class="ic sky sm"><svg><use href="#i-loop"/></svg></div><div class="mono sky" style="font-size:18px">Saturación</div></div><svg id="satchart" viewBox="0 0 600 290" style="width:100%;margin-top:18px;overflow:visible"></svg><p style="font-size:25px;margin-top:12px;line-height:1.3">Desde la 4.ª entrevista <b class="sky">casi no aparecen temas nuevos</b> (97 %). <b class="sky">Las 8 entrevistas alcanzaron</b> para entender el problema en este sector.</p></div>
+      <div class="card a"><div class="row"><div class="ic sky sm"><svg><use href="#i-tag"/></svg></div><div class="mono sky" style="font-size:18px">Doble codificación</div></div><div class="num" style="font-size:108px;font-weight:820;letter-spacing:-.05em;margin-top:26px;white-space:nowrap"><span class="sky" id="kpo">96,9</span>%</div><p style="font-size:25px;margin-top:10px;line-height:1.3">de coincidencia entre el equipo y un programa de IA que clasificó las frases por separado. <b class="sky">Es un acuerdo alto: el resultado no depende de quién clasifica.</b> <span class="mute">κ = <span id="kk">0,70</span>.</span></p></div>
+      <div class="card a"><div class="row"><div class="ic sky sm"><svg><use href="#i-wave"/></svg></div><div class="mono sky" style="font-size:18px">Transcripción</div></div><div class="num" style="font-size:108px;font-weight:820;letter-spacing:-.05em;margin-top:26px"><span data-count="92" class="sky">92</span>%</div><p style="font-size:25px;margin-top:10px;line-height:1.3">de coincidencia entre los textos y el audio. <b class="sky">Las transcripciones son fieles</b>; dos audios se corrigieron y 212 de 220 frases tienen su minuto exacto en la grabación.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Saturación: promedio de 1.000 órdenes aleatorios · κ de Cohen sobre 220 frases × 17 temas</span><span class="pg"></span></div>
+</section>
+
+<!-- 27 HIPÓTESIS -->
+<section>
+  <div class="pad">
+    <div class="kicker a">Resultado de los supuestos</div>
+    <h2 class="t1 a">Dos supuestos confirmados, uno con condiciones y un hallazgo nuevo</h2>
+    <div style="margin-top:34px">
+      <div class="hyp a" data-ev="sat_neg"><div class="id">01</div><div class="txt">Las sobras de comida son un problema real<small><span class="evn">7 de 8 insatisfechas</span> · 8 de 8 señalan el shut</small></div><div class="verdict v-ok">Confirmado</div></div>
+      <div class="hyp a" data-ev="mez"><div class="id">02</div><div class="txt">Casi nadie separa lo orgánico<small><span class="evn">5 de 8 mezclan todo</span> · nadie lo separa para compost</small></div><div class="verdict v-ok">Confirmado</div></div>
+      <div class="hyp a" data-ev="dis"><div class="id">03</div><div class="txt">Usarían un sistema para separarlo<small><span class="evn">4 de 7 a favor, 3 con condiciones</span> · ningún rechazo</small></div><div class="verdict v-mid">Con condiciones</div></div>
+      <div class="hyp a" data-ev="apr"><div class="id">04</div><div class="txt">Ya existe un hábito de reutilizar<small><span class="evn">3 de 8 lo hacen hoy</span> · no estaba en los supuestos</small></div><div class="verdict v-new">Hallazgo nuevo</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Estudio exploratorio con 8 personas: los números describen a los entrevistados, no a todo el barrio</span><span class="pg"></span></div>
+</section>
+
+<!-- 28 PROTOTIPO -->
+<section>
+  <div class="glow" style="width:900px;height:900px;left:50%;top:58%;transform:translate(-50%,-50%);background:var(--lime);opacity:.1"></div>
+  <div class="pad" style="padding-top:88px">
+    <div class="row a" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap">
+      <div><div class="kicker">Implicaciones para el diseño</div><h2 class="t1" style="font-size:60px;max-width:1150px">Lo que encontramos en campo quedó en el diseño de RECOEVO</h2></div>
+    </div>
+    <div class="proto fill a" style="margin-top:30px">
+      <div style="display:grid;gap:44px">
+        <div class="call rt"><div class="ic sm"><svg><use href="#i-plugoff"/></svg></div><div><div class="ct">Sin cables ni motor</div><div class="cw">Funciona en cualquier casa y no sube el recibo de luz. <b>Contexto observado</b></div></div></div>
+        <div class="call rt" data-ev="fau"><div class="ic sm"><svg><use href="#i-odor"/></svg></div><div><div class="ct">Tapa con junta y filtro de carbón</div><div class="cw">Contiene el olor que atrae perros y ratas. <b>6 de 8 · O2</b></div></div></div>
+        <div class="call rt" data-ev="ninos"><div class="ic sm"><svg><use href="#i-lock"/></svg></div><div><div class="ct">Seguros para niños</div><div class="cw">Con la tapa abierta el pedal no baja; la puerta tiene cierre de doble acción. <b>E01 · E02</b></div></div></div>
+      </div>
+      <a class="photo pimg" href="../prototipo/" style="width:560px;height:560px;background:#E3E6E0;display:block;cursor:pointer"><img src="media/producto_recoevo.jpg" alt="RECOEVO con la puerta abierta y el balde de 10 litros" style="object-fit:cover"></a>
+      <div style="display:grid;gap:44px">
+        <div class="call"><div class="ic sm"><svg><use href="#i-gear"/></svg></div><div><div class="ct">Pedal derecho que tritura</div><div class="cw">Corta en tiras y reduce el volumen. El pedal ya es un gesto conocido en los locales. <b>O6</b></div></div></div>
+        <div class="call" data-ev="mez"><div class="ic sm"><svg><use href="#i-bin"/></svg></div><div><div class="ct">Balde de 10 L, solo para lo orgánico</div><div class="cw">Separado de la basura del baño, con una bolsa compostable por semana. <b>5 de 8 mezclan todo</b></div></div></div>
+        <div class="call"><div class="ic sm"><svg><use href="#i-sprout"/></svg></div><div><div class="ct">Material seco opcional</div><div class="cw">El pedal izquierdo suelta papel, hojas secas o aserrín si se quiere; si no, nada. <b>Hábito existente</b></div></div></div>
+      </div>
+    </div>
+    <a class="only-pt a ptbtn" href="../prototipo/" style="margin-top:34px;text-align:center;padding:30px;border-radius:24px;background:var(--lime);color:#05070A;font-size:38px;font-weight:760;letter-spacing:-.02em">Ver el prototipo en 3D →</a>
+  </div>
+  <div class="foot"><span>RECOEVO · 32 × 34 × 52 cm · balde de 10 L · toca la imagen para verlo en 3D</span><span class="pg"></span></div>
+</section>
+
+<!-- 29 PRÓXIMOS PASOS -->
+<section>
+  <div class="pad">
+    <div class="kicker a">Próximos pasos</div>
+    <h2 class="t1 a">Antes de probar la solución hay que completar la investigación y aclarar dos datos que no coinciden</h2>
+    <div class="cols" style="--n:3;--pn:2;margin-top:26px;gap:18px">
+      <div class="card a" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm"><svg><use href="#i-tractor"/></svg></div><span class="mono lime" style="font-size:22px">01</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Salida rural con agricultores</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">Cómo abonan hoy, cuánto les cuesta y si usarían compost en lugar de químicos.</p></div>
+      <div class="card a" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm"><svg><use href="#i-store"/></svg></div><span class="mono lime" style="font-size:22px">02</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Fruvers y vendedores de la calle</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">Cuánto orgánico generan y qué hacen con él. Hasta ahora solo hay un fruver entrevistado.</p></div>
+      <div class="card a" data-ev="precio" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm coral"><svg><use href="#i-coin"/></svg></div><span class="mono coral" style="font-size:22px">03</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Verificar la tarifa de aseo</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">Lo dicho va de $40.000 a $160.000 al mes. Revisar facturas reales de hogar y de comercio. <span class="evn" style="color:var(--ink)">Ver lo que dijeron</span></p></div>
+      <div class="card a" data-ev="rut" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm coral"><svg><use href="#i-truck"/></svg></div><span class="mono coral" style="font-size:22px">04</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Verificar el paso del carro</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">Una persona dice que pasa día de por medio y otra que lleva 3 meses sin pasar. Pedir el horario oficial al operador y compararlo por cuadra. <span class="evn" style="color:var(--ink)">Ver</span></p></div>
+      <div class="card a" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm"><svg><use href="#i-scale"/></svg></div><span class="mono lime" style="font-size:22px">05</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Pesar lo orgánico durante una semana</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">En algunos hogares y comercios voluntarios, para saber si el balde de 10 L alcanza y cada cuánto hay que recoger.</p></div>
+      <div class="card a" style="padding:28px 32px"><div class="row" style="justify-content:space-between"><div class="ic sm"><svg><use href="#i-users"/></svg></div><span class="mono lime" style="font-size:22px">06</span></div><div style="font-size:31px;font-weight:720;letter-spacing:-.02em;margin-top:18px;line-height:1.1">Asamblea de la Junta y encuesta con QR</div><p style="font-size:21px;color:var(--mute);margin-top:10px;line-height:1.32">Devolver los resultados y compartir un formulario corto que los vecinos escanean para sumar más respuestas.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Toca las tarjetas 03 y 04 para ver las frases que no coinciden</span><span class="pg"></span></div>
+</section>
+
+<!-- 30 FICHA -->
+<section>
+  <div class="pad" style="padding-top:84px">
+    <div class="kicker a">Ficha técnica</div>
+    <h2 class="t1 a" style="font-size:52px">Estudio cualitativo exploratorio · Fase 1 urbana</h2><p class="a" style="font-size:20px;color:var(--mute);margin-top:12px">Cada punto trae el dato técnico y, debajo, <b style="color:var(--lime)">en simple</b>, qué quiere decir.</p>
+    <dl class="ficha a">
+      <div><dt>Tipo de estudio</dt><dd>Cualitativo exploratorio con cuantificación descriptiva de temas (métodos mixtos, <i>quantitizing</i>: Sandelowski et al., 2009).</dd><dd class="simple"><b>En simple:</b> Escuchamos a la gente y luego contamos cuántos dijeron lo mismo.</dd></div>
+      <div><dt>Técnica</dt><dd>Entrevista semiestructurada cara a cara y observación directa con registro fotográfico y audiovisual.</dd><dd class="simple"><b>En simple:</b> Conversaciones con una guía de preguntas abiertas, más fotos y videos de la calle.</dd></div>
+      <div><dt>Lugar y fecha</dt><dd>Villa Rosita, sector Tihuaque, Usme (Bogotá) · 4.5009° N, 74.0859° O · 19-sep-2026, 2:30 a 5:00 p. m.</dd></div>
+      <div><dt>Muestra</dt><dd>8 participantes; muestreo no probabilístico por conveniencia: 3 hogares, 3 comercios, 2 mixtos.</dd><dd class="simple"><b>En simple:</b> Hablamos con quien aceptó en la calle. Por eso describe a esas 8 personas, no a todo el barrio.</dd></div>
+      <div><dt>Material recolectado</dt><dd>10 grabaciones (66 min), 22 fotografías y 4 videos.</dd></div>
+      <div><dt>Validación de transcripciones</dt><dd>Re-transcripción con Whisper large-v3 (reconocimiento de voz, ejecutado localmente) y comparación palabra por palabra: 92 % de similitud.</dd><dd class="simple"><b>En simple:</b> Un programa volvió a escuchar los audios para comprobar que los textos están bien.</dd></div>
+      <div><dt>Método de análisis</dt><dd>Framework Method (Gale et al., 2013): 220 unidades de significado, 17 códigos en 5 dimensiones y matriz caso × tema.</dd><dd class="simple"><b>En simple:</b> Dividimos lo que dijo cada persona en frases, le pusimos un tema a cada una y armamos una tabla de quién habló de qué.</dd></div>
+      <div><dt>Escalas</dt><dd>Escalas ordinales de 1 a 5 con anclas definidas: satisfacción con el barrio y disposición a participar; promedio por persona.</dd><dd class="simple"><b>En simple:</b> Cada opinión recibió una carita de 1 (muy mal) a 5 (muy bien).</dd></div>
+      <div><dt>Confiabilidad</dt><dd>Doble codificación independiente (equipo y modelo Qwen2.5 14B): κ de Cohen 0,70, acuerdo sustancial (Landis y Koch, 1977), 96,9 % de coincidencia. Saturación: 97 % de los temas a las 4 entrevistas (Guest et al., 2006).</dd><dd class="simple"><b>En simple:</b> Dos revisores clasificaron por separado y coincidieron casi siempre, y desde la 4.ª entrevista ya no salían temas nuevos. Es confiable.</dd></div>
+      <div><dt>Reporte y ética</dt><dd>Lista de verificación COREQ (Tong et al., 2007). Consentimiento informado firmado; citas anonimizadas (E01–E08).</dd><dd class="simple"><b>En simple:</b> Seguimos una guía internacional para reportar entrevistas. Todos firmaron y nadie aparece con su nombre.</dd></div>
+      <div><dt>Límites</dt><dd>Sin validez estadística poblacional. Faltan agricultores, vendedores informales y más comercios.</dd><dd class="simple"><b>En simple:</b> Es un primer diagnóstico: hay que completarlo antes de decidir.</dd></div>
+      <div><dt>Equipo</dt><dd>Estudiantes: R. Beltrán, W. Fonseca, S. Medina, F. Ortiz y C. Riaño. Docente: I. Z. Sandoval Pérez. Campo: W. J. Ortiz Amador.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 31 GRACIAS -->
+<section>
+  <div class="kb">
+    <img src="media/shut_prohibido.jpg" alt="" style="object-position:70% 50%">
+    <img src="media/perro_icopor.jpg" alt="" style="object-position:45% 60%">
+    <img src="media/bolsas_anden.jpg" alt="" style="object-position:60% 60%">
+    <img src="media/llanta_cascaras.jpg" alt="" style="object-position:50% 55%">
+  </div>
+  <div class="shade-b" style="background:radial-gradient(ellipse at 50% 45%,rgba(5,7,10,.72) 0%,rgba(5,7,10,.45) 55%,rgba(5,7,10,.2) 100%),linear-gradient(0deg,rgba(5,7,10,.85) 0%,rgba(5,7,10,0) 35%)"></div>
+  <div class="kbdots"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="glow" style="width:1000px;height:1000px;left:50%;top:40%;transform:translate(-50%,-50%);background:var(--lime);opacity:.12"></div>
+  <div class="pad center" style="align-items:center;text-align:center">
+    <h2 class="a" style="font-size:260px;font-weight:840;letter-spacing:-.065em;line-height:.85;filter:drop-shadow(0 6px 30px rgba(0,0,0,.6))"><span class="grad">Gracias</span></h2>
+    <p class="lead a" style="margin-top:46px;text-align:center;text-shadow:0 2px 18px rgba(0,0,0,.7)">A las vecinas y vecinos de Villa Rosita, por abrirnos la puerta.</p>
+    <div class="kicker a" style="margin-top:56px">RECOEVO · Economía circular en Usme</div>
+  </div>
+</section>
+
+</div></div>
+
+<!-- MODAL DE EVIDENCIA -->
+<div class="modal" id="evm" role="dialog" aria-modal="true">
+  <div class="mbox" style="position:relative">
+    <button class="mclose" aria-label="Cerrar">✕</button>
+    <div class="mhead"><div class="k" id="evk">Evidencia</div><h3 id="evt"></h3><div class="how" id="evh"></div><div class="stats" id="evs"></div></div>
+    <div class="mlist" id="evl"></div>
+  </div>
+</div>
+<!-- VISOR DE FOTOS -->
+<div class="lbx" id="lbx">
+  <div class="lstage" id="lst"></div>
+  <div class="lcap" id="lcap"></div>
+  <button class="lclose" aria-label="Cerrar">✕</button>
+  <div class="ltools"><button id="zout" aria-label="Alejar">−</button><div class="z" id="zlv">100 %</div><button id="zin" aria-label="Acercar">+</button><button id="zrs" aria-label="Restablecer" style="font-size:15px">1:1</button></div>
+</div>
+<audio id="player" preload="none"></audio>
+
+<script>
+// ---------- orientación: vertical = versión móvil (láminas 9:16 que avanzan hacia abajo) ----------
+const PT = window.innerHeight > window.innerWidth;
+const PW = 900, PH = Math.round(Math.min(2200, Math.max(2010, PW * window.innerHeight / window.innerWidth)));
+if (PT) {
+  document.documentElement.classList.add("pt"); document.documentElement.style.setProperty("--ph", PH + "px"); document.documentElement.style.setProperty("--pw", PW + "px");
+  const slides = document.querySelector(".slides"), stack = document.createElement("section");
+  stack.className = "stack"; [...slides.children].forEach(s => stack.appendChild(s)); slides.appendChild(stack);
+  // fotos livianas en el celular: menos memoria gráfica, sin cuadros negros
+  const light = u => u.replace(/media\/(mapa\/)?([\w-]+)\.(jpg|png)/, (m, d, n) => /^(logo_poli)$/.test(n) ? m : `media/m/${n}.jpg`);
+  document.querySelectorAll('img[src^="media/"]').forEach(im => im.setAttribute("src", light(im.getAttribute("src"))));
+  document.querySelectorAll('[style*="background-image"]').forEach(el => el.setAttribute("style", light(el.getAttribute("style"))));
+  // en vertical la ficha técnica se divide en dos láminas para que se lea bien
+  const fs = [...stack.children].find(x => x.querySelector(".ficha"));
+  if (fs) {
+    const f2 = fs.cloneNode(true); fs.after(f2);
+    fs.querySelectorAll(".ficha > div").forEach((d, i) => { if (i >= 6) d.remove(); });
+    f2.querySelectorAll(".ficha > div").forEach((d, i) => { if (i < 6) d.remove(); });
+    fs.querySelector(".kicker").textContent = "Ficha técnica · 1 de 2"; f2.querySelector(".kicker").textContent = "Ficha técnica · 2 de 2";
+  }
+}
+</script>
+<script src="lib/reveal.js"></script>
+<script src="lib/gsap.min.js"></script>
+<script src="lib/maplibre-gl.js"></script>
+<script src="data.js"></script>
+<script>
+const D = window.RECOEVO, U = D.units, P = D.participantes;
+const CODE = Object.fromEntries(D.codigos.map(c => [c.id, c]));
+const FACE_C = ["", "#FF5A5A", "#FF9A4D", "#FFD24D", "#A8E05F", "#4CD98A"];
+const SAT_L = ["", "Muy insatisfecho", "Insatisfecho", "Neutral o ambivalente", "Satisfecho", "Muy satisfecho"];
+const DIS_L = ["", "Rechazo", "Escéptico", "Condicionado (“sí, pero…”)", "Favorable", "Entusiasta / propone"];
+const fmt = (v, d = 0) => v.toLocaleString("es-CO", { minimumFractionDigits: d, maximumFractionDigits: d });
+const mmss = t => t == null ? "—" : `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+function face(level, size) {
+  const L = Math.max(1, Math.min(5, Math.round(level))), c = FACE_C[L];
+  const m = { 1: "M34 72 Q50 56 66 72", 2: "M35 70 Q50 62 65 70", 3: "M35 66 L65 66", 4: "M35 63 Q50 72 65 63", 5: "M32 60 Q50 80 68 60" }[L];
+  const brows = L === 1 ? '<path d="M28 34 L42 39 M72 34 L58 39" stroke="#05070A" stroke-width="5" stroke-linecap="round"/>' : "";
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="${c}"/><circle cx="38" cy="32" r="22" fill="#fff" opacity=".12"/>${brows}<circle cx="36" cy="44" r="5.5" fill="#05070A"/><circle cx="64" cy="44" r="5.5" fill="#05070A"/><path d="${m}" stroke="#05070A" stroke-width="6" fill="none" stroke-linecap="round"/></svg>`;
+}
+// ---------- promedios por persona (misma base que las frases que se muestran) ----------
+const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+const PS = Object.fromEntries(Object.keys(P).map(p => [p, {
+  s: mean(U.filter(u => u.p === p && u.s != null).map(u => u.s)), d: mean(U.filter(u => u.p === p && u.d != null).map(u => u.d)) }]));
+const has = c => u => u.c.includes(c), cond = k => u => u.k.includes(k), ids = list => u => list.includes(u.id);
+// ---------- definiciones de evidencia: cada afirmación = un filtro sobre las frases ----------
+const EV = {
+  pun: ["El shut y las esquinas", has("PUN"), "Frases codificadas como “El shut y las esquinas”: disposición en espacio público, basura fuera del shut, esquinas y botaderos."],
+  mez: ["En su casa o negocio todo va a la misma bolsa", has("MEZ"), "Frases donde la persona describe que en su propio hogar o local lo orgánico se mezcla con el resto."],
+  sep: ["Separación parcial o ninguna", has("SEP"), "Qué se separa hoy (plástico, botellas, papel) y menciones de que nadie separa."],
+  rom: ["Perros y recicladores rompen las bolsas", has("ROM"), "Frases donde se dice que perros, recicladores o habitantes de calle abren y riegan las bolsas."],
+  fau: ["Perros, ratas y plagas", has("FAU"), "Menciones de perros callejeros, ratas, ratones, zancudos, cucarachas o pulgas."],
+  viento: ["El viento y la lluvia riegan la basura", ids(["A6-T47-1", "A8-T30-1", "A9-T11-2", "A9-T63-1", "A9-T65-1", "A9-T65-2"]), "Frases que mencionan explícitamente viento o lluvia."],
+  rut: ["Todo lo dicho sobre la recolección", has("RUT"), "Frases sobre horario, frecuencia y costo del servicio, con su calificación."],
+  rut_queja: ["Quejas sobre el servicio de recolección", u => u.c.includes("RUT") && u.s != null && u.s <= 3, "Frases sobre la recolección calificadas de 1 a 3. Se excluye E07, que dice que el servicio cumple."],
+  rut_ok: ["Opinión positiva sobre la recolección", u => u.c.includes("RUT") && u.s != null && u.s >= 4, "Frases sobre la recolección calificadas como satisfechas."],
+  precio: ["Lo que dicen pagar por el aseo", ids(["A6-T30-1", "A6-T32-1", "A6-T34-1", "A7-T08-1", "A2-T08-1"]), "Valores mencionados por los participantes. No se verificaron facturas."],
+  residencial: ["Zona comercial frente a zona residencial", ids(["A9-T09-1", "A9-T16-1", "A9-T41-1", "A9-T41-2", "A9-T43-1", "A9-T43-2"]), "Relato de E08, que tiene su local en el sector y vive en una zona residencial."],
+  cul: ["Cultura y hábito", has("CUL"), "Frases que atribuyen el problema a la costumbre, la pereza, el desorden o la falta de tiempo."],
+  fre: ["¿Y si los demás no lo hacen?", has("FRE"), "Barreras de acción colectiva: no ser el único, falta de empuje, la comunidad no se une."],
+  est: ["Estado ausente", has("EST"), "Alcaldía ausente, multas sin control, peticiones sin respuesta."],
+  edu: ["Campañas y pedagogía", has("EDU"), "Propuestas de campañas, volantes, videos o capacitaciones."],
+  apr: ["Ya reutilizan lo orgánico", has("APR"), "Solo prácticas actuales: sobras a animales, cáscaras a las matas, regalar los sobrantes del fruver."],
+  apr_E04: ["E04 · Fruver: reutiliza lo orgánico", u => u.p === "E04" && u.c.includes("APR"), ""], apr_E05: ["E05: reutiliza lo orgánico", u => u.p === "E05" && u.c.includes("APR"), ""], apr_E08: ["E08: reutiliza lo orgánico", u => u.p === "E08" && u.c.includes("APR"), ""],
+  agr: ["Relación con el campo y el abono", has("AGR"), "Recuerdos del campo, crítica a los químicos, costo del abono y uso de fertilizantes."],
+  com: ["Líderes y comunidad", has("COM"), "Juntas de acción comunal, líderes e iniciativas propias."],
+  art: ["Aceptación de la caneca o el artefacto", has("ART"), "Opiniones sobre una caneca exclusiva o un dispositivo para lo orgánico."],
+  inc: ["Incentivos y costos", has("INC"), "Frases sobre compensaciones, regalar el producto o aportar a cambio del beneficio."],
+  seg: ["Inseguridad", has("SEG"), "Relación entre los puntos de basura y la delincuencia."],
+  amb: ["Viento, olor, barro y salud", has("AMB"), "Efectos ambientales y de salud."],
+  sat: ["Todas las frases calificadas en satisfacción", u => u.s != null, "Solo se califican las frases en que la persona evalúa la situación de residuos del barrio o el servicio. 1 = muy insatisfecho, 3 = neutral o ambivalente, 5 = muy satisfecho. La descripción de prácticas propias no se califica.", "s"],
+  sat_neg: ["Frases de insatisfacción con el barrio (1 y 2)", u => u.s != null && u.s <= 2, "7 de 8 personas tienen un promedio de satisfacción menor a 2,5. La única excepción es E06 (2,8).", "s"],
+  ratas: ["Ratas y ratones", u => /\brat(a|as|ón|ones|oncito|oncitos)\b/i.test(u.o), "Frases que mencionan ratas o ratones. No aparecen en las fotos."],
+  dis: ["Todas las frases calificadas en disposición", u => u.d != null, "Solo se califican las opiniones sobre participar en una solución. 1 = rechazo, 2 = escéptico, 3 = condicionado, 4 = favorable, 5 = entusiasta o propone.", "d"],
+  dis_fav_p: ["Personas a favor (promedio ≥ 3,5)", u => u.d != null && PS[u.p].d >= 3.5, "Frases de disposición de E01, E03, E04 y E07.", "d"],
+  dis_cond_p: ["Personas que ponen condiciones (promedio entre 2,5 y 3,5)", u => u.d != null && PS[u.p].d < 3.5, "Frases de disposición de E02, E05 y E08.", "d"],
+  cond_pedagogia: ["Condición: que se enseñe", cond("pedagogia"), "Frases etiquetadas con la condición “pedagogía”."],
+  cond_lideres: ["Condición: entrar por los líderes y la Junta", cond("lideres"), ""],
+  cond_recoleccion: ["Condición: que alguien recoja", cond("recoleccion"), ""],
+  cond_incentivo: ["Condición: incentivo o regalo", cond("incentivo"), ""],
+  cond_ejemplo: ["Condición: ver que funciona", cond("ejemplo"), ""],
+  cond_practico: ["Condición: que sea práctico", cond("practico"), ""],
+  cond_costo: ["Acepta aportar a cambio del beneficio", cond("costo"), ""],
+  ninos: ["Niños sacando la basura", ids(["A1-T19-2", "A3-T08-2"]), "Frases donde se menciona que se manda a los niños a sacar la basura."],
+  tri1: ["“Una noche antes sacan la basura”", ids(["A8-T30-1", "A3-T08-2", "A1-T19-2", "A4-T04-4"]), "Frases sobre sacar la basura a destiempo o dejarla en la calle."],
+  tri4: ["“Cuando llueve se forma un pichal”", ids(["A9-T65-2", "A9-T63-1"]), ""],
+};
+const persons = f => [...new Set(U.filter(f).map(u => u.p))].sort();
+function evData(key) {
+  if (EV[key]) return EV[key];
+  let m;
+  if ((m = key.match(/^p:(E\d\d)$/))) return [`Todo lo que dijo ${m[1]}`, u => u.p === m[1], P[m[1]].detalle];
+  if ((m = key.match(/^h:(E\d\d):(\w+)$/))) return [`${m[1]} · ${CODE[m[2]].nombre}`, u => u.p === m[1] && u.c.includes(m[2]), CODE[m[2]].def];
+  if ((m = key.match(/^c:(\w+)$/))) return [CODE[m[1]].nombre, has(m[1]), CODE[m[1]].def];
+  if ((m = key.match(/^u:(.+)$/))) { const L = m[1].split(","), u0 = U.find(u => u.id === L[0]); return [u0 ? `Cita de ${u0.p} · ${P[u0.p].rol}` : "Cita", ids(L), "La frase completa de la entrevista. Para proteger a los participantes, los audios no se publican."]; }
+}
+// ---------- rellenar cifras desde los datos ----------
+function fillNumbers() {
+  document.querySelectorAll("[data-np]").forEach(el => {
+    const k = el.dataset.np;
+    if (k === "sat_bajo") el.textContent = Object.values(PS).filter(v => v.s != null && v.s < 2.5).length;
+    else { const e = evData(k); if (e) el.textContent = persons(e[1]).length; }
+  });
+  document.querySelectorAll("[data-nu]").forEach(el => { const e = evData(el.dataset.nu); if (e) el.textContent = U.filter(e[1]).length; });
+  const A = D.acuerdo; document.getElementById("kpo").textContent = fmt(A.acuerdo_global * 100, 1); document.getElementById("kk").textContent = fmt(A.kappa_global, 2);
+}
+// ---------- MODAL DE EVIDENCIA ----------
+const evm = document.getElementById("evm"), player = document.getElementById("player");
+let playing = null, stopT = null;
+player.addEventListener("timeupdate", () => { if (playing && !player.paused) playing.textContent = `■ Detener · ${mmss(player.currentTime)}`; });
+player.addEventListener("error", () => { if (playing) { playing.textContent = "⚠ Audio no disponible"; playing.classList.remove("on"); playing = null; } });
+function stopAudio() { player.pause(); clearTimeout(stopT); if (playing) playing.classList.remove("on"), playing.textContent = "▶ Escuchar"; playing = null; }
+function openEv(key) {
+  const e = evData(key); if (!e) return;
+  const [title, f, how, scale] = e, list = U.filter(f), ps = persons(f);
+  document.getElementById("evk").textContent = "Evidencia · frases de las entrevistas";
+  document.getElementById("evt").textContent = title;
+  document.getElementById("evh").textContent = how || "";
+  const s = document.getElementById("evs");
+  s.innerHTML = `<span class="chipf on" data-f="*">${ps.length} ${ps.length === 1 ? "persona" : "personas"} · ${list.length} frases</span>` + ps.map(p => `<span class="chipf" data-f="${p}">${p} · ${P[p].rol} (${list.filter(u => u.p === p).length})</span>`).join("");
+  const render = pf => {
+    const L = pf === "*" ? list : list.filter(u => u.p === pf);
+    let html = "", grp = null;
+    const sorted = scale ? [...L].sort((a, b) => a[scale] - b[scale] || a.id.localeCompare(b.id)) : L;
+    sorted.forEach(u => {
+      if (scale && grp !== u[scale]) { grp = u[scale]; html += `<div class="grp">${grp} · ${(scale === "s" ? SAT_L : DIS_L)[grp]} (${L.filter(x => x[scale] === grp).length})</div>`; }
+      const lv = [u.s != null ? `<span class="lvl">${face(u.s, 18)}Satisf. ${u.s}</span>` : "", u.d != null ? `<span class="lvl">${face(u.d, 18)}Disp. ${u.d}</span>` : ""].join("");
+      html += `<div class="it" data-id="${u.id}"><div class="meta"><b>${u.p}</b><span>${P[u.p].rol}</span><span>·</span><span>${u.a} · ${mmss(u.t)}</span><span>·</span><span>${u.id}</span></div>
+        ${u.q ? `<div class="q">Pregunta: ${u.q.length > 170 ? u.q.slice(0, 170) + "…" : u.q}</div>` : ""}
+        <p class="e">“${u.e}”</p><p class="o">Literal: ${u.o}</p>
+        <div class="tools"><button class="btn lit">Ver literal</button>${lv}${u.c.map(c => `<span class="ctag">${CODE[c].nombre}</span>`).join("")}</div></div>`;
+    });
+    document.getElementById("evl").innerHTML = html || `<p class="q">Sin frases.</p>`;
+    document.getElementById("evl").scrollTop = 0;
+  };
+  s.onclick = ev => { const c = ev.target.closest(".chipf"); if (!c) return; s.querySelectorAll(".chipf").forEach(x => x.classList.toggle("on", x === c)); render(c.dataset.f); };
+  render("*"); evm.classList.add("on"); Reveal.configure({ keyboard: false });
+}
+function closeEv() { evm.classList.remove("on"); stopAudio(); Reveal.configure({ keyboard: true }); }
+evm.addEventListener("click", ev => {
+  if (ev.target === evm || ev.target.closest(".mclose")) return closeEv();
+  const lit = ev.target.closest(".lit"); if (lit) { const it = lit.closest(".it"); it.classList.toggle("lit"); lit.textContent = it.classList.contains("lit") ? "Ocultar literal" : "Ver literal"; }
+  const pl = ev.target.closest(".play");
+  if (pl) {
+    if (playing === pl) return stopAudio();
+    stopAudio(); playing = pl; pl.classList.add("on"); pl.textContent = "■ Detener";
+    const src = MEDIA.get(`media/audio/${pl.dataset.a}.mp3`) || `media/audio/${pl.dataset.a}.mp3`, t0 = +pl.dataset.t;
+    const go = () => { player.currentTime = t0; player.play().catch(() => stopAudio()); clearTimeout(stopT); stopT = setTimeout(stopAudio, (+pl.dataset.w / 2.3 + 3) * 1000); };
+    if (player.src === new URL(src, location.href).href && player.readyState >= 1) go();
+    else { player.src = src; player.load(); player.addEventListener("loadedmetadata", go, { once: true }); player.play().catch(() => {}); }
+  }
+});
+// ---------- VISOR DE FOTOS CON ZOOM Y ARRASTRE ----------
+const lbx = document.getElementById("lbx"), lst = document.getElementById("lst");
+let Z = { s: 1, x: 0, y: 0, el: null };
+const applyZ = () => { if (Z.el) Z.el.style.transform = `translate(calc(-50% + ${Z.x}px), calc(-50% + ${Z.y}px)) scale(${Z.s})`; document.getElementById("zlv").textContent = Math.round(Z.s * 100) + " %"; };
+function openLbx(src, isVideo, cap) {
+  lst.innerHTML = isVideo ? `<video src="${src}" controls autoplay loop playsinline></video>` : `<img src="${src}" alt="">`;
+  Z = { s: 1, x: 0, y: 0, el: lst.firstChild }; applyZ();
+  document.getElementById("lcap").innerHTML = cap ? `<b>Observación</b>${cap}` : "";
+  lbx.classList.add("on"); Reveal.configure({ keyboard: false });
+}
+function closeLbx() { lbx.classList.remove("on"); lst.innerHTML = ""; Reveal.configure({ keyboard: true }); }
+const zoomAt = (f, cx = innerWidth / 2, cy = innerHeight / 2) => {
+  const ns = Math.min(8, Math.max(1, Z.s * f)), k = ns / Z.s;
+  Z.x = (Z.x - (cx - innerWidth / 2)) * k + (cx - innerWidth / 2); Z.y = (Z.y - (cy - innerHeight / 2)) * k + (cy - innerHeight / 2); Z.s = ns;
+  if (ns === 1) Z.x = Z.y = 0; applyZ();
+};
+lst.addEventListener("wheel", e => { e.preventDefault(); zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX, e.clientY); }, { passive: false });
+let drag = null, pinch = null; const pts = new Map();
+lst.addEventListener("pointerdown", e => { pts.set(e.pointerId, e); lst.setPointerCapture(e.pointerId); lst.classList.add("drag"); drag = { x: e.clientX - Z.x, y: e.clientY - Z.y }; if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), s: Z.s }; } });
+lst.addEventListener("pointermove", e => {
+  if (!pts.has(e.pointerId)) return; pts.set(e.pointerId, e);
+  if (pts.size === 2 && pinch) { const [a, b] = [...pts.values()]; const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY); zoomAt(pinch.s * d / pinch.d / Z.s, (a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2); return; }
+  if (drag && Z.s > 1) { Z.x = e.clientX - drag.x; Z.y = e.clientY - drag.y; applyZ(); }
+});
+const endPtr = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) { drag = null; lst.classList.remove("drag"); } };
+lst.addEventListener("pointerup", endPtr); lst.addEventListener("pointercancel", endPtr);
+lst.addEventListener("dblclick", e => zoomAt(Z.s > 1 ? 1 / Z.s : 2.5, e.clientX, e.clientY));
+document.getElementById("zin").onclick = () => zoomAt(1.4); document.getElementById("zout").onclick = () => zoomAt(1 / 1.4);
+document.getElementById("zrs").onclick = () => { Z.s = 1; Z.x = Z.y = 0; applyZ(); };
+lbx.querySelector(".lclose").onclick = closeLbx;
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { if (lbx.classList.contains("on")) closeLbx(); else if (evm.classList.contains("on")) closeEv(); }
+  if (lbx.classList.contains("on")) { if (e.key === "+" || e.key === "=") zoomAt(1.4); if (e.key === "-") zoomAt(1 / 1.4); }
+}, true);
+// ---------- clics en la presentación ----------
+document.querySelector(".reveal").addEventListener("click", e => {
+  const ev = e.target.closest("[data-ev]");
+  if (ev) { e.preventDefault(); e.stopPropagation(); return openEv(ev.dataset.ev); }
+  const ph = e.target.closest(".photo");
+  if (ph && !ph.matches("a")) { e.preventDefault(); const v = ph.dataset.video, img = ph.querySelector("img"); openLbx((v && MEDIA.get(v)) || v || (img && img.src), !!v, ph.dataset.cap || ""); }
+});
+
+// ---------- componentes ----------
+(function build() {
+  const all = document.querySelectorAll(".reveal .slides section:not(.stack)");
+  all.forEach((s, i) => s.querySelectorAll(".pg").forEach(p => p.textContent = String(i + 1).padStart(2, "0")));
+  const ic = { E01: "i-house", E02: "i-leader", E03: "i-leader", E04: "i-apple", E05: "i-store", E06: "i-house", E07: "i-house", E08: "i-store" };
+  document.getElementById("people").innerHTML = Object.entries(P).map(([id, p]) =>
+    `<div class="card" data-ev="p:${id}" style="padding:28px 30px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ic sm"><svg><use href="#${ic[id]}"/></svg></div><span class="mono lime" style="font-size:19px">${id}</span></div>
+     <div style="font-size:30px;font-weight:700;margin-top:20px;letter-spacing:-.02em">${p.rol}</div><div style="font-size:21px;color:var(--mute);margin-top:6px;line-height:1.3">${p.detalle}</div>
+     <div class="mono" style="font-size:14px;color:var(--dim);margin-top:12px">${p.audios.length} ${p.audios.length === 1 ? "grabación" : "grabaciones"} · ${U.filter(u => u.p === id).length} frases</div></div>`).join("");
+  // caritas por persona
+  document.getElementById("facesrow").innerHTML = Object.entries(PS).map(([p, v]) => `<div class="pf" data-ev="p:${p}">${face(v.s, 118)}<div class="id">${p}</div><div class="v num" style="color:${FACE_C[Math.round(v.s)]}">${fmt(v.s, 1)}</div></div>`).join("");
+  // distribución de frases
+  const dist = [1, 2, 3, 4, 5].map(k => U.filter(u => u.s === k).length), max = Math.max(...dist);
+  document.getElementById("facebars-sat").innerHTML = `<div class="mono" style="font-size:16px;color:var(--mute);margin-bottom:8px">Frases calificadas por nivel</div>` + [1, 2, 3, 4, 5].map(k => `<div data-ev="sat" style="display:grid;grid-template-columns:52px 250px 1fr 60px;align-items:center;gap:18px;margin:10px 0">${face(k, 48)}<span style="font-size:24px;color:var(--soft)">${SAT_L[k]}</span><div style="height:26px;background:#121A1F;border-radius:13px;overflow:hidden"><div data-bar="1" style="height:100%;width:${dist[k - 1] / max * 100}%;background:${FACE_C[k]};border-radius:13px;transform-origin:left"></div></div><span class="num" style="font-size:28px;font-weight:760;text-align:right">${dist[k - 1]}</span></div>`).join("");
+  // disposición
+  const svg = document.getElementById("dumb"), X = v => 150 + (v - 1) / 4 * 640;
+  let h = `<g font-family="JB Mono" font-size="18" fill="#56635E">${[1, 2, 3, 4, 5].map(v => `<line x1="${X(v)}" y1="40" x2="${X(v)}" y2="660" stroke="#1C272E" stroke-width="1.5"/><text x="${X(v)}" y="692" text-anchor="middle">${v}</text>`).join("")}</g>`;
+  h += [1, 3, 5].map(v => `<g transform="translate(${X(v) - 22},-26)">${face(v, 44)}</g>`).join("");
+  Object.entries(PS).forEach(([id, v], i) => {
+    const y = 80 + i * 78;
+    h += `<g data-ev="p:${id}" style="cursor:pointer"><text x="0" y="${y + 8}" font-family="JB Mono" font-size="23" fill="#C9D1CC">${id}</text>`;
+    if (v.d != null) h += `<line class="db-l" x1="${X(v.s)}" y1="${y}" x2="${X(v.d)}" y2="${y}" stroke="url(#gdb)" stroke-width="10" stroke-linecap="round"/>`;
+    h += `<circle class="db-s" cx="${X(v.s)}" cy="${y}" r="17" fill="#FF6B5B"/>`;
+    h += v.d != null ? `<circle class="db-d" cx="${X(v.d)}" cy="${y}" r="17" fill="#B8F35A"/>` : `<text x="${X(v.s) + 34}" y="${y + 7}" font-size="20" fill="#8D9A95" font-family="Inter Tight">no opinó sobre soluciones</text>`;
+    h += `</g>`;
+  });
+  svg.innerHTML = `<defs><linearGradient id="gdb"><stop offset="0" stop-color="#FF6B5B" stop-opacity=".5"/><stop offset="1" stop-color="#B8F35A" stop-opacity=".7"/></linearGradient></defs>` + h;
+  // mapa de calor
+  const dimC = Object.fromEntries(D.dimensiones.map(d => [d.id, d.color]));
+  let hm = `<div></div>` + D.codigos.map(c => `<div class="h" data-ev="c:${c.id}" style="color:${dimC[c.dim]};cursor:pointer">${c.nombre}</div>`).join("");
+  const cnt = (p, c) => U.filter(u => u.p === p && u.c.includes(c)).length;
+  const mx = Math.max(...Object.keys(P).flatMap(p => D.codigos.map(c => cnt(p, c.id))));
+  Object.keys(P).forEach(p => {
+    hm += `<div class="r" data-ev="p:${p}" style="cursor:pointer">${p}<small>${P[p].rol}</small></div>` + D.codigos.map(c => {
+      const n = cnt(p, c.id); if (!n) return `<div class="c" style="background:#0D1317"></div>`;
+      const o = (.3 + .7 * n / mx).toFixed(2); return `<div class="c" data-o="${o}" data-ev="h:${p}:${c.id}" style="background:${dimC[c.dim]};opacity:${o};cursor:pointer">${n}</div>`;
+    }).join("");
+  });
+  hm += `<div class="r" style="color:var(--lime)">Personas<small>de 8</small></div>` + D.codigos.map(c => `<div class="c" data-ev="c:${c.id}" style="background:none;color:#F3F5EF;font-size:22px;cursor:pointer">${persons(has(c.id)).length}</div>`).join("");
+  document.getElementById("heat").innerHTML = hm;
+  // versión móvil: temas en filas, personas en columnas
+  let ht = `<div></div>` + Object.keys(P).map(p => `<div class="hh" data-ev="p:${p}">${p}</div>`).join("") + `<div class="hh" style="color:var(--lime)">Pers.</div>`;
+  D.codigos.forEach(c => {
+    ht += `<div class="rl" data-ev="c:${c.id}" style="color:${dimC[c.dim]}">${c.nombre}</div>` + Object.keys(P).map(p => { const n = cnt(p, c.id);
+      if (!n) return `<div class="c" style="background:#0D1317"></div>`; const o = (.3 + .7 * n / mx).toFixed(2);
+      return `<div class="c" data-o="${o}" data-ev="h:${p}:${c.id}" style="background:${dimC[c.dim]};opacity:${o}">${n}</div>`; }).join("") +
+      `<div class="c" data-ev="c:${c.id}" style="background:none;color:#F3F5EF;font-size:22px">${persons(has(c.id)).length}</div>`;
+  });
+  document.getElementById("heatT").innerHTML = ht;
+  // saturación
+  const sc = document.getElementById("satchart"), sx = i => 50 + i * 76, sy = v => 250 - v / 17 * 230;
+  sc.innerHTML = `<g font-family="JB Mono" font-size="16" fill="#56635E">${[0, 17].map(v => `<text x="36" y="${sy(v) + 5}" text-anchor="end">${v}</text><line x1="50" x2="590" y1="${sy(v)}" y2="${sy(v)}" stroke="#1C272E"/>`).join("")}${D.saturacion.map((v, i) => `<text x="${sx(i)}" y="280" text-anchor="middle">${i + 1}</text>`).join("")}</g>
+    <line x1="${sx(3)}" x2="${sx(3)}" y1="14" y2="250" stroke="#62C8FF" stroke-dasharray="6 6" opacity=".6"/>
+    <polyline id="satline" points="${D.saturacion.map((v, i) => `${sx(i)},${sy(v)}`).join(" ")}" fill="none" stroke="#62C8FF" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+    ${D.saturacion.map((v, i) => `<circle class="satdot" cx="${sx(i)}" cy="${sy(v)}" r="8" fill="#62C8FF"/>`).join("")}`;
+  fillNumbers();
+})();
+
+// ---------- MAPA: vuelo continuo ----------
+const PIN = [-74.085905, 4.500941];
+const TILE_LOCAL = new URL("media/tiles/", location.href).href + "{z}/{y}/{x}.jpg";
+const TILE_WEB = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+let map = null, mapReady = null, mapRun = 0;
+function circle(c, r, n = 128) { const pts = []; for (let i = 0; i <= n; i++) { const a = i / n * 2 * Math.PI; pts.push([c[0] + r / (111320 * Math.cos(c[1] * Math.PI / 180)) * Math.cos(a), c[1] + r / 110540 * Math.sin(a)]); } return { type: "Feature", geometry: { type: "Polygon", coordinates: [pts] } }; }
+// Protocolo híbrido: primero la tesela local (sin internet); si no existe, la de Esri en línea.
+const TILEMEM = new Map();
+maplibregl.addProtocol("rt", async (params, ctrl) => {
+  const [z, y, x] = params.url.replace("rt://", "").split("/");
+  const mem = TILEMEM.get(`${z}/${y}/${x}`); if (mem) return { data: mem.slice(0) };
+  const urls = [TILE_WEB];
+  for (const t of urls) {
+    try { const r = await fetch(t.replace("{z}", z).replace("{y}", y).replace("{x}", x), { signal: ctrl.signal }); if (r.ok) return { data: await r.arrayBuffer() }; } catch (e) { if (ctrl.signal.aborted) throw e; }
+  }
+  throw new Error("tesela no disponible");
+});
+function initMap() {
+  if (mapReady) return mapReady;
+  const tiles = ["rt://{z}/{y}/{x}"];
+  map = new maplibregl.Map({ container: "map", interactive: false, pixelRatio: PT ? 1 : Math.min(2, window.devicePixelRatio || 1), attributionControl: { compact: true }, fadeDuration: 0, maxPitch: 70, maxTileCacheSize: 4000, refreshExpiredTiles: false, center: [-52, -2], zoom: 1.6,
+    style: { version: 8, projection: { type: "globe" },
+      sky: { "sky-color": "#0B1A14", "horizon-color": "#1F3A2A", "fog-color": "#05070A", "sky-horizon-blend": .6, "horizon-fog-blend": .8, "fog-ground-blend": .6, "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 6, .8, 9, 0] },
+      sources: { sat: { type: "raster", tiles, tileSize: 256, maxzoom: 19, attribution: "Esri World Imagery" } },
+      layers: [{ id: "bg", type: "background", paint: { "background-color": "#05070A" } }, { id: "sat", type: "raster", source: "sat", paint: { "raster-contrast": .08, "raster-brightness-max": .92, "raster-fade-duration": 250 } }] } });
+  mapReady = new Promise(res => map.on("load", () => {
+    map.addSource("zona", { type: "geojson", data: circle(PIN, 170) });
+    map.addLayer({ id: "zona-fill", type: "fill", source: "zona", paint: { "fill-color": "#B8F35A", "fill-opacity": 0 } });
+    map.addLayer({ id: "zona-glow", type: "line", source: "zona", paint: { "line-color": "#B8F35A", "line-width": 14, "line-blur": 12, "line-opacity": 0 } });
+    map.addLayer({ id: "zona-line", type: "line", source: "zona", paint: { "line-color": "#B8F35A", "line-width": 3, "line-opacity": 0, "line-dasharray": [2, 1.4] } });
+    const el = document.createElement("div"); el.innerHTML = '<div class="pinmk mk-in" style="opacity:0;transition:opacity .6s"><b></b><i></i></div>';
+    map._pin = new maplibregl.Marker({ element: el }).setLngLat(PIN).addTo(map);
+    const lb = document.createElement("div"); lb.innerHTML = '<div class="zonelbl mk-in" style="opacity:0;transition:opacity .6s">Zona de entrevistas · ~3 cuadras</div>';
+    map._lbl = new maplibregl.Marker({ element: lb, anchor: "bottom", offset: [0, -40] }).setLngLat([PIN[0], PIN[1] + 0.0016]).addTo(map);
+    map.on("move", hud); res();
+  }));
+  return mapReady;
+}
+function hud() {
+  const c = map.getCenter(), z = map.getZoom();
+  document.getElementById("hlat").textContent = Math.abs(c.lat).toFixed(4); document.getElementById("hlon").textContent = Math.abs(c.lng).toFixed(4);
+  const br = map.getBearing(); document.getElementById("rose").setAttribute("transform", `rotate(${-br} 60 60)`);
+  document.getElementById("hbrg").textContent = `${Math.round(((br % 360) + 360) % 360)}°`;
+}
+const wait = ms => new Promise(r => setTimeout(r, ms)), moveEnd = () => new Promise(r => map.once("moveend", r));
+function label(k, p) { const K = document.getElementById("mapk"), Pp = document.getElementById("mapp");
+  gsap.to([K, Pp], { opacity: 0, y: -20, duration: .35, onComplete: () => { K.textContent = k; Pp.textContent = p; gsap.fromTo([K, Pp], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .7, stagger: .08, ease: "power3.out" }); } }); }
+async function flight(sec) {
+  const run = ++mapRun; await initMap(); map.resize(); map.stop(); const alive = () => run === mapRun;
+  const note = sec.querySelector(".mapnote"); gsap.set(note, { opacity: 0, y: 40 });
+  map._pin.getElement().firstChild.style.opacity = 0; map._lbl.getElement().firstChild.style.opacity = 0;
+  ["zona-fill", "zona-glow", "zona-line"].forEach(l => map.setPaintProperty(l, l === "zona-fill" ? "fill-opacity" : "line-opacity", 0));
+  map.jumpTo({ center: [-52, -2], zoom: PT ? 1.2 : 1.6, pitch: 0, bearing: 0 });
+  document.getElementById("mapk").textContent = "Dónde hicimos la investigación"; document.getElementById("mapp").textContent = "Colombia";
+  await wait(500); if (!alive()) return;
+  map.easeTo({ center: [-74.2, 4.4], zoom: PT ? 3 : 3.4, duration: 3000, easing: t => 1 - Math.pow(1 - t, 3) }); await moveEnd(); if (!alive()) return;
+  label("Colombia · capital", "Bogotá");
+  map.flyTo({ center: [-74.10, 4.60], zoom: 10.2, pitch: 20, bearing: -8, duration: 5000, curve: 1.5, essential: true }); await moveEnd(); if (!alive()) return;
+  label("Bogotá · sur de la ciudad", "Usme");
+  map.flyTo({ center: [-74.095, 4.505], zoom: 13.6, pitch: 45, bearing: -22, duration: 4000, curve: 1.2, essential: true }); await moveEnd(); if (!alive()) return;
+  label("Usme · sector Tihuaque", "Villa Rosita");
+  map.flyTo({ center: PIN, zoom: PT ? 17.6 : 17.9, pitch: 60, bearing: -38, duration: 4600, curve: 1.1, essential: true }); await moveEnd(); if (!alive()) return;
+  map._pin.getElement().firstChild.style.opacity = 1;
+  const o = { f: 0 };
+  gsap.to(o, { f: 1, duration: 1.4, ease: "power2.out", onUpdate: () => { if (!alive()) return; map.setPaintProperty("zona-fill", "fill-opacity", .12 * o.f); map.setPaintProperty("zona-glow", "line-opacity", .55 * o.f); map.setPaintProperty("zona-line", "line-opacity", o.f); } });
+  await wait(700); if (!alive()) return;
+  map._lbl.getElement().firstChild.style.opacity = 1;
+  gsap.to(note, { opacity: 1, y: 0, duration: .9, ease: "power3.out", delay: .4 });
+  const orbit = () => { if (!alive()) return; map.easeTo({ bearing: map.getBearing() + 40, duration: 16000, easing: t => t }); map.once("moveend", orbit); };
+  orbit();
+}
+// ---------- animaciones ----------
+const FX = {
+  map(sec) { flight(sec); return { revert() { mapRun++; if (map) map.stop(); } }; },
+  chain(sec) {
+    return gsap.timeline({ delay: .3 })
+      .fromTo(sec.querySelector(".chain .ln"), { scaleX: PT ? 1 : 0, scaleY: PT ? 0 : 1 }, { scaleX: 1, scaleY: 1, duration: 2.4, ease: "none" }, 0)
+      .fromTo(sec.querySelectorAll(".cn"), { opacity: 0, y: 40 }, { opacity: 1, y: 0, stagger: .38, duration: .6, ease: "back.out(1.6)" }, 0)
+      .fromTo(sec.querySelectorAll(".brk"), { scale: 0 }, { scale: 1, stagger: .3, duration: .5, ease: "back.out(3)" }, 2.5)
+      .fromTo(sec.querySelectorAll(".brks .card"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .25, duration: .6 }, 2.7);
+  },
+  receipt(sec) { return gsap.timeline({ delay: .4 }).fromTo(sec.querySelector(".receipt"), { y: -120, rotate: 6, opacity: 0 }, { y: 0, rotate: -3, opacity: 1, duration: 1, ease: "power3.out" }).fromTo(sec.querySelector(".stamp"), { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: .45, ease: "power4.in" }, 1.2); },
+  heat(sec) { return gsap.fromTo(sec.querySelectorAll(PT ? ".heatT .c" : ".heat .c"), { scale: 0, opacity: 0 }, { scale: 1, opacity: (i, el) => +(el.dataset.o || 1), duration: .35, stagger: { each: .006, grid: [9, 17] }, ease: "back.out(2)", delay: .6 }); },
+  dumbbell(sec) {
+    return gsap.timeline({ delay: .8 })
+      .fromTo(sec.querySelectorAll(".db-s"), { scale: 0, transformOrigin: "center" }, { scale: 1, stagger: .08, duration: .4 })
+      .fromTo(sec.querySelectorAll(".db-l"), { attr: { x2: (i, el) => el.getAttribute("x1") } }, { attr: { x2: (i, el) => el.getAttribute("x2") }, stagger: .08, duration: .7, ease: "power2.out" }, "+=.2")
+      .fromTo(sec.querySelectorAll(".db-d"), { scale: 0, transformOrigin: "center" }, { scale: 1, stagger: .08, duration: .4, ease: "back.out(3)" }, "-=.6");
+  },
+  rigor(sec) { const l = sec.querySelector("#satline"), len = l.getTotalLength();
+    return gsap.timeline({ delay: .6 }).fromTo(l, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.8, ease: "power2.out" }).fromTo(sec.querySelectorAll(".satdot"), { scale: 0, transformOrigin: "center" }, { scale: 1, stagger: .1, duration: .3 }, "-=1.6"); },
+  faces(sec) { return gsap.fromTo(sec.querySelectorAll("#facesrow .pf"), { y: 40, opacity: 0, rotate: -12 }, { y: 0, opacity: 1, rotate: 0, stagger: .1, duration: .8, ease: "back.out(2)", delay: .5 }); },
+};
+let running = [], lastSec = null, lastT = 0;
+function animate(sec) {
+  if (sec === lastSec && Date.now() - lastT < 400) return; lastSec = sec; lastT = Date.now();
+  running.forEach(t => t && (t.revert ? t.revert() : t.kill && t.kill())); running = [];
+  sec.querySelectorAll("video").forEach(v => { v.muted = true; v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {}); });
+  const a = sec.querySelectorAll(".a");
+  if (a.length) running.push(PT ? gsap.fromTo(a, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .6, stagger: .07, ease: "power2.out", clearProps: "transform" })
+                   : gsap.fromTo(a, { opacity: 0, y: 40, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: .85, stagger: .11, ease: "power3.out", clearProps: "filter" }));
+  sec.querySelectorAll("[data-count]").forEach(el => { const end = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), o = { v: 0 };
+    running.push(gsap.to(o, { v: end, duration: 1.8, delay: .35, ease: "power3.out", onUpdate: () => el.textContent = fmt(o.v, dec) })); });
+  sec.querySelectorAll("[data-bar]").forEach((el, i) => running.push(gsap.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 1.3, delay: .5 + i * .1, ease: "power3.out" })));
+  const fx = sec.dataset.fx; if (fx && FX[fx]) running.push(FX[fx](sec));
+}
+// ---------- Reveal ----------
+const startIdx = sessionStorage.getItem("recoevo_rot") ? +(sessionStorage.getItem("recoevo_idx") || 0) : 0; sessionStorage.removeItem("recoevo_rot");
+Reveal.initialize({ width: PT ? PW : 1920, height: PT ? PH : 1080, margin: 0, minScale: .05, maxScale: 4, center: false, controls: PT, controlsTutorial: false,
+  progress: true, hash: false, transition: PT ? "slide" : "fade", backgroundTransition: "fade", keyboard: true, overview: true, viewDistance: PT ? 2 : 3, mobileViewDistance: 2, transitionSpeed: PT ? "fast" : "default", touch: true, scrollActivationWidth: null, view: null })
+  .then(() => { Reveal.configure({ keyboard: false }); if (startIdx) PT ? Reveal.slide(0, startIdx) : Reveal.slide(startIdx); preload(); });
+const curIdx = () => { const i = Reveal.getIndices(); return PT ? (i.v || 0) : i.h; };
+Reveal.on("slidechanged", e => {
+  sessionStorage.setItem("recoevo_idx", curIdx());
+  document.querySelectorAll(".reveal video").forEach(v => { if (!e.currentSlide.contains(v)) v.pause(); });
+  const mp = document.getElementById("map"); if (mp) mp.style.visibility = e.currentSlide.contains(mp) ? "visible" : "hidden";
+  animate(e.currentSlide);
+});
+
+
+// ---------- logo institucional y carrusel de portada ----------
+document.querySelectorAll(".reveal .slides section:not(.stack)").forEach(sec => {
+  if (sec.classList.contains("cover") || sec.dataset.fx === "map" || (!PT && sec.querySelector(".qr"))) return;
+  const im = document.createElement("img"); im.className = "poli"; im.src = "media/logo_poli.png"; im.alt = "Politécnico Grancolombiano"; sec.appendChild(im);
+});
+document.querySelectorAll(".kb").forEach(kb => {
+  const imgs = [...kb.querySelectorAll("img")], dots = [...kb.parentElement.querySelectorAll(".kbdots i")]; let k = 0;
+  const sec = kb.closest("section");
+  const show = (i, first) => {
+    const im = imgs[i]; gsap.killTweensOf(im); im.style.zIndex = 2;
+    if (PT) gsap.fromTo(im, { opacity: first ? 1 : 0 }, { opacity: 1, duration: first ? 0 : 1.4, ease: "power1.inOut" });
+    else { gsap.fromTo(im, { scale: 1.02, opacity: first ? 1 : 0 }, { scale: 1.14, duration: 6.5, ease: "none" });
+           if (!first) gsap.to(im, { opacity: 1, duration: 1.8, ease: "power1.inOut" }); }
+    dots.forEach((d, j) => d.classList.toggle("on", j === i));
+  };
+  show(0, true);
+  setInterval(() => {
+    if (!sec.classList.contains("present")) return;                               // no gasta memoria si no se ve
+    const prev = imgs[k]; prev.style.zIndex = 1;                                  // la anterior queda debajo, sigue su zoom
+    k = (k + 1) % imgs.length; show(k, false);
+    gsap.to(prev, { opacity: 0, duration: PT ? 1 : 1.8, delay: PT ? 1.4 : 1.8, ease: "none" });       // se apaga cuando la nueva ya cubre
+  }, 4000);
+});
+// ---------- PRECARGA: todo a memoria antes de empezar ----------
+const MEDIA = new Map();
+async function preload() {
+  const $ = id => document.getElementById(id), T0 = performance.now();
+  const set = (id, a, b) => { const li = $(id); if (!li) return; li.querySelector("b").textContent = b == null ? a : `${a} / ${b}`; li.classList.toggle("ok", b != null && a >= b); };
+  const http = location.protocol.startsWith("http");
+  $("ldgo").classList.add("ready");   // en la web se puede empezar de una vez
+  const urls = new Set(), vids = new Set();
+  document.querySelectorAll("video[src]").forEach(v => vids.add(v.getAttribute("src")));
+  document.querySelectorAll("[data-video]").forEach(v => vids.add(v.dataset.video));
+  document.querySelectorAll(".reveal img[src]").forEach(i => urls.add(i.getAttribute("src")));
+  document.querySelectorAll(".reveal [style*='background-image']").forEach(e => { const m = e.getAttribute("style").match(/url\(([^)]+)\)/); if (m) urls.add(m[1].replace(/["']/g, "")); });
+  const auds = [];   // los audios de las entrevistas no se publican en la web
+  let tiles = [];
+  // en la web el mapa se carga en línea, tesela por tesela
+  const W = { t: .30, v: .35, i: .20, a: 0, w: .15 }, done = { t: 0, v: 0, i: 0, a: 0, w: 0 }, tot = { t: tiles.length || 1, v: vids.size || 1, i: urls.size || 1, a: 1, w: 1 };
+  const prog = msg => { if (!$("ldbar")) return; let p = 0; for (const k in W) p += W[k] * Math.min(1, done[k] / tot[k]); $("ldbar").style.width = (p * 100).toFixed(1) + "%"; $("ldpct").textContent = Math.round(p * 100) + " %"; if (msg) $("ldmsg").textContent = msg; };
+  const pool = async (items, n, fn) => { let i = 0; await Promise.all(Array.from({ length: n }, async () => { while (i < items.length) { const it = items[i++]; try { await fn(it); } catch (e) {} } })); };
+  const blobUrl = async u => { const r = await fetch(u); if (!r.ok) throw 0; const b = URL.createObjectURL(await r.blob()); MEDIA.set(u, b); return b; };
+  set("ld-t", "en línea"); set("ld-v", 0, vids.size); set("ld-i", 0, urls.size);
+  if (http) {
+    prog("Cargando videos…");
+    await pool([...vids], 4, async u => { await blobUrl(u); done.v++; set("ld-v", done.v, vids.size); prog(); });
+    document.querySelectorAll("video[src]").forEach(v => { const b = MEDIA.get(v.getAttribute("src")); if (b) { v.preload = "auto"; v.src = b; } });
+    prog("Cargando fotos…");
+    await pool([...urls], 6, async u => { const img = new Image(); img.src = u; await img.decode(); done.i++; set("ld-i", done.i, urls.size); prog(); });
+    prog("Cargando mapa satelital…");
+    done.t = tot.t; set("ld-t", "en línea"); if (false) try {  // un solo paquete (pack.bin) con todas las teselas: mucho más rápido que miles de solicitudes
+      const idx = await (await fetch("media/tiles/pack.json")).json(), r = await fetch("media/tiles/pack.bin");
+      // tamaño real desde el índice (el servidor puede enviar el archivo comprimido y su Content-Length no sirve)
+      const size = Object.values(idx).reduce((m, [o, n]) => Math.max(m, o + n), 0), buf = new Uint8Array(size), rd = r.body.getReader(); let got = 0;
+      for (;;) { const { done: fin, value } = await rd.read(); if (fin) break; buf.set(value.subarray(0, Math.max(0, size - got)), got); got += value.length; done.t = Math.min(tiles.length, Math.floor(tiles.length * got / size)); set("ld-t", done.t, tiles.length); prog(); }
+      for (const [k, [o, n]] of Object.entries(idx)) TILEMEM.set(k, buf.buffer.slice(o, o + n));
+      done.t = tiles.length; set("ld-t", done.t, tiles.length); prog();
+    } catch (e) {
+      await pool(tiles, 16, async k => { const r = await fetch(`media/tiles/${k}.jpg`); if (r.ok) TILEMEM.set(k, await r.arrayBuffer()); done.t++; if (done.t % 40 === 0) { set("ld-t", done.t, tiles.length); prog(); } });
+    }
+    done.a = tot.a;
+  } else {
+    done.t = tot.t; done.v = tot.v; done.i = tot.i; done.a = tot.a;
+  }
+  done.w = 1; prog(`Listo en ${((performance.now() - T0) / 1000).toFixed(1)} s`);
+  if ($("ldfs")) $("ldfs").focus();
+}
+async function warmMap() {
+  await initMap(); map.resize();
+  const idle = () => new Promise(r => { const t = setTimeout(r, 2500); map.once("idle", () => { clearTimeout(t); r(); }); });
+  const WP = [[[-52, -2], PT ? 1.2 : 1.6, 0, 0], [[-74.2, 4.4], 3.4, 0, 0], [[-74.1, 4.6], 7, 10, -4], [[-74.1, 4.6], 10.2, 20, -8], [[-74.095, 4.505], 12, 35, -15], [[-74.095, 4.505], 13.6, 45, -22], [PIN, 15.8, 55, -30], [PIN, 17.9, 60, -38], [PIN, 17.9, 60, 20], [PIN, 17.9, 60, 80]];
+  for (const [c, z, p, b] of WP) { map.jumpTo({ center: c, zoom: z, pitch: p, bearing: b }); await idle(); }
+  map.jumpTo({ center: [-52, -2], zoom: PT ? 1.2 : 1.6, pitch: 0, bearing: 0 });
+}
+function startShow(fs) {
+  const L = document.getElementById("loader");
+  if (fs && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+  player.muted = true; player.play().catch(() => {}); player.pause(); player.muted = false;   // desbloquea el audio
+  if (PT) L.remove(); else { L.classList.add("off"); setTimeout(() => L.remove(), 900); }
+  Reveal.configure({ keyboard: true }); if (!startIdx) Reveal.slide(0, 0); lastSec = null; animate(Reveal.getCurrentSlide());
+}
+document.getElementById("ldfs").onclick = () => startShow(true);
+document.getElementById("ldst").onclick = () => startShow(false);
+// Enter, espacio o flecha (también control remoto de diapositivas) inician cuando la carga termina
+addEventListener("keydown", function k(e) {
+  if (!document.getElementById("ldgo")?.classList.contains("ready")) return;
+  if (["Enter", " ", "ArrowRight", "ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); removeEventListener("keydown", k, true); startShow(e.key === "Enter"); }
+}, true);
+// al girar el dispositivo se cambia de formato conservando la lámina
+let lastPT = PT; addEventListener("resize", () => { const now = innerHeight > innerWidth; if (now !== lastPT) { sessionStorage.setItem("recoevo_idx", curIdx()); sessionStorage.setItem("recoevo_rot", "1"); location.reload(); } });
+</script>
+</body>
+</html>

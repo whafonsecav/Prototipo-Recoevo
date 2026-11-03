@@ -299,7 +299,7 @@ def construir(col, M):
     caja('Enchape izq', vx0 - X_MESON[0], 0.008, z_e1 - Z_MESON, ((X_MESON[0] + vx0) / 2, Y_MURO - 0.004, (Z_MESON + z_e1) / 2), enchape, col, b=0)
     caja('Enchape der', 0.98 - vx1, 0.008, z_e1 - Z_MESON, ((vx1 + 0.98) / 2, Y_MURO - 0.004, (Z_MESON + z_e1) / 2), enchape, col, b=0)
     caja('Enchape bajo ventana', vx1 - vx0, 0.008, vz0 - Z_MESON, ((vx0 + vx1) / 2, Y_MURO - 0.004, (Z_MESON + vz0) / 2), enchape, col, b=0)
-    caja('Enchape tras equipo', 0.98 - X_MESON[1], 0.008, Z_MESON, ((X_MESON[1] + 0.98) / 2, Y_MURO - 0.004, Z_MESON / 2), enchape, col, b=0)
+    caja('Enchape tras producto', 0.98 - X_MESON[1], 0.008, Z_MESON, ((X_MESON[1] + 0.98) / 2, Y_MURO - 0.004, Z_MESON / 2), enchape, col, b=0)
     # guardaescoba
     caja('Guardaescoba', X_DER - 0.98, 0.012, 0.08, ((0.98 + X_DER) / 2, Y_MURO - 0.006, 0.04), piso, col, b=0.002)
     caja('Guardaescoba der', 0.012, Y_MURO - Y_FRENTE, 0.08, (X_DER - 0.006, (Y_MURO + Y_FRENTE) / 2, 0.04), piso, col, b=0.002)
@@ -428,7 +428,7 @@ def construir(col, M):
             caja('Manija alta', 0.010, 0.012, 0.12, (cx + (ww / 2 - 0.05) * (1 if k % 2 else -1), Y_MURO - 0.355, 1.58), alu, col, b=0.003)
     caja('Mueble alto techo', ex + 0.32 - (ex - 0.32), 0.33, 0.45, (ex, Y_MURO - 0.165, 2.10), cedro, col, b=0.002)
 
-    # ---- calendario de la tienda del barrio en la pared, a la derecha del equipo
+    # ---- calendario de la tienda del barrio en la pared, a la derecha del producto
     cxl = 1.45
     caja('Calendario hoja', 0.30, 0.004, 0.44, (cxl, Y_MURO - 0.004, 1.42), plat, col, b=0)
     caja('Calendario foto', 0.28, 0.003, 0.18, (cxl, Y_MURO - 0.007, 1.53), material('Foto paisaje', hexcol('#6F9A5B'), 0.6,
@@ -438,7 +438,7 @@ def construir(col, M):
     caja('Calendario titulo', 0.16, 0.002, 0.018, (cxl, Y_MURO - 0.007, 1.425), tapa_roja, col, b=0)
     cilindro('Puntilla', 0.004, 0.01, (cxl, Y_MURO - 0.01, 1.64), alu, eje='Y', col=col)
 
-    # limpión de cuadros colgado del tirador del cajón al lado del equipo
+    # limpión de cuadros colgado del tirador del cajón al lado del producto
     lx = -1.30                     # limpión en el cajón junto a la estufa
     bm = bmesh.new()
     nx, nz = 10, 16
@@ -457,7 +457,7 @@ def construir(col, M):
     sb = lm.modifiers.new('S', 'SUBSURF')
     sb.levels = sb.render_levels = 1
 
-    # ---- tabla de picar con frutas cerca del equipo, frutero y termo
+    # ---- tabla de picar con frutas cerca del producto, frutero y termo
     tx, ty = -0.05, Y_MURO - 0.30
     caja('Tabla', 0.38, 0.24, 0.018, (tx, ty, Z_MESON + 0.009), tabla, col, b=0.004)
     cuchillo = caja('Cuchillo hoja', 0.17, 0.028, 0.002, (tx + 0.05, ty - 0.07, Z_MESON + 0.019), inox, col, b=0.0008)
@@ -493,7 +493,7 @@ def construir(col, M):
     termo_o = cilindro('Termo', 0.045, 0.26, (-1.06, Y_MURO - 0.14, Z_MESON + 0.13), termo, col=col, b=0.008)
     cilindro('Tapa termo', 0.040, 0.05, (-1.06, Y_MURO - 0.14, Z_MESON + 0.285), plat, col=col, b=0.006)
 
-    # ---- repisa de madera con frascos (lentejas, frijol, arroz) sobre el equipo
+    # ---- repisa de madera con frascos (lentejas, frijol, arroz) sobre el producto
     caja('Repisa', 0.60, 0.20, 0.025, (0.62, Y_MURO - 0.10, 1.42), tabla, col, b=0.003)
     for x in (0.38, 0.86):
         caja('Escuadra', 0.02, 0.16, 0.12, (x, Y_MURO - 0.08, 1.36), alu, col, b=0.002)

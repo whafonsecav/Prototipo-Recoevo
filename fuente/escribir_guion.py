@@ -6,11 +6,11 @@ guion = json.load(open(sys.argv[1], encoding='utf-8'))
 T = json.load(open(sys.argv[2], encoding='utf-8'))
 salida = sys.argv[3]
 SECCIONES = {
-    'problema1': 'PROBLEMÁTICA 1 · LA BASURA DE LA CIUDAD  (cocina colombiana, el equipo frente al mesón)',
+    'problema1': 'PROBLEMÁTICA 1 · LA BASURA DE LA CIUDAD  (cocina colombiana, el producto frente al mesón)',
     'problema2': 'PROBLEMÁTICA 2 · EL CAMPO SIN ABONO  (la ventana con la sábila)',
     'consecuencia': 'LA CONSECUENCIA · HAY QUE SEPARAR EN CASA',
     'solucion': 'LA SOLUCIÓN · RECOEVO, CÓMO SE USA  (tapa, cáscaras, pedal derecho con rayos X, pedal izquierdo, balde)',
-    'dentro': 'POR DENTRO · VISTA EXPLOSIONADA  (la cocina se desvanece, el equipo flota y se despieza con etiquetas)',
+    'dentro': 'POR DENTRO · VISTA EXPLOSIONADA  (la cocina se desvanece, el producto flota y se despieza con etiquetas)',
     'mercado': 'POR QUÉ ES LA MEJOR OPCIÓN + LLAMADO A LA ACCIÓN  (se arma y vuelve exactamente al primer fotograma)',
 }
 

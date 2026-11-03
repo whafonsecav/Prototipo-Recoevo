@@ -2,80 +2,94 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <title>RECOEVO · Prototipo interactivo</title>
-  <meta name="description" content="Explora el triturador RECOEVO: toca cada pieza para ver qué hace, sepáralo y mira cómo funciona.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RECOEVO · Triturador de cocina a pedal</title>
+  <meta name="description" content="RECOEVO: triturador de restos de comida a pedal, sin electricidad, con filtro de carbón activado. Mira el prototipo en 3D, los videos y el estudio de campo.">
   <meta name="theme-color" content="#154734">
+  <meta property="og:title" content="RECOEVO · Menos relleno, más vida.">
+  <meta property="og:description" content="Triturador de cocina a pedal, sin electricidad. Prototipo en 3D, videos y estudio de campo.">
+  <meta property="og:image" content="https://whafonsecav.github.io/Prototipo-Recoevo/assets/img/menu/videos.jpg">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/img/icono-192.png">
   <link rel="apple-touch-icon" href="assets/img/icono-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="preload" href="assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/marca.css">
 </head>
 <body>
-  <canvas id="lienzo" aria-label="RECOEVO en 3D. Desliza para girar, pellizca para acercar, toca una pieza."></canvas>
-
-  <header class="marca">
-    <img src="assets/img/logo.svg" alt="recoevo" class="logo">
-    <span class="eslogan">Menos relleno, <b>más vida.</b></span>
-    <span class="sello">A pedal, sin electricidad</span>
+  <header class="portada">
+    <img class="logo" src="assets/img/logo-negativo.svg" alt="recoevo" width="832" height="273">
+    <p class="eslogan">Menos relleno, <b>más vida.</b></p>
+    <h1>El triturador de cocina que funciona con el pie</h1>
+    <p class="bajada">Echas las cáscaras, pisas el pedal y las cuchillas las cortan en tiras. Sin electricidad, con filtro de carbón activado contra el olor.</p>
+    <ul class="chips" aria-label="En pocas palabras">
+      <li class="precio">$199.900 IVA incluido</li>
+      <li>Sin cables ni motor</li>
+    </ul>
   </header>
-  <div class="precio" aria-label="Precio">$199.900 <small>IVA incluido</small></div>
 
-  <div id="puntos" aria-hidden="false"></div>
+  <main class="menu">
+    <h2>Elige qué quieres ver</h2>
+    <ol class="tarjetas">
+      <li>
+        <a class="tarjeta destacada" href="prototipo/">
+          <span class="foto"><img src="assets/img/menu/prototipo.jpg" alt="" loading="eager" width="640" height="640"><span class="num">1</span></span>
+          <div class="texto"><h3>Ver el prototipo en 3D</h3><p>Gíralo, acércalo, sepáralo y toca cada pieza para ver qué hace.</p></div>
+          <span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="tarjeta" href="video-pitch/">
+          <span class="foto"><img src="assets/img/menu/pitch.jpg" alt="" loading="eager" width="720" height="405"><span class="num">2</span></span>
+          <div class="texto"><h3>Video pitch del equipo</h3><p>El equipo cuenta el problema, la idea y el plan en 2 minutos.</p></div>
+          <span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="tarjeta" href="video-prototipo/">
+          <span class="foto"><img src="assets/img/menu/video-prototipo.jpg" alt="" loading="eager" width="640" height="640"><span class="num">3</span></span>
+          <div class="texto"><h3>Video del prototipo explicado</h3><p>Cómo funciona RECOEVO, paso a paso y por dentro.</p></div>
+          <span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="tarjeta" href="estudio-campo/">
+          <span class="foto"><img src="assets/img/menu/estudio-campo.jpg" alt="" loading="lazy" width="720" height="540"><span class="num">4</span></span>
+          <div class="texto"><h3>Estudio de campo: resultados de las encuestas</h3><p>Lo que nos dijeron 8 vecinos de Usme y lo que vimos en la calle.</p></div>
+          <span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="tarjeta" href="videos/">
+          <span class="foto"><img src="assets/img/menu/videos.jpg" alt="" loading="lazy" width="720" height="375"><span class="num">5</span></span>
+          <div class="texto"><h3>Videos del evento</h3><p>RECOEVO en una cocina: versión horizontal y vertical.</p></div>
+          <span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+    </ol>
+  </main>
 
-  <p id="pista">Desliza para girar · toca una pieza para conocerla</p>
-
-  <div id="recorrido" role="status" aria-live="polite">
-    <div id="recorrido-pasos"><i></i><i></i><i></i><i></i></div>
-    <p id="recorrido-texto"></p>
-    <small>Toca la pantalla para salir</small>
-  </div>
-
-  <nav class="dock" aria-label="Acciones">
-    <button id="b-separar" class="boton">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
-      <span>Separar piezas</span>
-    </button>
-    <button id="b-funciona" class="boton">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg>
-      <span>Cómo funciona</span>
-    </button>
-    <button id="b-centrar" class="boton redondo" aria-label="Volver a la vista inicial">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg>
-    </button>
-  </nav>
-
-  <div id="velo"></div>
-  <section id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
-    <button id="modal-cerrar" class="x" aria-label="Cerrar">×</button>
-    <div class="cabeza">
-      <img id="modal-icono" alt="" width="44" height="44">
-      <div>
-        <small id="modal-n"></small>
-        <h2 id="modal-titulo"></h2>
-      </div>
-    </div>
-    <p id="modal-corto" class="corto"></p>
-    <p id="modal-texto"></p>
-    <ul id="modal-datos"></ul>
-    <div class="flechas">
-      <button id="modal-ant" aria-label="Pieza anterior">‹ Anterior</button>
-      <button id="modal-sig" aria-label="Pieza siguiente">Siguiente ›</button>
+  <section class="producto-resumen" aria-labelledby="t-resumen">
+    <div class="caja">
+      <h2 id="t-resumen">RECOEVO en pocas palabras</h2>
+      <ul>
+        <li><img src="assets/img/iconos/icono_pedal.svg" alt=""><span><b>Pedal derecho:</b> 13 cuchillas cortan las cáscaras en tiras de unos 5 mm. Unos 20 segundos de pedaleo al día.</span></li>
+        <li><img src="assets/img/iconos/icono_filtro.svg" alt=""><span><b>Filtro de carbón activado</b> en la tapa: atrapa el olor. Viene con el producto y dura unos 6 meses.</span></li>
+        <li><img src="assets/img/iconos/icono_balde.svg" alt=""><span><b>Balde de 10 L</b> con aro para cualquier bolsa compostable del supermercado: una bolsa por semana.</span></li>
+        <li><img src="assets/img/iconos/icono_material_seco.svg" alt=""><span><b>Pedal izquierdo, opcional:</b> suelta material seco (papel, hojas secas o aserrín) que absorbe el líquido. Si sacas la bolsa cada 2 o 3 días, no hace falta.</span></li>
+        <li><img src="assets/img/iconos/icono_seguro.svg" alt=""><span><b>Seguro:</b> con la tapa abierta el pedal no baja, y la puerta tiene cierre para niños.</span></li>
+        <li><img src="assets/img/iconos/icono_reciclado.svg" alt=""><span><b>32 × 34 × 52 cm, unos 5 kg.</b> Gabinete con 70 % de plástico reciclado.</span></li>
+      </ul>
     </div>
   </section>
 
-  <div id="carga">
-    <img src="assets/img/isotipo.svg" alt="" width="72" height="72">
-    <div id="barra"><i></i></div>
-    <p>Cargando el prototipo…</p>
-  </div>
+  <footer class="pie">
+    <p><b>RECOEVO</b> · Proyecto de Proceso Administrativo · Politécnico Grancolombiano · E-Fest 2026-2</p>
+    <p>RECOEVO todavía no se fabrica: las medidas y los materiales vienen del plan de fábrica.</p>
+  </footer>
 
-  <script src="assets/vendor/three.min.js"></script>
-  <script src="assets/js/partes.js"></script>
-  <script src="assets/js/glb.js"></script>
-  <script src="assets/js/controles.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script>
+    // sin conexión: guarda el sitio para abrirlo sin internet (siempre trae lo más nuevo cuando hay red)
+    if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+  </script>
 </body>
 </html>

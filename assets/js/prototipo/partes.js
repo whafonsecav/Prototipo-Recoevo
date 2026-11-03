@@ -1,46 +1,46 @@
-/* RECOEVO · qué es cada pieza (fuente: lista de materiales y hoja de ingeniería del plan de fábrica, 29-oct-2026).
+/* RECOEVO · qué es cada pieza (fuente: lista de materiales y hoja «5 Producto» del plan de fábrica, nov-2026).
    Cada pieza: nodos del modelo que la forman, ancla para el punto táctil, ícono de la marca y texto en lenguaje sencillo. */
 window.PARTES = [
   {
     id: "tapa", nodos: ["G_tapa"], ancla: "A_tapa", icono: "olor",
     titulo: "Tapa con junta",
     corto: "Cierra la boca y no deja salir el olor.",
-    texto: "Se abre para echar las cáscaras. Al cerrarla, una junta de caucho sella el borde y arriba guarda el filtro de carbón.",
-    datos: ["PP virgen inyectado", "Junta EPDM perfil D en todo el borde", "Alojamiento para el filtro"]
+    texto: "Se abre para echar las cáscaras. Al cerrarla, una junta de caucho sella el borde. Arriba lleva el filtro de carbón activado.",
+    datos: ["PP virgen inyectado", "Junta de caucho EPDM en todo el borde", "Alojamiento para el filtro"]
   },
   {
     id: "filtro", nodos: ["G_filtro", "G_tapa_filtro"], ancla: "A_filtro", icono: "filtro",
-    titulo: "Filtro de carbón y válvula",
-    corto: "Atrapa el olor; deja salir los gases.",
-    texto: "Una bolsita con 60 g de carbón activado absorbe el olor. La válvula de una vía deja salir el aire sin que entren moscas.",
-    datos: ["60 g de carbón activado: dura 6 meses", "Válvula de silicona Ø20 mm", "Tapita del filtro a presión"]
+    titulo: "Filtro de carbón activado y válvula",
+    corto: "Limpia el olor del aire; deja salir los gases.",
+    texto: "Una bolsita de malla con 60 g de carbón activado atrapa el olor. La válvula de una vía deja salir el aire sin que entren moscas. Viene con el producto y dura unos 6 meses.",
+    datos: ["60 g de carbón activado", "Dura ≈ 6 meses", "Válvula de silicona Ø20 mm", "Tapita del filtro a presión"]
   },
   {
     id: "gabinete", nodos: ["G_gabinete"], ancla: "A_gabinete", icono: "reciclado",
     titulo: "Gabinete",
     corto: "La carcasa: del tamaño de una caneca con pedal.",
-    texto: "Contiene todo el mecanismo. Se inyecta en una sola pieza con plástico reciclado y el logo va en relieve.",
-    datos: ["PP inyectado de 2,2 mm con nervios", "70 % plástico reciclado", "32 × 34 × 52 cm · ≈5 kg"]
+    texto: "Contiene todo el mecanismo. Se inyecta en una sola pieza con plástico reciclado y lleva el logo en relieve.",
+    datos: ["PP inyectado de 2,2 mm con nervios", "70 % plástico reciclado", "32 × 34 × 52 cm · ≈ 5 kg"]
   },
   {
     id: "puerta", nodos: ["G_puerta"], ancla: "A_puerta", icono: "seguro",
     titulo: "Puerta frontal",
     corto: "Da acceso al balde.",
-    texto: "Se abre para sacar el balde una vez por semana. Su cierre de doble acción evita que la abran los niños.",
-    datos: ["PP virgen inyectado", "Cierre de doble acción para niños", "Junta EPDM"]
+    texto: "Se abre para sacar el balde. Su cierre de doble acción, como la tapa de los frascos de medicina, evita que la abran los niños.",
+    datos: ["PP virgen inyectado", "Cierre de doble acción para niños", "Junta de caucho EPDM"]
   },
   {
     id: "balde", nodos: ["G_balde"], ancla: "A_balde", icono: "balde",
-    titulo: "Balde de 10 L con bolsa",
+    titulo: "Balde de 10 L",
     corto: "Recibe las tiras trituradas.",
-    texto: "Lleva una bolsa verde compostable con cordón. Se llena en una semana: la bolsa sale lista para la ruta de orgánicos.",
-    datos: ["10 litros · asa y aro para la bolsa", "Una bolsa por semana", "El equipo trae 5 bolsas"]
+    texto: "Tiene asa y un aro que sujeta cualquier bolsa verde compostable del supermercado. Con la ruta semanal de orgánicos se llena en unos 7 días (≈ 75 %): sacas la bolsa y listo.",
+    datos: ["10 litros · asa y aro para la bolsa", "Bolsa compostable del supermercado (no viene incluida)", "Una bolsa por semana"]
   },
   {
     id: "base", nodos: ["G_base"], ancla: "A_base", icono: "reciclado",
     titulo: "Base y bastidor de pedales",
-    corto: "Sostiene el equipo y guía los pedales.",
-    texto: "Es el zócalo del equipo. Por dentro tiene nervios que le dan rigidez y el eje donde giran los dos pedales.",
+    corto: "Sostiene el producto y guía los pedales.",
+    texto: "Es el zócalo del producto. Por dentro tiene nervios que le dan rigidez y el eje donde giran los dos pedales.",
     datos: ["PP 70 % reciclado, con nervios", "Eje de pedales de acero Ø8 mm"]
   },
   {
@@ -48,14 +48,14 @@ window.PARTES = [
     titulo: "Pedal derecho · tritura",
     corto: "Con el pie se mueven las cuchillas.",
     texto: "Es una palanca 2:1: el pie baja 6 cm y la cremallera baja 3 cm. Cada pisada hace girar el eje de corte unos 143°.",
-    datos: ["PP con 30 % de fibra de vidrio", "≈20 segundos de pedaleo al día", "Sin motor ni electricidad"]
+    datos: ["PP con 30 % de fibra de vidrio", "≈ 11 pisadas al día (unos 20 segundos)", "Sin motor ni electricidad"]
   },
   {
-    id: "pedal_izq", nodos: ["G_pedal_izq"], ancla: "A_pedal_izq", icono: "aserrin",
-    titulo: "Pedal izquierdo · aserrín",
-    corto: "Suelta una dosis de aserrín.",
-    texto: "Cada pisada gira el dosificador y deja caer 40 mL de aserrín sobre lo triturado: absorbe la humedad y frena el olor.",
-    datos: ["40 mL por pisada", "≈3 dosis al día"]
+    id: "pedal_izq", nodos: ["G_pedal_izq"], ancla: "A_pedal_izq", icono: "material_seco",
+    titulo: "Pedal izquierdo · material seco (opcional)",
+    corto: "Si quieres, suelta una dosis de material seco.",
+    texto: "Cada pisada gira el dosificador y deja caer 40 mL de material seco sobre lo triturado: absorbe el líquido y ayuda a compostar. Es opcional: si sacas la bolsa cada 2 o 3 días, no hace falta.",
+    datos: ["40 mL por pisada (≈ 3 cucharadas)", "≈ 3 dosis al día, si se usa", "Opcional"]
   },
   {
     id: "cremallera", nodos: ["G_cremallera"], ancla: "A_cremallera", icono: "flecha",
@@ -81,8 +81,8 @@ window.PARTES = [
   {
     id: "peine", nodos: ["G_peine"], ancla: "A_peine", icono: "tiras",
     titulo: "Peine fijo",
-    corto: "Corta la cáscara en tiras de ≈5 mm.",
-    texto: "Sus 12 dedos quedan entre las cuchillas. Cuando la cuchilla pasa, la cáscara se corta contra el dedo como una tijera.",
+    corto: "Corta la cáscara en tiras de ≈ 5 mm.",
+    texto: "Sus 12 dedos quedan entre las cuchillas. Cuando la cuchilla pasa, la cáscara se corta contra el dedo como con unas tijeras.",
     datos: ["Inox 304 de 2 mm, estampado", "Dedos de 5 mm en huecos de 5,6 mm"]
   },
   {
@@ -103,27 +103,27 @@ window.PARTES = [
     id: "perilla", nodos: ["G_perilla"], ancla: "A_perilla", icono: "ciclo",
     titulo: "Perilla de reversa",
     corto: "Destraba el eje a mano.",
-    texto: "Si algo duro se atasca, se gira la perilla hacia atrás y el eje se libera. Como no hay volante ni motor, nada empuja solo.",
+    texto: "Si algo duro se atasca, se gira la perilla hacia atrás y el eje se libera. Como no hay motor ni energía guardada, nada se mueve solo.",
     datos: ["En el extremo izquierdo del eje", "Pieza inyectada"]
   },
   {
-    id: "deposito", nodos: ["G_deposito"], ancla: "A_deposito", icono: "aserrin",
-    titulo: "Depósito de aserrín y dosificador",
-    corto: "Guarda el aserrín y lo dosifica.",
-    texto: "Tiene 2 litros, suficientes para unos 16 días. El dosificador rotativo suelta una celda de 40 mL con cada pisada.",
-    datos: ["2 L ≈ 16 días", "Dosificador rotativo de 40 mL", "Se recarga por una tapita arriba"]
+    id: "deposito", nodos: ["G_deposito"], ancla: "A_deposito", icono: "material_seco",
+    titulo: "Compartimento de material seco (opcional)",
+    corto: "Guarda el material seco, si decides usarlo.",
+    texto: "Tiene 2 litros y se llena por una tapita arriba. Sirve papel periódico o cartón triturado, hojas secas o aserrín de ferretería. RECOEVO no lo vende: usas lo que tengas en casa, o nada.",
+    datos: ["2 L ≈ 17 días con 3 dosis al día", "Dosificador rotativo de 40 mL", "Se llena por una tapita arriba"]
   },
   {
     id: "seguro", nodos: ["G_seguro"], ancla: "A_seguro", icono: "seguro",
     titulo: "Seguro de tapa",
     corto: "Con la tapa abierta, el pedal no baja.",
     texto: "Al abrir la tapa, un pasador baja y bloquea la cremallera. Así las cuchillas no se mueven mientras alguien echa las cáscaras.",
-    datos: ["Pasador inyectado con resorte", "Se validará con 20.000 ciclos"]
+    datos: ["Pasador inyectado con resorte", "Se probará con 20.000 ciclos"]
   },
   {
     id: "patas", nodos: ["G_patas"], ancla: "A_patas", icono: "check",
     titulo: "Patas antideslizantes",
-    corto: "El equipo no se corre al pisar.",
+    corto: "El producto no se corre al pisar.",
     texto: "Cuatro patas de caucho termoplástico lo mantienen firme sobre el piso de la cocina.",
     datos: ["TPE inyectado · 4 patas"]
   }
@@ -155,6 +155,6 @@ window.SEPARAR = {
 window.PASOS = [
   { id: "tapa", texto: "1 · Abres la tapa y echas las cáscaras." },
   { id: "pedal_der", texto: "2 · Cierras y pisas el pedal derecho: 13 cuchillas las cortan en tiras." },
-  { id: "pedal_izq", texto: "3 · Con el pedal izquierdo cae una dosis de aserrín." },
-  { id: "balde", texto: "4 · Abajo, un balde de 10 L con bolsa compostable: una por semana." }
+  { id: "pedal_izq", texto: "3 · Si quieres, el pedal izquierdo suelta material seco (es opcional)." },
+  { id: "balde", texto: "4 · Abajo, un balde de 10 L con una bolsa compostable: la sacas una vez por semana." }
 ];

@@ -75,7 +75,7 @@ def material(nombre, color, rugosidad=0.5, metal=0.0, bump=0.0, escala_bump=400.
     if alpha < 1.0:
         p.inputs['Alpha'].default_value = alpha
     if ruido_color > 0:
-        # variación de color con ruido (madera, aserrín, cáscaras, granito)
+        # variación de color con ruido (madera, material seco, cáscaras, granito)
         tc = _nodo(nt, 'ShaderNodeTexCoord', -900, 300)
         nz = _nodo(nt, 'ShaderNodeTexNoise', -700, 300)
         nz.inputs['Scale'].default_value = escala_color
@@ -163,7 +163,7 @@ def vidrio_delgado(nombre, reflejo=0.12):
 
 
 def material_atributo(nombre, rugosidad=0.6, bump=0.0, attr='Col'):
-    """Color por cara/vértice desde un atributo (montones de tiras, aserrín)."""
+    """Color por cara/vértice desde un atributo (montones de tiras, material seco)."""
     m = nuevo_material(nombre)
     nt = m.node_tree
     nt.nodes.clear()

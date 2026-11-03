@@ -18,9 +18,19 @@ body {
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
 
 /* marca y precio */
-.marca { position: fixed; top: max(18px, env(safe-area-inset-top)); left: 22px; display: flex; flex-direction: column; gap: 4px; pointer-events: none; }
+.marca { position: fixed; top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); display: flex; align-items: flex-start; gap: 12px; pointer-events: none; z-index: 5; }
+.marca-texto { display: flex; flex-direction: column; gap: 4px; padding-top: 2px; }
 .logo { height: 38px; width: auto; }
-.sello { font-size: 13px; font-weight: 700; color: var(--monte); opacity: .72; letter-spacing: .2px; padding-left: 2px; }
+/* botón fijo para volver al menú principal */
+.volver {
+  pointer-events: auto; display: inline-flex; align-items: center; gap: 4px; min-height: 46px; padding: 0 16px 0 10px; border-radius: 999px;
+  background: var(--monte); color: #fff; text-decoration: none; font-family: "Lexend"; font-weight: 600; font-size: 16px;
+  box-shadow: var(--sombra); transition: transform .15s;
+}
+.volver svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.volver:active { transform: scale(.95); }
+.volver:focus-visible, .boton:focus-visible { outline: 3px solid var(--sol); outline-offset: 2px; }
+.carga-volver { margin-top: 8px; color: var(--monte); font-weight: 700; }
 .precio {
   position: fixed; top: max(18px, env(safe-area-inset-top)); right: 22px; padding: 10px 16px; border-radius: 999px;
   background: var(--vidrio); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -47,7 +57,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 #pista {
   position: fixed; left: 50%; bottom: calc(118px + env(safe-area-inset-bottom)); transform: translate(-50%, 8px); margin: 0;
   padding: 9px 16px; border-radius: 999px; background: rgba(21, 71, 52, .82); color: #fff; font-weight: 700; font-size: 15px;
-  opacity: 0; transition: opacity .5s, transform .5s; pointer-events: none; white-space: nowrap;
+  opacity: 0; transition: opacity .5s, transform .5s; pointer-events: none; width: max-content; max-width: calc(100% - 32px); text-align: center;
 }
 #pista.visible { opacity: 1; transform: translate(-50%, 0); }
 
@@ -85,7 +95,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 
 /* velo + modal translúcido */
 #velo {
-  position: fixed; inset: 0; background: rgba(21, 71, 52, .18); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(21, 71, 52, .08);
   opacity: 0; pointer-events: none; transition: opacity .35s;
 }
 .con-modal #velo { opacity: 1; pointer-events: auto; }
@@ -103,6 +113,10 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 #modal .cabeza img { width: 44px; height: 44px; padding: 8px; border-radius: 14px; background: #fff; box-shadow: 0 2px 8px rgba(21,71,52,.12); }
 #modal small { font-weight: 800; font-size: 12px; color: var(--evo); letter-spacing: .6px; }
 #modal h2 { margin: 2px 0 0; font-family: "Lexend"; font-weight: 700; font-size: 23px; line-height: 1.15; color: var(--monte); }
+#modal-vista {
+  display: block; width: 100%; height: 150px; margin: 14px 0 0; border-radius: 18px;
+  background: radial-gradient(90% 120% at 50% 40%, #FFFFFF 0%, #F4EEDF 70%, #E9E0CB 100%); border: 1px solid rgba(21, 71, 52, .08);
+}
 #modal .corto { font-family: "Lexend"; font-weight: 500; font-size: 17px; color: var(--evo); margin: 16px 0 6px; }
 #modal p { font-size: 16.5px; line-height: 1.5; margin: 6px 0 12px; }
 #modal ul { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 7px; }
@@ -132,12 +146,52 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   .con-modal #modal { transform: translate(50%, 0); }
   .boton span { font-size: 16px; }
 }
-@media (max-width: 560px) {
-  .boton { padding: 0 14px; min-height: 52px; }
-  .boton span { font-size: 14px; }
-  .logo { height: 30px; }
+/* celular de pie: botones con el ícono arriba y el texto abajo, para que quepan los cuatro */
+@media (max-width: 680px) {
+  .dock { width: calc(100% - 16px); max-width: 460px; gap: 4px; padding: 6px; border-radius: 22px; }
+  .boton { flex: 1 1 0; min-width: 0; flex-direction: column; justify-content: center; gap: 3px; min-height: 60px; padding: 6px 4px; border-radius: 16px; }
+  .boton span { font-size: 12px; line-height: 1.15; text-align: center; }
+  .boton.redondo { flex: 0 0 52px; width: 52px; }
+  .logo { height: 28px; }
+  .eslogan { font-size: 12px; padding: 4px 10px; }
   .precio { font-size: 15px; padding: 8px 12px; }
-  .sello { display: none; }
+  .volver { min-height: 44px; font-size: 15px; padding: 0 14px 0 8px; }
+  #pista { bottom: calc(96px + env(safe-area-inset-bottom)); font-size: 14px; }
+  #recorrido { top: calc(env(safe-area-inset-top) + 76px); }
+  #recorrido p { font-size: 16px; }
+}
+@media (max-width: 380px) {
+  .eslogan { display: none; }
+  .precio small { display: none; }
+}
+/* celular acostado (poca altura): todo más compacto para que el producto quede a la vista */
+@media (max-height: 520px) and (orientation: landscape) {
+  .marca { top: max(8px, env(safe-area-inset-top)); }
+  .logo { height: 24px; }
+  .eslogan { display: none; }
+  .volver { min-height: 40px; font-size: 14px; }
+  .precio { top: max(8px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); font-size: 14px; padding: 6px 12px; }
+  .dock { bottom: max(8px, env(safe-area-inset-bottom)); padding: 5px; gap: 4px; border-radius: 20px; }
+  .boton { min-height: 44px; padding: 0 12px; font-size: 14px; }
+  .boton span { white-space: nowrap; }
+  .boton svg { width: 20px; height: 20px; }
+  .boton.redondo { width: 44px; }
+  #pista { bottom: 66px; font-size: 13px; padding: 6px 12px; }
+  #recorrido { top: 8px; width: min(440px, calc(100% - 260px)); padding: 8px 14px; border-radius: 16px; }
+  #recorrido p { font-size: 14px; margin: 4px 0 2px; }
+  #recorrido small { font-size: 11px; }
+  #modal { top: 8px; bottom: 8px; right: max(10px, env(safe-area-inset-right)); transform: translate(24px, 0); max-height: none; width: min(380px, 48%); padding: 16px 18px 12px; border-radius: 22px; }
+  .con-modal #modal { transform: translate(0, 0); }
+  #modal h2 { font-size: 19px; }
+  #modal .corto { font-size: 15px; margin: 10px 0 4px; }
+  #modal p { font-size: 14.5px; margin: 4px 0 8px; }
+  #modal .cabeza img { width: 36px; height: 36px; padding: 6px; }
+  #modal-vista { height: 96px; margin-top: 8px; }
+}
+@media (orientation: portrait) and (max-width: 680px) {
+  #modal { padding: 18px 18px 12px; max-height: 60%; }
+  #modal-vista { height: 112px; margin-top: 10px; }
+  #modal .corto { margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .punto i { animation: none; } * { transition-duration: .01s !important; } }
 

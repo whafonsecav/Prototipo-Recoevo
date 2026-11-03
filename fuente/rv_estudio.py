@@ -1,4 +1,4 @@
-# Espacio limpio donde el equipo flota y se despieza: ciclorama gris cálido muy claro con luz suave de estudio.
+# Espacio limpio donde el producto flota y se despieza: ciclorama gris cálido muy claro con luz suave de estudio.
 import math
 import bpy
 import bmesh

@@ -1,6 +1,6 @@
-/* RECOEVO · prototipo interactivo para tablet.
-   El mismo equipo del video (exportado de Blender). Tocar una pieza abre su ficha; «Separar» despieza el equipo;
-   «Cómo funciona» muestra el uso paso a paso; si nadie toca la pantalla, entra en modo vitrina. */
+/* RECOEVO · prototipo interactivo en 3D (celular, tablet y computador).
+   El mismo producto del video (exportado de Blender). Tocar una pieza abre su ficha; «Separar» despieza el producto;
+   «Pieza por pieza» recorre las fichas; «Cómo funciona» muestra el uso paso a paso; si nadie toca la pantalla, entra en modo vitrina. */
 (function () {
   "use strict";
   const T = THREE;
@@ -62,6 +62,8 @@
   const VISTA_INICIO = { theta: 0.55, phi: 1.2, radio: 2.0, objetivo: new T.Vector3(0, 0.27, 0) };
   const tabla = () => (innerWidth >= innerHeight ? SEPARAR.horizontal : SEPARAR.vertical);
   const SUBE = () => (innerWidth >= innerHeight ? 0.18 : 0.26);
+  // vista separada: más lejos en el celular acostado (poca altura), para que la barra de botones no tape las piezas de abajo
+  const SEP = () => (innerWidth >= innerHeight ? (innerHeight < 520 ? { r: 4.6, y: 0.64 } : { r: 3.5, y: 0.74 }) : { r: 4.3, y: 0.74 });
   const ORDEN = ["G_tapa", "G_gabinete", "G_puerta", "G_balde", "G_base", "G_patas", "G_pedal_der", "G_pedal_izq", "G_deposito",
     "G_camara", "G_seguro", "G_peine", "G_eje", "G_perilla", "G_reten_izq", "G_reten_der", "G_pinon", "G_cremallera"];
   const ANG_REPOSO = -12 * Math.PI / 180, ANG_PISADO = 2.4 * Math.PI / 180;
@@ -71,13 +73,29 @@
     render.setSize(w, h, false);
     camara.aspect = w / h;
     camara.fov = w >= h ? 30 : 42;
+    forzar = true;
     camara.updateProjectionMatrix();
+  }
+  // con una ficha abierta, la imagen se corre para que la pieza quede a la vista: hacia arriba en vertical
+  // (la ficha ocupa la parte de abajo) y hacia la izquierda en horizontal (la ficha va a la derecha)
+  let correr = 0, correrMeta = 0, forzar = true;
+  function encuadre(dt) {
+    correrMeta = document.body.classList.contains("con-modal") ? 1 : 0;
+    const antes = correr;
+    correr += (correrMeta - correr) * Math.min(1, dt * 5);
+    if (Math.abs(correrMeta - correr) < 0.002) correr = correrMeta;
+    if (correr === antes && !forzar) return;
+    forzar = false;
+    const w = innerWidth, h = innerHeight;
+    if (correr === 0) camara.clearViewOffset();
+    else if (w >= h) camara.setViewOffset(w, h, w * 0.2 * correr, 0, w, h);
+    else camara.setViewOffset(w, h, 0, h * 0.27 * correr, w, h);
   }
   addEventListener("resize", tamano);
   tamano();
 
   // ---------------------------------------------------------------- carga
-  cargarGLB("assets/modelo/recoevo.glb", p => { $("#barra i").style.width = (p * 100).toFixed(0) + "%"; })
+  cargarGLB("../assets/modelo/recoevo.glb", p => { $("#barra i").style.width = (p * 100).toFixed(0) + "%"; })
     .then(({ escena: m, porNombre }) => {
       modelo = m; N = porNombre;
       escena.add(modelo);
@@ -119,8 +137,8 @@
     separadoMeta = separadoMeta > 0.5 ? 0 : 1;
     $("#b-separar span").textContent = separadoMeta ? "Armar" : "Separar piezas";
     $("#b-separar").classList.toggle("activo", !!separadoMeta);
-    if (!seleccion) orbita.ir({ ...VISTA_INICIO, radio: separadoMeta ? (innerWidth >= innerHeight ? 3.5 : 4.3) : 2.0,
-      objetivo: new T.Vector3(0, separadoMeta ? 0.74 : 0.27, 0) }, 1.4);
+    if (!seleccion) orbita.ir({ ...VISTA_INICIO, radio: separadoMeta ? SEP().r : 2.0,
+      objetivo: new T.Vector3(0, separadoMeta ? SEP().y : 0.27, 0) }, 1.4);
   }
 
   // ---------------------------------------------------------------- puntos táctiles sobre las piezas
@@ -174,6 +192,63 @@
     });
   }
 
+  // imagen de la pieza sola dentro de la ficha: se dibuja con el mismo render en una textura aparte (capa 1)
+  const mini = { rt: null, cam: new T.PerspectiveCamera(28, 2, 0.01, 20), luces: false };
+  function vistaPieza(id) {
+    const c = $("#modal-vista");
+    if (!c || !mallasDe[id]) return;
+    const k = Math.min(2, window.devicePixelRatio || 1) * 1.5;
+    const W = Math.max(2, Math.round((c.clientWidth || 320) * k)), H = Math.max(2, Math.round((c.clientHeight || 130) * k));
+    if (!mini.rt || mini.rt.width !== W || mini.rt.height !== H) {
+      if (mini.rt) mini.rt.dispose();
+      mini.rt = new T.WebGLRenderTarget(W, H);
+      mini.rt.texture.encoding = T.sRGBEncoding;
+    }
+    if (!mini.luces) { escena.traverse(o => { if (o.isLight) o.layers.enable(1); }); mini.luces = true; }
+    modelo.traverse(o => o.layers.disable(1));
+    const caja = new T.Box3();
+    for (const o of mallasDe[id]) { o.traverse(h => h.layers.enable(1)); caja.expandByObject(o); }
+    const centro = caja.getCenter(new T.Vector3()), radio = Math.max(0.01, caja.getBoundingSphere(new T.Sphere()).radius);
+    const fovV = T.MathUtils.degToRad(mini.cam.fov) / 2, fovH = Math.atan(Math.tan(fovV) * W / H);
+    const dist = radio / Math.sin(Math.min(fovV, fovH)) * 1.08;
+    const phi = 1.12, th = orbita.theta;
+    mini.cam.aspect = W / H;
+    mini.cam.position.set(centro.x + dist * Math.sin(phi) * Math.sin(th), centro.y + dist * Math.cos(phi), centro.z + dist * Math.sin(phi) * Math.cos(th));
+    mini.cam.near = dist / 40; mini.cam.far = dist * 4;
+    mini.cam.lookAt(centro);
+    mini.cam.updateProjectionMatrix();
+    mini.cam.updateMatrixWorld();
+    // acercar hasta que las esquinas de la pieza llenen el cuadro (las piezas planas quedan grandes)
+    let ext = 0;
+    for (let i = 0; i < 8; i++) {
+      const v = new T.Vector3(i & 1 ? caja.max.x : caja.min.x, i & 2 ? caja.max.y : caja.min.y, i & 4 ? caja.max.z : caja.min.z).project(mini.cam);
+      ext = Math.max(ext, Math.abs(v.x), Math.abs(v.y));
+    }
+    if (ext > 0.05) {
+      const d2 = dist * Math.min(1, ext * 1.12);
+      mini.cam.position.sub(centro).setLength(d2).add(centro);
+      mini.cam.near = d2 / 40;
+      mini.cam.updateProjectionMatrix();
+    }
+    mini.cam.layers.set(1);
+    const antes = render.getRenderTarget(), color = render.getClearColor(new T.Color()), alfa = render.getClearAlpha();
+    render.setRenderTarget(mini.rt);
+    render.setClearColor(0x000000, 0);
+    render.clear();
+    render.render(escena, mini.cam);
+    const px = new Uint8Array(W * H * 4);
+    render.readRenderTargetPixels(mini.rt, 0, 0, W, H, px);
+    render.setRenderTarget(antes);
+    render.setClearColor(color, alfa);
+    const tmp = document.createElement("canvas");
+    tmp.width = W; tmp.height = H;
+    tmp.getContext("2d").putImageData(new ImageData(new Uint8ClampedArray(px.buffer), W, H), 0, 0);
+    c.width = W; c.height = H;
+    const g = c.getContext("2d");
+    g.clearRect(0, 0, W, H);
+    g.save(); g.translate(0, H); g.scale(1, -1); g.drawImage(tmp, 0, 0); g.restore();   // WebGL entrega la imagen al revés
+  }
+
   function abrir(id) {
     const p = pieza[id];
     if (!p) return;
@@ -181,6 +256,8 @@
     $("#pista").classList.remove("visible");
     ultimoToque = performance.now();
     salirVitrina();
+    resaltar(null);
+    try { vistaPieza(id); } catch (e) { /* si el navegador no puede, la ficha sigue sin imagen */ }
     resaltar(id);
     const a = N[p.ancla];
     if (a) {
@@ -188,20 +265,21 @@
       orbita.ir({ theta: orbita.theta, phi: Math.min(1.35, Math.max(0.9, orbita.phi)), radio: separado > 0.5 ? 1.7 : 1.4, objetivo: pos }, 0.9);
     }
     const i = PARTES.indexOf(p);
-    $("#modal-icono").src = `assets/img/iconos/icono_${p.icono}.svg`;
+    $("#modal-icono").src = `../assets/img/iconos/icono_${p.icono}.svg`;
     $("#modal-n").textContent = `${i + 1} / ${PARTES.length}`;
     $("#modal-titulo").textContent = p.titulo;
     $("#modal-corto").textContent = p.corto;
     $("#modal-texto").textContent = p.texto;
     $("#modal-datos").innerHTML = p.datos.map(d => `<li>${d}</li>`).join("");
+    $("#modal").scrollTop = 0;
     document.body.classList.add("con-modal");
   }
   function cerrar() {
     seleccion = null;
     resaltar(null);
     document.body.classList.remove("con-modal");
-    orbita.ir({ theta: orbita.theta, phi: 1.2, radio: separado > 0.5 ? (innerWidth >= innerHeight ? 3.5 : 4.3) : 2.0,
-      objetivo: new T.Vector3(0, separado > 0.5 ? 0.74 : 0.27, 0) }, 0.9);
+    orbita.ir({ theta: orbita.theta, phi: 1.2, radio: separado > 0.5 ? SEP().r : 2.0,
+      objetivo: new T.Vector3(0, separado > 0.5 ? SEP().y : 0.27, 0) }, 0.9);
   }
   function vecina(d) {
     const i = PARTES.findIndex(p => p.id === seleccion);
@@ -302,8 +380,9 @@
   // ---------------------------------------------------------------- botones
   $("#b-separar").addEventListener("click", () => { ultimoToque = performance.now(); salirVitrina(); if (enRecorrido) pararRecorrido(); alternarSeparar(); });
   $("#b-funciona").addEventListener("click", () => { ultimoToque = performance.now(); salirVitrina(); enRecorrido ? pararRecorrido() : empezarRecorrido(); });
+  $("#b-piezas").addEventListener("click", () => { ultimoToque = performance.now(); salirVitrina(); if (enRecorrido) pararRecorrido(); if (modelo) abrir(PARTES[0].id); });
   $("#b-centrar").addEventListener("click", () => { ultimoToque = performance.now(); salirVitrina(); if (seleccion) cerrar(); orbita.ir({ ...VISTA_INICIO,
-    radio: separadoMeta ? (innerWidth >= innerHeight ? 3.5 : 4.3) : 2.0, objetivo: new T.Vector3(0, separadoMeta ? 0.74 : 0.27, 0) }, 1.0); });
+    radio: separadoMeta ? SEP().r : 2.0, objetivo: new T.Vector3(0, separadoMeta ? SEP().y : 0.27, 0) }, 1.0); });
   document.querySelectorAll(".dock .boton").forEach(b => b.addEventListener("click", () => $("#pista").classList.remove("visible")));
 
   // ---------------------------------------------------------------- bucle
@@ -326,6 +405,7 @@
       }
       moverPuntos();
     }
+    encuadre(dt);
     orbita.actualizar(dt, vitrina);
     render.render(escena, camara);
     requestAnimationFrame(cuadro);
@@ -335,5 +415,5 @@
 
   // ---------------------------------------------------------------- sin conexión (para el evento)
   const local = ["localhost", "127.0.0.1"].includes(location.hostname);
-  if ("serviceWorker" in navigator && location.protocol !== "file:" && !local) navigator.serviceWorker.register("sw.js").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !local) navigator.serviceWorker.register("../sw.js").catch(() => {});
 })();

@@ -7,7 +7,7 @@ from mathutils import Vector, Quaternion
 from rv_util import (FPS, Pista, claves, suave, suave_sal, suave_ent, mezclar, mirar)
 import rv_producto as RP
 
-RAIZ = (0.05, -0.20, 0.0)    # sitio del equipo: frente al mesón, junto a la tabla de picar (donde se usa)
+RAIZ = (0.05, -0.20, 0.0)    # sitio del producto: frente al mesón, junto a la tabla de picar (donde se usa)
 ELEVA = 0.14                 # cuánto flota
 
 TIEMPOS = {
@@ -26,7 +26,7 @@ TIEMPOS = {
     'cierre_logo': [75.6, 82.6],
 }
 
-# desplazamientos de la vista explosionada (coordenadas del equipo), por formato
+# desplazamientos de la vista explosionada (coordenadas del producto), por formato
 EXPLOTA = {
     'h': {
         'tapa': ((0, 0.02, 0.56), (0, 0, 0)), 'gabinete': ((0, 0.04, 0.42), (0, 0, 0)),
@@ -51,7 +51,7 @@ EXPLOTA = {
         'pinon': ((0.12, -0.13, 0.0), (0, 0, 0)), 'cremallera': ((0.23, -0.10, -0.09), (0, 0, 0)),
     },
 }
-SUBE_EXTRA = {'h': 0.18, 'v': 0.26}   # el equipo sube un poco más mientras está despiezado (nada atraviesa el piso)
+SUBE_EXTRA = {'h': 0.18, 'v': 0.26}   # el producto sube un poco más mientras está despiezado (nada atraviesa el piso)
 ORDEN = ['tapa', 'gabinete', 'puerta', 'balde', 'base', 'patas', 'pedal_der', 'pedal_izq', 'deposito', 'camara',
          'seguro', 'peine', 'eje', 'perilla', 'reten_izq', 'reten_der', 'pinon', 'cremallera']
 
@@ -73,8 +73,8 @@ ETIQUETAS = [
     ('tapa', 'Tapa con junta EPDM', 'Sella el olor y aloja el filtro', ['A_tapa'], 3),
     ('filtro', 'Filtro de carbón activado', '60 g + válvula de una vía', ['A_filtro'], 3),
     ('seguro', 'Seguro de tapa', 'Tapa abierta: pedal bloqueado', ['A_seguro'], 3),
-    ('pedal_izq', 'Pedal izquierdo', 'Suelta 40 mL de aserrín', ['A_pedal_izq'], 3),
-    ('deposito', 'Depósito de aserrín 2 L', 'Con dosificador rotativo', ['A_deposito'], 3),
+    ('pedal_izq', 'Pedal izquierdo', 'Material seco opcional: 40 mL', ['A_pedal_izq'], 3),
+    ('deposito', 'Compartimento de material seco 2 L', 'Con dosificador rotativo', ['A_deposito'], 3),
 ]
 
 
@@ -162,7 +162,7 @@ def animar(P, T, aspecto, nfot):
     flotar_y_explotar(P, T, aspecto, nfot)
 
 
-# ---------------------------------------------------------------- cáscaras, tiras y aserrín
+# ---------------------------------------------------------------- cáscaras, tiras y material seco (opcional)
 def altura_monton(x, y):
     yb = -0.022
     u, v = x / 0.112, (y - yb) / 0.106
@@ -230,7 +230,7 @@ def cascaras_y_tiras(P, T, nfot):
                   tp - 0.05, tp + caida + 0.05, nfot)
         claves(ob, 'scale', Pista((0.0, 0.0, 0.0)).a(tp - 0.034, tp, (1.0, 1.0, 1.0)).a(ocultar, ocultar + 0.034, (0.0, 0.0, 0.0)), nfot)
 
-    # granos de aserrín (una dosis de 40 mL) desde el tobogán del dosificador
+    # granos de material seco opcional (una dosis de 40 mL) desde el tobogán del dosificador
     tz = T['pisada_izq'] + 0.25
     for k, ob in enumerate(P['granos']):
         tp = tz + k / len(P['granos']) * 0.55
@@ -299,7 +299,7 @@ def claves_camara(T, aspecto):
         (0.0, *H, True, 0.19),
         (t_p2 - 1.0, R(0.40, -1.75, 0.76), R(-0.30, 0.20, 0.52), 34, 31, 2.8, False, 0.17),     # acercamiento lento
         (t_p2 + 5.5, R(-0.25, -1.85, 0.98), R(-0.55, 0.80, 1.32), 36, 33, 2.8, False, 0.08),    # la ventana con la sábila: el campo
-        (t_c + 0.5, R(0.34, -1.75, 0.84), R(-0.08, 0.22, 0.46), 34, 31, 2.8, False, 0.17),      # de vuelta al equipo en la cocina
+        (t_c + 0.5, R(0.34, -1.75, 0.84), R(-0.08, 0.22, 0.46), 34, 31, 2.8, False, 0.17),      # de vuelta al producto en la cocina
         (t_s1 + 0.5, R(0.55, -1.20, 0.80), R(-0.02, 0.05, 0.38), 36, 33, 3.0, False, 0.08),     # «Por eso creamos Recoevo»
         (T['tapa_abre'] - 1.2, R(0.55, -1.00, 0.86), R(0.0, -0.02, 0.40), 38, 34, 3.2, False, 0.06),
         (T['cascaras'] + 0.5, R(0.30, -0.70, 1.15), R(0.0, -0.06, 0.44), 36, 32, 3.5, True, 0.0),

@@ -1,7 +1,7 @@
 # RECOEVO (diseño del plan de fábrica, 29-oct-2026): triturador doméstico a pedal, 32 × 34 × 52 cm, ≈5 kg.
 # Geometría alineada con la lista de materiales del plan de fábrica (01_RECOEVO_PLAN_DE_FABRICA_2026-10-29/Herramientas_modelo/build/data.py)
 # y la hoja de ingeniería (palanca 2:1: 24 cm al pie y 12 cm a la cremallera; pie 60 mm → cremallera 30 mm → ≈143° de eje).
-# Origen = centro del piso bajo el equipo; frente hacia -Y; eje de cuchillas paralelo a X. Medidas en metros.
+# Origen = centro del piso bajo el producto; frente hacia -Y; eje de cuchillas paralelo a X. Medidas en metros.
 import math
 import random
 import bpy
@@ -56,7 +56,7 @@ def materiales():
     M['bolsa'] = material('Bolsa compostable', hexcol('#A4D65E'), 0.55, transmision=0.3, thin=True, bump=0.3,
                           escala_bump=60, fantasma=True)
     M['cordon'] = material('Cordon bolsa', hexcol('#5E9935'), 0.6)
-    M['aserrin'] = material('Aserrin', hexcol('#C79D69'), 0.85, bump=0.6, escala_bump=300, ruido_color=0.35,
+    M['aserrin'] = material('Material seco', hexcol('#C79D69'), 0.85, bump=0.6, escala_bump=300, ruido_color=0.35,
                             escala_color=180)
     M['tanque'] = material('PP natural translucido', hexcol('#EEEAE0'), 0.45, alpha=0.40)
     M['carbon'] = material('Malla con carbon activado', hexcol('#1C1E1E'), 0.92, bump=0.9, escala_bump=350)
@@ -226,7 +226,7 @@ def construir(col, M, fuente_logo):
         bm_prisma(pts_rect_redondeado(W - 0.005, D - 0.005, 0.0335, 12), Z_PLINTO[1] - 0.01, Z_TOP - 0.004),  # hueco (pared 2,5 mm)
         bm_caja(0.276, 0.05, PUERTA_Z[1] - PUERTA_Z[0], (0, Y_FR, sum(PUERTA_Z) / 2)),                       # puerta
         bm_caja(0.120, 0.100, 0.06, (0, -0.065, Z_TOP)),                                                    # boca 12 × 10 cm
-        bm_prisma(pts_rect_redondeado(0.070, 0.090, 0.012, 6, -0.097, 0.084), Z_TOP - 0.03, Z_TOP + 0.03),  # recarga de aserrín
+        bm_prisma(pts_rect_redondeado(0.070, 0.090, 0.012, 6, -0.097, 0.084), Z_TOP - 0.03, Z_TOP + 0.03),  # recarga del material seco
         bm_cilindro(0.0245, 0.03, 48, eje='X', c=(-0.160, EJE_Y, EJE_Z)),                                   # perilla de reversa
     ])
     h(gb, g)
@@ -403,14 +403,12 @@ def construir(col, M, fuente_logo):
     h(res, g)
     ancla('cremallera', (X_PIN + 0.003, yp - 0.012, 0.24), g)
 
-    # ---------------- depósito de aserrín 2 L (PP natural) + dosificador rotativo de 40 mL + varilla
+    # ---------------- compartimento de 2 L para material seco OPCIONAL (PP natural, se muestra vacío) + dosificador rotativo de 40 mL + varilla
     g = grupo('deposito')
-    tq = objeto('Deposito de aserrin', bm_prisma(pts_rect_redondeado(0.110, 0.148, 0.012, 6, -0.098, 0.084), 0.336, Z_TOP - 0.005),
+    tq = objeto('Compartimento de material seco', bm_prisma(pts_rect_redondeado(0.110, 0.148, 0.012, 6, -0.098, 0.084), 0.336, Z_TOP - 0.005),
                 M['tanque'], col)
     bisel(tq, 0.002, 2)
     h(tq, g)
-    h(objeto('Aserrín del depósito', bm_prisma(pts_rect_redondeado(0.104, 0.142, 0.010, 6, -0.098, 0.084), 0.338, 0.425),
-             M['aserrin'], col), g)
     h(caja('Caja del dosificador', 0.090, 0.050, 0.034, (-0.098, 0.084, 0.318), M['piezas'], b=0.003), g)
     rd = piv('rot_dosif', (-0.098, 0.084, 0.318), g)
     h(cilindro('Rotor dosificador', 0.0155, 0.092, (-0.098, 0.084, 0.318), M['pom'], eje='X', b=0.0008), rd)
@@ -515,7 +513,7 @@ def logo_relieve(svg, mat, col, ancho, z):
 
 
 def montoncito(nombre, c, ax, ay, z0, z1, n, mat, col):
-    """Montículo de tiras de cáscara (≈5 mm) y aserrín con color por cara."""
+    """Montículo de tiras de cáscara (≈5 mm) y material seco con color por cara."""
     random.seed(11)
     bm = bmesh.new()
     capa = bm.loops.layers.color.new('Col')

@@ -10,7 +10,7 @@
       this.el = elemento;
       this.objetivo = objetivo.clone();
       this.radio = 2.2; this.theta = 0.55; this.phi = 1.18;           // ángulos en radianes
-      this.min = 0.9; this.max = 4.2;
+      this.min = 0.9; this.max = 5.2;
       this.vt = 0; this.vp = 0;
       this.punteros = new Map();
       this.pellizco = 0;

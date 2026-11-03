@@ -245,7 +245,7 @@ def leer(pase, f):
 
 
 def mascara(t0, t1, t, centro, W, H, invertir=False):
-    """Radial: el estudio entra desde los bordes hacia el equipo (y al volver, la cocina sale del equipo hacia afuera)."""
+    """Radial: el estudio entra desde los bordes hacia el producto (y al volver, la cocina sale del producto hacia afuera)."""
     p = suave((t - t0) / (t1 - t0))
     if invertir:
         p = 1 - p

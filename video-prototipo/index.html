@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RECOEVO · Video del prototipo explicado</title>
+  <meta name="description" content="Cómo funciona RECOEVO, el triturador de cocina a pedal: paso a paso y por dentro.">
+  <meta name="theme-color" content="#154734">
+  <link rel="icon" href="../assets/img/icono-192.png">
+  <link rel="stylesheet" href="../assets/css/marca.css">
+  <script>
+    // Si el video todavía no está publicado, se muestra el aviso amable de «muy pronto».
+    function sinVideo() { document.documentElement.classList.add("sin-video"); }
+  </script>
+</head>
+<body>
+  <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
+  <header class="barra"><a href="../" aria-label="RECOEVO, ir al menú"><img src="../assets/img/logo.svg" alt="recoevo" width="832" height="273"></a></header>
+
+  <main class="pagina" id="pagina">
+    <p class="kicker">Video</p>
+    <h1>El prototipo explicado</h1>
+    <p class="bajada">Cómo funciona RECOEVO: echas las cáscaras, pisas el pedal y las cuchillas las cortan en tiras, sin electricidad.</p>
+
+    <!-- El archivo lo publica otra sesión de trabajo con este nombre exacto: video/RECOEVO_prototipo_explicado.mp4 -->
+    <div class="marco">
+      <video id="video" controls playsinline preload="metadata" poster="../video/portadas/prototipo_explicado.jpg"
+             src="../video/RECOEVO_prototipo_explicado.mp4" onerror="sinVideo()">
+        Tu navegador no puede mostrar este video. <a href="../video/RECOEVO_prototipo_explicado.mp4">Descárgalo aquí</a>.
+      </video>
+    </div>
+    <p class="datos-video"><span>Con sonido: sube el volumen</span><a href="../video/RECOEVO_prototipo_explicado.mp4" download>Descargar el video</a></p>
+
+    <div class="pronto" role="status">
+      <img src="../assets/img/isotipo.svg" alt="">
+      <h2>¡Muy pronto!</h2>
+      <p>Estamos terminando este video. Mientras tanto, puedes explorar RECOEVO en 3D, pieza por pieza.</p>
+      <p><a href="../prototipo/"><b>Ver el prototipo en 3D →</b></a></p>
+    </div>
+
+    <nav class="otros" aria-label="Más secciones">
+      <h2>Sigue explorando</h2>
+      <ul>
+        <li><a href="../prototipo/">Ver el prototipo en 3D</a></li>
+        <li><a href="../video-pitch/">Video pitch del equipo</a></li>
+        <li><a href="../estudio-campo/">Estudio de campo</a></li>
+        <li><a href="../videos/">Videos del evento</a></li>
+      </ul>
+    </nav>
+  </main>
+  <footer class="pie"><p><b>RECOEVO</b> · Politécnico Grancolombiano · E-Fest 2026-2</p></footer>
+
+  <script>
+    (function () {
+      const v = document.getElementById("video");
+      if (v.error) sinVideo();
+      fetch(v.getAttribute("src"), { method: "HEAD", cache: "no-store" })
+        .then(r => { if (!r.ok) sinVideo(); })
+        .catch(() => { if (v.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) sinVideo(); });
+    })();
+  </script>
+</body>
+</html>
