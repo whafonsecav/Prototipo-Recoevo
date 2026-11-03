@@ -77,6 +77,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .boton:hover { background: rgba(21, 71, 52, .07); }
 .boton.activo { background: var(--monte); color: #fff; }
 .boton.redondo { padding: 0; width: 56px; justify-content: center; }
+.boton span { white-space: nowrap; }
 .con-recorrido #b-funciona { background: var(--monte); color: #fff; }
 
 /* recorrido «cómo funciona» */
@@ -150,7 +151,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 @media (max-width: 680px) {
   .dock { width: calc(100% - 16px); max-width: 460px; gap: 4px; padding: 6px; border-radius: 22px; }
   .boton { flex: 1 1 0; min-width: 0; flex-direction: column; justify-content: center; gap: 3px; min-height: 60px; padding: 6px 4px; border-radius: 16px; }
-  .boton span { font-size: 12px; line-height: 1.15; text-align: center; }
+  .boton span { font-size: 12px; line-height: 1.15; text-align: center; white-space: normal; }
   .boton.redondo { flex: 0 0 52px; width: 52px; }
   .logo { height: 28px; }
   .eslogan { font-size: 12px; padding: 4px 10px; }
