@@ -18,8 +18,12 @@ Precio al público: **$199.900 IVA incluido**.
 Cada página tiene un botón fijo **«← Menú»** para volver.
 
 ## Prototipo en 3D: cómo se usa
-- **Deslizar** con un dedo: girar. **Pellizcar** (o la rueda del mouse): acercar o alejar.
-- **Tocar una pieza** (o un punto verde): se abre su ficha con qué hace y de qué está hecha.
+- **Un dedo** (o clic izquierdo): girar.
+- **Dos dedos**: pellizcar para acercar o alejar justo donde están los dedos, y arrastrar para mover la vista
+  arriba, abajo y a los lados. Con mouse: la rueda acerca hacia el puntero y el clic derecho (o Shift) arrastra la vista.
+- **Tocar una pieza** (o un punto verde): se abre su ficha. La cámara va al centro de esa pieza y se acerca según su
+  tamaño (las piezas chicas, como el filtro, quedan grandes); la ficha trae además una imagen de la pieza sola.
+  Con la ficha abierta se puede seguir girando, acercando y moviendo la vista.
 - **Separar piezas**: el producto se despieza; **Armar** lo vuelve a juntar.
 - **Pieza por pieza**: recorre las 18 fichas con «Anterior» y «Siguiente».
 - **Cómo funciona**: recorrido animado en 4 pasos (tapa, pedal derecho, pedal izquierdo opcional, balde).

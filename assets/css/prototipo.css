@@ -110,7 +110,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   position: fixed; inset: 0; background: rgba(21, 71, 52, .08);
   opacity: 0; pointer-events: none; transition: opacity .35s;
 }
-.con-modal #velo { opacity: 1; pointer-events: auto; }
+.con-modal #velo { opacity: 1; }   /* sin bloquear: con la ficha abierta se puede seguir girando, acercando y desplazando */
 #modal {
   position: fixed; right: 24px; top: 50%; transform: translate(24px, -50%); width: min(400px, calc(100% - 32px));
   max-height: calc(100% - 160px); overflow: auto; padding: 24px 24px 18px; border-radius: 28px;

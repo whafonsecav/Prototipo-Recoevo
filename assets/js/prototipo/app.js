@@ -205,6 +205,7 @@
       mini.rt.texture.encoding = T.sRGBEncoding;
     }
     if (!mini.luces) { escena.traverse(o => { if (o.isLight) o.layers.enable(1); }); mini.luces = true; }
+    modelo.updateMatrixWorld(true);
     modelo.traverse(o => o.layers.disable(1));
     const caja = new T.Box3();
     for (const o of mallasDe[id]) { o.traverse(h => h.layers.enable(1)); caja.expandByObject(o); }
@@ -259,10 +260,17 @@
     resaltar(null);
     try { vistaPieza(id); } catch (e) { /* si el navegador no puede, la ficha sigue sin imagen */ }
     resaltar(id);
-    const a = N[p.ancla];
-    if (a) {
-      const pos = a.getWorldPosition(new T.Vector3());
-      orbita.ir({ theta: orbita.theta, phi: Math.min(1.35, Math.max(0.9, orbita.phi)), radio: separado > 0.5 ? 1.7 : 1.4, objetivo: pos }, 0.9);
+    // la cámara va al centro de la pieza y se acerca según su tamaño: las piezas chicas (filtro, retenes, piñón) quedan grandes.
+    // Se cuenta solo la parte de la pantalla que la ficha deja libre (arriba en vertical, a la izquierda en horizontal).
+    modelo.updateMatrixWorld(true);                 // posiciones al día (separado, tapa abierta…) antes de medir
+    const caja = new T.Box3();
+    for (const o of mallasDe[id] || []) caja.expandByObject(o);
+    if (!caja.isEmpty()) {
+      const centro = caja.getCenter(new T.Vector3()), r = Math.max(0.015, caja.getBoundingSphere(new T.Sphere()).radius);
+      const tv = Math.tan(T.MathUtils.degToRad(camara.fov) / 2), vertical = innerWidth < innerHeight;
+      const libre = Math.min(tv * (vertical ? 0.4 : 1), tv * camara.aspect * (vertical ? 1 : 0.48));
+      const radio = Math.min(separado > 0.5 ? 2.8 : 2.4, Math.max(0.28, r / libre * 1.2));
+      orbita.ir({ theta: orbita.theta, phi: Math.min(1.35, Math.max(0.9, orbita.phi)), radio, objetivo: centro }, 0.9);
     }
     const i = PARTES.indexOf(p);
     $("#modal-icono").src = `../assets/img/iconos/icono_${p.icono}.svg`;
@@ -286,7 +294,6 @@
     abrir(PARTES[(i + d + PARTES.length) % PARTES.length].id);
   }
   $("#modal-cerrar").addEventListener("click", cerrar);
-  $("#velo").addEventListener("click", cerrar);
   $("#modal-sig").addEventListener("click", () => vecina(1));
   $("#modal-ant").addEventListener("click", () => vecina(-1));
   addEventListener("keydown", e => {
@@ -411,7 +418,7 @@
     requestAnimationFrame(cuadro);
   }
   requestAnimationFrame(cuadro);
-  window.__rv = { orbita, camara, get separado() { return separado; } };   // para depurar desde la consola
+  window.__rv = { orbita, camara, escena, mallasDe, get N() { return N; }, get separado() { return separado; } };   // para depurar desde la consola
 
   // ---------------------------------------------------------------- sin conexión (para el evento)
   const local = ["localhost", "127.0.0.1"].includes(location.hostname);

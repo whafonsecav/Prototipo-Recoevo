@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RECOEVO · Presupuesto realista</title>
+  <meta name="description" content="El presupuesto de RECOEVO a 10 años, escenario realista: inversión, costos, ventas, utilidad, punto de equilibrio y retorno de la inversión, explicados en palabras sencillas.">
+  <meta name="theme-color" content="#154734">
+  <link rel="icon" href="../assets/img/icono-192.png">
+  <link rel="preload" href="../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/marca.css">
+  <link rel="stylesheet" href="../assets/css/presupuesto.css">
+</head>
+<body>
+  <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
+  <header class="barra"><a href="../" aria-label="RECOEVO, ir al menú"><img src="../assets/img/logo.svg" alt="recoevo" width="832" height="273"></a></header>
+
+  <main class="pagina presupuesto" id="pagina">
+    <p class="kicker">Presupuesto · escenario realista</p>
+    <h1>¿Cuánto cuesta y cuánto deja RECOEVO?</h1>
+    <p class="bajada">Los números de los 10 años del plan, en el escenario realista: las ventas suben poco a poco, de 800 a 9.500 productos al mes.
+      <b>Toca cualquier cifra o fila</b> para ver qué es y cómo se calculó.</p>
+
+    <button class="costo-uno" id="costo" type="button"></button>
+
+    <section class="bloque" aria-labelledby="t-preguntas">
+      <h2 class="sub" id="t-preguntas">Las 8 preguntas del presupuesto</h2>
+      <ol class="preguntas" id="preguntas"></ol>
+    </section>
+
+    <details class="supuestos">
+      <summary>¿Qué supone este escenario?</summary>
+      <p id="supone"></p>
+    </details>
+
+    <section class="bloque" aria-labelledby="t-tablas">
+      <h2 class="sub" id="t-tablas">El presupuesto completo</h2>
+      <div class="controles" role="group" aria-label="Agrupar o desagrupar las tablas">
+        <div class="niveles" id="niveles">
+          <button type="button" data-nivel="excel">Como en el Excel</button>
+          <button type="button" data-nivel="1">Agrupar todo</button>
+          <button type="button" data-nivel="2">Ver rubros</button>
+          <button type="button" data-nivel="3">Desagrupar todo</button>
+        </div>
+        <div class="interruptores">
+          <label class="interruptor"><input type="checkbox" id="sw-pesos"><span class="perilla" aria-hidden="true"></span>Pesos completos</label>
+          <label class="interruptor"><input type="checkbox" id="sw-anios"><span class="perilla" aria-hidden="true"></span>Año por año</label>
+        </div>
+      </div>
+      <ul class="leyenda">
+        <li><span class="muestra amarillo" aria-hidden="true"></span>Fila amarilla: el total de su tabla (la suma exacta de sus filas).</li>
+        <li><span class="muestra azul" aria-hidden="true"></span>Fila azul: lo que entra (ventas y utilidad).</li>
+        <li><span class="muestra boton" aria-hidden="true">+</span>Abre o cierra el detalle, como los botones de agrupar del Excel.</li>
+        <li><span class="muestra info" aria-hidden="true">i</span>Toca una fila para ver la explicación.</li>
+        <li><b>M</b> = millones de pesos. Todo va sin IVA, menos el precio al público.</li>
+      </ul>
+
+      <div id="tablas"><p class="cargando">Cargando el presupuesto…</p></div>
+    </section>
+
+    <section class="conclusion" id="conclusion" aria-live="polite"></section>
+    <p class="fuente" id="fuente"></p>
+
+    <nav class="otros" aria-label="Más secciones">
+      <h2>Sigue explorando</h2>
+      <ul>
+        <li><a href="../prototipo/">Ver el prototipo en 3D</a></li>
+        <li><a href="../video-prototipo/">Video del prototipo explicado</a></li>
+        <li><a href="../video-pitch/">Video pitch del equipo</a></li>
+        <li><a href="../estudio-campo/">Estudio de campo</a></li>
+      </ul>
+    </nav>
+  </main>
+  <footer class="pie"><p><b>RECOEVO</b> · Politécnico Grancolombiano · E-Fest 2026-2</p></footer>
+
+  <dialog class="ficha" id="ficha" aria-labelledby="ficha-titulo">
+    <div class="ficha-caja">
+      <div class="ficha-barra">
+        <p class="ficha-ruta" id="ficha-ruta"></p>
+        <button type="button" class="ficha-cerrar" id="ficha-cerrar" aria-label="Cerrar la explicación"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="ficha-cuerpo" id="ficha-cuerpo"></div>
+      <nav class="ficha-nav" aria-label="Otras filas de esta tabla">
+        <button type="button" id="ficha-ant">← Anterior</button>
+        <button type="button" id="ficha-sig">Siguiente →</button>
+      </nav>
+    </div>
+  </dialog>
+
+  <noscript><p class="nota">Para ver el presupuesto hay que activar JavaScript en el navegador.</p></noscript>
+  <script src="datos.js"></script>
+  <script src="../assets/js/presupuesto/app.js"></script>
+</body>
+</html>
