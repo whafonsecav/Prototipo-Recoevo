@@ -17,10 +17,21 @@ body {
 #lienzo { position: fixed; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
 
-/* marca y precio */
-.marca { position: fixed; top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); display: flex; align-items: flex-start; gap: 12px; pointer-events: none; z-index: 5; }
-.marca-texto { display: flex; flex-direction: column; gap: 4px; padding-top: 2px; }
-.logo { height: 38px; width: auto; }
+/* encabezado: botón de menú, logo y precio en UNA fila que ocupa todo el ancho, así nada se monta encima de otra cosa */
+.marca {
+  position: fixed; top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right));
+  display: flex; align-items: flex-start; gap: 12px; pointer-events: none; z-index: 5;
+}
+.marca-texto { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding-top: 4px; }
+.logo { display: block; height: 38px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; }
+.volver, .precio { flex: 0 0 auto; }
+/* eslogan de la marca: «Menos relleno, más vida.» («más vida.» en Verde Brote sobre Verde Monte) */
+.eslogan {
+  align-self: flex-start; margin-top: 4px; padding: 5px 12px; border-radius: 999px; background: var(--monte);
+  color: #fff; font-family: "Lexend"; font-weight: 600; font-size: 14px; letter-spacing: .2px;
+}
+.eslogan b { color: var(--brote); font-weight: 700; }
+
 /* botón fijo para volver al menú principal */
 .volver {
   pointer-events: auto; display: inline-flex; align-items: center; gap: 4px; min-height: 46px; padding: 0 16px 0 10px; border-radius: 999px;
@@ -32,7 +43,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .volver:focus-visible, .boton:focus-visible { outline: 3px solid var(--sol); outline-offset: 2px; }
 .carga-volver { margin-top: 8px; color: var(--monte); font-weight: 700; }
 .precio {
-  position: fixed; top: max(18px, env(safe-area-inset-top)); right: 22px; padding: 10px 16px; border-radius: 999px;
+  margin-left: auto; white-space: nowrap; text-align: right; line-height: 1.15; padding: 10px 16px; border-radius: 999px;
   background: var(--vidrio); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid var(--borde); box-shadow: var(--sombra);
   font-family: "Lexend"; font-weight: 700; font-size: 18px; color: var(--monte); pointer-events: none;
@@ -82,7 +93,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 
 /* recorrido «cómo funciona» */
 #recorrido {
-  position: fixed; left: 50%; top: max(84px, calc(env(safe-area-inset-top) + 70px)); transform: translate(-50%, -12px);
+  position: fixed; left: 50%; top: max(106px, calc(env(safe-area-inset-top) + 96px)); transform: translate(-50%, -12px);
   width: min(560px, calc(100% - 32px)); padding: 16px 22px; border-radius: 22px; text-align: center;
   background: var(--vidrio); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%);
   border: 1px solid var(--borde); box-shadow: var(--sombra); opacity: 0; pointer-events: none; transition: opacity .4s, transform .4s;
@@ -153,17 +164,16 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   .boton { flex: 1 1 0; min-width: 0; flex-direction: column; justify-content: center; gap: 3px; min-height: 60px; padding: 6px 4px; border-radius: 16px; }
   .boton span { font-size: 12px; line-height: 1.15; text-align: center; white-space: normal; }
   .boton.redondo { flex: 0 0 52px; width: 52px; }
+  .marca { gap: 10px; }
+  .marca-texto { padding-top: 8px; }
   .logo { height: 28px; }
-  .eslogan { font-size: 12px; padding: 4px 10px; }
-  .precio { font-size: 15px; padding: 8px 12px; }
+  .eslogan { display: none; }
+  .precio { font-size: 15px; padding: 6px 12px; border-radius: 16px; }
+  .precio small { display: block; margin-left: 0; font-size: 10.5px; }
   .volver { min-height: 44px; font-size: 15px; padding: 0 14px 0 8px; }
   #pista { bottom: calc(96px + env(safe-area-inset-bottom)); font-size: 14px; }
   #recorrido { top: calc(env(safe-area-inset-top) + 76px); }
   #recorrido p { font-size: 16px; }
-}
-@media (max-width: 380px) {
-  .eslogan { display: none; }
-  .precio small { display: none; }
 }
 /* celular acostado (poca altura): todo más compacto para que el producto quede a la vista */
 @media (max-height: 520px) and (orientation: landscape) {
@@ -171,17 +181,19 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   .logo { height: 24px; }
   .eslogan { display: none; }
   .volver { min-height: 40px; font-size: 14px; }
-  .precio { top: max(8px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); font-size: 14px; padding: 6px 12px; }
+  .marca { left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); }
+  .marca-texto { padding-top: 8px; }
+  .precio { font-size: 14px; padding: 6px 12px; }
   .dock { bottom: max(8px, env(safe-area-inset-bottom)); padding: 5px; gap: 4px; border-radius: 20px; }
   .boton { min-height: 44px; padding: 0 12px; font-size: 14px; }
   .boton span { white-space: nowrap; }
   .boton svg { width: 20px; height: 20px; }
   .boton.redondo { width: 44px; }
   #pista { bottom: 66px; font-size: 13px; padding: 6px 12px; }
-  #recorrido { top: 8px; width: min(440px, calc(100% - 260px)); padding: 8px 14px; border-radius: 16px; }
+  #recorrido { top: calc(max(8px, env(safe-area-inset-top)) + 52px); width: min(440px, calc(100% - 24px)); padding: 8px 14px; border-radius: 16px; }
   #recorrido p { font-size: 14px; margin: 4px 0 2px; }
   #recorrido small { font-size: 11px; }
-  #modal { top: 8px; bottom: 8px; right: max(10px, env(safe-area-inset-right)); transform: translate(24px, 0); max-height: none; width: min(380px, 48%); padding: 16px 18px 12px; border-radius: 22px; }
+  #modal { top: calc(max(8px, env(safe-area-inset-top)) + 54px); bottom: 8px; right: max(10px, env(safe-area-inset-right)); transform: translate(24px, 0); max-height: none; width: min(380px, 48%); padding: 16px 18px 12px; border-radius: 22px; }
   .con-modal #modal { transform: translate(0, 0); }
   #modal h2 { font-size: 19px; }
   #modal .corto { font-size: 15px; margin: 10px 0 4px; }
@@ -195,10 +207,3 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   #modal .corto { margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .punto i { animation: none; } * { transition-duration: .01s !important; } }
-
-/* eslogan de la marca: «Menos relleno, más vida.» («más vida.» en Verde Brote sobre Verde Monte) */
-.eslogan {
-  align-self: flex-start; margin-top: 4px; padding: 5px 12px; border-radius: 999px; background: var(--monte);
-  color: #fff; font-family: "Lexend"; font-weight: 600; font-size: 14px; letter-spacing: .2px;
-}
-.eslogan b { color: var(--brote); font-weight: 700; }

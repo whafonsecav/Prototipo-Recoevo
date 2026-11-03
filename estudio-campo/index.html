@@ -322,6 +322,10 @@ html,body,.reveal-viewport{background:var(--bg)!important;margin:0}
 .volver-menu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .volver-menu:active{transform:scale(.95)}
 .reveal .controls{z-index:30}
+/* pantalla de carga: deja espacio arriba para el botón «Menú» y se puede desplazar si la pantalla es baja (celular acostado) */
+#loader{overflow-y:auto;align-items:flex-start;padding:76px 0 24px}
+#loader .box{margin:auto 0}
+@media (max-height:560px){#loader{padding-top:70px}#loader .ld-logo{height:40px;margin-bottom:12px}#loader .brand{font-size:56px}#loader .sub{margin-top:8px}#loader .bar{margin-top:14px}#loader ul{display:none}#loader .go{margin-top:14px}#loader button{padding:12px 20px;font-size:16px}}
 </style>
 </head>
 <body>
@@ -1428,7 +1432,7 @@ async function preload() {
     done.t = tot.t; done.v = tot.v; done.i = tot.i; done.a = tot.a;
   }
   done.w = 1; prog(`Listo en ${((performance.now() - T0) / 1000).toFixed(1)} s`);
-  if ($("ldfs")) $("ldfs").focus();
+  if ($("ldfs")) $("ldfs").focus({ preventScroll: true });
 }
 async function warmMap() {
   await initMap(); map.resize();
