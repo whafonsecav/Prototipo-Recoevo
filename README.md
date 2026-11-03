@@ -13,7 +13,7 @@ Precio al público: **$199.900 IVA incluido**.
 | 2 | Video pitch del equipo | https://whafonsecav.github.io/Prototipo-Recoevo/video-pitch/ |
 | 3 | Video del prototipo explicado | https://whafonsecav.github.io/Prototipo-Recoevo/video-prototipo/ |
 | 4 | Estudio de campo: resultados de las encuestas | https://whafonsecav.github.io/Prototipo-Recoevo/estudio-campo/ |
-| 5 | Videos del evento | https://whafonsecav.github.io/Prototipo-Recoevo/videos/ |
+| 5 | Presupuesto realista | https://whafonsecav.github.io/Prototipo-Recoevo/presupuesto/ |
 
 Cada página tiene un botón fijo **«← Menú»** para volver.
 
@@ -39,7 +39,8 @@ balde de 10 L para cualquier bolsa compostable del supermercado (RECOEVO no vend
 |---|---|
 | `index.html` | Menú principal |
 | `prototipo/` | Visor 3D (three.js r149 incluido, sin servidores externos) |
-| `video-pitch/`, `video-prototipo/`, `videos/` | Páginas de los videos |
+| `video-pitch/`, `video-prototipo/` | Páginas de los videos |
+| `presupuesto/` | Presupuesto realista a 10 años, por rubros que se agrupan y desagrupan |
 | `estudio-campo/` | Presentación del estudio de campo (Villa Rosita, Usme) |
 | `assets/css/` | `marca.css` (menú y páginas) y `prototipo.css` (visor) |
 | `assets/js/prototipo/` | Visor: `partes.js` (fichas de cada pieza), `glb.js`, `controles.js`, `app.js` |
