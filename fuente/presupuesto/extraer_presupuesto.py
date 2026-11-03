@@ -8,7 +8,7 @@ Uso:  python fuente/presupuesto/extraer_presupuesto.py <RECOEVO_Presupuesto_Ejec
   y pone los miles con punto en los textos que arma Excel con fórmulas.
 """
 import json, os, re, sys
-from datetime import datetime
+from datetime import datetime, timezone
 import openpyxl
 from openpyxl.utils import get_column_letter
 
@@ -82,7 +82,7 @@ def texto(r, c):
         v = miles_texto(v)
     for pat, rep in DINERO:
         v = re.sub(pat, lambda m: caso(m.group(0), rep), v, flags=re.I)
-    return sin_celdas(v)
+    return re.sub(r"(\d) %", "\\1\u00a0%", sin_celdas(v))     # «70 %» no se parte en dos renglones
 
 
 SIGLAS = {"ROI", "IVA", "ICA", "REP", "TIR", "POM", "DIAN"}
@@ -301,8 +301,9 @@ out["preguntas"] = [
     dict(n=8, titulo="Retorno de la inversión", fila=roi["id"], valor=roi["valor"],
          nota=f"En 10 años · la inversión se recupera en el mes {rec_mes['valor'][0]}"),
 ]
-out["fuente"] = dict(archivo=os.path.basename(SRC), hoja=HOJA,
-                     guardado=(wf.properties.modified or datetime.fromtimestamp(os.path.getmtime(SRC))).strftime("%Y-%m-%d %H:%M"))
+guardado = wf.properties.modified          # Excel lo guarda en hora UTC
+guardado = guardado.replace(tzinfo=timezone.utc).astimezone() if guardado else datetime.fromtimestamp(os.path.getmtime(SRC))
+out["fuente"] = dict(archivo=os.path.basename(SRC), hoja=HOJA, guardado=guardado.strftime("%Y-%m-%d %H:%M"))
 
 js = ("// Generado por fuente/presupuesto/extraer_presupuesto.py desde " + os.path.basename(SRC) + " (hoja " + HOJA + ").\n"
       "// No editar a mano: si cambia el Excel, se vuelve a correr el script.\n"
