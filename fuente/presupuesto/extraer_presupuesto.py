@@ -1,9 +1,12 @@
 """Lee la hoja «Realista» del presupuesto ejecutivo y escribe presupuesto/datos.js para la página web.
 
-Uso:  python fuente/presupuesto/extraer_presupuesto.py <RECOEVO_Presupuesto_Ejecutivo.xlsx> [presupuesto/datos.js]
+Uso:  python fuente/presupuesto/extraer_presupuesto.py <RECOEVO_Presupuesto_Ejecutivo.xlsx>
+                                                     <RECOEVO_Plan_Detallado_Realista.xlsx> [presupuesto/datos.js]
 
-- Usa los valores que Excel dejó calculados (el libro debe estar guardado desde Excel).
-- Respeta la agrupación con la que se guardó el libro: lo que está plegado en Excel sale plegado en la web.
+- Usa los valores que Excel dejó calculados (los dos libros deben estar guardados desde Excel).
+- Respeta la agrupación con la que se guardó el ejecutivo: lo que está plegado en Excel sale plegado en la web.
+- Del libro detallado trae el detalle de algunos rubros (cada máquina, cada molde, cada gasto de arranque, las partes
+  de la oficina, del marketing…). Solo lo pega si la lista suma EXACTAMENTE la fila del ejecutivo; si no, avisa.
 - Limpia los textos para la web: quita las referencias de celdas (G34, F5…), escribe «dinero» en vez de «plata»
   y pone los miles con punto en los textos que arma Excel con fórmulas.
 """
@@ -12,8 +15,8 @@ from datetime import datetime, timezone
 import openpyxl
 from openpyxl.utils import get_column_letter
 
-SRC = sys.argv[1]
-DST = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(__file__), "..", "..", "presupuesto", "datos.js")
+SRC, DETALLADO = sys.argv[1], sys.argv[2]
+DST = sys.argv[3] if len(sys.argv) > 3 else os.path.join(os.path.dirname(__file__), "..", "..", "presupuesto", "datos.js")
 HOJA = "Realista"
 ANIOS = list(range(11, 22))            # columnas K..U = años 0..10
 
@@ -80,9 +83,15 @@ def texto(r, c):
     f = F.cell(r, c).value
     if isinstance(f, str) and f.startswith("="):
         v = miles_texto(v)
+    return limpio(v)
+
+
+def limpio(v):
+    if not isinstance(v, str) or v.strip() in ("", "—", "None"):
+        return None
     for pat, rep in DINERO:
         v = re.sub(pat, lambda m: caso(m.group(0), rep), v, flags=re.I)
-    return re.sub(r"(\d) %", "\\1\u00a0%", sin_celdas(v))     # «70 %» no se parte en dos renglones
+    return re.sub(r"(\d) %", "\\1\u00a0%", sin_celdas(v.strip()))     # «70 %» no se parte en dos renglones
 
 
 SIGLAS = {"ROI", "IVA", "ICA", "REP", "TIR", "POM", "DIAN"}
@@ -278,6 +287,104 @@ def buscar(pref):
         if f["nombre"].startswith(pref):
             return f
     raise SystemExit(f"No encontré la fila «{pref}» en la hoja {HOJA}")
+
+
+# ---------------------------------------------------------------- detalle traído del libro detallado
+wd = openpyxl.load_workbook(DETALLADO, data_only=True)
+
+
+def item(nombre, total, anios=None, que=None, espec=None, cant=None, unidad=None, precio=None):
+    d = dict(id=None, nombre=limpio(nombre), total=[round(total, 4), "$"], pp=[round(total / NPROD, 4), "$"],
+             prom=[round(total / 10, 4), "$"], anios=anios or [round(total, 4)] + [0] * 10, tanios="$", que=limpio(que), espec=limpio(espec))
+    if cant and unidad and precio is not None:
+        d.update(cant=[cant, "n0"], unidad=unidad, precio=[round(precio, 4), "$"])
+    return {k: v for k, v in d.items() if v not in (None, "")}
+
+
+def capex(tipos):
+    """Hoja 3: cada máquina, molde u obra de la fase 1 (cantidad, precio con instalación, total, para qué sirve)."""
+    w = wd["3 Máquinas y planta"]
+    r = next(r for r in range(1, w.max_row + 1) if w.cell(r, 2).value == "ID" and w.cell(r, 3).value == "Fase") + 2
+    out_ = []
+    while isinstance(w.cell(r, 2).value, str) and not w.cell(r, 2).value.startswith("TOTAL"):
+        if w.cell(r, 3).value == "F1" and w.cell(r, 4).value in tipos:
+            cant, precio, inst, total = (w.cell(r, c).value or 0 for c in (7, 8, 10, 11))
+            espec = w.cell(r, 6).value
+            if inst:
+                espec = (espec + ". " if espec else "") + f"Incluye ${miles(inst)} de instalación (10 % por ser importada)."
+            out_.append(item(w.cell(r, 5).value, total, que=w.cell(r, 17).value, espec=espec,
+                             cant=cant, unidad="unidad" if cant == 1 else "unidades", precio=total / cant))
+        r += 1
+    return out_
+
+
+def capitulo(nombre_definido):
+    """Lista de un gasto de arranque: las filas que están justo encima de su «SUBTOTAL DE ESTE CAPÍTULO»."""
+    hoja, celda = wd.defined_names[nombre_definido].attr_text.replace("$", "").split("!")
+    w = wd[hoja.strip("'")]
+    col, fila_sub = openpyxl.utils.cell.coordinate_from_string(celda)
+    c = openpyxl.utils.column_index_from_string(col)
+    out_, r = [], fila_sub - 1
+    while isinstance(w.cell(r, c).value, (int, float)):
+        que = next((w.cell(r, cc).value for cc in range(c + 1, c + 6) if isinstance(w.cell(r, cc).value, str)), None)
+        out_.insert(0, item(w.cell(r, 2).value, w.cell(r, c).value, que=que))
+        r -= 1
+    return out_
+
+
+PR = wd["Proyección"]
+ANIO_COL = {c: PR.cell(5, c).value for c in range(4, PR.max_column + 1) if isinstance(PR.cell(5, c).value, int)}
+
+
+def proyeccion(partes):
+    """Filas de la proyección mes a mes, sumadas por año del plan (año 0 = montaje)."""
+    out_ = []
+    for pref, nombre in partes:
+        r = next(r for r in range(1, PR.max_row + 1) if str(PR.cell(r, 2).value or "").startswith(pref))
+        anios = [0.0] * 11
+        for c, a in ANIO_COL.items():
+            anios[a] += PR.cell(r, c).value or 0
+        out_.append(item(nombre, sum(anios), anios=[round(x, 4) for x in anios]))
+    return out_
+
+
+DETALLE = [
+    ("Máquinas (", lambda: capex({"Maquinaria"})),
+    ("Moldes y troqueles", lambda: capex({"Moldes"})),
+    ("Planta y oficina", lambda: capex({"Planta", "Oficina"})),
+    ("Trámites legales", lambda: capitulo("Preop_legal")),
+    ("Desarrollo del producto", lambda: capitulo("Preop_producto")),
+    ("Puesta en marcha de la planta", lambda: capitulo("Preop_planta")),
+    ("Lanzamiento y marketing inicial", lambda: capitulo("Preop_mkt")),
+    ("Sueldos de montaje", lambda: capitulo("Preop_equipo")),
+    ("Oficina (", lambda: proyeccion([("Arriendo de oficinas", "Arriendo de la oficina"), ("Software y tecnología", "Software y tecnología"),
+                                      ("Papelería, comunicaciones", "Papelería, comunicaciones, transporte y bancarios"),
+                                      ("Póliza de responsabilidad civil", "Póliza de responsabilidad civil del producto")])),
+    ("Marketing fijo", lambda: proyeccion([("Demostraciones en almacenes", "Demostraciones en almacenes (impulsadoras)"),
+                                           ("Marketing digital fijo", "Redes y web (2 personas por prestación de servicios)"),
+                                           ("Ferias", "Ferias"), ("Islas en centros comerciales", "Islas en centros comerciales, muestras y exhibidores")])),
+    ("Comisiones (", lambda: proyeccion([("Comisión de marketplaces", "Comisión de los marketplaces"),
+                                         ("Comisiones por ventas a empresas", "Comisión del vendedor de empresas"),
+                                         ("Pasarela de pago", "Pasarela de pagos y financiación")])),
+    ("Distribución a clientes y garantía", lambda: proyeccion([("Distribución a clientes", "Distribución a almacenes y empresas"),
+                                                              ("Garantía y posventa", "Garantía y posventa")])),
+]
+for pref, fuente in DETALLE:
+    fila = buscar(pref)
+    hijos = fuente()
+    suma, total = sum(h["total"][0] for h in hijos), fila["total"][0]
+    if abs(suma - total) > 1:
+        print(f"AVISO: el detalle de «{fila['nombre']}» suma {miles(suma)} y la fila del ejecutivo {miles(total)}: no se pega.")
+        continue
+    if fila.get("anios") and any(abs(sum(h["anios"][i] for h in hijos) - (fila["anios"][i] or 0)) > 1 for i in range(11)):
+        print(f"AVISO: el detalle de «{fila['nombre']}» no cuadra año por año: no se pega.")
+        continue
+    for i, h in enumerate(hijos):
+        h["id"] = f"{fila['id']}-{i + 1}"
+    fila["hijos"], fila["abierto"] = hijos, False
+    for k in ("cant", "precio", "unidad"):              # el detalle muestra la cantidad y el precio de cada cosa
+        fila.pop(k, None)
+    print(f"detalle: {fila['nombre'][:45]:45s} {len(hijos):3d} filas · suma {miles(suma)} = {miles(total)}")
 
 
 inv, mat, prod, adm = buscar("4. "), buscar("Materiales"), buscar("6. "), buscar("7. ")

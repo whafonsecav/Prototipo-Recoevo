@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>RECOEVO · Presupuesto realista</title>
-  <meta name="description" content="El presupuesto de RECOEVO a 10 años, escenario realista: inversión, costos, ventas, utilidad, punto de equilibrio y retorno de la inversión, explicados en palabras sencillas.">
+  <meta name="description" content="El presupuesto de RECOEVO a 10 años, escenario realista: inversión, costos, ventas, utilidad, punto de equilibrio y retorno de la inversión.">
   <meta name="theme-color" content="#154734">
   <link rel="icon" href="../assets/img/icono-192.png">
   <link rel="preload" href="../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,25 +18,23 @@
   <main class="pagina presupuesto" id="pagina">
     <p class="kicker">Presupuesto · escenario realista</p>
     <h1>¿Cuánto cuesta y cuánto deja RECOEVO?</h1>
-    <p class="bajada">Los números de los 10 años del plan, en el escenario realista: las ventas suben poco a poco, de 800 a 9.500 productos al mes.
-      <b>Toca cualquier cifra o fila</b> para ver qué es y cómo se calculó.</p>
 
     <button class="costo-uno" id="costo" type="button"></button>
+    <ol class="preguntas" id="preguntas" aria-label="Las 8 preguntas del presupuesto"></ol>
 
-    <section class="bloque" aria-labelledby="t-preguntas">
-      <h2 class="sub" id="t-preguntas">Las 8 preguntas del presupuesto</h2>
-      <ol class="preguntas" id="preguntas"></ol>
+    <section class="bloque resumen" aria-labelledby="t-resumen">
+      <h2 class="sub" id="t-resumen">Resumen ejecutivo</h2>
+      <div class="conclusion" id="conclusion"></div>
+      <details class="supuestos">
+        <summary>¿Qué supone este escenario?</summary>
+        <p id="supone"></p>
+      </details>
     </section>
 
-    <details class="supuestos">
-      <summary>¿Qué supone este escenario?</summary>
-      <p id="supone"></p>
-    </details>
-
     <section class="bloque" aria-labelledby="t-tablas">
-      <h2 class="sub" id="t-tablas">El presupuesto completo</h2>
+      <h2 class="sub" id="t-tablas">El presupuesto, como en el Excel</h2>
       <div class="controles" role="group" aria-label="Agrupar o desagrupar las tablas">
-        <div class="niveles" id="niveles">
+        <div class="niveles">
           <button type="button" data-nivel="excel">Como en el Excel</button>
           <button type="button" data-nivel="1">Agrupar todo</button>
           <button type="button" data-nivel="2">Ver rubros</button>
@@ -48,17 +46,17 @@
         </div>
       </div>
       <ul class="leyenda">
-        <li><span class="muestra amarillo" aria-hidden="true"></span>Fila amarilla: el total de su tabla (la suma exacta de sus filas).</li>
-        <li><span class="muestra azul" aria-hidden="true"></span>Fila azul: lo que entra (ventas y utilidad).</li>
-        <li><span class="muestra boton" aria-hidden="true">+</span>Abre o cierra el detalle, como los botones de agrupar del Excel.</li>
-        <li><span class="muestra info" aria-hidden="true">i</span>Toca una fila para ver la explicación.</li>
-        <li><span class="muestra letra" aria-hidden="true">M</span><span>= millones de pesos. Todo va sin IVA, menos el precio al público.</span></li>
+        <li><span class="muestra boton" aria-hidden="true">+</span>abre el detalle</li>
+        <li><span class="muestra info" aria-hidden="true">i</span>dice qué es</li>
+        <li><span class="muestra amarillo" aria-hidden="true"></span>total de la tabla</li>
+        <li><span class="muestra azul" aria-hidden="true"></span>lo que entra</li>
+        <li><span class="muestra letra" aria-hidden="true">M</span>millones de pesos, sin IVA</li>
       </ul>
 
       <div id="tablas"><p class="cargando">Cargando el presupuesto…</p></div>
     </section>
 
-    <section class="conclusion" id="conclusion" aria-live="polite"></section>
+    <section class="conclusion final" id="conclusion-final"></section>
     <p class="fuente" id="fuente"></p>
 
     <nav class="otros" aria-label="Más secciones">
@@ -77,13 +75,9 @@
     <div class="ficha-caja">
       <div class="ficha-barra">
         <p class="ficha-ruta" id="ficha-ruta"></p>
-        <button type="button" class="ficha-cerrar" id="ficha-cerrar" aria-label="Cerrar la explicación"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <button type="button" class="ficha-cerrar" id="ficha-cerrar" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div class="ficha-cuerpo" id="ficha-cuerpo"></div>
-      <nav class="ficha-nav" aria-label="Otras filas de esta tabla">
-        <button type="button" id="ficha-ant">← Anterior</button>
-        <button type="button" id="ficha-sig">Siguiente →</button>
-      </nav>
     </div>
   </dialog>
 
