@@ -295,7 +295,7 @@ body.con-panel{overflow:hidden}
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
-  var INICIO=[],DURACION=TOTAL,moviendo=false;
+  var INICIO=[],HABLA=[],DURACION=TOTAL,moviendo=false,real=0;
   (function calcularTiempos(){
     var base=[],suma=0,CIERRE=/["»”)\]]*$/;
     palabras.forEach(function(w,i){
@@ -307,9 +307,10 @@ body.con-panel{overflow:hidden}
       var sig=palabras[i+1],pa=w.closest("p"),ps=sig&&sig.closest("p");
       if(!sig||ps!==pa){pausa=Math.max(pausa,0.9);
         if(ps&&ps.previousElementSibling&&ps.previousElementSibling.tagName==="H4")pausa=Math.max(pausa,1.4);}
-      base.push(d+pausa);suma+=d+pausa;});
-    var escala=TOTAL/suma,acc=0;
-    base.forEach(function(b){INICIO.push(acc);acc+=b*escala;});DURACION=acc;
+      base.push([d,pausa]);});
+    var sh=0,sp=0;base.forEach(function(b){sh+=b[0];sp+=b[1];});
+    var esc=Math.max(0.3,(TOTAL-sp)/sh),acc=0;   /* solo se ajusta el tiempo de hablar; las pausas quedan fijas */
+    base.forEach(function(b){INICIO.push(acc);HABLA.push(b[0]*esc);acc+=b[0]*esc+b[1];});DURACION=acc;
   })();
   function empezadas(t){var lo=0,hi=INICIO.length;while(lo<hi){var m=(lo+hi)>>1;if(INICIO[m]<=t)lo=m+1;else hi=m;}return lo;}
   function pintarPorTiempo(){var k=empezadas(seg),a;
@@ -317,12 +318,15 @@ body.con-panel{overflow:hidden}
     leidas=k;}
   function seguir(dt){var w=palabras[Math.max(0,leidas-1)];if(!w)return;
     var d=w.getBoundingClientRect().top-(window.innerHeight*0.38+4);if(Math.abs(d)>1)caja.scrollTop+=d*(1-Math.exp(-dt*7));}
-  function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;reloj.textContent=mmss(seg);}
+  function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
   function paso(ts){
     if(!corre)return;
     var dt=ult?(ts-ult)/1000:0;ult=ts;
-    if(!arrastre&&!moviendo){seg+=dt*mult;pintarPorTiempo();seguir(dt);}
-    reloj.textContent=mmss(seg);
+    if(!arrastre&&!moviendo){
+      var k=empezadas(seg)-1,enPausa=k>=0&&seg>=INICIO[k]+HABLA[k];
+      seg+=dt*(enPausa?1:mult);real+=dt;   /* la velocidad cambia la lectura, no las pausas */
+      pintarPorTiempo();seguir(dt);}
+    reloj.textContent=mmss(real);
     if(seg>=DURACION){parar();bPlay.textContent="Terminó";}
     else raf=requestAnimationFrame(paso);
   }
@@ -341,7 +345,7 @@ body.con-panel{overflow:hidden}
   $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
   $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();repintar();};
   $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();repintar();};
-  $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
   function mover(n){var lh=tam*1.45,desde=caja.scrollTop,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
     var suave=!matchMedia("(prefers-reduced-motion: reduce)").matches;
     moviendo=true;
