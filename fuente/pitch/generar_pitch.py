@@ -1044,17 +1044,14 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
     cabecera = f'{volver}\n<header class="barra"><img src="{logo}" alt="recoevo" width="832" height="273"></header>'
 
     if vista == "guion":
+        indice_simple = indice.replace('<a href="#b', '<span data-b="').replace('</b></a>', '</b></span>')
         cuerpo = f"""{cabecera}
 <main class="pitch">
   <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
   <h1>El guion</h1>
   <nav class="modos" aria-label="Secciones">{pestanas}</nav>
   <section id="guion">
-    {indice}
-    <a class="ir-tele" href="{L['tele']}">Abrir el teleprompter →</a>
-    <p class="leyenda"><span><b class="num">33.300</b> cifra impresa en el póster</span><span><strong style="background:linear-gradient(transparent 60%,var(--hl) 60%)">palabra clave</strong></span><span><span class="gesto">qué señalar</span></span><span><span class="opc">se puede quitar si va largo</span></span></p>
-    {"".join(bloques)}
-    <p class="total">Duración estimada a ritmo de conversación (unas 2,8 palabras por segundo): <b>{mmss(sin_opc)}</b> sin las frases marcadas con ✂ y <b>{mmss(total)}</b> con todas. Si el jurado corta en 5:00, lo primero que se quita son las frases ✂. El teleprompter muestra la versión sin ✂.</p>
+    {indice_simple}
     <a class="ir-tele" href="{L['tele']}">Abrir el teleprompter →</a>
   </section>
 </main>
