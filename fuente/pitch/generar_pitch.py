@@ -428,6 +428,11 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-texto .opc{color:#b9c2b8}
 .tele-guia{position:absolute;left:0;right:0;top:38vh;height:2px;background:rgba(242,178,39,.55);pointer-events:none}
 .tele-guia::before{content:"";position:absolute;left:6px;top:-7px;border:8px solid transparent;border-left:12px solid var(--sol)}
+.tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh - 70px);display:grid;gap:10px;z-index:2}
+.tele-saltos button{display:grid;place-items:center;gap:2px;width:64px;height:64px;border-radius:18px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:11px;font-weight:600;padding:6px 0;touch-action:manipulation}
+.tele-saltos button:active{background:var(--sol);color:var(--monte)}
+.tele-saltos svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tele-texto .in{padding-right:64px}
 .tele-ctl{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#14231b;border-top:1px solid rgba(255,255,255,.12)}
 .tele-ctl button{font:inherit;font-family:"Lexend";font-weight:600;font-size:15px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:9px 14px;cursor:pointer;min-width:44px}
 .tele-ctl .play{background:var(--sol);color:var(--monte);border-color:var(--sol);min-width:110px}
@@ -568,6 +573,9 @@ JS = r"""
   $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();};
   $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();};
   $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  function mover(n){var lh=tam*1.45;caja.scrollTop=Math.max(0,caja.scrollTop+n*lh);resto=0;}
+  $("tele-atras").onclick=function(){mover(-2);};
+  $("tele-adelante").onclick=function(){mover(2);};
   $("tele-cerrar").onclick=cerrar;
   document.addEventListener("keydown",function(e){
     if(capa.hidden) return;
@@ -575,6 +583,8 @@ JS = r"""
     else if(e.key===" "){e.preventDefault();corre?parar():arrancar();}
     else if(e.key==="ArrowUp") $("tele-menos").click();
     else if(e.key==="ArrowDown") $("tele-mas").click();
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();mover(-2);}
+    else if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();mover(2);}
   });
 })();
 """
@@ -680,6 +690,10 @@ def pagina(modo_suelto=False, web=None):
 <div class="tele-capa" id="tele" hidden role="dialog" aria-label="Teleprompter">
   <div class="tele-texto" id="tele-texto"><div class="in"></div></div>
   <div class="tele-guia" aria-hidden="true"></div>
+  <div class="tele-saltos" role="group" aria-label="Moverse por el texto">
+    <button type="button" id="tele-atras" aria-label="Volver dos líneas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg><span>2 líneas</span></button>
+    <button type="button" id="tele-adelante" aria-label="Avanzar dos líneas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg><span>2 líneas</span></button>
+  </div>
   <div class="tele-ctl">
     <button type="button" class="play" id="tele-play">Iniciar</button>
     <output id="tele-reloj">0:00</output>
