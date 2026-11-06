@@ -157,15 +157,19 @@
   }));
 
   grid.append(tarjeta({
-    tipo: "calc", pregunta: "5. ¿Cuánto entra y cuánto queda en los 10 años?",
-    valor: "$" + miles(utilidad / 1e6), unidad: "millones de utilidad neta",
-    dice: "Lo que les queda a los socios después de pagar <b>todo</b>, incluido el impuesto de renta.",
+    tipo: "calc", pregunta: "5. ¿Cuál es la utilidad neta? (cuánto entra y cuánto queda en los 10 años)",
+    valor: "$" + miles(utilidad / 1e6), unidad: `millones · el ${pct(utilidad / ventas)} de las ventas`,
+    dice: "<b>La utilidad neta es la ganancia limpia</b>: lo que les queda a los socios después de pagar absolutamente todo (materiales, sueldos, arriendo, máquinas, publicidad e intereses) y también el impuesto de renta.",
     cuentaEl: cuenta([
       ["entra", "", "Ventas (sin IVA)", mill(ventas)],
       ["sale", "−", "Gasto completo (todo lo de la pregunta 3)", mill(gasto)],
       ["sale", "−", "Impuesto de renta (35 % de lo que queda)", mill(impuesto)],
     ], ["calc", "Utilidad (ganancia) neta", mill(utilidad)]),
-    mas: `<p>Llevado a un producto: entra <b>${pesos(pp("r117"))}</b>, cuesta <b>${pesos(costo10)}</b> y el impuesto se lleva <b>${pesos(-pp("r133"))}</b>; quedan <b>${pesos(pp("r130"))}</b> de ganancia por cada producto vendido.</p>`,
+    extra: el("ul", { class: "resp-anios" },
+      el("li", {}, el("span", {}, html(`En porcentaje de las ventas: de cada <b>$100</b> que entran, quedan <b>$${miles(utilidad / ventas * 100, 2)}</b> de ganancia`)), el("b", {}, pct(utilidad / ventas))),
+      el("li", {}, el("span", {}, html(`En porcentaje de los costos: por cada <b>$100</b> que se gastan, se ganan <b>$${miles(utilidad / gasto * 100, 2)}</b>`)), el("b", {}, pct(utilidad / gasto))),
+      el("li", {}, el("span", {}, "Por cada producto vendido"), el("b", {}, pesos(pp("r130"))))),
+    mas: `<p>Llevado a un producto: entra <b>${pesos(pp("r117"))}</b>, cuesta <b>${pesos(costo10)}</b> y el impuesto se lleva <b>${pesos(-pp("r133"))}</b>; quedan <b>${pesos(pp("r130"))}</b> de ganancia por cada producto vendido. Se llama «neta» porque ya se le quitó todo, incluso el impuesto; si no se le quita el impuesto se llama utilidad antes de impuestos.</p>`,
     ir: "r130", irTexto: "Ver en la tabla 11 →",
   }));
 
@@ -215,7 +219,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "8. ¿Cuál es la rentabilidad sobre los costos?",
     valor: pct(utilidad / gasto), unidad: "",
-    dice: `Por cada <b>$100 que se gastan</b>, se ganan <b>$${miles(utilidad / gasto * 100, 1)}</b> de utilidad neta.`,
+    dice: `Por cada <b>$100 que se gastan</b>, se ganan <b>$${miles(utilidad / gasto * 100, 2)}</b> de utilidad neta.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["sale", "÷", "Gasto completo de los 10 años", mill(gasto)],
@@ -226,7 +230,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "9. ¿Cuál es la rentabilidad sobre las ventas (el porcentaje de utilidad final)?",
     valor: pct(utilidad / ventas), unidad: "",
-    dice: `De cada <b>$100 que entran por ventas</b>, quedan <b>$${miles(utilidad / ventas * 100, 1)}</b> de ganancia limpia, ya pagado todo e incluido el impuesto.`,
+    dice: `De cada <b>$100 que entran por ventas</b>, quedan <b>$${miles(utilidad / ventas * 100, 2)}</b> de ganancia limpia, ya pagado todo e incluido el impuesto.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["entra", "÷", "Ventas de los 10 años", mill(ventas)],
