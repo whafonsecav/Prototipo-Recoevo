@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RECOEVO · Pitch · Teleprompter</title>
+<meta name="description" content="Pitch de RECOEVO para el E-Fest 2026-2: guion, teleprompter y preguntas del jurado por temas.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#154734">
+<link rel="icon" href="../../assets/img/icono-192.png">
+<link rel="preload" href="../../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/marca.css">
+<style>
+:root{--hl:rgba(164,214,94,.5);--gesto:#7a5a35;--num:#0a6e35;--papel2:#f3efe3}
+.volver{z-index:1000}
+.pitch{max-width:860px;margin:0 auto;padding:6px 16px 10px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.kicker{font-family:"Lexend",system-ui,sans-serif;font-weight:700;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:var(--evo);margin:0 0 6px}
+.pitch h1{font-size:clamp(28px,7vw,44px);letter-spacing:-.4px}
+.bajada{margin:10px 0 0;color:var(--suave);font-size:17px;max-width:40em}
+.datos{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.datos li{padding:6px 12px;border-radius:999px;background:var(--papel);border:1px solid var(--linea);font-weight:700;font-size:14.5px}
+.datos li.dest{background:var(--monte);color:#fff;border-color:var(--monte)}
+.modos{position:sticky;top:0;z-index:20;background:var(--crema);margin:18px -16px 0;padding:10px 16px 10px 128px;border-bottom:1px solid var(--linea);display:flex;gap:8px;padding-top:calc(10px + env(safe-area-inset-top))}
+@media (max-width:700px){.modos{position:fixed;top:auto;bottom:0;left:0;right:0;margin:0;padding:6px max(6px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));border-top:1px solid var(--linea);border-bottom:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;box-shadow:0 -6px 18px rgba(21,71,52,.08)}.modos a,.modos button{padding:9px 2px;font-size:12.5px;text-align:center;border-radius:12px;min-width:0;overflow:hidden;text-overflow:ellipsis}body{padding-bottom:76px}}
+.modos a,.modos button{flex:none;font:inherit;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:15px;text-decoration:none;color:var(--monte);background:var(--papel);border:1px solid var(--linea);border-radius:999px;padding:9px 15px;cursor:pointer;white-space:nowrap}
+.modos .tele{background:var(--monte);color:#fff;border-color:var(--monte)}
+section{scroll-margin-top:80px}
+@media (max-width:700px){section{scroll-margin-top:70px}}
+h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
+.sec-sub{color:var(--suave);margin:0 0 14px;max-width:42em}
+.orden{background:var(--papel);border:1px solid var(--linea);border-radius:18px;padding:14px 16px;margin:6px 0 4px}
+.orden p{margin:0;font-size:16.5px}
+.orden .lbl{font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--evo);display:block;margin-bottom:4px}
+.orden .titulo{font-size:13px;margin-bottom:8px}
+.orden .parte{display:grid;gap:4px;padding:8px 0;border-top:1px solid var(--linea)}
+.orden .parte .lbl{color:var(--tierra);margin:0}
+.orden ol{margin:0;padding-left:1.6em;display:grid;gap:4px}
+.orden li{font-size:16px;line-height:1.4}
+.orden li a{text-decoration:none;color:var(--monte)}
+.orden li b{font-weight:800}
+.orden li span{color:var(--suave)}
+.leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--suave);margin:10px 0 0}
+.bloque{border-top:1px solid var(--linea);padding:20px 0 6px}
+.b-cab{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
+.b-n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--monte);color:#fff;font-family:"Lexend";font-weight:700;font-size:16px;flex:none}
+.b-cab h3{font-size:21px}
+.b-t{font-family:"Lexend";font-weight:600;font-size:13px;color:var(--monte);background:var(--papel2);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+.b-p{flex-basis:100%;font-size:14px;color:var(--suave);margin-left:44px}
+.b-texto p{margin:0 0 12px;font-size:19px;line-height:1.7;max-width:40em}
+.b-texto strong{font-weight:800;background:linear-gradient(transparent 60%,var(--hl) 60%)}
+.num{font-family:"Lexend",system-ui,sans-serif;font-weight:700;color:var(--num);white-space:nowrap}
+.gesto{display:inline-block;font-style:italic;font-size:14.5px;color:var(--gesto);background:var(--papel2);border-radius:8px;padding:0 8px;margin-right:4px}
+.opc{color:var(--suave)}
+.opc::after{content:" ✂";color:var(--tierra);font-weight:700}
+.total{margin:8px 0 0;padding:12px 16px;border-radius:16px;background:rgba(164,214,94,.22);border:1px solid rgba(14,154,72,.25);font-size:15.5px}
+/* práctica */
+.metodo{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:m}
+.metodo li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;font-size:16.5px}
+.metodo li::before{counter-increment:m;content:counter(m);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--sol);color:var(--monte);font-family:"Lexend";font-weight:700;font-size:15px}
+.metodo b{color:var(--monte)}
+.por-que{font-size:14.5px;color:var(--suave);margin:10px 0 0}
+.tarjeta-p{margin-top:18px;background:var(--papel);border:1px solid var(--linea);border-radius:22px;box-shadow:var(--sombra);padding:18px}
+.tp-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;justify-content:space-between}
+.tp-paso{font-family:"Lexend";font-weight:700;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--evo)}
+.tp-modo{display:inline-flex;border:1px solid var(--linea);border-radius:999px;overflow:hidden}
+.tp-modo button{font:inherit;font-size:14px;font-weight:700;border:0;background:var(--papel);color:var(--monte);padding:7px 12px;cursor:pointer}
+.tp-modo button[aria-pressed="true"]{background:var(--monte);color:#fff}
+.barra-prog{height:6px;border-radius:99px;background:var(--papel2);margin:12px 0 14px;overflow:hidden}
+.barra-prog i{display:block;height:100%;background:var(--evo);width:0;transition:width .3s}
+.tp-preg{font-family:"Lexend";font-weight:700;color:var(--monte);font-size:clamp(20px,4.6vw,25px);line-height:1.3;margin:0}
+.tp-inst{color:var(--suave);font-size:15px;margin:6px 0 0}
+.tp-pistas{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.tp-pistas li{background:rgba(164,214,94,.3);border-radius:10px;padding:4px 10px;font-weight:700;font-size:15px}
+.tp-guion{margin-top:14px;border-top:1px dashed var(--linea);padding-top:12px}
+.tp-guion p{font-size:17.5px;line-height:1.65;margin:0 0 10px}
+.tp-acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{font:inherit;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:15px;border-radius:999px;padding:10px 16px;cursor:pointer;border:1px solid var(--monte);background:var(--monte);color:#fff}
+.btn.sec{background:var(--papel);color:var(--monte);border-color:var(--linea)}
+.btn.ok{background:var(--evo);border-color:var(--evo)}
+.btn.rep{background:var(--sol);color:var(--monte);border-color:var(--sol)}
+.tp-nav{display:flex;justify-content:space-between;gap:8px;margin-top:14px;border-top:1px solid var(--linea);padding-top:12px}
+.marcas{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.marcas button{font:inherit;font-family:"Lexend";font-weight:700;font-size:13px;width:32px;height:32px;border-radius:50%;border:1px solid var(--linea);background:var(--papel);color:var(--monte);cursor:pointer}
+.marcas button.ok{background:var(--evo);color:#fff;border-color:var(--evo)}
+.marcas button.rep{background:var(--sol);border-color:var(--sol)}
+.marcas button.act{outline:3px solid var(--monte);outline-offset:1px}
+/* preguntas */
+.profe{display:grid;gap:10px}
+.q{background:var(--papel);border:1px solid var(--linea);border-radius:18px;padding:14px 16px}
+.q-p{font-weight:800;color:var(--monte);font-size:16.5px;margin:0}
+.q-r{font-family:"Lexend";font-weight:700;font-size:clamp(22px,5.4vw,28px);color:var(--num);line-height:1.2;margin:4px 0 2px}
+.q-d{margin:0;font-size:16px}
+.q details{margin-top:8px}
+.q summary{cursor:pointer;font-weight:700;color:var(--evo);font-size:15px}
+.q ul{margin:8px 0 0;padding-left:1.15em;display:grid;gap:4px;font-size:15px}
+.otras details{border-top:1px solid var(--linea);padding:12px 0}
+.otras summary{cursor:pointer;font-weight:800;color:var(--monte)}
+.otras p{margin:8px 0 0;font-size:16px}
+.fuentes{font-size:14px;color:var(--suave)}
+.fuentes ol{padding-left:1.2em;display:grid;gap:5px}
+.fuentes summary{cursor:pointer;font-weight:700;color:var(--monte);font-size:16px}
+/* teleprompter */
+.tele-capa{position:fixed;inset:0;z-index:2000;background:#0b1410;color:#f4f1e8;display:flex;flex-direction:column}
+.tele-capa[hidden]{display:none}
+.tele-texto{flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
+.tele-texto::-webkit-scrollbar{display:none}
+.tele-texto .in{max-width:900px;margin:0 auto;padding:38vh 0 60vh}
+.tele-texto h4{font-family:"Lexend";font-size:.5em;letter-spacing:2px;text-transform:uppercase;color:var(--brote);margin:1.4em 0 .4em}
+.tele-texto p{margin:0 0 .7em;line-height:1.45}
+.tele-texto strong{color:#fff;font-weight:800}
+.tele-texto .num{color:var(--sol)}
+.tele-texto .gesto{background:transparent;color:#8fd1a8;font-size:.55em;padding:0}
+.tele-texto .opc{color:#b9c2b8}
+.tele-guia{position:absolute;left:0;right:0;top:38vh;height:2px;background:rgba(242,178,39,.55);pointer-events:none}
+.tele-guia::before{content:"";position:absolute;left:6px;top:-7px;border:8px solid transparent;border-left:12px solid var(--sol)}
+.tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh - 70px);display:grid;gap:10px;z-index:2}
+.tele-saltos button{display:grid;place-items:center;gap:2px;width:64px;height:64px;border-radius:18px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:11px;font-weight:600;padding:6px 0;touch-action:manipulation}
+.tele-saltos button:active{background:var(--sol);color:var(--monte)}
+.tele-saltos svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tele-texto .in{padding-right:64px}
+.tele-ctl{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#14231b;border-top:1px solid rgba(255,255,255,.12)}
+.tele-ctl button{font:inherit;font-family:"Lexend";font-weight:600;font-size:15px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:9px 14px;cursor:pointer;min-width:44px}
+.tele-ctl .play{background:var(--sol);color:var(--monte);border-color:var(--sol);min-width:110px}
+.tele-ctl output{font-family:"Lexend";font-weight:700;font-size:20px;min-width:56px;text-align:center;font-variant-numeric:tabular-nums}
+.tele-ctl small{color:#b9c2b8;font-size:13px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.buscador{display:flex;gap:8px;align-items:stretch;margin:4px 0 10px}
+.buscador input{flex:1;min-width:0;font:inherit;font-size:17px;padding:14px 16px;border-radius:16px;border:2px solid var(--monte);background:var(--papel);color:var(--tinta)}
+.buscador input:focus{outline:3px solid var(--sol);outline-offset:2px}
+#q-voz{flex:none;display:inline-flex;align-items:center;gap:6px;font:inherit;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:15px;border:0;border-radius:16px;background:var(--monte);color:#fff;padding:0 14px;cursor:pointer}
+#q-voz svg{width:20px;height:20px;fill:currentColor}
+#q-voz.oyendo{background:var(--sol);color:var(--monte)}
+.atajos{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.atajos button{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--linea);background:var(--papel);color:var(--monte);border-radius:999px;padding:6px 12px;cursor:pointer}
+.q-estado{color:var(--suave);font-size:15px;margin:0 0 10px;min-height:1.2em}
+.q-lista{display:grid;gap:10px}
+.grupo-t{font-size:20px;margin:14px 0 2px}
+.q-lista.buscando .grupo-t{display:none}
+.q.top{outline:3px solid var(--sol);outline-offset:0}
+.q.top::before{content:"Respuesta más probable";display:inline-block;font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:.8px;text-transform:uppercase;background:var(--sol);color:var(--monte);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.q[hidden],.grupo-t[hidden]{display:none!important}
+.filtros{display:grid;gap:12px;background:var(--papel);border:1px solid var(--linea);border-radius:20px;padding:14px}
+.f-grupo{display:grid;gap:6px}
+.f-grupo+.f-grupo{border-top:1px solid var(--linea);padding-top:10px}
+.f-g{font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:var(--evo)}
+.f-chips{display:flex;flex-wrap:wrap;gap:6px}
+.filtros button,.q-tags button{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--linea);background:var(--crema);color:var(--monte);border-radius:999px;padding:6px 11px;cursor:pointer;line-height:1.2}
+.filtros button span{display:inline-block;min-width:1.5em;text-align:center;font-size:12px;background:var(--papel);border-radius:999px;padding:1px 6px;margin-left:3px;color:var(--suave)}
+.filtros button.activo{background:var(--monte);color:#fff;border-color:var(--monte)}
+.filtros button.activo span{background:var(--sol);color:var(--monte)}
+.f-top button{font-size:15px;padding:8px 14px}
+.q-estado{font-family:"Lexend";font-weight:700;color:var(--monte);font-size:16px;margin:14px 0 8px;scroll-margin-top:76px}
+.q-s{margin:6px 0 0;font-size:16px}
+.q-s b,.q-c b{color:var(--monte)}
+.q-c{margin-top:8px;font-size:15px}
+.q-c ul{margin:4px 0 0;padding-left:1.15em;display:grid;gap:4px}
+.q-tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 0}
+.q-tags button{font-size:12.5px;padding:3px 9px;background:var(--papel)}
+.tele-texto{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.tele-texto.arrastrando{cursor:grabbing}
+.tele-texto .in{position:relative}
+.tele-marca{position:absolute;left:-10px;right:-10px;top:0;height:0;border-radius:10px;background:rgba(242,178,39,.28);box-shadow:inset 4px 0 0 var(--sol);opacity:0;pointer-events:none;transition:opacity .25s}
+.tele-marca.ver{opacity:1}
+.tele-ayuda{flex-basis:100%;text-align:center;color:#b9c2b8;font-size:12.5px}
+.modos a.activa{background:var(--monte);color:#fff;border-color:var(--monte)}
+.ir-tele{display:inline-block;margin:12px 0;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;background:var(--monte);color:#fff;border-radius:999px;padding:11px 18px}
+.tele-tabs{flex:none;display:flex;gap:6px;justify-content:center;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:#14231b;border-bottom:1px solid rgba(255,255,255,.12)}
+.tele-tabs a{color:#fff;text-decoration:none;font-family:"Lexend";font-weight:600;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25)}
+.tele-tabs a.activa{background:var(--sol);color:var(--monte);border-color:var(--sol)}
+body[data-vista="tele"]{background:#0b1410}
+.q-panel{position:fixed;inset:0;z-index:1500;background:var(--crema);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.q-panel[hidden]{display:none}
+.q-panel-cab{position:sticky;top:0;z-index:2;background:var(--crema);border-bottom:1px solid var(--linea);display:grid;gap:2px;
+  padding:calc(10px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left))}
+.q-panel-cab h2{font-size:clamp(22px,5.4vw,30px);margin:6px 0 0}
+.q-panel-cab p{margin:0;color:var(--suave);font-size:15px}
+.q-volver{justify-self:start;display:inline-flex;align-items:center;gap:4px;font:inherit;font-family:"Lexend";font-weight:600;font-size:15px;border:0;border-radius:999px;background:var(--monte);color:#fff;padding:9px 16px 9px 10px;cursor:pointer}
+.q-volver svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.q-panel-lista{max-width:860px;margin:0 auto;display:grid;gap:10px;padding:14px max(16px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.q-tags{align-items:center;color:var(--suave);font-size:13px}
+body.con-panel{overflow:hidden}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.modos,.volver,#practicar .tarjeta-p,.tele-capa{display:none!important}.b-texto p{font-size:13pt}}
+</style>
+</head>
+<body data-vista="tele" data-total="527" data-salir="../">
+<div hidden><article class="bloque" id="b1" data-n="1" data-ancla="Bolsas rotas, la comida que se entierra y Doña Juana." data-pregunta="¿Con qué pregunta abre y qué cifras muestran el tamaño del problema?" data-pistas="[&quot;bolsa rota en la calle&quot;, &quot;líquido y ese olor&quot;, &quot;no es plástico: es comida&quot;, &quot;2024: 33.300 t al día&quot;, &quot;60 % es comida&quot;, &quot;Doña Juana: 6.800 t al día&quot;, &quot;licencia hasta 2029&quot;]"><div class="b-cab"><span class="b-n">1</span><h3>El problema de la basura</h3><span class="b-t">0:02 – 0:32</span><span class="b-p">Póster 01 · cifras rosadas «En la ciudad»</span></div><div class="b-texto"><p><span class="gesto">Pausa. Mire al jurado antes de hablar.</span> ¿Quién de ustedes no ha visto una <strong>bolsa de basura rota</strong> en la calle? Desgarrada, con un líquido oscuro regado por el andén… y ese olor que uno prefiere no respirar. Lo que se riega ahí casi nunca es plástico: <strong>es comida</strong>.</p><p><span class="gesto">Señale las cifras rosadas.</span> En 2024, Colombia enterró <b class="num">33.300 toneladas</b> de basura al día, y cerca del <b class="num">60 %</b> era comida. Solo a <strong>Doña Juana</strong> llegan <b class="num">6.800 toneladas</b> diarias, y su licencia se vence en <b class="num">2029</b>.</p></div></article><article class="bloque" id="b2" data-n="2" data-ancla="El barrio de nuestro compañero y lo que encontramos en el trabajo de campo." data-pregunta="¿Dónde nació la idea? ¿Qué encontraron en el trabajo de campo con los vecinos?" data-pistas="[&quot;no es una cifra&quot;, &quot;nuestro compañero Samuel: Villa Rosita, Usme; lo vive a diario&quot;, &quot;trabajo de campo en su barrio&quot;, &quot;100 %: el shut de la esquina&quot;, &quot;lo encontramos desbordado&quot;, &quot;perrito buscando comida en un icopor&quot;, &quot;75 %: perros, ratas o plagas&quot;, &quot;63 %: mezcla todo en la misma bolsa&quot;, &quot;«todo es un revoltijo»&quot;, &quot;falta conciencia; nadie rechazó la idea; falta una forma fácil&quot;]"><div class="b-cab"><span class="b-n">2</span><h3>Lo que vimos en Villa Rosita</h3><span class="b-t">0:33 – 1:24</span><span class="b-p">Póster 01 · fotos del campo y cifras del trabajo de campo</span></div><div class="b-texto"><p>Para nosotros esto no es una cifra. <span class="gesto">Señale a su compañero.</span> Nuestro compañero <strong>Samuel</strong> vive en <strong>Villa Rosita, en Usme</strong>. Él lo vive todos los días, y esta idea nació en su cuadra.</p><p>Por eso hicimos un trabajo de campo en su barrio. En las conversaciones con los vecinos, el <b class="num">100 %</b> señaló el mismo <strong>shut</strong> de la esquina, y cuando fuimos lo encontramos desbordado<span class="opc">, a pesar del aviso de multa</span>. Vimos un <strong>perrito</strong> buscando comida en un icopor tirado, y el <b class="num">75 %</b> nos habló de <strong>perros, ratas o plagas</strong>. Más de la mitad, el <b class="num">63 %</b>, <strong>mezcla todo</strong> en la misma bolsa; alguien nos lo dijo sin rodeos: «Las cáscaras de la papa, el cartón, las cáscaras de huevo… <strong>todo es un revoltijo</strong>».</p><p>Falta conciencia, sí. Pero nadie rechazó la idea: <strong>lo que falta es una forma fácil</strong>.</p></div></article><article class="bloque" id="b3" data-n="3" data-ancla="La ironía: el abono que necesitan y lo caro que les sale." data-pregunta="¿Cuál es la ironía? ¿Qué podría hacer el campo con esos restos y qué hacemos nosotros?" data-pistas="[&quot;a pocos kilómetros, en la Sabana&quot;, &quot;campesinos podrían usarlos como abono&quot;, &quot;los mezclamos: terminan en el relleno&quot;, &quot;el abono les sale caro&quot;, &quot;urea = abono químico más usado&quot;, &quot;enero 2021 → enero 2022: de 80.000 a 230.000&quot;, &quot;subió 187 %&quot;]"><div class="b-cab"><span class="b-n">3</span><h3>El problema de los campesinos</h3><span class="b-t">1:24 – 2:03</span><span class="b-p">Póster 01 · «En el campo»</span></div><div class="b-texto"><p>Y aquí viene lo <strong>irónico</strong>: a pocos kilómetros de ese shut, en la Sabana, hay <strong>campesinos</strong> que podrían usar esos restos como <strong>abono</strong>. <span class="opc">Incluso la mitad de los vecinos con los que hablamos nos mencionó el abono.</span> Pero los mezclamos con todo, y terminan <strong>enterrados en el relleno</strong>.</p><p><span class="gesto">Señale «En el campo».</span> Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de <strong>urea</strong>, el abono químico más usado, pasó de <b class="num">80.000 a 230.000 pesos</b>: subió <b class="num">187 %</b>. <span class="opc">Y más del <b class="num">94 %</b> del fertilizante del país es importado.</span></p></div></article><article class="bloque" id="b4" data-n="4" data-ancla="Ya es obligatorio separar, pero en la cocina no hay cómo." data-pregunta="¿Qué obliga el Decreto 0772 de 2026 y qué falta?" data-pistas="[&quot;conector: un dato importante&quot;, &quot;desde julio ya existe una ley&quot;, &quot;Decreto 0772 de 2026&quot;, &quot;todos los hogares deben separar los orgánicos&quot;, &quot;en la cocina no hay una forma fácil y limpia&quot;, &quot;de ahí nació RECOEVO&quot;]"><div class="b-cab"><span class="b-n">4</span><h3>La ley: Decreto 0772</h3><span class="b-t">2:03 – 2:27</span><span class="b-p">Póster 01 · recuadro azul del decreto</span></div><div class="b-texto"><p><span class="gesto">Señale el recuadro azul.</span> Y aquí hay un dato importante: en el tema de los residuos orgánicos, desde julio ya existe una ley. El <strong>Decreto 0772 de 2026</strong> obliga a todos los hogares a <strong>separar los orgánicos</strong>. O sea, separar ya no es opcional; el problema es que en la cocina no hay una forma fácil y limpia de hacerlo. <strong>Y de ahí nació RECOEVO.</strong></p></div></article><article class="bloque" id="b5" data-n="5" data-ancla="El código QR, el prototipo en 3D y cómo se usa." data-pregunta="¿Qué le pide al jurado antes de explicar? ¿Qué es RECOEVO y cómo se usa?" data-pistas="[&quot;escanear el QR&quot;, &quot;todo el proyecto&quot;, &quot;primer enlace: prototipo 3D&quot;, &quot;moverlo y desarmarlo pieza por pieza&quot;, &quot;prototipo inicial&quot;, &quot;triturador que funciona con el pie&quot;, &quot;sin electricidad y sin olor&quot;, &quot;pisar 20 segundos al día&quot;, &quot;13 cuchillas&quot;, &quot;bolsa compostable&quot;]"><div class="b-cab"><span class="b-n">5</span><h3>La solución: RECOEVO</h3><span class="b-t">2:28 – 2:55</span><span class="b-p">Póster 02 y 03 · el código QR, el prototipo y «Así funciona»</span></div><div class="b-texto"><p><span class="gesto">Señale el código QR.</span> Antes de contarles cómo funciona, les pedimos el favor de <strong>escanear este código QR</strong>: ahí está todo el proyecto, y en el primer enlace pueden mover el <strong>prototipo en 3D</strong> y desarmarlo pieza por pieza. Es un prototipo inicial.</p><p><span class="gesto">Señale el prototipo.</span> RECOEVO es un <strong>triturador de cocina que funciona con el pie</strong>, sin electricidad y sin olor. Uno echa las cáscaras, pisa unos <b class="num">20 segundos</b> al día, y <b class="num">trece cuchillas</b> las cortan y las dejan en una <strong>bolsa compostable</strong>.</p></div></article><article class="bloque" id="b6" data-n="6" data-ancla="Frente a canecas y eléctricos, y cómo responde a cada dolor." data-pregunta="¿Qué lo hace diferente de lo que ya existe? ¿Cómo responde a lo que contaron los vecinos?" data-pistas="[&quot;caneca con pedal: solo guarda&quot;, &quot;eléctrico: más de un millón y gasta luz&quot;, &quot;RECOEVO: 199.900 con IVA&quot;, &quot;lo de una buena caneca, pero tritura y no huele&quot;, &quot;si huele: filtro de carbón&quot;, &quot;si los perros la rompen: queda cerrada en el balde&quot;, &quot;si parece difícil: veinte segundos al día&quot;]"><div class="b-cab"><span class="b-n">6</span><h3>Por qué RECOEVO y no otro</h3><span class="b-t">2:56 – 3:28</span><span class="b-p">Póster 03 · precios frente al mercado y Value Proposition Canvas</span></div><div class="b-texto"><p><span class="gesto">Señale la barra de precios.</span> ¿Y qué lo hace diferente? Una caneca con pedal solo guarda la basura, y un procesador eléctrico cuesta más de <b class="num">un millón</b> de pesos y gasta luz. RECOEVO cuesta <b class="num">199.900</b> con IVA: lo que vale una buena caneca, pero <strong>tritura y no huele</strong>.</p><p><span class="gesto">Señale el Value Proposition Canvas.</span> Y lo diseñamos con lo que nos contaron los vecinos: si la bolsa huele, el <strong>filtro de carbón</strong> lo resuelve; si los perros la rompen, aquí queda <strong>cerrada dentro del balde</strong>; y si separar parece difícil, son <strong>veinte segundos al día</strong>.</p></div></article><article class="bloque" id="b7" data-n="7" data-ancla="Usme, Bogotá, hogares, toneladas y porcentajes." data-pregunta="¿Por qué empezar en Usme? ¿Cuántos hogares de cuántos y cuánta comida sale de Doña Juana?" data-pistas="[&quot;Usme: validamos, vía a Doña Juana, 85 % campo&quot;, &quot;luego Bogotá: 2,9 millones de hogares&quot;, &quot;10 años: 735.450 hogares, uno por hogar&quot;, &quot;= 1 de cada 4 hogares de Bogotá&quot;, &quot;medio kilo por hogar al día: menos de la mitad de lo que dice la UAESP&quot;, &quot;los hogares llegan poco a poco: 16.200 el año 1 → 735.450 el año 10&quot;, &quot;10 años: 407.000 t = 2 meses de Doña Juana = 1,6 %&quot;, &quot;año 10, con todos: 288 t al día = 4 %&quot;]"><div class="b-cab"><span class="b-n">7</span><h3>El impacto que esperamos</h3><span class="b-t">3:28 – 4:51</span><span class="b-p">Póster 03 · recuadro verde de 406.983 t · bloque 05 (mercado)</span></div><div class="b-texto"><p>Vamos a empezar por <strong>Usme</strong>: allá validamos el problema, Doña Juana queda en la vía a Usme, y el <b class="num">85 %</b> de Usme es campo<span class="opc">, con unos <b class="num">17.000 campesinos</b></span>. Ahí los dos problemas viven juntos.</p><p>Después seguimos con <strong>Bogotá</strong>, que tiene unos <b class="num">2,9 millones de hogares</b>, y luego con otras ciudades. La meta es que en diez años <b class="num">735.450 hogares</b> tengan su RECOEVO: es como <strong>uno de cada cuatro hogares de Bogotá</strong>.</p><p><span class="gesto">Señale el recuadro verde.</span> Para calcular el impacto usamos <strong>medio kilo</strong> de restos de comida por hogar al día. Es menos de la mitad de lo que muestran los datos de la UAESP, la entidad de la Alcaldía que maneja el aseo de Bogotá, así que el impacto real podría ser mayor. Y como los hogares van llegando poco a poco, de <b class="num">16.200</b> el primer año a <b class="num">735.450</b> en el año diez, en total son unas <b class="num">407.000 toneladas</b> en diez años que no llegan al relleno: <strong>lo que recibe Doña Juana en dos meses</strong>, el <b class="num">1,6 %</b> de todo lo que le llegaría en esos diez años. <span class="opc">Y en el año diez, ya con todos los hogares, serán unas <b class="num">288 toneladas</b> menos cada día: el <b class="num">4 %</b> de lo que entra hoy a Doña Juana.</span></p></div></article><article class="bloque" id="b8" data-n="8" data-ancla="El camino de una cáscara antes y después." data-pregunta="¿Qué camino hace hoy una cáscara y cuál hace con RECOEVO?" data-pistas="[&quot;hoy: bolsa rota en la esquina → Doña Juana&quot;, &quot;con RECOEVO: bolsa cerrada desde la cocina → ruta de orgánicos&quot;]"><div class="b-cab"><span class="b-n">8</span><h3>Hoy y con RECOEVO</h3><span class="b-t">4:52 – 5:04</span><span class="b-p">Póster 04 · Customer Journey Map</span></div><div class="b-texto"><p><span class="gesto">Señale el bloque 04.</span> Piénsenlo así: hoy una cáscara termina en una bolsa rota en la esquina, y después en Doña Juana. Con RECOEVO, sale de la cocina en una <strong>bolsa cerrada</strong>, directo a la <strong>ruta de orgánicos</strong>.</p></div></article><article class="bloque" id="b9" data-n="9" data-ancla="Los cuatro canales de venta, sus porcentajes y por qué." data-pregunta="¿Cómo gana dinero? ¿Por qué canales vende, en qué porcentaje y por qué?" data-pistas="[&quot;vende el producto, por cuatro caminos&quot;, &quot;35 % marketplaces: cobran ~14 %, llegan a todo el país&quot;, &quot;35 % lotes: empresas, conjuntos y alcaldías; 15 % más barato (142.000 + IVA), cientos a la vez; el decreto los obliga&quot;, &quot;15 % tienda en línea: sin intermediario, solo pasarela (~3,5 %), pero ~27.000 de publicidad por venta&quot;, &quot;15 % grandes superficies: se quedan con ~40 % y pagan a 60 días&quot;, &quot;envío por internet: lo paga el cliente (Bogotá 14.900)&quot;, &quot;cadenas y lotes: el flete ya está en los costos&quot;]"><div class="b-cab"><span class="b-n">9</span><h3>Cómo gana dinero</h3><span class="b-t">5:04 – 6:15</span><span class="b-p">Póster 05 · fuentes de ingreso, canales de venta (dona) y clientes</span></div><div class="b-texto"><p><span class="gesto">Señale la dona de canales.</span> ¿Y cómo gana dinero? <strong>Vendiendo el producto</strong>, por cuatro caminos. El <b class="num">35 %</b> de las ventas, por <strong>marketplaces</strong> como Mercado Libre: cobran alrededor del <b class="num">14 %</b> y llegan a todo el país. Otro <b class="num">35 %</b>, <strong>por lotes</strong> a empresas, conjuntos y alcaldías: les damos un precio un <b class="num">15 %</b> más bajo, <b class="num">142.000</b> pesos más IVA, pero compran cientos de una vez, y el decreto también los obliga a separar.</p><p>Un <b class="num">15 %</b> en nuestra <strong>tienda en línea</strong>: ahí no hay un almacén ni un marketplace en medio, así que no pagamos comisión, solo la pasarela de pago, cerca del <b class="num">3,5 %</b>; eso sí, pagamos publicidad en redes para conseguir cada venta, unos <b class="num">27.000</b> pesos. Y solo un <b class="num">15 %</b> en <strong>grandes superficies</strong>, porque se quedan con cerca del <b class="num">40 %</b> del precio<span class="opc"> y pagan a 60 días</span>.</p><p>¿Y el envío? En las ventas por internet lo paga el cliente aparte: en Bogotá son <b class="num">14.900</b> pesos. Y a las cadenas y los lotes se los llevamos nosotros en estibas; ese flete ya está dentro de los costos.</p></div></article><article class="bloque" id="b10" data-n="10" data-ancla="Por qué lo pensamos con tres Objetivos de Desarrollo Sostenible." data-pregunta="¿Para qué más sirve RECOEVO? ¿Con qué ODS se pensó y por qué?" data-pistas="[&quot;no es solo un negocio: un propósito&quot;, &quot;ODS 12 Producción y consumo responsables: menos comida desperdiciada&quot;, &quot;ODS 11 Ciudades y comunidades sostenibles: menos bolsas rotas, ratas y carga para Doña Juana&quot;, &quot;ODS 13 Acción por el clima: la comida enterrada suelta metano (80 veces el CO₂ en 20 años)&quot;]"><div class="b-cab"><span class="b-n">10</span><h3>Los ODS</h3><span class="b-t">6:15 – 7:02</span><span class="b-p">Póster 05 · Objetivos de Desarrollo Sostenible (12, 11 y 13)</span></div><div class="b-texto"><p>Pero esto no es solo un negocio: lo pensamos con un propósito, alineado con tres <strong>Objetivos de Desarrollo Sostenible</strong> de la ONU.</p><p><span class="gesto">Señale el ODS 12.</span> El ODS <b class="num">12</b>, <strong>Producción y consumo responsables</strong>, pide reducir a la mitad la comida que se desperdicia y la basura que generamos: RECOEVO saca los restos de comida de la bolsa de basura. El ODS <b class="num">11</b>, <strong>Ciudades y comunidades sostenibles</strong>, busca ciudades que manejen mejor sus residuos: menos bolsas rotas en las esquinas, menos ratas y menos carga para Doña Juana. Y el ODS <b class="num">13</b>, <strong>Acción por el clima</strong>: la comida enterrada se pudre sin aire y suelta <strong>metano</strong>, un gas que calienta el planeta unas <b class="num">80</b> veces más que el CO₂ en sus primeros veinte años. Si la comida no llega al relleno, ese metano no se produce.</p></div></article><article class="bloque" id="b11" data-n="11" data-ancla="Inversión, precio, costo por producto, costos fijos y variables." data-pregunta="¿Cuánto hay que invertir? ¿A cuánto se vende y por qué? ¿Cuánto cuesta cada producto y cuáles son los costos fijos y variables?" data-pistas="[&quot;también en el QR: página del presupuesto&quot;, &quot;escenario realista, 10 años&quot;, &quot;inversión: 5.954 millones (fábrica, arranque, respaldo)&quot;, &quot;precio: 199.900 con IVA el año 1, lo de una buena caneca&quot;, &quot;promedio de 10 años: 275.630 con IVA&quot;, &quot;costo por producto: 144.319&quot;, &quot;variables: unos 104.000 por producto&quot;, &quot;fijos: 2.872 millones al año&quot;]"><div class="b-cab"><span class="b-n">11</span><h3>Los números: lo que cuesta</h3><span class="b-t">7:02 – 7:55</span><span class="b-p">Póster 06 · franja amarilla y recuadros (también en el QR: página del presupuesto)</span></div><div class="b-texto"><p><span class="gesto">Señale el bloque 06.</span> Ahora, los <strong>números</strong> del plan a diez años, en el escenario realista; también están en el QR, en la página del presupuesto.</p><p>Para empezar necesitamos una <strong>inversión inicial</strong> de <b class="num">5.954 millones</b> de pesos: la fábrica, el arranque y un respaldo de caja que se recupera. El <strong>precio</strong> es de <b class="num">199.900</b> con IVA el primer año, lo que una familia paga por una buena caneca; con la inflación, en promedio de los diez años queda en <b class="num">275.630</b>, también con IVA.</p><p>Cada producto nos <strong>cuesta</strong> en promedio <b class="num">144.319</b> pesos, con todo incluido: unos <b class="num">104.000</b> son <strong>costos variables</strong>, como los materiales y las comisiones; y los <strong>costos fijos</strong>, como la nómina y el arriendo, suman unos <b class="num">2.872 millones</b> al año.</p></div></article><article class="bloque" id="b12" data-n="12" data-ancla="Margen, punto de equilibrio, utilidad, retorno y rentabilidad." data-pregunta="¿Cuál es el margen de contribución, el punto de equilibrio y cuándo se alcanza? ¿Cuánto se gana, cuál es el retorno, cuándo se recupera y cuál es la rentabilidad?" data-pistas="[&quot;margen de contribución: 49 %&quot;, &quot;equilibrio = fijos ÷ margen = 2.380 al mes&quot;, &quot;lo superamos en el mes 17&quot;, &quot;utilidad neta 10 años: 30.508 millones&quot;, &quot;retorno 512 %&quot;, &quot;se recupera en el mes 50&quot;, &quot;por cada 100 gastados, casi 29 (28,7 %)&quot;, &quot;de cada 100 vendidos, casi 20 (19,9 %)&quot;]"><div class="b-cab"><span class="b-n">12</span><h3>Los números: lo que deja</h3><span class="b-t">7:55 – 8:46</span><span class="b-p">Póster 06 · recuadros de equilibrio, margen, recuperación, utilidad y TIR</span></div><div class="b-texto"><p>De lo que nos llega por producto, el <b class="num">49 %</b> queda libre para pagar esos costos fijos: es el <strong>margen de contribución</strong>. Dividiendo los costos fijos entre ese margen, el <strong>punto de equilibrio</strong> da <b class="num">2.380</b> productos al mes, y lo superamos en el mes <b class="num">17</b>.</p><p>En diez años, la <strong>utilidad neta</strong>, ya pagados costos e impuestos, es de <b class="num">30.508 millones</b>: un <strong>retorno de la inversión</strong> del <b class="num">512 %</b>, y la inversión se recupera en el mes <b class="num">50</b>.</p><p>Y la <strong>rentabilidad</strong>: por cada 100 pesos que gastamos ganamos casi 29, el <b class="num">28,7 %</b>; y de cada 100 que vendemos nos quedan casi 20, el <b class="num">19,9 %</b>. <span class="opc">Y la TIR, lo que rinde al año el dinero invertido, es del <b class="num">33,9 %</b>.</span></p></div></article><article class="bloque" id="b13" data-n="13" data-ancla="Lo que nos ilusiona y la invitación a una mentoría." data-pregunta="¿Qué sienten por esta idea y qué le piden al jurado?" data-pistas="[&quot;nos ilusiona de verdad&quot;, &quot;nació en la cuadra de Samuel&quot;, &quot;esa bolsa la hemos visto todos&quot;, &quot;mercadeo e ingeniería de sistemas&quot;, &quot;posiblemente nos falte la mirada de quien ha creado empresa&quot;, &quot;quede o no seleccionada: después del evento, una conversación, una posible mentoría&quot;, &quot;afinar los números con su experiencia&quot;, &quot;esa bolsa no tiene por qué seguir ahí&quot;, &quot;eslogan: Menos relleno, más vida&quot;]"><div class="b-cab"><span class="b-n">13</span><h3>El cierre</h3><span class="b-t">8:46 – 9:26</span><span class="b-p">Pie del póster</span></div><div class="b-texto"><p>Esta idea <strong>nos ilusiona</strong> de verdad. Nació en la cuadra de Samuel, pero esa bolsa rota la hemos visto todos. <span class="opc">Y nos emociona pensar que una cáscara puede volver a ser tierra viva.</span></p><p>Somos estudiantes de <strong>mercadeo y de ingeniería de sistemas</strong>, y entendemos que posiblemente nos falte la mirada de quien ya ha creado empresa. Por eso, quede o no seleccionada esta idea, después de este evento nos gustaría llevar este proyecto a <strong>una conversación con ustedes, una posible mentoría</strong>, para afinar estos números con su experiencia.</p><p>Porque creemos que esa bolsa de la esquina no tiene por qué seguir ahí. Nuestro eslogan lo dice: <strong>Menos relleno, más vida.</strong> Muchas gracias.</p></div></article></div>
+<div class="tele-capa pagina-tele" id="tele" role="region" aria-label="Teleprompter">
+  <nav class="tele-tabs" aria-label="Secciones"><a href="../">Guion</a><a href="../teleprompter/" class="activa" aria-current="page">Teleprompter</a><a href="../preguntas/">Preguntas</a></nav>
+  <div class="tele-texto" id="tele-texto"><div class="in"></div></div>
+  <div class="tele-guia" aria-hidden="true"></div>
+  <div class="tele-saltos" role="group" aria-label="Moverse por el texto">
+    <button type="button" id="tele-atras" aria-label="Volver dos líneas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg><span>2 líneas</span></button>
+    <button type="button" id="tele-adelante" aria-label="Avanzar dos líneas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg><span>2 líneas</span></button>
+  </div>
+  <div class="tele-ctl">
+    <button type="button" class="play" id="tele-play">Iniciar</button>
+    <output id="tele-reloj">0:00</output>
+    <button type="button" id="tele-menos" aria-label="Más lento">−</button><small>velocidad <span id="tele-vel">1.0×</span></small><button type="button" id="tele-mas" aria-label="Más rápido">+</button>
+    <button type="button" id="tele-amenos" aria-label="Letra más pequeña">A−</button><button type="button" id="tele-amas" aria-label="Letra más grande">A+</button>
+    <button type="button" id="tele-reini">Reiniciar</button>
+    <small class="tele-ayuda">Toque y arrastre el texto con el dedo para moverlo; la línea tocada queda marcada.</small>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var B=[].slice.call(document.querySelectorAll(".bloque"));
+  var DATOS=B.map(function(b){return {n:Number(b.dataset.n),t:b.querySelector("h3").textContent,preg:b.dataset.pregunta,pistas:JSON.parse(b.dataset.pistas),ancla:b.dataset.ancla,html:b.querySelector(".b-texto").innerHTML};});
+  var TOTAL=Number(document.body.dataset.total||280);
+  function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  /* ---------- preguntas: menú de temas y ventana de cada tema ---------- */
+  var $=function(id){return document.getElementById(id);};
+  var filtros=$("filtros"), banco=$("q-banco"), panel=$("q-panel");
+  if(filtros&&banco&&panel){
+    var tarj=[].slice.call(banco.querySelectorAll(".q")), plista=$("q-panel-lista"), ptit=$("q-panel-t"), pn=$("q-panel-n"), abierto=false;
+    var mostrar=function(k){
+      plista.innerHTML="";var n=0;
+      tarj.forEach(function(t){if(t.getAttribute("data-k").indexOf("|"+k+"|")>=0){var copia=t.cloneNode(true);
+        [].forEach.call(copia.querySelectorAll(".q-tags button"),function(b){if(b.getAttribute("data-k")===k)b.remove();});
+        if(!copia.querySelector(".q-tags button"))copia.querySelector(".q-tags").remove();
+        plista.appendChild(copia);n++;}});
+      ptit.textContent=k;pn.textContent=n+(n===1?" pregunta":" preguntas");
+      panel.hidden=false;document.body.classList.add("con-panel");panel.scrollTop=0;abierto=true;
+    };
+    var cerrarPanel=function(){panel.hidden=true;document.body.classList.remove("con-panel");abierto=false;};
+    var abrirTema=function(k){try{history.pushState({tema:k},"","#tema-"+encodeURIComponent(k));}catch(_){}mostrar(k);};
+    filtros.addEventListener("click",function(e){var b=e.target.closest("button");if(b)abrirTema(b.getAttribute("data-k"));});
+    plista.addEventListener("click",function(e){var b=e.target.closest(".q-tags button");if(!b)return;var k=b.getAttribute("data-k");
+      try{history.replaceState({tema:k},"","#tema-"+encodeURIComponent(k));}catch(_){}mostrar(k);});
+    $("q-volver").addEventListener("click",function(){if(history.state&&history.state.tema){history.back();}else{cerrarPanel();}});
+    window.addEventListener("popstate",function(e){if(e.state&&e.state.tema)mostrar(e.state.tema);else cerrarPanel();});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"&&abierto)$("q-volver").click();});
+    var h=decodeURIComponent(location.hash||"");
+    if(h.indexOf("#tema-")===0){var k0=h.slice(6);try{history.replaceState({tema:k0},"",location.hash);}catch(_){}mostrar(k0);}
+    window.filtrarPreguntas=function(k){mostrar(k);return [].map.call(plista.querySelectorAll(".q-p"),function(x){return x.textContent;});};
+  }
+
+  /* ---------- teleprompter ---------- */
+  if($("tele")){
+  var capa=$("tele"), caja=$("tele-texto"), reloj=$("tele-reloj"), bPlay=$("tele-play"), vel=$("tele-vel");
+  var corre=false, mult=1, tam=34, ult=0, seg=0, raf=0, resto=0;
+  caja.querySelector(".in").innerHTML=DATOS.map(function(d){return "<h4>"+d.n+" · "+esc(d.t)+"</h4>"+d.html;}).join("");
+  [].forEach.call(caja.querySelectorAll(".opc"),function(o){o.remove();});
+  var interior=caja.querySelector(".in");
+  (function envolver(){
+    var tw=document.createTreeWalker(interior,NodeFilter.SHOW_TEXT),nodos=[];
+    while(tw.nextNode())nodos.push(tw.currentNode);
+    nodos.forEach(function(t){
+      if(!t.nodeValue.trim())return;
+      var f=document.createDocumentFragment();
+      t.nodeValue.split(/(\s+)/).forEach(function(pz){if(!pz)return;
+        if(/^\s+$/.test(pz))f.appendChild(document.createTextNode(pz));
+        else{var w=document.createElement("span");w.className="w";w.textContent=pz;f.appendChild(w);}});
+      t.parentNode.replaceChild(f,t);
+    });
+  })();
+  var marca=document.createElement("div");marca.className="tele-marca";interior.appendChild(marca);
+  var arrastre=null,tMarca=0;
+  function marcar(w){if(!w)return;marca.style.top=(w.offsetTop-4)+"px";marca.style.height=(w.offsetHeight+8)+"px";marca.classList.add("ver");tMarca=Date.now();
+    setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
+  function palabraEn(x,y){var el=document.elementFromPoint(x,y);if(!el||!el.closest)return null;var w=el.closest(".w");if(w)return w;
+    var bloque=el.closest("p,h4")||el,mejor=null,dist=1e9;
+    [].forEach.call(bloque.querySelectorAll?bloque.querySelectorAll(".w"):[],function(c){var r=c.getBoundingClientRect(),d=Math.abs((r.top+r.bottom)/2-y)*4+Math.abs((r.left+r.right)/2-x);if(d<dist){dist=d;mejor=c;}});
+    return mejor;}
+  function palabraEnGuia(){var r=caja.getBoundingClientRect(),y=window.innerHeight*0.38+6;
+    for(var x=r.left+r.width*0.2;x<r.left+r.width*0.8;x+=12){var w=palabraEn(x,y);if(w)return w;}return null;}
+  caja.addEventListener("pointerdown",function(e){if(e.button>0||e.target.closest("button"))return;
+    arrastre={y:e.clientY,s:caja.scrollTop};try{caja.setPointerCapture(e.pointerId);}catch(_){}
+    caja.classList.add("arrastrando");marcar(palabraEn(e.clientX,e.clientY));});
+  caja.addEventListener("pointermove",function(e){if(!arrastre)return;caja.scrollTop=Math.max(0,arrastre.s-(e.clientY-arrastre.y));resto=0;});
+  function soltar(){if(!arrastre)return;arrastre=null;caja.classList.remove("arrastrando");tMarca=Date.now();
+    setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
+  caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
+  function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
+  function paso(ts){
+    if(!corre) return;
+    var dt=ult?(ts-ult)/1000:0; ult=ts; seg+=dt;
+    if(!arrastre){resto+=pxSeg()*dt; var entero=Math.floor(resto); if(entero>0){caja.scrollTop+=entero;resto-=entero;}}
+    reloj.textContent=mmss(seg);
+    if(caja.scrollTop+caja.clientHeight>=caja.scrollHeight-2){parar();bPlay.textContent="Terminó";}
+    else raf=requestAnimationFrame(paso);
+  }
+  function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
+  function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
+  function aplicarTam(){var r=caja.scrollTop/Math.max(1,caja.scrollHeight);caja.style.fontSize=tam+"px";caja.scrollTop=r*caja.scrollHeight;}
+  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";}
+  window.addEventListener("resize",alinear);
+  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
+    if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
+    capa.hidden=true;document.body.style.overflow="";}
+  [].forEach.call(document.querySelectorAll("[data-tele]"),function(b){b.addEventListener("click",function(e){e.preventDefault();abrir();});});
+  bPlay.onclick=function(){corre?parar():arrancar();};
+  $("tele-mas").onclick=function(){mult=Math.min(2,Math.round((mult+0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
+  $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
+  $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();};
+  $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();};
+  $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  function mover(n){var lh=tam*1.45,desde=caja.scrollTop,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
+    var suave=!matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(!suave){caja.scrollTop=hasta;marcar(palabraEnGuia());return;}
+    function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/320);k=1-Math.pow(1-k,3);caja.scrollTop=desde+(hasta-desde)*k;
+      if(k<1)requestAnimationFrame(f);else marcar(palabraEnGuia());}
+    requestAnimationFrame(f);}
+  $("tele-atras").onclick=function(){mover(-2);};
+  $("tele-adelante").onclick=function(){mover(2);};
+  if($("tele-cerrar"))$("tele-cerrar").onclick=cerrar;
+  document.addEventListener("keydown",function(e){
+    if(capa.hidden) return;
+    if(e.key==="Escape") cerrar();
+    else if(e.key===" "){e.preventDefault();corre?parar():arrancar();}
+    else if(e.key==="ArrowUp") $("tele-menos").click();
+    else if(e.key==="ArrowDown") $("tele-mas").click();
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();mover(-2);}
+    else if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();mover(2);}
+  });
+  if(document.body.getAttribute("data-vista")==="tele"){abrir();}
+  }
+})();
+</script>
+</body>
+</html>

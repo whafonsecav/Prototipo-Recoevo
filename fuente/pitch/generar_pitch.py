@@ -772,6 +772,23 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-marca{position:absolute;left:-10px;right:-10px;top:0;height:0;border-radius:10px;background:rgba(242,178,39,.28);box-shadow:inset 4px 0 0 var(--sol);opacity:0;pointer-events:none;transition:opacity .25s}
 .tele-marca.ver{opacity:1}
 .tele-ayuda{flex-basis:100%;text-align:center;color:#b9c2b8;font-size:12.5px}
+.modos a.activa{background:var(--monte);color:#fff;border-color:var(--monte)}
+.ir-tele{display:inline-block;margin:12px 0;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;background:var(--monte);color:#fff;border-radius:999px;padding:11px 18px}
+.tele-tabs{flex:none;display:flex;gap:6px;justify-content:center;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:#14231b;border-bottom:1px solid rgba(255,255,255,.12)}
+.tele-tabs a{color:#fff;text-decoration:none;font-family:"Lexend";font-weight:600;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25)}
+.tele-tabs a.activa{background:var(--sol);color:var(--monte);border-color:var(--sol)}
+body[data-vista="tele"]{background:#0b1410}
+.q-panel{position:fixed;inset:0;z-index:1500;background:var(--crema);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.q-panel[hidden]{display:none}
+.q-panel-cab{position:sticky;top:0;z-index:2;background:var(--crema);border-bottom:1px solid var(--linea);display:grid;gap:2px;
+  padding:calc(10px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left))}
+.q-panel-cab h2{font-size:clamp(22px,5.4vw,30px);margin:6px 0 0}
+.q-panel-cab p{margin:0;color:var(--suave);font-size:15px}
+.q-volver{justify-self:start;display:inline-flex;align-items:center;gap:4px;font:inherit;font-family:"Lexend";font-weight:600;font-size:15px;border:0;border-radius:999px;background:var(--monte);color:#fff;padding:9px 16px 9px 10px;cursor:pointer}
+.q-volver svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.q-panel-lista{max-width:860px;margin:0 auto;display:grid;gap:10px;padding:14px max(16px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.q-tags{align-items:center;color:var(--suave);font-size:13px}
+body.con-panel{overflow:hidden}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{.modos,.volver,#practicar .tarjeta-p,.tele-capa{display:none!important}.b-texto p{font-size:13pt}}
 """
@@ -785,27 +802,35 @@ JS = r"""
   function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 
-  /* ---------- filtros de preguntas ---------- */
+  /* ---------- preguntas: menú de temas y ventana de cada tema ---------- */
   var $=function(id){return document.getElementById(id);};
-  var lista=$("q-lista"), estado=$("q-estado"), filtros=$("filtros");
-  if(lista&&filtros){
-    var tarj=[].slice.call(lista.querySelectorAll(".q")), titulos=[].slice.call(lista.querySelectorAll(".grupo-t")), actual="";
-    var filtrar=function(k,desplazar){
-      actual=k;var n=0;
-      tarj.forEach(function(t){var ver=!k||t.getAttribute("data-k").indexOf("|"+k+"|")>=0;t.hidden=!ver;if(ver)n++;});
-      titulos.forEach(function(h){h.hidden=!!k;});
-      [].forEach.call(filtros.querySelectorAll("button"),function(b){b.classList.toggle("activo",!!k&&b.getAttribute("data-k")===k);});
-      estado.textContent=k?("Tema: "+k+" · "+n+(n===1?" pregunta":" preguntas")+" (toque el tema otra vez para ver todas)"):(n+" preguntas, organizadas por grupo");
-      if(desplazar){estado.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
+  var filtros=$("filtros"), banco=$("q-banco"), panel=$("q-panel");
+  if(filtros&&banco&&panel){
+    var tarj=[].slice.call(banco.querySelectorAll(".q")), plista=$("q-panel-lista"), ptit=$("q-panel-t"), pn=$("q-panel-n"), abierto=false;
+    var mostrar=function(k){
+      plista.innerHTML="";var n=0;
+      tarj.forEach(function(t){if(t.getAttribute("data-k").indexOf("|"+k+"|")>=0){var copia=t.cloneNode(true);
+        [].forEach.call(copia.querySelectorAll(".q-tags button"),function(b){if(b.getAttribute("data-k")===k)b.remove();});
+        if(!copia.querySelector(".q-tags button"))copia.querySelector(".q-tags").remove();
+        plista.appendChild(copia);n++;}});
+      ptit.textContent=k;pn.textContent=n+(n===1?" pregunta":" preguntas");
+      panel.hidden=false;document.body.classList.add("con-panel");panel.scrollTop=0;abierto=true;
     };
-    var tocar=function(k){filtrar(actual===k?"":k,true);};
-    filtros.addEventListener("click",function(e){var b=e.target.closest("button");if(b)tocar(b.getAttribute("data-k"));});
-    lista.addEventListener("click",function(e){var b=e.target.closest(".q-tags button");if(b)tocar(b.getAttribute("data-k"));});
-    filtrar("",false);
-    window.filtrarPreguntas=function(k){filtrar(k==="*"?"":k,false);return tarj.filter(function(t){return !t.hidden;}).map(function(t){return t.querySelector(".q-p").textContent;});};
+    var cerrarPanel=function(){panel.hidden=true;document.body.classList.remove("con-panel");abierto=false;};
+    var abrirTema=function(k){try{history.pushState({tema:k},"","#tema-"+encodeURIComponent(k));}catch(_){}mostrar(k);};
+    filtros.addEventListener("click",function(e){var b=e.target.closest("button");if(b)abrirTema(b.getAttribute("data-k"));});
+    plista.addEventListener("click",function(e){var b=e.target.closest(".q-tags button");if(!b)return;var k=b.getAttribute("data-k");
+      try{history.replaceState({tema:k},"","#tema-"+encodeURIComponent(k));}catch(_){}mostrar(k);});
+    $("q-volver").addEventListener("click",function(){if(history.state&&history.state.tema){history.back();}else{cerrarPanel();}});
+    window.addEventListener("popstate",function(e){if(e.state&&e.state.tema)mostrar(e.state.tema);else cerrarPanel();});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"&&abierto)$("q-volver").click();});
+    var h=decodeURIComponent(location.hash||"");
+    if(h.indexOf("#tema-")===0){var k0=h.slice(6);try{history.replaceState({tema:k0},"",location.hash);}catch(_){}mostrar(k0);}
+    window.filtrarPreguntas=function(k){mostrar(k);return [].map.call(plista.querySelectorAll(".q-p"),function(x){return x.textContent;});};
   }
 
   /* ---------- teleprompter ---------- */
+  if($("tele")){
   var capa=$("tele"), caja=$("tele-texto"), reloj=$("tele-reloj"), bPlay=$("tele-play"), vel=$("tele-vel");
   var corre=false, mult=1, tam=34, ult=0, seg=0, raf=0, resto=0;
   caja.querySelector(".in").innerHTML=DATOS.map(function(d){return "<h4>"+d.n+" · "+esc(d.t)+"</h4>"+d.html;}).join("");
@@ -852,8 +877,12 @@ JS = r"""
   function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
   function aplicarTam(){var r=caja.scrollTop/Math.max(1,caja.scrollHeight);caja.style.fontSize=tam+"px";caja.scrollTop=r*caja.scrollHeight;}
-  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
-  function cerrar(){parar();capa.hidden=true;document.body.style.overflow="";try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}}
+  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";}
+  window.addEventListener("resize",alinear);
+  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
+    if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
+    capa.hidden=true;document.body.style.overflow="";}
   [].forEach.call(document.querySelectorAll("[data-tele]"),function(b){b.addEventListener("click",function(e){e.preventDefault();abrir();});});
   bPlay.onclick=function(){corre?parar():arrancar();};
   $("tele-mas").onclick=function(){mult=Math.min(2,Math.round((mult+0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
@@ -869,7 +898,7 @@ JS = r"""
     requestAnimationFrame(f);}
   $("tele-atras").onclick=function(){mover(-2);};
   $("tele-adelante").onclick=function(){mover(2);};
-  $("tele-cerrar").onclick=cerrar;
+  if($("tele-cerrar"))$("tele-cerrar").onclick=cerrar;
   document.addEventListener("keydown",function(e){
     if(capa.hidden) return;
     if(e.key==="Escape") cerrar();
@@ -879,14 +908,17 @@ JS = r"""
     else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();mover(-2);}
     else if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();mover(2);}
   });
+  if(document.body.getAttribute("data-vista")==="tele"){abrir();}
+  }
 })();
 """
 
-def pagina(modo_suelto=False, web=None):
+def pagina(modo_suelto=False, web=None, vista="guion"):
+    import json as _json, re as _re
     filas, total, sin_opc = medir()
     bloques = []
     for i, (b, f) in enumerate(zip(GUION, filas), 1):
-        pistas_json = e(__import__("json").dumps(b["pistas"], ensure_ascii=False))
+        pistas_json = e(_json.dumps(b["pistas"], ensure_ascii=False))
         texto = "".join(f"<p>{html_parrafo(p)}</p>" for p in b["p"])
         bloques.append(
             f'<article class="bloque" id="b{i}" data-n="{i}" data-ancla="{e(b["ancla"])}" data-pregunta="{e(b["pregunta"])}" data-pistas="{pistas_json}">'
@@ -897,35 +929,36 @@ def pagina(modo_suelto=False, web=None):
         items = "".join(f'<li value="{k}"><a href="#b{k}"><b>{e(GUION[k-1]["t"])}</b></a> <span>{e(GUION[k-1]["ancla"])}</span></li>' for k in range(ini, fin + 1))
         partes_html.append(f'<div class="parte"><span class="lbl">{e(nombre)}</span><ol>{items}</ol></div>')
     indice = '<div class="orden"><span class="lbl titulo">El orden de los temas</span>' + "".join(partes_html) + '</div>'
-    import json as _json
-    import re as _re
+
+    # preguntas: banco oculto (lo usa la ventana de cada tema) y menú de temas
     grupo_de = {k: g for g, ks in GRUPOS.items() for k in ks}
-    filas = []
+    tarjetas = []
     for n, (ks, q, r, sencillo, calc) in enumerate(BANCO):
         ks = [k for k in ks if k != PROFE]
-        filas.append((grupo_de[ks[0]], ks, _re.sub(r"^\d+\.\s*", "", q), r, sencillo, calc, n))
-    tarjetas = []
-    for g in sorted(GRUPOS, key=orden):
-        de_g = sorted([f for f in filas if f[0] == g], key=lambda f: (orden(f[1][0]), f[6]))
-        if not de_g: continue
-        tarjetas.append(f'<h3 class="grupo-t">{e(g)}</h3>')
-        for _, ks, q, r, sencillo, calc, _n in de_g:
-            sencillo, *calc = con_uaesp([sencillo] + list(calc))
-            r = con_uaesp([r])[0]
-            li = "".join(f"<li>{e(x)}</li>" for x in calc)
-            etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks)
-            tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
-                            f'<p class="q-s"><b>En sencillo:</b> {e(sencillo)}</p>'
-                            f'<div class="q-c"><b>Cómo se calculó o de dónde sale:</b><ul>{li}</ul></div>'
-                            f'<p class="q-tags">{etiquetas}</p></article>')
+        q = _re.sub(r"^\d+\.\s*", "", q)
+        sencillo, *calc = con_uaesp([sencillo] + list(calc))
+        r = con_uaesp([r])[0]
+        li = "".join(f"<li>{e(x)}</li>" for x in calc)
+        etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks)
+        tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
+                        f'<p class="q-s"><b>En sencillo:</b> {e(sencillo)}</p>'
+                        f'<div class="q-c"><b>Cómo se calculó o de dónde sale:</b><ul>{li}</ul></div>'
+                        f'<p class="q-tags">Otros temas: {etiquetas}</p></article>')
     def cuantas(k): return sum(1 for ks, *_ in BANCO if k in ks)
     filtros = []
     for g in sorted(GRUPOS, key=orden):
         chips = "".join(f'<button type="button" data-k="{e(k)}">{e(k)} <span>{cuantas(k)}</span></button>' for k in sorted(GRUPOS[g], key=orden))
         filtros.append(f'<div class="f-grupo"><span class="f-g">{e(g)}</span><div class="f-chips">{chips}</div></div>')
-    js_final = JS
     fuentes = "".join(f"<li>{f}</li>" for f in FUENTES)
 
+    # rutas entre pestañas (en Drive se abren como archivos: hace falta «index.html»)
+    idx = "index.html" if modo_suelto else ""
+    if vista == "guion":
+        raiz = "../"
+        L = {"guion": idx or "./", "tele": "teleprompter/" + idx, "preg": "preguntas/" + idx}
+    else:
+        raiz = "../../"
+        L = {"guion": "../" + idx, "tele": "../teleprompter/" + idx, "preg": "../preguntas/" + idx}
     if modo_suelto:
         css_marca = (pathlib.Path(web) / "assets/css/marca.css").read_text(encoding="utf-8")
         css_marca = re.sub(r"@font-face\s*\{[^}]*\}", "", css_marca)
@@ -934,65 +967,41 @@ def pagina(modo_suelto=False, web=None):
         volver = ""
         icono = ""
     else:
-        logo = "../assets/img/logo.svg"
-        cabeza_css = ('<link rel="preload" href="../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>\n'
-                      '<link rel="stylesheet" href="../assets/css/marca.css">')
-        volver = ('<a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true">'
+        logo = raiz + "assets/img/logo.svg"
+        cabeza_css = (f'<link rel="preload" href="{raiz}assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>\n'
+                      f'<link rel="stylesheet" href="{raiz}assets/css/marca.css">')
+        volver = (f'<a class="volver" href="{raiz}" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true">'
                   '<path d="M15 5l-7 7 7 7"/></svg>Menú</a>')
-        icono = '<link rel="icon" href="../assets/img/icono-192.png">'
+        icono = f'<link rel="icon" href="{raiz}assets/img/icono-192.png">'
+    def tab(clave, texto):
+        act = ' class="activa" aria-current="page"' if clave == vista else ""
+        return f'<a href="{L[clave]}"{act}>{texto}</a>'
+    pestanas = tab("guion", "Guion") + tab("tele", "Teleprompter") + tab("preg", "Preguntas")
+    titulos = {"guion": "Guion", "tele": "Teleprompter", "preg": "Preguntas"}
+    pie = ('<footer class="pie"><p><b>Menos relleno, más vida.</b></p><p>Ricardo Beltrán · William Fonseca · Samuel Medina · Faber Ortiz · Camila Riaño</p>'
+           '<p>Docente: Ingrid Zoraida Sandoval Pérez · Proceso Administrativo · Politécnico Grancolombiano</p></footer>')
+    cabecera = f'{volver}\n<header class="barra"><img src="{logo}" alt="recoevo" width="832" height="273"></header>'
 
-    return f"""<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RECOEVO · Pitch del póster</title>
-<meta name="description" content="Guion del pitch de RECOEVO para el E-Fest 2026-2, con teleprompter y preguntas del jurado por temas.">
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#154734">
-{icono}
-{cabeza_css}
-<style>{CSS}</style>
-</head>
-<body data-total="{round(sin_opc)}">
-{volver}
-<header class="barra"><img src="{logo}" alt="recoevo" width="832" height="273"></header>
+    if vista == "guion":
+        cuerpo = f"""{cabecera}
 <main class="pitch">
   <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
-  <h1>El pitch de RECOEVO</h1>
-  <p class="bajada">El guion completo para una persona, conversado y en el orden del póster. También: un teleprompter y las preguntas del jurado, ordenadas por temas.</p>
-  <ul class="datos"><li class="dest">≈ {mmss(sin_opc)} a ritmo de conversación</li><li>{mmss(total)} con las frases ✂</li><li>{len(GUION)} bloques</li><li>1 presentador</li></ul>
-
-  <nav class="modos" aria-label="Secciones">
-    <a href="#guion">Guion</a>
-    <button type="button" class="tele" data-tele>Teleprompter</button>
-    <a href="#preguntas">Preguntas</a>
-  </nav>
-
+  <h1>El guion</h1>
+  <nav class="modos" aria-label="Secciones">{pestanas}</nav>
   <section id="guion">
-    <h2 class="sec">El guion</h2>
     {indice}
+    <a class="ir-tele" href="{L['tele']}">Abrir el teleprompter →</a>
     <p class="leyenda"><span><b class="num">33.300</b> cifra impresa en el póster</span><span><strong style="background:linear-gradient(transparent 60%,var(--hl) 60%)">palabra clave</strong></span><span><span class="gesto">qué señalar</span></span><span><span class="opc">se puede quitar si va largo</span></span></p>
     {"".join(bloques)}
-    <p class="total">Duración estimada a ritmo de conversación (unas 2,8 palabras por segundo): <b>{mmss(sin_opc)}</b> sin las frases marcadas con ✂ y <b>{mmss(total)}</b> con todas. El equipo decidió pasar de 5 minutos para que quepa todo; si el jurado corta en 5:00, lo primero que se quita son las frases ✂. El teleprompter muestra la versión sin ✂.</p>
-  </section>
-
-  <section id="preguntas">
-    <h2 class="sec">Preguntas del jurado</h2>
-    <p class="sec-sub">Abajo están todas las preguntas, organizadas por grupo, cada una con la respuesta, la explicación en sencillo y cómo se calculó. Toque un tema para ver solo sus preguntas; tóquelo otra vez para volver a verlas todas. El número es cuántas preguntas tiene ese tema.</p>
-    <div class="filtros" id="filtros">{"".join(filtros)}</div>
-    <p class="q-estado" id="q-estado" aria-live="polite"></p>
-    <div class="q-lista" id="q-lista">{"".join(tarjetas)}</div>
-  </section>
-
-  <section id="fuentes">
-    <details class="fuentes"><summary>De dónde sale cada cifra</summary><ol>{fuentes}</ol>
-    <p>Cifras del pitch que no están en el póster: los hogares de Bogotá y el «uno de cada cuatro», el medio kilo por hogar, el 1,6 % de Doña Juana, el promedio de $275.630, el desglose de la inversión, el costo por producto, los costos fijos y variables, el mes 17 y las rentabilidades. Todas se explican en las preguntas de arriba.</p></details>
+    <p class="total">Duración estimada a ritmo de conversación (unas 2,8 palabras por segundo): <b>{mmss(sin_opc)}</b> sin las frases marcadas con ✂ y <b>{mmss(total)}</b> con todas. Si el jurado corta en 5:00, lo primero que se quita son las frases ✂. El teleprompter muestra la versión sin ✂.</p>
+    <a class="ir-tele" href="{L['tele']}">Abrir el teleprompter →</a>
   </section>
 </main>
-<footer class="pie"><p><b>Menos relleno, más vida.</b></p><p>Ricardo Beltrán · William Fonseca · Samuel Medina · Faber Ortiz · Camila Riaño</p><p>Docente: Ingrid Zoraida Sandoval Pérez · Proceso Administrativo · Politécnico Grancolombiano</p></footer>
-
-<div class="tele-capa" id="tele" hidden role="dialog" aria-label="Teleprompter">
+{pie}"""
+    elif vista == "tele":
+        cuerpo = f"""<div hidden>{"".join(bloques)}</div>
+<div class="tele-capa pagina-tele" id="tele" role="region" aria-label="Teleprompter">
+  <nav class="tele-tabs" aria-label="Secciones">{pestanas}</nav>
   <div class="tele-texto" id="tele-texto"><div class="in"></div></div>
   <div class="tele-guia" aria-hidden="true"></div>
   <div class="tele-saltos" role="group" aria-label="Moverse por el texto">
@@ -1005,14 +1014,52 @@ def pagina(modo_suelto=False, web=None):
     <button type="button" id="tele-menos" aria-label="Más lento">−</button><small>velocidad <span id="tele-vel">1.0×</span></small><button type="button" id="tele-mas" aria-label="Más rápido">+</button>
     <button type="button" id="tele-amenos" aria-label="Letra más pequeña">A−</button><button type="button" id="tele-amas" aria-label="Letra más grande">A+</button>
     <button type="button" id="tele-reini">Reiniciar</button>
-    <button type="button" id="tele-cerrar">Cerrar</button>
     <small class="tele-ayuda">Toque y arrastre el texto con el dedo para moverlo; la línea tocada queda marcada.</small>
   </div>
+</div>"""
+    else:
+        cuerpo = f"""{cabecera}
+<main class="pitch">
+  <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
+  <h1>Preguntas del jurado</h1>
+  <nav class="modos" aria-label="Secciones">{pestanas}</nav>
+  <p class="sec-sub">Toque un tema y se abren todas sus preguntas, cada una con la respuesta, la explicación en sencillo y cómo se calculó. El número es cuántas preguntas tiene ese tema.</p>
+  <div class="filtros" id="filtros">{"".join(filtros)}</div>
+  <section id="fuentes">
+    <details class="fuentes"><summary>De dónde sale cada cifra</summary><ol>{fuentes}</ol></details>
+  </section>
+</main>
+<div id="q-banco" hidden>{"".join(tarjetas)}</div>
+<div class="q-panel" id="q-panel" hidden role="dialog" aria-modal="true" aria-labelledby="q-panel-t">
+  <div class="q-panel-cab">
+    <button type="button" class="q-volver" id="q-volver"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver a los temas</button>
+    <h2 id="q-panel-t"></h2><p id="q-panel-n"></p>
+  </div>
+  <div class="q-panel-lista" id="q-panel-lista"></div>
 </div>
-<script>{js_final}</script>
+{pie}"""
+
+    return f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RECOEVO · Pitch · {titulos[vista]}</title>
+<meta name="description" content="Pitch de RECOEVO para el E-Fest 2026-2: guion, teleprompter y preguntas del jurado por temas.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#154734">
+{icono}
+{cabeza_css}
+<style>{CSS}</style>
+</head>
+<body data-vista="{vista}" data-total="{round(sin_opc)}" data-salir="{L['guion']}">
+{cuerpo}
+<script>{JS}</script>
 </body>
 </html>
 """
+
+VISTAS = {"guion": "", "tele": "teleprompter", "preg": "preguntas"}
 
 if __name__ == "__main__":
     web = pathlib.Path(sys.argv[1])
@@ -1022,10 +1069,11 @@ if __name__ == "__main__":
             print(f"{i:2d} {b['t']:<26} {mmss(f['ini'])}-{mmss(f['fin'])}  {f['pal']:4d} palabras  (quitables {f['opc']})")
         print(f"TOTAL {mmss(total)} | sin quitables {mmss(sin_opc)} | a 2,4 pal/s {mmss(total * RITMO / 2.4)}")
         sys.exit()
-    if "--suelto" in sys.argv:
-        destino = pathlib.Path(sys.argv[sys.argv.index("--suelto") + 1])
-        destino.write_text(pagina(True, web), encoding="utf-8"); print("suelto:", destino)
-    else:
-        (web / "pitch").mkdir(exist_ok=True)
-        (web / "pitch/index.html").write_text(pagina(False, web), encoding="utf-8"); print("web:", web / "pitch/index.html")
+    suelto = "--suelto" in sys.argv
+    base = pathlib.Path(sys.argv[sys.argv.index("--suelto") + 1]) if suelto else web / "pitch"
+    for vista, carpeta in VISTAS.items():
+        destino = base / carpeta if carpeta else base
+        destino.mkdir(parents=True, exist_ok=True)
+        (destino / "index.html").write_text(pagina(suelto, web, vista), encoding="utf-8")
+        print("escrito:", destino / "index.html")
     print(f"duración {mmss(total)} (sin quitables {mmss(sin_opc)})")
