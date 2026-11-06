@@ -24,8 +24,8 @@ GUION = [
           "{Señale las cifras rosadas.} En 2024, Colombia enterró [[33.300 toneladas]] de basura al día, y cerca del [[60 %]] era comida. Solo a **Doña Juana** llegan [[6.800 toneladas]] diarias, y su licencia se vence en [[2029]]."]),
   dict(t="Lo que vimos en Villa Rosita", ancla="El barrio de nuestro compañero y lo que encontramos en el trabajo de campo.", poster="Póster 01 · fotos del campo y cifras del trabajo de campo",
        pregunta="¿Dónde nació la idea? ¿Qué encontraron en el trabajo de campo con los vecinos?",
-       pistas=["no es una cifra", "compañero de Villa Rosita, Usme: lo vive a diario", "trabajo de campo en su barrio", "100 %: el shut de la esquina", "lo encontramos desbordado", "perrito buscando comida en un icopor", "75 %: perros, ratas o plagas", "63 %: mezcla todo en la misma bolsa", "«todo es un revoltijo»", "falta conciencia; nadie rechazó la idea; falta una forma fácil"],
-       p=["Para nosotros esto no es una cifra. {Señale a su compañero.} Nuestro compañero vive en **Villa Rosita, en Usme**. Él lo vive todos los días, y esta idea nació en su cuadra.",
+       pistas=["no es una cifra", "nuestro compañero Samuel: Villa Rosita, Usme; lo vive a diario", "trabajo de campo en su barrio", "100 %: el shut de la esquina", "lo encontramos desbordado", "perrito buscando comida en un icopor", "75 %: perros, ratas o plagas", "63 %: mezcla todo en la misma bolsa", "«todo es un revoltijo»", "falta conciencia; nadie rechazó la idea; falta una forma fácil"],
+       p=["Para nosotros esto no es una cifra. {Señale a su compañero.} Nuestro compañero **Samuel** vive en **Villa Rosita, en Usme**. Él lo vive todos los días, y esta idea nació en su cuadra.",
           "Por eso hicimos un trabajo de campo en su barrio. En las conversaciones con los vecinos, el [[100 %]] señaló el mismo **shut** de la esquina, y cuando fuimos lo encontramos desbordado~, a pesar del aviso de multa~. Vimos un **perrito** buscando comida en un icopor tirado, y el [[75 %]] nos habló de **perros, ratas o plagas**. Más de la mitad, el [[63 %]], **mezcla todo** en la misma bolsa; alguien nos lo dijo sin rodeos: «Las cáscaras de la papa, el cartón, las cáscaras de huevo… **todo es un revoltijo**».",
           "Falta conciencia, sí. Pero nadie rechazó la idea: **lo que falta es una forma fácil**."]),
   dict(t="El problema de los campesinos", ancla="La ironía: el abono que necesitan y lo caro que les sale.", poster="Póster 01 · «En el campo»",
@@ -35,8 +35,9 @@ GUION = [
           "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
   dict(t="La ley: Decreto 0772", ancla="Ya es obligatorio separar, pero en la cocina no hay cómo.", poster="Póster 01 · recuadro azul del decreto",
        pregunta="¿Qué obliga el Decreto 0772 de 2026 y qué falta?",
-       pistas=["ya es ley", "desde julio: Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia", "de ahí nació RECOEVO"],
-       p=["{Señale el recuadro azul.} Y esto ya es ley: desde julio, el **Decreto 0772 de 2026** obliga a todos los hogares a **separar los orgánicos**. Pero en la cocina no hay una forma fácil y limpia de hacerlo. **De ahí nació RECOEVO.**"]),
+       pistas=["conector: un dato importante", "desde julio ya existe una ley", "Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia", "de ahí nació RECOEVO"],
+       p=["{Señale el recuadro azul.} Y aquí hay un dato importante: en el tema de los residuos orgánicos, desde julio ya existe una ley. El **Decreto 0772 de 2026** obliga a todos los hogares a **separar los orgánicos**. O sea, separar ya no es opcional; el problema es que en la cocina no hay una forma fácil y limpia de hacerlo. **Y de ahí nació RECOEVO.**"]),
+
   dict(t="La solución: RECOEVO", ancla="El código QR, el prototipo en 3D y cómo se usa.", poster="Póster 02 y 03 · el código QR, el prototipo y «Así funciona»",
        pregunta="¿Qué le pide al jurado antes de explicar? ¿Qué es RECOEVO y cómo se usa?",
        pistas=["escanear el QR", "todo el proyecto", "primer enlace: prototipo 3D", "moverlo y desarmarlo pieza por pieza", "prototipo inicial", "triturador que funciona con el pie", "sin electricidad y sin olor", "pisar 20 segundos al día", "13 cuchillas", "bolsa compostable"],
@@ -83,8 +84,8 @@ GUION = [
           "Y la **rentabilidad**: por cada 100 pesos que gastamos ganamos casi 29, el [[28,7 %]]; y de cada 100 que vendemos nos quedan casi 20, el [[19,9 %]]. ~Y la TIR, lo que rinde al año el dinero invertido, es del [[33,9 %]].~"]),
   dict(t="El cierre", ancla="Lo que nos ilusiona y la invitación a una mentoría.", poster="Pie del póster",
        pregunta="¿Qué sienten por esta idea y qué le piden al jurado?",
-       pistas=["nos ilusiona de verdad", "nació en la cuadra de un compañero", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "posiblemente nos falte la mirada de quien ha creado empresa", "quede o no seleccionada: después del evento, una conversación, una posible mentoría", "afinar los números con su experiencia", "esa bolsa no tiene por qué seguir ahí", "eslogan: Menos relleno, más vida"],
-       p=["Esta idea **nos ilusiona** de verdad. Nació en la cuadra de un compañero, pero esa bolsa rota la hemos visto todos. ~Y nos emociona pensar que una cáscara puede volver a ser tierra viva.~",
+       pistas=["nos ilusiona de verdad", "nació en la cuadra de Samuel", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "posiblemente nos falte la mirada de quien ha creado empresa", "quede o no seleccionada: después del evento, una conversación, una posible mentoría", "afinar los números con su experiencia", "esa bolsa no tiene por qué seguir ahí", "eslogan: Menos relleno, más vida"],
+       p=["Esta idea **nos ilusiona** de verdad. Nació en la cuadra de Samuel, pero esa bolsa rota la hemos visto todos. ~Y nos emociona pensar que una cáscara puede volver a ser tierra viva.~",
           "Somos estudiantes de **mercadeo y de ingeniería de sistemas**, y entendemos que posiblemente nos falte la mirada de quien ya ha creado empresa. Por eso, quede o no seleccionada esta idea, después de este evento nos gustaría llevar este proyecto a **una conversación con ustedes, una posible mentoría**, para afinar estos números con su experiencia.",
           "Porque creemos que esa bolsa de la esquina no tiene por qué seguir ahí. Nuestro eslogan lo dice: **Menos relleno, más vida.** Muchas gracias."]),
 ]
@@ -216,10 +217,10 @@ OTRAS = [
    "Allá validamos el problema con los vecinos; Doña Juana queda en la vía a Usme (se entra por la vía al Llano); y el 85 % de Usme es campo, con unos 17.000 campesinos, la localidad con más campesinos de Bogotá. La basura de la ciudad y el abono del campo están en el mismo lugar. Después sigue Bogotá y luego otras ciudades."),
   ("¿Cuántos hogares y qué porcentaje es?",
    "735.450 productos en 10 años, uno por hogar. Bogotá tiene unos 2,9 millones de hogares (DANE, Encuesta Multipropósito 2025): 735.450 equivalen a uno de cada cuatro (25 %). Frente a los 13,6 millones de hogares urbanos del país, es el 5,4 %. El año 1 son 16.200 productos."),
+  ("¿Cuál es el impacto? ¿Cuánta basura le quitan a Doña Juana? ¿Cómo salen las 407.000 toneladas y las 288 al día?",
+   "Los hogares no llegan todos el primer año: son 16.200 en el año 1 y van sumando hasta 735.450 en el año 10. Por eso no se multiplica 288 × 365 × 10. Año por año, en toneladas: año 1 ≈ 1.100 · año 2 ≈ 4.600 · año 3 ≈ 10.600 · año 4 ≈ 19.000 · año 5 ≈ 29.300 · año 6 ≈ 41.100 · año 7 ≈ 54.000 · año 8 ≈ 67.700 · año 9 ≈ 82.200 · año 10 ≈ 97.600. Suman ≈ 407.000 t: lo que recibe Doña Juana en unos 60 días (6.800 t al día) y el 1,6 % de lo que le llegaría en 10 años. Las 288 t al día son solo al final del año 10, cuando ya están todos: 735.450 × 0,46 kg × 85 % ≈ 288 t, el 4,2 % de lo que entra hoy cada día."),
   ("¿De dónde sale el medio kilo de comida por hogar al día?",
    "Es un supuesto del plan financiero: 0,46 kg de restos de comida por hogar al día, y que el 85 % de los hogares lo usa a diario. No se pesó en el trabajo de campo, que fue de entrevistas. Lo comparamos con los datos de la UAESP: los hogares de Bogotá sacan unas 3.440 toneladas de orgánicos al día, que entre 2,9 millones de hogares dan cerca de 1,2 kg por hogar. Nuestro supuesto es menos de la mitad, así que el impacto real podría ser mayor."),
-  ("¿Cómo salen las 407.000 toneladas y qué tienen que ver con las 288 al día?",
-   "Los hogares no llegan todos el primer año: son 16.200 en el año 1 y van sumando hasta 735.450 en el año 10. Por eso no se multiplica 288 × 365 × 10. Año por año, en toneladas: año 1 ≈ 1.100 · año 2 ≈ 4.600 · año 3 ≈ 10.600 · año 4 ≈ 19.000 · año 5 ≈ 29.300 · año 6 ≈ 41.100 · año 7 ≈ 54.000 · año 8 ≈ 67.700 · año 9 ≈ 82.200 · año 10 ≈ 97.600. Suman ≈ 407.000 t: lo que recibe Doña Juana en unos 60 días (6.800 t al día) y el 1,6 % de lo que le llegaría en 10 años. Las 288 t al día son solo al final del año 10, cuando ya están todos: 735.450 × 0,46 kg × 85 % ≈ 288 t, el 4,2 % de lo que entra hoy cada día."),
   ("¿Por qué esos porcentajes por canal?",
    "Marketplaces 35 %: cobran alrededor del 14 % (Mercado Libre, Falabella.com, Éxito.com) y llegan a todo el país. Lotes 35 %: empresas, conjuntos y alcaldías compran cientos de una vez a $142.000 + IVA, y el decreto también los obliga a separar. Tienda propia 15 %: queda casi todo el precio (la pasarela de pago cobra cerca del 3 %), pero cada venta cuesta publicidad. Grandes superficies 15 %: se quedan con cerca del 40 % (margen de 30 a 35 % más cobros de 8 a 12 %) y pagan a 60 días o más."),
   ("¿Los costos de envío están incluidos? ¿Quién los paga?",
@@ -232,6 +233,8 @@ OTRAS = [
    "Sí: con la tapa abierta el pedal se bloquea, y una perilla de reversa destraba el eje si algo se atasca."),
   ("¿Quién es la competencia?",
    "Las canecas con pedal, que solo guardan, y los procesadores eléctricos como FoodCycler y Lomi, de más de un millón y que gastan luz. No encontramos a la venta otro triturador de cocina a pedal; solo prototipos caseros."),
+  ("¿Qué Objetivos de Desarrollo Sostenible ataca y por qué?",
+   "Tres de la Agenda 2030 de la ONU. ODS 12, Producción y consumo responsables (metas 12.3 y 12.5: reducir a la mitad el desperdicio de alimentos y reducir la basura): RECOEVO saca la comida de la bolsa de basura. ODS 11, Ciudades y comunidades sostenibles (meta 11.6: mejor manejo de los residuos de las ciudades): menos bolsas rotas, ratas y carga para Doña Juana. ODS 13, Acción por el clima: la comida enterrada se pudre sin aire y suelta metano, unas 80 veces más potente que el CO₂ en 20 años; si no llega al relleno, ese metano no se produce."),
   ("¿Qué sigue ahora?",
    "Una preserie para preventas y cartas de intención de grandes superficies: probar la demanda antes de crecer (Lean Startup)."),
   ("¿Qué tan confiable es el trabajo de campo?",
@@ -251,6 +254,76 @@ FUENTES = [
   "Método para memorizar: práctica de recuperación (Roediger y Karpicke, 2006); efecto de producción, decir en voz alta (MacLeod y otros, 2010); práctica espaciada (Cepeda y otros, 2006); pistas que desaparecen (Glisky, Schacter y Tulving, 1986); método de los lugares (Dresler y otros, 2017).",
 ]
 
+# ------------------------------------------------------------------ buscador de preguntas
+# concepto -> palabras o frases con que alguien puede preguntar (sin tildes no hace falta: el buscador las quita)
+CONCEPTOS = {
+  "inversion": ["inversion", "inversion inicial", "invertir", "capex", "cuanto necesitan", "cuanto dinero", "cuanta plata", "capital", "capital inicial",
+                "montar la fabrica", "arranque", "financiacion", "financiar", "socios", "credito", "deuda", "prestamo", "banco", "aporte", "fondeo",
+                "levantar capital", "inversionista", "maquinas", "maquinaria", "moldes", "planta"],
+  "precio": ["precio", "pvp", "precio de venta", "cuanto vale", "cuanto cuesta el producto", "valor", "iva", "precio promedio", "inflacion",
+             "caro", "barato", "precio al publico", "pricing", "cuanto cobran", "199", "199900", "275"],
+  "costo": ["costo", "costos", "costo unitario", "costo por producto", "cuanto cuesta hacer", "cuanto cuesta fabricar", "costo de produccion", "cogs",
+            "materiales", "materia prima", "fabricacion", "fabricar", "manufactura", "estructura de costos", "gastos administrativos", "gasto", "gastos",
+            "nomina", "produccion"],
+  "fijos": ["costos fijos", "costos variables", "fijo", "fijos", "variable", "variables", "opex", "nomina", "arriendo", "estructura de costos"],
+  "utilidad": ["utilidad", "utilidad neta", "ganancia", "ganancias", "ganan", "beneficio", "beneficios", "net income", "profit", "cuanto ganan",
+               "cuanto queda", "ebitda", "impuesto", "impuestos", "renta", "perdida", "pierden", "primer ano", "ventas totales"],
+  "equilibrio": ["punto de equilibrio", "equilibrio", "break even", "breakeven", "cuantas unidades", "cuantos productos", "unidades minimas",
+                 "dejan de perder", "cubrir costos", "cuantas tienen que vender", "cuanto tienen que vender"],
+  "margen": ["margen", "margen de contribucion", "contribucion", "margen bruto", "markup", "49"],
+  "roi": ["roi", "retorno", "retorno de la inversion", "retorno sobre la inversion", "rendimiento", "cuantas veces", "multiplica", "512"],
+  "recuperacion": ["recuperacion", "recuperan", "recuperar", "recupera", "payback", "periodo de recuperacion", "cuando recuperan", "en cuanto tiempo",
+                   "cuanto tiempo", "mes 50", "devolver la inversion"],
+  "rentabilidad": ["rentabilidad", "rentable", "margen neto", "porcentaje de utilidad", "ros", "roe", "sobre ventas", "sobre costos",
+                   "es rentable", "vale la pena", "porcentaje de ganancia"],
+  "tir": ["tir", "irr", "tasa interna", "tasa interna de retorno", "vpn", "van", "npv", "valor presente", "tasa de descuento", "wacc", "cdt",
+          "rentabilidad anual", "interes"],
+  "usme": ["usme", "por que usme", "localidad", "barrio", "villa rosita", "donde empiezan", "piloto", "zona", "samuel", "empezar"],
+  "mercado": ["mercado", "tam", "sam", "som", "tamano de mercado", "hogares", "hogar", "clientes", "cliente", "cuantos clientes", "segmento",
+              "bogota", "meta", "penetracion", "demanda", "cuantos hogares", "porcentaje de hogares", "unidades vendidas", "735450", "proyeccion de ventas"],
+  "impacto": ["impacto", "toneladas", "tonelada", "ambiental", "dona juana", "relleno", "basura", "residuos", "co2", "metano", "emisiones",
+              "huella", "medio ambiente", "cuanto reduce", "reducen", "reducir", "quitan", "sacan del relleno", "menos basura", "407000", "406983", "reduccion"],
+  "supuesto": ["medio kilo", "kilo", "kilos", "kg", "de donde sale", "supuesto", "supuestos", "dato", "fuente", "como calcularon", "0,46", "046"],
+  "canales": ["canales", "canal", "donde venden", "como venden", "distribucion", "mercado libre", "marketplace", "marketplaces", "almacenes",
+              "grandes superficies", "cadenas", "exito", "homecenter", "falabella", "alkosto", "tienda en linea", "tienda propia", "ecommerce",
+              "b2b", "b2c", "b2g", "lotes", "empresas", "conjuntos", "alcaldias", "comision", "comisiones", "go to market", "ventas por internet", "whatsapp"],
+  "envio": ["envio", "envios", "domicilio", "domicilios", "flete", "fletes", "transporte", "logistica", "transportadora", "despacho", "entrega",
+            "costo de envio", "quien paga el envio", "llevar", "regiones"],
+  "competencia": ["competencia", "competidores", "competidor", "lomi", "foodcycler", "reencle", "diferenciacion", "diferencia", "ventaja",
+                  "ventaja competitiva", "diferentes", "por que ustedes", "sustitutos", "caneca", "electrico", "electricos", "patente",
+                  "propiedad intelectual", "copiar", "copien", "otras marcas"],
+  "abono": ["abono", "compost", "compostaje", "fertilizante", "campesinos", "agricultores", "fase 2", "humus", "urea"],
+  "uso": ["bolsa", "bolsas", "aserrin", "recambio", "consumibles", "repuestos", "filtro", "mantenimiento", "como se usa", "olor", "limpieza",
+          "como funciona", "material seco"],
+  "seguridad": ["seguro", "segura", "seguridad", "ninos", "nino", "accidente", "cuchillas", "peligro", "peligroso", "riesgo"],
+  "siguiente": ["siguiente paso", "que sigue", "proximos pasos", "escalar", "mvp", "preserie", "preventa", "preventas", "lean", "validar demanda",
+                "cuando lanzan", "lanzamiento", "fabrica propia", "tercerizar", "maquila", "futuro", "plan"],
+  "campo": ["trabajo de campo", "encuesta", "encuestas", "entrevistas", "entrevista", "validacion", "validaron", "muestra", "cuantas personas",
+            "metodologia", "investigacion", "evidencia", "confiable", "vecinos", "porcentajes"],
+  "ods": ["ods", "objetivos de desarrollo sostenible", "objetivos", "sostenibilidad", "sostenible", "agenda 2030", "onu", "proposito", "social",
+          "clima", "ciudades sostenibles", "consumo responsable"],
+}
+# etiquetas de cada pregunta (por cómo empieza su texto)
+ETIQUETAS = [
+  ("1. ¿Cuánto dinero", "inversion"), ("2. ¿A cuánto se vende", "precio"), ("3. ¿Cuánto cuesta hacer", "costo"),
+  ("4. ¿Cuáles son los costos fijos", "fijos costo"), ("5. ¿Cuál es la utilidad neta", "utilidad"),
+  ("6. ¿Cuál es el punto de equilibrio", "equilibrio margen"), ("7. ¿Cuál es el retorno", "roi recuperacion"),
+  ("8. ¿Cuál es la rentabilidad sobre los costos", "rentabilidad"), ("9. ¿Cuál es la rentabilidad sobre las ventas", "rentabilidad utilidad"),
+  ("¿Y la TIR", "tir roi rentabilidad"), ("¿Por qué empezar en Usme", "usme"), ("¿Cuántos hogares", "mercado"),
+  ("¿De dónde sale el medio kilo", "supuesto impacto"), ("¿Cuál es el impacto?", "impacto supuesto"),
+  ("¿Por qué esos porcentajes por canal", "canales"), ("¿Los costos de envío", "envio canales"), ("¿RECOEVO produce abono", "abono"),
+  ("¿Hay que comprar bolsas", "uso"), ("¿Es seguro", "seguridad uso"), ("¿Quién es la competencia", "competencia"),
+  ("¿Qué Objetivos de Desarrollo", "ods impacto"), ("¿Qué sigue ahora", "siguiente"), ("¿Qué tan confiable", "campo"),
+]
+ATAJOS = ["Retorno de la inversión", "Punto de equilibrio", "Inversión inicial", "Precio", "Rentabilidad", "Utilidad", "Costos",
+          "Envíos", "Canales de venta", "Competencia", "Impacto ambiental", "Hogares y mercado", "ODS", "Trabajo de campo"]
+
+def etiquetas(pregunta):
+    for inicio, tags in ETIQUETAS:
+        if pregunta.startswith(inicio):
+            return tags
+    return ""
+
 # ------------------------------------------------------------------ página
 CSS = r"""
 :root{--hl:rgba(164,214,94,.5);--gesto:#7a5a35;--num:#0a6e35;--papel2:#f3efe3}
@@ -263,7 +336,7 @@ CSS = r"""
 .datos li{padding:6px 12px;border-radius:999px;background:var(--papel);border:1px solid var(--linea);font-weight:700;font-size:14.5px}
 .datos li.dest{background:var(--monte);color:#fff;border-color:var(--monte)}
 .modos{position:sticky;top:0;z-index:20;background:var(--crema);margin:18px -16px 0;padding:10px 16px 10px 128px;border-bottom:1px solid var(--linea);display:flex;gap:8px;padding-top:calc(10px + env(safe-area-inset-top))}
-@media (max-width:700px){.modos{position:fixed;top:auto;bottom:0;left:0;right:0;margin:0;padding:6px max(6px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));border-top:1px solid var(--linea);border-bottom:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;box-shadow:0 -6px 18px rgba(21,71,52,.08)}.modos a,.modos button{padding:9px 2px;font-size:12.5px;text-align:center;border-radius:12px;min-width:0;overflow:hidden;text-overflow:ellipsis}body{padding-bottom:76px}}
+@media (max-width:700px){.modos{position:fixed;top:auto;bottom:0;left:0;right:0;margin:0;padding:6px max(6px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));border-top:1px solid var(--linea);border-bottom:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;box-shadow:0 -6px 18px rgba(21,71,52,.08)}.modos a,.modos button{padding:9px 2px;font-size:12.5px;text-align:center;border-radius:12px;min-width:0;overflow:hidden;text-overflow:ellipsis}body{padding-bottom:76px}}
 .modos a,.modos button{flex:none;font:inherit;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:15px;text-decoration:none;color:var(--monte);background:var(--papel);border:1px solid var(--linea);border-radius:999px;padding:9px 15px;cursor:pointer;white-space:nowrap}
 .modos .tele{background:var(--monte);color:#fff;border-color:var(--monte)}
 section{scroll-margin-top:80px}
@@ -360,6 +433,22 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-ctl .play{background:var(--sol);color:var(--monte);border-color:var(--sol);min-width:110px}
 .tele-ctl output{font-family:"Lexend";font-weight:700;font-size:20px;min-width:56px;text-align:center;font-variant-numeric:tabular-nums}
 .tele-ctl small{color:#b9c2b8;font-size:13px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.buscador{display:flex;gap:8px;align-items:stretch;margin:4px 0 10px}
+.buscador input{flex:1;min-width:0;font:inherit;font-size:17px;padding:14px 16px;border-radius:16px;border:2px solid var(--monte);background:var(--papel);color:var(--tinta)}
+.buscador input:focus{outline:3px solid var(--sol);outline-offset:2px}
+#q-voz{flex:none;display:inline-flex;align-items:center;gap:6px;font:inherit;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:15px;border:0;border-radius:16px;background:var(--monte);color:#fff;padding:0 14px;cursor:pointer}
+#q-voz svg{width:20px;height:20px;fill:currentColor}
+#q-voz.oyendo{background:var(--sol);color:var(--monte)}
+.atajos{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.atajos button{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--linea);background:var(--papel);color:var(--monte);border-radius:999px;padding:6px 12px;cursor:pointer}
+.q-estado{color:var(--suave);font-size:15px;margin:0 0 10px;min-height:1.2em}
+.q-lista{display:grid;gap:10px}
+.grupo-t{font-size:20px;margin:14px 0 2px}
+.q-lista.buscando .grupo-t{display:none}
+.q.top{outline:3px solid var(--sol);outline-offset:0}
+.q.top::before{content:"Respuesta más probable";display:inline-block;font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:.8px;text-transform:uppercase;background:var(--sol);color:var(--monte);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.q[hidden],.grupo-t[hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{.modos,.volver,#practicar .tarjeta-p,.tele-capa{display:none!important}.b-texto p{font-size:13pt}}
 """
@@ -373,46 +462,84 @@ JS = r"""
   function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 
-  /* ---------- práctica guiada ---------- */
-  var CL="recoevo-pitch-practica";
-  var est={i:0,modo:"bloque",marca:{}};
-  try{var g=JSON.parse(localStorage.getItem(CL)||"null");if(g){est.i=Math.min(g.i||0,DATOS.length-1);est.modo=g.modo||"bloque";est.marca=g.marca||{};}}catch(e){}
-  function guardar(){try{localStorage.setItem(CL,JSON.stringify(est));}catch(e){}}
-  var nivel=0;
+  /* ---------- buscador de preguntas ---------- */
   var $=function(id){return document.getElementById(id);};
-  function pintar(){
-    var d=DATOS[est.i], cad=est.modo==="cadena";
-    $("tp-paso").textContent="Bloque "+d.n+" de "+DATOS.length+" · "+d.t;
-    $("tp-prog").style.width=((est.i+1)/DATOS.length*100)+"%";
-    if(cad){
-      $("tp-preg").textContent=d.n===1?"Diga el bloque 1 completo, en voz alta.":"Ahora diga seguido del bloque 1 al "+d.n+".";
-      $("tp-inst").textContent="Sin mirar. Si se traba, abra las pistas: son los temas, en orden.";
-    } else {
-      $("tp-preg").textContent=d.preg;
-      $("tp-inst").textContent="Respóndala en voz alta, como si estuviera frente al jurado. Si se traba, abra las pistas; al final, compare con el guion.";
+  var CONC=__CONC__;
+  var STOP={};("de la el los las un una unos unas y o a e en por para con sin que se su sus al del lo le les es son fue fueron como cual cuales "+
+    "cuanto cuanta cuantos cuantas cuando donde quien quienes me nos te mi tu ustedes usted ellos ella este esta estos estas eso esa ese ya muy mas "+
+    "pero si no hay tiene tienen tener hacer hace hacen van va ser estan esta estar sobre entre desde hasta tambien porque pregunta preguntaron "+
+    "preguntan pregunto dijeron dice saber quiero tema algo ustedes recoevo producto proyecto negocio empresa").split(" ").forEach(function(w){STOP[w]=1;});
+  function norm(t){return String(t).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/(\d)[.,](\d)/g,"$1$2").replace(/[^a-z0-9% ]+/g," ").replace(/\s+/g," ").trim();}
+  function raiz(w){if(w.length>5&&/es$/.test(w))return w.slice(0,-2);if(w.length>4&&/s$/.test(w))return w.slice(0,-1);return w;}
+  function lev(a,b){if(Math.abs(a.length-b.length)>1)return 9;var m=[],i,j;for(i=0;i<=a.length;i++){m[i]=[i];}for(j=0;j<=b.length;j++){m[0][j]=j;}
+    for(i=1;i<=a.length;i++)for(j=1;j<=b.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return m[a.length][b.length];}
+  var lista=$("q-lista"), entrada=$("q-buscar"), estado=$("q-estado"), voz=$("q-voz");
+  if(lista&&entrada){
+    var ORIG=[].slice.call(lista.children);
+    var TARJ=[].slice.call(lista.querySelectorAll(".q")).map(function(el,i){
+      var tit=norm(el.querySelector(".q-p").textContent).split(" ").map(raiz), cuerpo=norm(el.textContent).split(" ").map(raiz);
+      var T={},C={};tit.forEach(function(w){T[w]=1;});cuerpo.forEach(function(w){C[w]=1;});
+      return {el:el,tags:(el.getAttribute("data-tags")||"").split(" ").filter(Boolean),T:T,C:C,i:i};
+    });
+    var detectar=function(q){
+      var nq=" "+norm(q)+" ", toks=nq.trim().split(" ").filter(Boolean).map(raiz), hits={};
+      Object.keys(CONC).forEach(function(c){
+        var w=0;
+        CONC[c].forEach(function(t){
+          var nt=norm(t);
+          if(nt.indexOf(" ")>=0){ if(nq.indexOf(" "+nt+" ")>=0) w=Math.max(w,3); return; }
+          var st=raiz(nt);
+          toks.forEach(function(k){
+            if(k===st) w=Math.max(w,2);
+            else if(st.length>=5&&k.length>=5&&(k.indexOf(st)===0||st.indexOf(k)===0)) w=Math.max(w,1.5);
+            else if(st.length>=6&&lev(k,st)<=1) w=Math.max(w,1.2);
+          });
+        });
+        if(w) hits[c]=w;
+      });
+      return {hits:hits,toks:toks.filter(function(k){return k.length>=3&&!STOP[k];})};
+    };
+    var puntaje=function(t,d){
+      var p=0;t.tags.forEach(function(g){if(d.hits[g])p+=4*d.hits[g];});
+      d.toks.forEach(function(k){if(t.T[k])p+=2;else if(t.C[k])p+=0.6;});
+      return p;
+    };
+    var limpiar=function(){
+      ORIG.forEach(function(n){lista.appendChild(n);n.hidden=false;n.classList.remove("top");});
+      lista.classList.remove("buscando");estado.textContent="";
+    };
+    var buscar=function(){
+      var q=entrada.value.trim();
+      if(!q){limpiar();return;}
+      var d=detectar(q);
+      var res=TARJ.map(function(t){return {t:t,p:puntaje(t,d)};}).filter(function(r){return r.p>=1;})
+        .sort(function(a,b){return b.p-a.p||a.t.i-b.t.i;});
+      if(res.length){var tope=res[0].p;res=res.filter(function(r){return r.p>=tope*0.25;});}
+      lista.classList.add("buscando");
+      ORIG.forEach(function(n){n.hidden=true;n.classList.remove("top");});
+      res.forEach(function(r,k){lista.appendChild(r.t.el);r.t.el.hidden=false;
+        if(k===0){r.t.el.classList.add("top");var det=r.t.el.querySelector("details");if(det)det.open=true;}});
+      estado.textContent=res.length?(res.length===1?"1 respuesta relacionada.":res.length+" respuestas relacionadas. La primera es la más probable."):
+        "No encontré una pregunta parecida. Pruebe con otras palabras: retorno, equilibrio, inversión, envío, competencia, impacto…";
+    };
+    var tEspera=0;
+    entrada.addEventListener("input",function(){clearTimeout(tEspera);tEspera=setTimeout(buscar,120);});
+    entrada.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();buscar();entrada.blur();}});
+    [].forEach.call(document.querySelectorAll(".atajos button"),function(b){b.addEventListener("click",function(){entrada.value=b.getAttribute("data-q");buscar();});});
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(SR&&voz){
+      voz.hidden=false;var rec=null,txt=voz.querySelector("span");
+      voz.addEventListener("click",function(){
+        if(rec){rec.stop();return;}
+        try{rec=new SR();}catch(e){estado.textContent="Este navegador no permite dictar; escriba la pregunta.";return;}
+        rec.lang="es-CO";rec.interimResults=true;rec.maxAlternatives=1;
+        rec.onresult=function(ev){var t="";for(var i=0;i<ev.results.length;i++)t+=ev.results[i][0].transcript;entrada.value=t;buscar();};
+        rec.onerror=function(ev){estado.textContent=ev.error==="not-allowed"?"El navegador no dio permiso para usar el micrófono.":"No se pudo usar el micrófono; escriba la pregunta.";};
+        rec.onend=function(){rec=null;voz.classList.remove("oyendo");txt.textContent="Dictar";};
+        rec.start();voz.classList.add("oyendo");txt.textContent="Escuchando… toque para parar";
+      });
     }
-    var pistas = cad ? DATOS.slice(0,est.i+1).map(function(x){return x.n+". "+x.t;}) : d.pistas;
-    $("tp-pistas").innerHTML=pistas.map(function(p){return "<li>"+esc(p)+"</li>";}).join("");
-    $("tp-pistas").hidden=nivel<1;
-    var guion = cad ? DATOS.slice(0,est.i+1).map(function(x){return x.html;}).join("") : d.html;
-    $("tp-guion").innerHTML=guion; $("tp-guion").hidden=nivel<2;
-    $("b-pistas").hidden=nivel>=1; $("b-guion").hidden=nivel>=2;
-    $("b-ant").disabled=est.i===0; $("b-sig").textContent=est.i===DATOS.length-1?"Volver al bloque 1":"Siguiente bloque →";
-    [].forEach.call(document.querySelectorAll(".tp-modo button"),function(b){b.setAttribute("aria-pressed",String(b.dataset.modo===est.modo));});
-    $("marcas").innerHTML=DATOS.map(function(x,k){var m=est.marca[k]||"";return '<button type="button" class="'+m+(k===est.i?" act":"")+'" data-k="'+k+'" aria-label="Bloque '+x.n+(m==="ok"?", lo dijo bien":m==="rep"?", para repasar":"")+'">'+x.n+'</button>';}).join("");
-  }
-  function ir(k){est.i=(k+DATOS.length)%DATOS.length;nivel=0;guardar();pintar();}
-  if($("tp-preg")){
-    $("b-pistas").onclick=function(){nivel=1;pintar();};
-    $("b-guion").onclick=function(){nivel=2;pintar();};
-    $("b-ok").onclick=function(){est.marca[est.i]="ok";ir(est.i+1);};
-    $("b-rep").onclick=function(){est.marca[est.i]="rep";ir(est.i+1);};
-    $("b-ant").onclick=function(){ir(est.i-1);};
-    $("b-sig").onclick=function(){ir(est.i+1);};
-    $("marcas").onclick=function(e){var b=e.target.closest("button");if(b)ir(Number(b.dataset.k));};
-    [].forEach.call(document.querySelectorAll(".tp-modo button"),function(b){b.onclick=function(){est.modo=b.dataset.modo;nivel=0;guardar();pintar();};});
-    $("b-limpiar").onclick=function(){est.marca={};guardar();pintar();};
-    pintar();
+    window.buscarPregunta=function(q){entrada.value=q;buscar();return [].map.call(lista.querySelectorAll(".q:not([hidden]) .q-p"),function(x){return x.textContent;});};
   }
 
   /* ---------- teleprompter ---------- */
@@ -467,12 +594,16 @@ def pagina(modo_suelto=False, web=None):
         items = "".join(f'<li value="{k}"><a href="#b{k}"><b>{e(GUION[k-1]["t"])}</b></a> <span>{e(GUION[k-1]["ancla"])}</span></li>' for k in range(ini, fin + 1))
         partes_html.append(f'<div class="parte"><span class="lbl">{e(nombre)}</span><ol>{items}</ol></div>')
     indice = '<div class="orden"><span class="lbl titulo">El orden de los temas</span>' + "".join(partes_html) + '</div>'
-    profe = []
+    tarjetas = ['<h3 class="grupo-t">Las 9 preguntas del presupuesto (y la TIR)</h3>']
     for p, r, d, calc in PROFE:
         li = "".join(f"<li>{c}</li>" for c in calc)
-        profe.append(f'<div class="q"><p class="q-p">{e(p)}</p><p class="q-r">{e(r)}</p><p class="q-d">{e(d)}</p>'
-                     f'<details><summary>¿Cómo se calculó?</summary><ul>{li}</ul></details></div>')
-    otras = "".join(f'<details><summary>{e(p)}</summary><p>{e(r)}</p></details>' for p, r in OTRAS)
+        tarjetas.append(f'<article class="q" data-tags="{etiquetas(p)}"><p class="q-p">{e(p)}</p><p class="q-r">{e(r)}</p><p class="q-d">{e(d)}</p>'
+                        f'<details><summary>¿Cómo se calculó?</summary><ul>{li}</ul></details></article>')
+    tarjetas.append('<h3 class="grupo-t">Otras que pueden salir</h3>')
+    for p, r in OTRAS:
+        tarjetas.append(f'<article class="q" data-tags="{etiquetas(p)}"><p class="q-p">{e(p)}</p><p class="q-d">{e(r)}</p></article>')
+    atajos = "".join(f'<button type="button" data-q="{e(a)}">{e(a)}</button>' for a in ATAJOS)
+    js_final = JS.replace("__CONC__", __import__("json").dumps(CONCEPTOS, ensure_ascii=False))
     fuentes = "".join(f"<li>{f}</li>" for f in FUENTES)
 
     if modo_suelto:
@@ -496,7 +627,7 @@ def pagina(modo_suelto=False, web=None):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RECOEVO · Pitch del póster</title>
-<meta name="description" content="Guion del pitch de RECOEVO para el E-Fest 2026-2, con práctica guiada, teleprompter y respuestas para el jurado.">
+<meta name="description" content="Guion del pitch de RECOEVO para el E-Fest 2026-2, con teleprompter y buscador de respuestas para el jurado.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#154734">
 {icono}
@@ -509,12 +640,11 @@ def pagina(modo_suelto=False, web=None):
 <main class="pitch">
   <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
   <h1>El pitch de RECOEVO</h1>
-  <p class="bajada">El guion completo para una persona, conversado y en el orden del póster. Abajo: cómo aprenderlo rápido, un teleprompter y las respuestas para el jurado, en el mismo orden de la página del presupuesto.</p>
+  <p class="bajada">El guion completo para una persona, conversado y en el orden del póster. También: un teleprompter y un buscador de respuestas para las preguntas del jurado.</p>
   <ul class="datos"><li class="dest">≈ {mmss(sin_opc)} a ritmo de conversación</li><li>{mmss(total)} con las frases ✂</li><li>{len(GUION)} bloques</li><li>1 presentador</li></ul>
 
   <nav class="modos" aria-label="Secciones">
     <a href="#guion">Guion</a>
-    <a href="#practicar">Practicar</a>
     <button type="button" class="tele" data-tele>Teleprompter</button>
     <a href="#preguntas">Preguntas</a>
   </nav>
@@ -527,45 +657,17 @@ def pagina(modo_suelto=False, web=None):
     <p class="total">Duración estimada a ritmo de conversación (unas 2,8 palabras por segundo): <b>{mmss(sin_opc)}</b> sin las frases marcadas con ✂ y <b>{mmss(total)}</b> con todas. El equipo decidió pasar de 5 minutos para que quepa todo; si el jurado corta en 5:00, lo primero que se quita son las frases ✂. El teleprompter muestra la versión sin ✂.</p>
   </section>
 
-  <section id="practicar">
-    <h2 class="sec">Cómo aprenderlo rápido</h2>
-    <p class="sec-sub">Funciona con el tiempo que tenga, sea mucho o poco: repita el ciclo cuantas veces pueda. Varias vueltas cortas rinden más que una larga.</p>
-    <ol class="metodo">
-      <li><span><b>Escúchese una vez.</b> Lea el guion completo en voz alta con el <a href="#" data-tele>teleprompter</a>: va a ritmo de conversación. Así sabe cómo suena y cuánto dura.</span></li>
-      <li><span><b>Apréndase el orden de los temas.</b> Son cuatro partes lógicas: primero <b>el problema</b> (la basura, lo que vimos en el barrio, los campesinos y la ley), después <b>la solución</b> (qué es RECOEVO, por qué él, el impacto y el camino de una cáscara), luego <b>el negocio</b> (canales, ODS y números) y al final <b>el cierre</b>. Si sabe en qué tema va, sabe qué sigue.</span></li>
-      <li><span><b>Primera y última frase, palabra por palabra.</b> Lo demás, por ideas: si se olvida una palabra la cambia por otra, pero el arranque y el cierre tienen que salir solos.</span></li>
-      <li><span><b>Practique con preguntas.</b> En la tarjeta de abajo, responda cada pregunta en voz alta. Solo si se traba, abra las pistas; al final, compare con el guion. Marque «Lo dije bien» o «Repasar».</span></li>
-      <li><span><b>Encadene.</b> Cambie a «Encadenar»: diga del bloque 1 al 2, luego del 1 al 3… hasta el 11. Vuelva a los bloques amarillos.</span></li>
-      <li><span><b>Ensayo final, de pie, frente al póster.</b> Las cifras están impresas: no hay que memorizarlas, solo saber dónde señalar. Cronometre con el teleprompter.</span></li>
-    </ol>
-    <p class="por-que">Por qué funciona: intentar recordar en voz alta enseña más que releer; decirlo en voz alta se recuerda mejor que leerlo en silencio; y el póster sirve de apuntador, porque cada bloque tiene su lugar.</p>
-
-    <div class="tarjeta-p" aria-live="polite">
-      <div class="tp-top"><span class="tp-paso" id="tp-paso">Bloque 1</span>
-        <div class="tp-modo" role="group" aria-label="Forma de practicar"><button type="button" data-modo="bloque" aria-pressed="true">Bloque por bloque</button><button type="button" data-modo="cadena" aria-pressed="false">Encadenar</button></div></div>
-      <div class="barra-prog"><i id="tp-prog"></i></div>
-      <p class="tp-preg" id="tp-preg">Cargando la práctica…</p>
-      <p class="tp-inst" id="tp-inst"></p>
-      <ul class="tp-pistas" id="tp-pistas" hidden></ul>
-      <div class="tp-guion" id="tp-guion" hidden></div>
-      <div class="tp-acc">
-        <button type="button" class="btn sec" id="b-pistas">Ver pistas</button>
-        <button type="button" class="btn sec" id="b-guion">Ver el guion</button>
-        <button type="button" class="btn ok" id="b-ok">Lo dije bien ✓</button>
-        <button type="button" class="btn rep" id="b-rep">Repasar</button>
-      </div>
-      <div class="tp-nav"><button type="button" class="btn sec" id="b-ant">← Anterior</button><button type="button" class="btn" id="b-sig">Siguiente bloque →</button></div>
-      <div class="marcas" id="marcas" aria-label="Bloques: verde, lo dijo bien; amarillo, para repasar"></div>
-      <p class="por-que"><button type="button" class="btn sec" id="b-limpiar" style="padding:6px 12px;font-size:13px">Borrar marcas</button> Las marcas se guardan solo en este celular o computador.</p>
-    </div>
-  </section>
-
   <section id="preguntas">
     <h2 class="sec">Preguntas del jurado</h2>
-    <p class="sec-sub">Las que pidió la profesora, con la respuesta corta para decir y, si la piden, cómo se calculó. Escenario realista a 10 años, pesos sin IVA salvo el precio al público.</p>
-    <div class="profe">{"".join(profe)}</div>
-    <h2 class="sec" style="font-size:22px">Otras que pueden salir</h2>
-    <div class="otras">{otras}</div>
+    <p class="sec-sub">Escriba o dicte lo que le preguntaron, con sus palabras: el buscador entiende sinónimos y términos técnicos (ROI, payback, break even, CAPEX, TIR…) y muestra primero la respuesta más probable.</p>
+    <div class="buscador" role="search">
+      <label class="sr" for="q-buscar">Buscar una pregunta</label>
+      <input id="q-buscar" type="search" placeholder="Ej.: ¿en cuánto tiempo recuperan la plata?" autocomplete="off" enterkeyhint="search">
+      <button type="button" id="q-voz" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1A7 7 0 0 0 19 12z"/></svg><span>Dictar</span></button>
+    </div>
+    <div class="atajos" aria-label="Temas frecuentes">{atajos}</div>
+    <p class="q-estado" id="q-estado" aria-live="polite"></p>
+    <div class="q-lista" id="q-lista">{"".join(tarjetas)}</div>
   </section>
 
   <section id="fuentes">
@@ -587,7 +689,7 @@ def pagina(modo_suelto=False, web=None):
     <button type="button" id="tele-cerrar">Cerrar</button>
   </div>
 </div>
-<script>{JS}</script>
+<script>{js_final}</script>
 </body>
 </html>
 """
