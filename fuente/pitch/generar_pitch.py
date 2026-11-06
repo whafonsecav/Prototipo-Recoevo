@@ -798,14 +798,26 @@ html:has(body[data-vista="tele"]),body[data-vista="tele"]{overflow:hidden;oversc
 .tele-guia::before{left:var(--gi,4px);border-left:14px solid var(--sol)}
 .tele-guia::after{left:var(--gd,auto);border-right:14px solid var(--sol)}
 .tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh + 34px);display:grid;gap:10px;z-index:2}
-.tele-saltos button{display:grid;place-items:center;gap:2px;width:64px;height:64px;border-radius:18px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:11px;font-weight:600;padding:6px 0;touch-action:manipulation}
+.tele-saltos button{display:grid;place-items:center;gap:2px;width:54px;height:54px;border-radius:16px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:10px;font-weight:600;padding:6px 0;touch-action:manipulation}
 .tele-saltos button:active{background:var(--sol);color:var(--monte)}
-.tele-saltos svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.tele-texto .in{padding-right:64px}
-.tele-ctl{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#14231b;border-top:1px solid rgba(255,255,255,.12)}
-.tele-ctl button{font:inherit;font-family:"Lexend";font-weight:600;font-size:15px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:9px 14px;cursor:pointer;min-width:44px}
-.tele-ctl .play{background:var(--sol);color:var(--monte);border-color:var(--sol);min-width:110px}
-.tele-ctl output{font-family:"Lexend";font-weight:700;font-size:20px;min-width:56px;text-align:center;font-variant-numeric:tabular-nums}
+.tele-saltos svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tele-texto .in{padding-right:58px}
+.tele-ctl{flex:none;display:grid;grid-template-columns:96px 1fr auto;grid-template-areas:"play reloj vel" "reini . letra";align-items:center;column-gap:10px;row-gap:6px;
+  padding:8px max(12px,env(safe-area-inset-right),calc((100% - 540px)/2)) calc(8px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left),calc((100% - 540px)/2));
+  background:#14231b;border-top:1px solid rgba(255,255,255,.12)}
+.tele-ctl button{font:inherit;font-family:"Lexend";font-weight:600;font-size:14px;line-height:1;height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:0 10px;cursor:pointer;min-width:34px;touch-action:manipulation}
+.tele-ctl button:active{background:rgba(255,255,255,.15)}
+.tele-ctl .play{grid-area:play;width:100%;background:var(--sol);color:var(--monte);border-color:var(--sol)}
+.tele-ctl .play:active{background:#e0b400}
+.tele-ctl .reini{grid-area:reini;width:100%}
+.tele-ctl output{grid-area:reloj;justify-self:center;font-family:"Lexend";font-weight:700;font-size:18px;min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+.ctl-grupo{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.ctl-grupo span{flex:1;color:#b9c2b8;font-size:12px;font-family:"Lexend";text-align:left;padding-right:2px}
+.ctl-grupo b{min-width:38px;text-align:center;font-family:"Lexend";font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.ctl-vel{grid-area:vel}
+.ctl-letra{grid-area:letra}
+.ctl-letra button{min-width:44px}
+@media (max-width:360px){.ctl-grupo span{display:none}.tele-ctl{grid-template-columns:88px 1fr auto;column-gap:8px}}
 .tele-ctl small{color:#b9c2b8;font-size:13px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .buscador{display:flex;gap:8px;align-items:stretch;margin:4px 0 10px}
@@ -966,11 +978,15 @@ JS = r"""
     return mejor;}
   function palabraEnGuia(){var r=caja.getBoundingClientRect(),y=window.innerHeight*0.38+6;
     for(var x=r.left+r.width*0.2;x<r.left+r.width*0.8;x+=12){var w=palabraEn(x,y);if(w)return w;}return null;}
+  var toque=null;
   caja.addEventListener("pointerdown",function(e){if(e.button>0||e.target.closest("button"))return;
-    arrastre={y:e.clientY,s:pos};try{caja.setPointerCapture(e.pointerId);}catch(_){}
-    caja.classList.add("arrastrando");marcar(palabraEn(e.clientX,e.clientY));});
-  caja.addEventListener("pointermove",function(e){if(!arrastre)return;ponerPos(arrastre.s-(e.clientY-arrastre.y));resto=0;});
-  function soltar(){if(!arrastre)return;arrastre=null;caja.classList.remove("arrastrando");tMarca=Date.now();sincronizar();
+    toque={x:e.clientX,y:e.clientY,s:pos,id:e.pointerId};mantenerPantalla();});
+  caja.addEventListener("pointermove",function(e){
+    if(toque&&!arrastre&&Math.abs(e.clientY-toque.y)>10){   /* ya no es un toque: es un arrastre */
+      arrastre={y:toque.y,s:toque.s};try{caja.setPointerCapture(toque.id);}catch(_){}
+      caja.classList.add("arrastrando");marcar(palabraEn(toque.x,toque.y));}
+    if(!arrastre)return;ponerPos(arrastre.s-(e.clientY-arrastre.y));resto=0;});
+  function soltar(){toque=null;if(!arrastre)return;arrastre=null;caja.classList.remove("arrastrando");tMarca=Date.now();sincronizar();
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
@@ -1025,7 +1041,19 @@ JS = r"""
     if(seg>=DURACION){parar();bPlay.textContent="Terminó";}
     else raf=requestAnimationFrame(paso);
   }
-  function arrancar(){if(!KT.length)prepararCurva();corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
+  var bloqueo=null,video=null;
+  function videoDespierto(){
+    if(!video){video=document.createElement("video");video.muted=true;video.loop=true;video.setAttribute("muted","");video.setAttribute("playsinline","");
+      video.setAttribute("aria-hidden","true");video.style.cssText="position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:.01;pointer-events:none;z-index:-1";
+      video.src="data:video/mp4;base64,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b21hX21lPTEgdHJlbGxpcz0xIDh4OGRjdD0wIGNxbT0wIGRlYWR6b25lPTIxLDExIGZhc3RfcHNraXA9MSBjaHJvbWFfcXBfb2Zmc2V0PS00IHRocmVhZHM9MSBsb29rYWhlYWRfdGhyZWFkcz0xIHNsaWNlZF90aHJlYWRzPTAgbnI9MCBkZWNpbWF0ZT0xIGludGVybGFjZWQ9MCBibHVyYXlfY29tcGF0PTAgY29uc3RyYWluZWRfaW50cmE9MCBiZnJhbWVzPTAgd2VpZ2h0cD0wIGtleWludD0yNTAga2V5aW50X21pbj0xIHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj01MS4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4yMACAAAAADGWIhAZznJigACHngAEYIAcBGCAHARggBwEYIAcBGCAHARggBwEYIAcBGCAHAAAAB0GaOAxnOoABGCAHARggBwEYIAcBGCAHARggBwEYIAcBGCAHARggBw==";document.body.appendChild(video);}
+    try{var pr=video.play();if(pr&&pr.catch)pr.catch(function(){});}catch(_){}}
+  function mantenerPantalla(){if(document.visibilityState!=="visible")return;
+    if(!("wakeLock" in navigator)){videoDespierto();return;}
+    if(bloqueo)return;
+    try{navigator.wakeLock.request("screen").then(function(l){bloqueo=l;l.addEventListener("release",function(){bloqueo=null;});}).catch(function(){videoDespierto();});}
+    catch(_){videoDespierto();}}
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"&&!capa.hidden)mantenerPantalla();});
+  function arrancar(){mantenerPantalla();if(!KT.length)prepararCurva();corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
   function aplicarTam(){var r=pos/Math.max(1,interior.offsetHeight);caja.style.fontSize=tam+"px";limites();ponerPos(r*interior.offsetHeight);}
   function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";limites();
@@ -1033,7 +1061,7 @@ JS = r"""
     var r=interior.getBoundingClientRect(),cs=getComputedStyle(interior),izq=r.left+parseFloat(cs.paddingLeft),der=r.right-parseFloat(cs.paddingRight);
     var gu=capa.querySelector(".tele-guia");if(gu){gu.style.setProperty("--gi",Math.max(2,izq-19)+"px");gu.style.setProperty("--gd",(der-5)+"px");}}
   window.addEventListener("resize",function(){alinear();repintar();});
-  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";ponerPos(0);seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function abrir(){capa.hidden=false;mantenerPantalla();document.body.style.overflow="hidden";ponerPos(0);seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
   function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
     if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
     capa.hidden=true;document.body.style.overflow="";}
@@ -1161,11 +1189,10 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
   </div>
   <div class="tele-ctl">
     <button type="button" class="play" id="tele-play">Iniciar</button>
-    <output id="tele-reloj">0:00</output>
-    <button type="button" id="tele-menos" aria-label="Más lento">−</button><small>velocidad <span id="tele-vel">1.0×</span></small><button type="button" id="tele-mas" aria-label="Más rápido">+</button>
-    <button type="button" id="tele-amenos" aria-label="Letra más pequeña">A−</button><button type="button" id="tele-amas" aria-label="Letra más grande">A+</button>
-    <button type="button" id="tele-reini">Reiniciar</button>
-    <small class="tele-ayuda">Las palabras se pintan al ritmo de lectura, con pausas en comas y puntos. Toque y arrastre el texto para moverlo; la línea tocada queda marcada.</small>
+    <output id="tele-reloj" aria-label="Tiempo">0:00</output>
+    <div class="ctl-grupo ctl-vel" role="group" aria-label="Velocidad"><span>Velocidad</span><button type="button" id="tele-menos" aria-label="Más lento">−</button><b id="tele-vel">1.0×</b><button type="button" id="tele-mas" aria-label="Más rápido">+</button></div>
+    <button type="button" class="reini" id="tele-reini">Reiniciar</button>
+    <div class="ctl-grupo ctl-letra" role="group" aria-label="Tamaño de la letra"><span>Letra</span><button type="button" id="tele-amenos" aria-label="Letra más pequeña">A−</button><button type="button" id="tele-amas" aria-label="Letra más grande">A+</button></div>
   </div>
 </div>"""
     else:
