@@ -239,6 +239,34 @@
     ir: "r130", irTexto: "Ver en la tabla 11 →",
   }));
 
+  // ---------------------------------------------------------------- envíos: quién los paga (los inversionistas lo preguntan)
+  const E = M && M.envio;
+  if (E && fila.r123 && fila.r124 && fila.r125) {
+    const zonas = el("div", { class: "desliza anios-caja" }, el("table", { class: "t-anios t-envio" },
+      el("caption", { class: "sr" }, "Tarifa de envío por zona de las ventas por internet"),
+      el("thead", {}, el("tr", {}, el("th", { scope: "col" }, "A dónde va el pedido"), el("th", { scope: "col" }, "De cada 100 pedidos"),
+        el("th", { scope: "col", class: "entra" }, "Cobra al cliente"), el("th", { scope: "col", class: "sale" }, "Le cuesta a la empresa"))),
+      el("tbody", {}, E.zonas.map(z => el("tr", {}, el("th", { scope: "row" }, z.zona), el("td", {}, miles(z.pedidos * 100)),
+        el("td", { class: "entra" }, pesos(z.cobra)), el("td", { class: "sale" }, pesos(z.costo)))),
+        el("tr", { class: "prom" }, el("th", { scope: "row" }, "Promedio por pedido"), el("td", {}, "100"),
+          el("td", { class: "entra" }, pesos(E.promedio.cobra)), el("td", { class: "sale" }, pesos(E.promedio.costo))))));
+    grid.append(tarjeta({
+      tipo: "entra", ancho: true, pregunta: "10. ¿Y el envío? ¿Quién lo paga?",
+      valor: pesos(E.promedio.cobra), unidad: "envío promedio por pedido, que el cliente paga aparte del precio",
+      dice: "En las ventas <b>por internet</b> (tienda propia y marketplaces) el <b>cliente paga el envío aparte</b>, a lo que cobra la transportadora más el 10 %. A las <b>cadenas y a los lotes de empresas</b> no se les cobra envío: la empresa los lleva en estibas y ese flete ya está en los gastos.",
+      cuentaEl: cuenta([
+        ["entra", "", "Lo que pagan los clientes por envíos y las empresas por talleres (10 años)", mill(val("r124"))],
+        ["sale", "−", "Lo que cobran la transportadora y los talleristas", mill(-val("r125"))],
+      ], ["calc", "Queda para pagar el empaque y el manejo de los pedidos", mill(val("r123"))]),
+      extra: el("div", { class: "resp-graf" },
+        el("p", { class: "resp-sub" }, "Tarifa por zona (ventas por internet)"), zonas,
+        el("p", { class: "resp-dice" }, html(`<b>Cadenas y lotes:</b> el flete lo paga la empresa y está en la tabla 7, fila «Distribución a clientes y garantía»: <b>${pesos(pp("r101"))}</b> por producto, contando también la reserva del 3 % de las ventas para garantías.`)),
+        el("button", { type: "button", class: "resp-ir", "data-ir": "r101" }, "Ver en la tabla 7 →")),
+      mas: `<p>La caja mide ${E.caja_cm.join(" × ")} cm y pesa ${miles(E.peso_real, 1)} kg con el producto, pero la transportadora la cobra como si pesara ${miles(E.peso_cobrado, 0)} kg por su tamaño (las cajas grandes y livianas se cobran por volumen). Por eso un envío cuesta en promedio ${pesos(E.promedio.costo)} y se cobran ${pesos(E.promedio.cobra)}: la diferencia paga el empaque y el manejo. Los talleres de uso los pagan aparte las empresas que compran por lotes.</p>`,
+      ir: "r123", irTexto: "Ver en la tabla 10 →",
+    }));
+  }
+
   // ---------------------------------------------------------------- año por año: precio y costo
   const filasAnio = [];
   for (let a = 1; a <= 10; a++)

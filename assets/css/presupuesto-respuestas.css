@@ -116,6 +116,8 @@
 .t-anios tr.prom > * { background: var(--gris); font-weight: 800; }
 .t-anios tr.prom.total > * { background: var(--calc-bg); }
 .t-anios tbody th { white-space: normal; min-width: 64px; }
+.t-envio tbody th { min-width: 120px; font-weight: 600; }
+.resp-graf .anios-caja { margin-bottom: 10px; }
 @media (max-width: 560px) {
   .t-anios { font-size: 12.5px; }
   .t-anios th, .t-anios td { padding: 7px 5px; }
