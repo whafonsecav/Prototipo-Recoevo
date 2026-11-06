@@ -217,7 +217,7 @@ BANCO = [
     "Costos fijos $2.872 M al año ÷ $100.574 = 28.554 al año ÷ 12 = 2.380 al mes.",
     "Ventas: 800 al mes al arrancar, 2.000 al cerrar el año 1 y 9.500 al mes en el año 10. El mes 17 se venden 2.500: por primera vez más que 2.380."]),
   (["ROI", "Recuperación (payback)", PROFE], "7. ¿Cuál es el retorno de la inversión y cuándo se recupera?", "512 % · se recupera en el mes 50",
-   "En 10 años, por cada $100 invertidos se ganan $512: más de cinco veces lo invertido. La inversión se recupera a los 4 años y 2 meses.",
+   "El ROI (retorno de la inversión) compara lo que se gana con lo que se puso al principio. 512 % no son millones: es un porcentaje. Quiere decir que en 10 años, por cada $100 invertidos se ganan $512, más de cinco veces lo invertido. La inversión se recupera a los 4 años y 2 meses.",
    ["ROI: utilidad neta $30.508 M ÷ inversión $5.954 M = 5,12.",
     "Mes de recuperación: se suma mes a mes el dinero libre que deja el negocio (lo que entra menos todo lo que sale, también máquinas, inventario y facturas por cobrar). Tras el mes 1 va en −$4.547 M; deja de ser negativo en el mes 50."]),
   (["Rentabilidad", PROFE], "8. ¿Cuál es la rentabilidad sobre los costos?", "28,7 %",
@@ -228,6 +228,13 @@ BANCO = [
    ["Utilidad neta $30.508 M ÷ ventas $153.075 M = 19,9 %.", "Antes de impuestos sería 30,7 %."]),
 
   # ------------------------------------------------------------------ finanzas
+  (["ROI", "Rentabilidad"], "¿Cómo puede el ROI ser de 512 % si la rentabilidad es solo de 28,7 % y 19,9 %?", "Porque dividen la misma utilidad entre cosas distintas",
+   "La utilidad es la misma, $30.508 M en 10 años. El ROI la divide entre la inversión inicial, que se pone una sola vez ($5.954 M). Las rentabilidades la dividen entre todo lo que se gasta o se vende en 10 años, que es mucho más grande. Es como una tienda: se monta una vez, pero vende miles de veces; cada venta deja poco, pero la suma de muchas ventas devuelve varias veces lo que costó montarla.",
+   ["ROI = utilidad ÷ inversión inicial = 30.508 ÷ 5.954 = 512 %.",
+    "Rentabilidad sobre costos = utilidad ÷ gasto completo de 10 años = 30.508 ÷ 106.139 = 28,7 %. Ese gasto no lo ponen los socios: lo pagan las mismas ventas, mes a mes.",
+    "Rentabilidad sobre ventas = utilidad ÷ ventas de 10 años = 30.508 ÷ 153.075 = 19,9 %.",
+    "La cuenta que las une: cada peso invertido genera $25,7 en ventas en 10 años (153.075 ÷ 5.954), y de cada peso vendido quedan 19,9 centavos. 25,7 × 19,9 % = 5,12, o sea 512 %.",
+    "Y en tiempo: la TIR de 33,9 % al año es la misma idea pero año por año, teniendo en cuenta que la ganancia llega más tarde que la inversión."]),
   (["TIR", "Rentabilidad"], "¿Qué es la TIR y por qué da 33,9 %?", "33,9 % al año",
    "La TIR es la rentabilidad anual del proyecto. Es como si todo el dinero invertido estuviera en una cuenta que paga 33,9 % de interés cada año durante los 10 años.",
    ["Se ponen en una línea de tiempo todo el dinero que sale (la inversión y las compras) y todo el que entra mes a mes durante los 10 años.",
