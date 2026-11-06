@@ -338,12 +338,12 @@ BANCO = [
    ["DNP, estudio de 2016 (es la última medición oficial)."]),
   (["Fertilizantes y urea"], "¿Por qué el abono les sale caro a los campesinos?", "Más del 94 % del fertilizante se importa, y la urea subió 187 %",
    "La urea es el abono químico más usado. Entre enero de 2021 y enero de 2022, el bulto de 50 kg pasó de $80.000 a $230.000.",
-   ["(230.000 − 80.000) ÷ 80.000 = 187 %. Fuente: DANE-SIPSA vía U.S. Trade.gov.",
+   ["(230.000 − 80.000) ÷ 80.000 = 187 %. Fuente: SIPSA, el sistema de precios del agro del DANE vía U.S. Trade.gov.",
     "Después bajó, pero en 2026 volvió a subir por la guerra con Irán y el cierre del estrecho de Ormuz: en un solo mes, la tonelada pasó de USD 482 (finales de febrero) a USD 750 (cierre de marzo), unos 56 % más (Qore; La República). La SAC (Sociedad de Agricultores de Colombia) habla de casi un 50 % más para el agricultor.",
     "Más del 94 % del fertilizante del país se importa (El Colombiano, abril de 2026)."]),
   (["Fertilizantes y urea"], "¿Por qué subió tanto la urea en 2021 y 2022?", "Porque se disparó el gas natural, con el que se fabrica, y luego vino la guerra entre Rusia y Ucrania",
    "La urea se hace con gas natural: el gas es entre el 60 y el 90 % de lo que cuesta producirla. En 2021 el gas se encareció por una cadena de causas: el mundo reabrió después de la pandemia y pidió más energía de golpe; Europa llegó con sus depósitos de gas bajos tras un invierno frío; hubo poco viento, así que se quemó más gas para producir electricidad; Asia pagó más por los barcos de gas licuado y se los llevó; y Rusia le mandó a Europa menos gas que antes. Además, China, gran productor de urea, frenó sus exportaciones de fertilizantes para cuidar su mercado. En febrero de 2022 Rusia invadió Ucrania: Rusia es el mayor exportador de urea y gran proveedor de gas de Europa, y con la guerra y las sanciones bajó la oferta de ambos. Colombia importa más del 94 % de sus fertilizantes, así que el campesino pagó el precio mundial, y encima con un dólar más caro.",
-   ["Colombia: el bulto de 50 kg pasó de $80.000 (enero de 2021) a $230.000 (enero de 2022): +187 % (DANE-SIPSA, vía U.S. Trade.gov).",
+   ["Colombia: el bulto de 50 kg pasó de $80.000 (enero de 2021) a $230.000 (enero de 2022): +187 % (SIPSA, el sistema de precios del agro del DANE, vía U.S. Trade.gov).",
     "Mundo: según el Banco Mundial, la tonelada subió de USD 418,75 a USD 612,5 solo entre septiembre y octubre de 2021, y en 2022 pasó de USD 925, un máximo histórico.",
     "Gas en Europa: los depósitos arrancaron 2021 un 11 % por debajo del promedio de cinco años (EIA, la agencia de energía de EE. UU.); la generación con viento fue más baja de lo normal y los compradores de Asia se quedaron con buena parte del gas licuado.",
     "China restringió sus exportaciones de fertilizantes desde finales de 2021 hasta junio de 2022; Rusia puso cuotas a las suyas y luego vino la invasión (24 de febrero de 2022).",
@@ -603,15 +603,25 @@ BANCO = [
    ["Preserie física con ensayos (cuchillas, seguro), preventas a hogares y cartas de intención de grandes superficies (Lean Startup)."]),
 ]
 
+# ------------------------------------------------------------------ banco ampliado (banco_extra.py, 6-nov-2026)
+from banco_extra import BANCO_EXTRA, GRUPOS_EXTRA, REEMPLAZOS
+_faltan = [k for k in REEMPLAZOS if k not in {t[1] for t in BANCO}]
+assert not _faltan, f"reemplazos sin tarjeta: {_faltan}"
+BANCO = [REEMPLAZOS.get(t[1], t) for t in BANCO] + list(BANCO_EXTRA)
+assert len({t[1] for t in BANCO}) == len(BANCO), "hay preguntas repetidas"
+for _g, _ks in GRUPOS_EXTRA.items():
+    GRUPOS.setdefault(_g, [])
+    GRUPOS[_g] += [k for k in _ks if k not in GRUPOS[_g]]
+
 FUENTES = [
-  "Póster RECOEVO E-Fest 2026-2 y sus 10 fuentes (Superservicios 2024; Secretaría del Hábitat; UAESP; El Tiempo, 16-oct-2026; Semana; El Colombiano; DANE-SIPSA; Agronegocios; Homecenter, Best Buy, lomi.com; estudio de campo en Villa Rosita, 19-sep-2026).",
+  "Póster RECOEVO E-Fest 2026-2 y sus 10 fuentes (Superservicios 2024; Secretaría del Hábitat; UAESP; El Tiempo, 16-oct-2026; Semana; El Colombiano; SIPSA, el sistema de precios del agro del DANE; Agronegocios; Homecenter, Best Buy, lomi.com; estudio de campo en Villa Rosita, 19-sep-2026).",
   "RECOEVO, presupuesto ejecutivo y plan financiero a 10 años, escenario realista (3-nov-2026): tablas 4, 9, 10, 11, 13 y 14.",
   'Decreto 0772 de 2026, Ministerio de Vivienda: <a href="https://normas.cra.gov.co/gestor/docs/decreto_0772_2026.htm">normas.cra.gov.co</a>.',
   'Usme, 414.995 habitantes: Observatorio de Salud de Bogotá, «Usme +Bienestar 2024» (<a href="https://saludata.saludcapital.gov.co/osb/wp-content/uploads/2024/12/Usme_MasBienestar_2024_v1_2.pdf">saludata</a>).',
   'Usme, 3,07 personas por hogar: DANE, Encuesta Multipropósito 2021 (<a href="https://www.dane.gov.co/files/investigaciones/multi/Presentacion_EM_2021.pdf">dane.gov.co</a>).',
   'Usme, 85,9 % rural (18.477 de 21.507 ha): Universidad Santo Tomás (<a href="https://repository.usta.edu.co/items/18786bd5-dfd9-489f-a768-c6a314d7cc83">repositorio</a>). Unos 17.000 campesinos: Alcaldía de Bogotá (<a href="https://bogota.gov.co/mi-ciudad/desarrollo-economico/el-distrito-celebra-el-dia-del-campesino">bogota.gov.co</a>).',
   'Bogotá, unos 2,9 millones de hogares: DANE, Encuesta Multipropósito 2025 (<a href="https://www.portafolio.co/economia/bogota-tiene-cada-vez-mas-hogares-unipersonales-el-promedio-de-personas-por-hogar-cayo-a-2-7-en-505292">Portafolio</a>). Orgánicos de los hogares de Bogotá, unas 3.440 t al día: UAESP (2022).',
-  'Urea: Banco Mundial (precios de fertilizantes 2021–2022); Bolsa de Comercio de Rosario (nov-2021); EIA y Oxford Institute for Energy Studies (crisis del gas 2021); El Colombiano, La República, Qore, Valora Analitik y Portafolio (2026, con datos del DANE-SIPSA); FAO AMIS (sep-2026).',
+  'Urea: Banco Mundial (precios de fertilizantes 2021–2022); Bolsa de Comercio de Rosario (nov-2021); EIA y Oxford Institute for Energy Studies (crisis del gas 2021); El Colombiano, La República, Qore, Valora Analitik y Portafolio (2026, con datos del SIPSA, el sistema de precios del agro del DANE); FAO AMIS (sep-2026).',
   'Comisiones por canal (marketplaces, cadenas, pasarelas de pago): informe RECOEVO B7, márgenes y canales 2026. Envíos por zona: plan detallado realista, hoja «9 Ventas y marketing», sección 3. Metano: unas 80 veces el CO₂ en 20 años (El Tiempo, 16-oct-2026, con datos citados por Greenpeace). ODS: metas 12.3, 12.5 y 11.6 de la Agenda 2030 de la ONU.',
   'Acceso a Doña Juana por la vía al Llano, antes de Usme: Blu Radio (<a href="https://www.bluradio.com/medio-ambiente/dona-juana-entienda-que-paso-y-como-funciona-el-relleno-sanitario-de-bogota">bluradio.com</a>).',
   "Método para memorizar: práctica de recuperación (Roediger y Karpicke, 2006); efecto de producción, decir en voz alta (MacLeod y otros, 2010); práctica espaciada (Cepeda y otros, 2006); pistas que desaparecen (Glisky, Schacter y Tulving, 1986); método de los lugares (Dresler y otros, 2017).",
@@ -622,13 +632,54 @@ import unicodedata
 UAESP = "UAESP (la entidad de la Alcaldía de Bogotá que maneja el aseo y Doña Juana)"
 def orden(t):
     return "".join(ch for ch in unicodedata.normalize("NFD", t.lower()) if unicodedata.category(ch) != "Mn")
-def con_uaesp(textos):
-    """La primera vez que aparece «UAESP» en una tarjeta, dice qué es."""
-    hecho, out = False, []
-    for t in textos:
-        if not hecho and "UAESP" in t:
-            t = t.replace("UAESP", UAESP, 1); hecho = True
-        out.append(t)
+# sigla: (cómo se pronuncia o None si se lee como palabra, qué es, palabras que muestran que ya está explicada)
+SIGLAS = {
+  "UAESP": ("u-a-e-ese-pe", "la entidad de la Alcaldía de Bogotá que maneja el aseo y Doña Juana", ["maneja el aseo"]),
+  "TIR": ("tir", "tasa interna de retorno", ["tasa interna de retorno"]),
+  "VPN": ("ve-pe-ene", "valor presente neto", ["valor presente neto"]),
+  "ROI": ("roi", "retorno sobre la inversión", ["retorno sobre la inversión", "retorno de la inversión", "return on investment"]),
+  "ODS": ("o-de-ese", "Objetivos de Desarrollo Sostenible", ["Desarrollo Sostenible"]),
+  "IVA": (None, "impuesto al valor agregado", ["impuesto al valor agregado", "impuesto a las ventas"]),
+  "DANE": (None, "la entidad oficial de estadísticas de Colombia", ["estadística"]),
+  "SIPSA": (None, "el sistema de precios del agro del DANE", ["sistema de precios"]),
+  "FAO": (None, "la agencia de la ONU para la alimentación y la agricultura", ["alimentación y la agricultura"]),
+  "SIC": ("sic", "Superintendencia de Industria y Comercio", ["Superintendencia de Industria"]),
+  "REP": ("rep", "responsabilidad extendida del productor", ["responsabilidad extendida"]),
+  "PSE": ("pe-ese-e", "pago en línea desde la cuenta del banco", ["pago en línea"]),
+  "USAID": ("iu-es-eid", "la agencia de cooperación de Estados Unidos", ["agencia de cooperación"]),
+}
+def con_siglas(textos):
+    """La primera vez que aparece una sigla en una tarjeta, dice qué es y cómo se pronuncia (si no lo dice ya)."""
+    out = list(textos)
+    for sig, (pron, que, marcas) in SIGLAS.items():
+        todo = " ".join(out); patron = re.compile(r"(?<![\w-])" + sig + r"(?![\w-])")
+        if not patron.search(todo): continue
+        falta_que = not any(m.lower() in todo.lower() for m in marcas)
+        falta_pron = bool(pron) and f"«{pron}»" not in todo
+        if falta_que:   # si ya viene un paréntesis con palabras justo después de la sigla, eso es su explicación
+            for t in out:
+                m = patron.search(t)
+                if m:
+                    if re.match(r"\s*\([A-Za-zÁÉÍÓÚáéíóúñ«]", t[m.end():]): falta_que = False
+                    break
+        if not (falta_que or falta_pron): continue
+        nota = "; ".join(x for x in ([f"se dice «{pron}»"] if falta_pron else []) + ([que] if falta_que else []))
+        if falta_pron and falta_que: nota = f"se dice «{pron}»: {que}"
+        for n, t in enumerate(out):
+            m = patron.search(t)
+            if not m: continue
+            fin = m.end(); resto = t[fin:]
+            num = re.match(r"\s\d+", resto)
+            if num: fin += num.end(); resto = t[fin:]
+            dentro = t[:m.start()].count("(") > t[:m.start()].count(")")
+            if re.match(r"\s*\(", resto):
+                k = fin + resto.index("(") + 1
+                out[n] = t[:k] + nota + ("; " if not resto.lstrip().startswith("()") else "") + t[k:]
+            elif dentro:
+                out[n] = t[:fin] + ", " + nota + ("" if resto.startswith(",") or resto.startswith(")") else ",") + t[fin:]
+            else:
+                out[n] = t[:fin] + f" ({nota})" + t[fin:]
+            break
     return out
 _todas = {k for ks in GRUPOS.values() for k in ks}
 for ks, q, *_ in BANCO:
@@ -1040,8 +1091,7 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
     for n, (ks, q, r, sencillo, calc) in enumerate(BANCO):
         ks = [k for k in ks if k != PROFE]
         q = _re.sub(r"^\d+\.\s*", "", q)
-        sencillo, *calc = con_uaesp([sencillo] + list(calc))
-        r = con_uaesp([r])[0]
+        r, sencillo, *calc = con_siglas([r, sencillo] + list(calc))
         li = "".join(f"<li>{e(x)}</li>" for x in calc)
         etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks)
         tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
