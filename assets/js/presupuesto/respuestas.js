@@ -116,13 +116,13 @@
     dice: `Es el <b>precio al público</b> de todo el año 1. Sube con la inflación (${pct(inflacion)} al año) al empezar cada año del plan, en julio.`,
     cuentaEl: cuenta([
       ["entra", "", "Precio al público al empezar (con IVA)", pesos(precioMes1)],
-      ["sale", "−", "IVA (19 %): no es dinero de la empresa, va para el Estado", pesos(precioMes1 - precioMes1 / 1.19)],
+      ["sale", "−", "IVA (se dice «iva»: impuesto al valor agregado, 19 %): no es dinero de la empresa, va para el Estado", pesos(precioMes1 - precioMes1 / 1.19)],
     ], ["entra", "Precio sin IVA en la tienda propia", pesos(precioMes1 / 1.19)]),
     extra: precio2a10 ? el("ul", { class: "resp-anios" },
       el("li", {}, el("span", {}, "Año 1, en promedio (con IVA)"), el("b", {}, pesos(precioAnio[1]))),
       el("li", {}, el("span", {}, "Años 2 a 10, en promedio (con IVA)"), el("b", {}, pesos(precio2a10))),
       el("li", {}, el("span", {}, "Lo que le llega a la empresa por producto, años 2 a 10 (sin IVA, ya descontada la parte de las tiendas)"), el("b", {}, pesos(recibe2a10)))) : null,
-    mas: `<p>Se vende por cuatro caminos: la tienda en línea propia, los marketplaces (Mercado Libre, Falabella.com), las cadenas de almacenes y los lotes a empresas. Las cadenas se quedan con una parte del precio y los lotes se venden más baratos; por eso a la empresa le llega, en promedio de los 10 años, <b>${pesos(pp("r118"))}</b> por producto sin IVA (en el año 1, ${pesos(recibe1)}). Ese promedio es mayor que el precio de hoy porque los precios suben con la inflación durante los 10 años.</p>`,
+    mas: `<p>Se vende por cuatro caminos: la tienda en línea propia; los <b>marketplaces</b>, que son páginas web como Mercado Libre y Falabella.com y cobran ≈ 14 % de comisión por cada venta; las <b>grandes superficies</b>, que son tiendas físicas como Homecenter, Éxito y Alkosto, compran el producto, lo revenden, se quedan con ≈ 40 % del precio y pagan a 60 días; y los <b>lotes a empresas</b>, que se venden más baratos; por eso a la empresa le llega, en promedio de los 10 años, <b>${pesos(pp("r118"))}</b> por producto sin IVA (en el año 1, ${pesos(recibe1)}). Ese promedio es mayor que el precio de hoy porque los precios suben con la inflación durante los 10 años.</p>`,
     ir: "r118", irTexto: "Ver en la tabla 10 →",
   }));
 
@@ -166,8 +166,8 @@
       ["sale", "−", "Impuesto de renta (35 % de lo que queda)", mill(impuesto)],
     ], ["calc", "Utilidad (ganancia) neta", mill(utilidad)]),
     extra: el("ul", { class: "resp-anios" },
-      el("li", {}, el("span", {}, html(`En porcentaje de las ventas: de cada <b>$100</b> que entran, quedan <b>$${miles(utilidad / ventas * 100, 2)}</b> de ganancia`)), el("b", {}, pct(utilidad / ventas))),
-      el("li", {}, el("span", {}, html(`En porcentaje de los costos: por cada <b>$100</b> que se gastan, se ganan <b>$${miles(utilidad / gasto * 100, 2)}</b>`)), el("b", {}, pct(utilidad / gasto))),
+      el("li", {}, el("span", {}, html(`Sobre las ventas: de los <b>${mill(ventas)}</b> que pagan los clientes en 10 años, <b>${mill(utilidad)}</b> quedan para los socios`)), el("b", {}, pct(utilidad / ventas))),
+      el("li", {}, el("span", {}, html(`Sobre los costos: el negocio gasta <b>${mill(gasto)}</b> en 10 años y, además de pagar todo eso, deja <b>${mill(utilidad)}</b> de ganancia`)), el("b", {}, pct(utilidad / gasto))),
       el("li", {}, el("span", {}, "Por cada producto vendido"), el("b", {}, pesos(pp("r130"))))),
     mas: `<p>Llevado a un producto: entra <b>${pesos(pp("r117"))}</b>, cuesta <b>${pesos(costo10)}</b> y el impuesto se lleva <b>${pesos(-pp("r133"))}</b>; quedan <b>${pesos(pp("r130"))}</b> de ganancia por cada producto vendido. Se llama «neta» porque ya se le quitó todo, incluso el impuesto; si no se le quita el impuesto se llama utilidad antes de impuestos.</p>`,
     ir: "r130", irTexto: "Ver en la tabla 11 →",
@@ -205,11 +205,11 @@
   grid.append(tarjeta({
     tipo: "calc", ancho: true, pregunta: "7. ¿Cuál es el retorno de la inversión?",
     valor: pct(val("r153"), 0), unidad: `en 10 años · la inversión se recupera en el mes ${mesRec}`,
-    dice: `Por cada $100 invertidos, en 10 años se ganan <b>$${miles(val("r153") * 100)}</b>. El dinero invertido vuelve en el <b>mes ${mesRec}</b> (${fila.r156.palabras.replace(/^Mes \d+ = /, "").replace(/\.$/, "")}).`,
+    dice: `Los socios y el banco ponen <b>${mill(inv)}</b> para empezar y en 10 años el negocio deja <b>${mill(utilidad)}</b> de utilidad neta: <b>${miles(utilidad / inv, 1)} veces</b> lo invertido. La inversión vuelve completa en el <b>mes ${mesRec}</b> (${fila.r156.palabras.replace(/^Mes \d+ = /, "").replace(/\.$/, "")}); de ahí en adelante, lo que deja el negocio es ganancia.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["sale", "÷", "Inversión inicial", mill(inv)],
-    ], ["calc", "Retorno de la inversión (ROI)", pct(val("r153"), 0)]),
+    ], ["calc", "Retorno de la inversión (ROI, se dice «erre-o-i»)", pct(val("r153"), 0)]),
     extra: M ? el("div", { class: "resp-graf" }, el("p", { class: "resp-sub" }, "¿Cómo se calcula el mes en que se recupera?"),
       el("p", { class: "resp-dice" }, "Se suma mes a mes el dinero libre que deja el negocio (lo que entra menos todo lo que sale, también las máquinas nuevas y el dinero que queda en inventario). Empieza en negativo por la inversión; el mes en que la suma llega a cero, la inversión está recuperada."),
       lineaRecuperacion(M.flujo_acumulado, mesRec)) : null,
@@ -219,7 +219,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "8. ¿Cuál es la rentabilidad sobre los costos?",
     valor: pct(utilidad / gasto), unidad: "",
-    dice: `Por cada <b>$100 que se gastan</b>, se ganan <b>$${miles(utilidad / gasto * 100, 2)}</b> de utilidad neta.`,
+    dice: `En 10 años el negocio gasta <b>${mill(gasto)}</b> (fabricar, administrar, vender, máquinas e intereses) y, además de pagar todo eso y el impuesto, deja <b>${mill(utilidad)}</b> de utilidad neta: una ganancia de más de la cuarta parte de todo lo gastado. El precio cubre los costos con holgura.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["sale", "÷", "Gasto completo de los 10 años", mill(gasto)],
@@ -230,12 +230,12 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "9. ¿Cuál es la rentabilidad sobre las ventas (el porcentaje de utilidad final)?",
     valor: pct(utilidad / ventas), unidad: "",
-    dice: `De cada <b>$100 que entran por ventas</b>, quedan <b>$${miles(utilidad / ventas * 100, 2)}</b> de ganancia limpia, ya pagado todo e incluido el impuesto.`,
+    dice: `De los <b>${mill(ventas)}</b> que pagan los clientes en 10 años, <b>${mill(utilidad)}</b> quedan como ganancia limpia para los socios, ya pagado todo e incluido el impuesto. Alcanza para pagar el crédito del banco, devolverles a los socios lo que pusieron y reinvertir en el negocio.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["entra", "÷", "Ventas de los 10 años", mill(ventas)],
     ], ["calc", "Rentabilidad sobre las ventas = porcentaje de utilidad final", pct(utilidad / ventas)]),
-    mas: "<p>El <b>porcentaje de utilidad final</b> (también se llama <b>margen neto</b>) dice qué parte de lo que se vende termina siendo ganancia de los socios, después de pagar todos los costos y el impuesto de renta. Es la misma cuenta que la rentabilidad sobre las ventas. No se debe confundir con la rentabilidad sobre los costos (pregunta 8), que compara la ganancia con lo que se gasta y no con lo que se vende.</p>",
+    mas: `<p>El <b>porcentaje de utilidad final</b>, o <b>margen neto</b>, es esta misma cifra: en RECOEVO, el ${pct(utilidad / ventas)} de todo lo que pagan los clientes en 10 años (${mill(utilidad)} de ${mill(ventas)}) termina siendo de los socios; el resto se va en fabricar, administrar, vender, intereses e impuesto de renta. La pregunta 8 compara la misma ganancia con lo que se gasta y no con lo que se vende; por eso da otro porcentaje.</p>`,
     ir: "r130", irTexto: "Ver en la tabla 11 →",
   }));
 
@@ -244,11 +244,11 @@
   if (E && fila.r123 && fila.r124 && fila.r125) {
     const zonas = el("div", { class: "desliza anios-caja" }, el("table", { class: "t-anios t-envio" },
       el("caption", { class: "sr" }, "Tarifa de envío por zona de las ventas por internet"),
-      el("thead", {}, el("tr", {}, el("th", { scope: "col" }, "A dónde va el pedido"), el("th", { scope: "col" }, "De cada 100 pedidos"),
+      el("thead", {}, el("tr", {}, el("th", { scope: "col" }, "A dónde va el pedido"), el("th", { scope: "col" }, "Parte de los pedidos"),
         el("th", { scope: "col", class: "entra" }, "Cobra al cliente"), el("th", { scope: "col", class: "sale" }, "Le cuesta a la empresa"))),
-      el("tbody", {}, E.zonas.map(z => el("tr", {}, el("th", { scope: "row" }, z.zona), el("td", {}, miles(z.pedidos * 100)),
+      el("tbody", {}, E.zonas.map(z => el("tr", {}, el("th", { scope: "row" }, z.zona), el("td", {}, miles(z.pedidos * 100) + " %"),
         el("td", { class: "entra" }, pesos(z.cobra)), el("td", { class: "sale" }, pesos(z.costo)))),
-        el("tr", { class: "prom" }, el("th", { scope: "row" }, "Promedio por pedido"), el("td", {}, "100"),
+        el("tr", { class: "prom" }, el("th", { scope: "row" }, "Promedio por pedido"), el("td", {}, "100 %"),
           el("td", { class: "entra" }, pesos(E.promedio.cobra)), el("td", { class: "sale" }, pesos(E.promedio.costo))))));
     grid.append(tarjeta({
       tipo: "entra", ancho: true, pregunta: "10. ¿Y el envío? ¿Quién lo paga?",
@@ -291,6 +291,18 @@
       el("span", { class: "c sale" }, el("i", {}), "Sale dinero: inversión y gastos"),
       el("span", { class: "c entra" }, el("i", {}), "Entra dinero: ventas"),
       el("span", { class: "c calc" }, el("i", {}), "Cálculos y resultados")),
+    el("details", { class: "siglas" }, el("summary", {}, "Siglas y palabras que aparecen: qué son y cómo se dicen"),
+      el("dl", {}, [
+        ["IVA («iva»)", "Impuesto al valor agregado: el 19 % que se le suma al precio y va para el Estado, no para la empresa."],
+        ["ROI («erre-o-i»)", "Retorno de la inversión: cuánta utilidad neta deja el negocio comparada con lo que se puso para empezar."],
+        ["ICA («ica»)", "Impuesto de industria y comercio: impuesto del municipio sobre lo que se vende."],
+        ["REP («rep»)", "Responsabilidad extendida del productor: la empresa responde por el reciclaje de sus empaques."],
+        ["DANE («dane»)", "Departamento Administrativo Nacional de Estadística: de ahí sale la inflación que usa el plan."],
+        ["Marketplace («márket-pleis»)", "Página web donde muchas marcas venden, como Mercado Libre y Falabella.com. Cobra ≈ 14 % de comisión por cada venta."],
+        ["Gran superficie o cadena", "Tienda física grande, como Homecenter, Éxito y Alkosto, que compra el producto y lo revende. Se queda con ≈ 40 % del precio y paga a 60 días."],
+        ["Utilidad neta", "La ganancia limpia: lo que queda después de pagar todo, incluido el impuesto de renta."],
+        ["M", "Millones de pesos."],
+      ].flatMap(([t, d]) => [el("dt", {}, t), el("dd", {}, d)]))),
     el("p", { class: "resp-intro" }, html("Todo es para los <b>10 años</b> del plan y también <b>llevado a un producto</b>. Toca «Ver en la tabla» para ir al detalle.")),
     grid,
     el("section", { class: "bloque anios", "aria-labelledby": "t-anios" },

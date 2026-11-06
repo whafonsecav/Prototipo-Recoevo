@@ -31,6 +31,12 @@
 .colores .calc { background: var(--calc-bg); color: var(--calc); }
 .colores .calc i { background: var(--calc); }
 .resp-intro { margin: 4px 2px 14px; font-size: 15.5px; color: var(--suave); }
+.siglas { margin: 4px 0 10px; padding: 10px 14px; border-radius: 16px; background: var(--papel); border: 1px solid var(--linea); font-size: 14.5px; }
+.siglas summary { cursor: pointer; font: 700 14.5px/1.3 "Lexend", sans-serif; color: var(--monte); padding: 4px 0; }
+.siglas dl { margin: 8px 0 2px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.siglas dt { font-weight: 800; color: var(--monte); }
+.siglas dd { margin: 0 0 0 0; color: var(--tinta); line-height: 1.45; }
+@media (min-width: 760px) { .siglas dl { grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; } }
 .resp-grid { display: grid; gap: 14px; }
 .resp {
   min-width: 0; padding: 16px 16px 14px; border-radius: 20px; background: var(--papel); border: 1px solid var(--linea);
