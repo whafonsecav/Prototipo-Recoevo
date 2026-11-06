@@ -30,9 +30,9 @@ GUION = [
           "Falta conciencia, sí. Pero nadie rechazó la idea: **lo que falta es una forma fácil**."]),
   dict(t="El problema de los campesinos", ancla="La ironía: el abono que necesitan y lo caro que les sale.", poster="Póster 01 · «En el campo»",
        pregunta="¿Cuál es la ironía? ¿Qué podría hacer el campo con esos restos y qué hacemos nosotros?",
-       pistas=["a pocos kilómetros, en la Sabana", "campesinos podrían usarlos como abono", "los mezclamos: terminan en el relleno", "el abono les sale caro", "urea = abono químico más usado", "enero 2021 → enero 2022: de 80.000 a 230.000", "subió 187 %", "después bajó, pero este año volvió a subir", "guerra con Irán y cierre de Ormuz", "en un mes: de 482 a 750 dólares la tonelada"],
+       pistas=["a pocos kilómetros, en la Sabana", "campesinos podrían usarlos como abono", "los mezclamos: terminan en el relleno", "el abono les sale caro", "urea = abono químico más usado", "enero 2021 → enero 2022: de 80.000 a 230.000", "subió 187 %", "después bajó, pero este año volvió a subir", "guerra con Irán y cierre de Ormuz", "Medellín: de 120.000 a 130.000 apenas empezó la guerra", "agosto, DANE: entre 153.000 y 222.000 según el municipio"],
        p=["Y aquí viene lo **irónico**: a pocos kilómetros de ese shut, en la Sabana, hay **campesinos** que podrían usar esos restos como **abono**. ~Incluso la mitad de los vecinos con los que hablamos nos mencionó el abono.~ Pero los mezclamos con todo, y terminan **enterrados en el relleno**.",
-          "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. Y aunque después bajó, este año volvió a subir, por la guerra con Irán y el cierre del estrecho de Ormuz, por donde sale buena parte de la urea del mundo: en un solo mes, la tonelada pasó de [[482 a 750 dólares]]. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
+          "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. Y aunque después bajó, este año volvió a subir, por la guerra con Irán y el cierre del estrecho de Ormuz: en Medellín, apenas empezó la guerra, el bulto de 50 kilos pasó de [[120.000 a 130.000 pesos]], y en agosto el DANE lo registró entre [[153.000 y 222.000 pesos]], según el municipio. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
   dict(t="La ley: Decreto 0772", ancla="Ya es obligatorio separar, pero en la cocina no hay cómo.", poster="Póster 01 · recuadro azul del decreto",
        pregunta="¿Qué obliga el Decreto 0772 de 2026 y qué falta?",
        pistas=["conector: un dato importante", "desde julio ya existe una ley", "Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia"],
@@ -85,10 +85,9 @@ GUION = [
           "Y la **rentabilidad**: es del [[19,9 %]] sobre las ventas y del [[28,7 %]] sobre los costos. Alcanza para pagar el crédito, devolverles el dinero a los socios y seguir creciendo. ~Y la TIR, lo que rinde al año el dinero invertido, es del [[33,9 %]].~"]),
   dict(t="El cierre", ancla="Lo que nos ilusiona y la invitación a una mentoría.", poster="Pie del póster",
        pregunta="¿Qué sienten por esta idea y qué le piden al jurado?",
-       pistas=["nos ilusiona de verdad", "nació en la cuadra de Samuel", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "posiblemente nos falte la mirada de quien ha creado empresa", "quede o no seleccionada: después del evento, una conversación, una posible mentoría", "afinar los números con su experiencia", "esa bolsa no tiene por qué seguir ahí", "eslogan: Menos relleno, más vida"],
+       pistas=["nos ilusiona de verdad", "nació en la cuadra de Samuel", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "posiblemente nos falte la mirada de quien ha creado empresa", "quede o no seleccionada: después del evento, una conversación, una posible mentoría", "afinar los números con su experiencia", "mil gracias por tomarse el tiempo de escucharnos"],
        p=["Esta idea **nos ilusiona** de verdad. Nació en la cuadra de Samuel, pero esa bolsa rota la hemos visto todos. ~Y nos emociona pensar que una cáscara puede volver a ser tierra viva.~",
-          "Somos estudiantes de **mercadeo y de ingeniería de sistemas**, y entendemos que posiblemente nos falte la mirada de quien ya ha creado empresa. Por eso, quede o no seleccionada esta idea, después de este evento nos gustaría llevar este proyecto a **una conversación con ustedes, una posible mentoría**, para afinar estos números con su experiencia.",
-          "Porque creemos que esa bolsa de la esquina no tiene por qué seguir ahí. Nuestro eslogan lo dice: **Menos relleno, más vida.** Muchas gracias."]),
+          "Somos estudiantes de **mercadeo y de ingeniería de sistemas**, y entendemos que posiblemente nos falte la mirada de quien ya ha creado empresa. Por eso, quede o no seleccionada esta idea, después de este evento nos gustaría llevar este proyecto a **una conversación con ustedes, una posible mentoría**, para afinar estos números con su experiencia. **Mil gracias por tomarse el tiempo de escucharnos.**"]),
 ]
 
 FRASE_CADENA = ("Una <b>bolsa</b> rota en el <b>barrio</b>; la <b>ironía</b> y la <b>ley</b>; un <b>pedal</b> a buen <b>precio</b>; "
@@ -349,14 +348,15 @@ BANCO = [
     "Gas en Europa: los depósitos arrancaron 2021 un 11 % por debajo del promedio de cinco años (EIA, la agencia de energía de EE. UU.); la generación con viento fue más baja de lo normal y los compradores de Asia se quedaron con buena parte del gas licuado.",
     "China restringió sus exportaciones de fertilizantes desde finales de 2021 hasta junio de 2022; Rusia puso cuotas a las suyas y luego vino la invasión (24 de febrero de 2022).",
     "Después bajó: hacia 2023 la urea cayó cerca de 55 % desde su pico (La República, con datos de Bancolombia)."]),
-  (["Fertilizantes y urea"], "¿Cuánto cuesta la urea hoy, en 2026, y por qué volvió a subir?", "Volvió a subir cerca del 50 % por la guerra con Irán y el cierre del estrecho de Ormuz",
-   "En 2026 la guerra en Medio Oriente cerró el estrecho de Ormuz, la salida por mar del golfo Pérsico. Por ahí salen buena parte del gas y de la urea de los países del Golfo, que están entre los mayores exportadores del mundo. Con la salida bloqueada, subieron el gas, los fletes y la urea. Aunque el estrecho se reabra, Estados Unidos advirtió que limpiar las minas puede tomar hasta seis meses, y el golpe en los costos del campo se siente seis a nueve meses después, así que lo peor para el agricultor colombiano llega hacia finales de 2026.",
-   ["Mundo: la tonelada de urea pasó de unos USD 482 a finales de febrero a USD 750 al cierre de marzo de 2026 (Qore); en abril valía USD 640 frente a USD 400 un año antes, y el índice de fertilizantes subió 51,5 % en un año (La República).",
-    "Septiembre de 2026: el precio internacional volvió a subir 6,9 %, a USD 986,3 por tonelada de nitrógeno, después de cinco meses de bajadas (FAO, sistema AMIS).",
-    "Colombia: la SAC (Sociedad de Agricultores de Colombia) dijo que la urea subió «prácticamente un 50 %» desde el bloqueo; en Medellín el bulto de 40 kg pasó de $127.633 a $145.875 (+14,3 %), con comerciantes que hablan de escasez (El Colombiano).",
-    "En el reporte más reciente del DANE, el bulto de 50 kg iba de $153.300 (Campoalegre, Huila) a $222.400 (Santa Marta), según el municipio.",
-    "Colombia importó el año pasado más de 2,3 millones de toneladas de fertilizantes, por USD 1.107 millones; la urea fue el rubro más grande.",
-    "O sea: cada crisis lejana se convierte en abono más caro para el campesino colombiano. El abono orgánico se puede hacer aquí, con lo que hoy enterramos."]),
+  (["Fertilizantes y urea"], "¿Cuánto cuesta la urea hoy, en 2026, y por qué volvió a subir?",
+   "En agosto de 2026 el bulto de 50 kg costaba entre $153.300 y $222.400, según el municipio; volvió a subir por la guerra con Irán y el cierre del estrecho de Ormuz",
+   "Después del pico de 2022 la urea bajó, pero en 2026 volvió a subir. La guerra en Medio Oriente cerró el estrecho de Ormuz, la salida por mar del golfo Pérsico, por donde pasa cerca del 45 % de la urea que se exporta en el mundo. Con esa salida bloqueada subieron el gas, los fletes y la urea. En Medellín, el bulto de 50 kg pasó de unos $120.000 antes de la guerra a $130.000 a mediados de marzo. En agosto, el DANE (la entidad oficial de estadísticas de Colombia, se dice «dane») lo registró entre $153.300 y $222.400 según el municipio; ese mes bajó en la mayoría de los municipios, así que el precio se está acomodando, pero sigue alto. O sea, cada crisis lejana se vuelve abono más caro para el campesino colombiano, porque casi todo el fertilizante del país se importa.",
+   ["1. Medellín, primeras semanas de la guerra: el bulto de 50 kg pasó de ≈$120.000 a $130.000. Cuenta: (130.000 − 120.000) ÷ 120.000 ≈ 8 % en pocos días (sondeo de El Colombiano en tiendas de insumos, con corte al 10 de marzo; publicado el 7 de abril de 2026).",
+    "2. Colombia, agosto de 2026: el bulto de 50 kg iba de $153.300 (Campoalegre, Huila) a $222.400 (Santa Marta). Ese mes bajó en 45 de los 68 municipios que mide el DANE, subió en 8 y quedó igual en 2 (DANE, citado por El Tiempo el 18 de octubre de 2026).",
+    "3. En el mundo el salto fue mayor: la tonelada de urea pasó de USD 482 (dólares) a finales de febrero a USD 750 al cierre de marzo de 2026, ≈56 % más (Qore; La República). La SAC (Sociedad de Agricultores de Colombia, se dice «sac») dijo que la urea subió «prácticamente un 50 %» desde el bloqueo, hablando del precio internacional (El Colombiano).",
+    "4. Septiembre de 2026: el precio internacional volvió a subir 6,9 % después de cinco meses de bajadas, y sigue ≈41 % por debajo de su punto más alto del último año (FAO, la agencia de la ONU para la alimentación y la agricultura, con su sistema AMIS; El Tiempo).",
+    "5. Ormuz: por ahí pasa cerca del 45 % de las exportaciones mundiales de urea (SAC, con datos de la agencia de la ONU para el comercio y el desarrollo).",
+    "6. Colombia compra afuera más del 94 % de su fertilizante (El Colombiano, abril de 2026): por eso el precio de afuera llega directo al campesino."]),
   (["Tierra degradada", "Compost"], "¿Para qué le sirve el compost a la tierra?", "El 40 % de la tierra agrícola está degradada",
    "El compost devuelve materia orgánica al suelo. Hoy se aplica menos de lo necesario.",
    ["2,8 millones de hectáreas degradadas; se aplican menos de 300 kg de enmiendas orgánicas por hectárea, cuando lo mínimo recomendado es 1 tonelada (Agronegocios; CONtexto Ganadero con Asocompost).",
@@ -732,6 +732,8 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-capa[hidden]{display:none}
 .tele-texto{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
 .tele-texto::-webkit-scrollbar{display:none}
+.tele-texto{touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+html:has(body[data-vista="tele"]),body[data-vista="tele"]{overflow:hidden;overscroll-behavior:none;height:100%}
 .tele-texto .in{max-width:900px;margin:0 auto;padding:38vh 0 60vh}
 .tele-texto h4{font-family:"Lexend";font-size:.45em;letter-spacing:2px;text-transform:uppercase;color:#7d8a82;margin:1.4em 0 .4em;border-top:1px solid rgba(255,255,255,.15);padding-top:.6em}
 .tele-texto p{margin:0 0 .7em;line-height:1.45}
@@ -880,7 +882,20 @@ JS = r"""
   var lineas=[],leidas=0,pendiente=false;
   var lineaDe=[];
   function medirLineas(){lineas=[];lineaDe=[];var act=null;palabras.forEach(function(w,i){var t=w.offsetTop;
-    if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;lineaDe[i]=act;});}
+    if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;lineaDe[i]=act;});prepararCurva();}
+  /* Curva tiempo → altura: cada línea llega a la guía cuando empieza su primera palabra, y entre línea y línea el texto
+     sube por una curva suave (interpolación monótona PCHIP): la velocidad nunca cambia de golpe, ni en los títulos. */
+  var KT=[],KY=[],KM=[];
+  function prepararCurva(){KT=[];KY=[];KM=[];if(!lineas.length||!INICIO.length)return;
+    lineas.forEach(function(L){KT.push(INICIO[L.ini]);KY.push(L.top);});
+    var u=lineas[lineas.length-1];KT.push(Math.max(DURACION,KT[KT.length-1]+0.5));KY.push(u.top+tam*1.45);
+    var n=KT.length,h=[],d=[],j;for(j=0;j<n-1;j++){h[j]=Math.max(1e-3,KT[j+1]-KT[j]);d[j]=(KY[j+1]-KY[j])/h[j];}
+    for(j=0;j<n;j++){if(j===0)KM[j]=d[0]||0;else if(j===n-1)KM[j]=d[n-2]||0;else if(d[j-1]*d[j]<=0)KM[j]=0;
+      else{var w1=2*h[j]+h[j-1],w2=h[j]+2*h[j-1];KM[j]=(w1+w2)/(w1/d[j-1]+w2/d[j]);}}}
+  function alturaEn(t){var n=KT.length;if(!n)return 0;if(t<=KT[0])return KY[0];if(t>=KT[n-1])return KY[n-1];
+    var lo=0,hi=n-1;while(hi-lo>1){var m=(lo+hi)>>1;if(KT[m]<=t)lo=m;else hi=m;}
+    var hh=KT[hi]-KT[lo],x=(t-KT[lo])/hh,x2=x*x,x3=x2*x;
+    return (2*x3-3*x2+1)*KY[lo]+(x3-2*x2+x)*hh*KM[lo]+(-2*x3+3*x2)*KY[hi]+(x3-x2)*hh*KM[hi];}
   function pintarLectura(){pendiente=false;if(!lineas.length)return;
     var g=guiaEnTexto(),k=0;
     for(var j=0;j<lineas.length;j++){var L=lineas[j];
@@ -889,7 +904,7 @@ JS = r"""
       break;}
     var a;if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
     leidas=k;}
-  function repintar(){medirLineas();leidas=palabras.length;palabras.forEach(function(w){w.classList.add("leida");});pintarLectura();}
+  function repintar(){medirLineas();if(corre){pintarPorTiempo();return;}leidas=palabras.length;palabras.forEach(function(w){w.classList.add("leida");});pintarLectura();}
   caja.addEventListener("wheel",function(e){e.preventDefault();ponerPos(pos+e.deltaY);},{passive:false});
   var arrastre=null,tMarca=0;
   function marcar(w){if(!w)return;marca.style.top=(w.offsetTop-4)+"px";marca.style.height=(w.offsetHeight+8)+"px";marca.classList.add("ver");tMarca=Date.now();
@@ -908,7 +923,7 @@ JS = r"""
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
-  var INICIO=[],HABLA=[],DURACION=TOTAL,moviendo=false,real=0;
+  var INICIO=[],HABLA=[],DURACION=TOTAL,moviendo=false,real=0,relojVisto="";
   /* Cómo se dice en voz alta una cifra o un signo: «33.300» = «treinta y tres mil trescientos», «%» = «por ciento» */
   var UN=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
   var DE=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
@@ -944,11 +959,9 @@ JS = r"""
   function pintarPorTiempo(){var k=empezadas(seg),a;
     if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
     leidas=k;}
-  function seguir(dt){var c0=Math.max(0,leidas-1),L=lineaDe[c0];if(!L)return;
-    var fw=HABLA[c0]?Math.min(1,Math.max(0,(seg-INICIO[c0])/HABLA[c0])):1;
-    var avance=(c0-L.ini+fw)/(L.fin-L.ini+1);            /* cuánto de la línea ya se leyó */
-    var meta=L.top+avance*L.alto;                         /* punto del texto que debe estar en la guía */
-    var d=meta-guiaEnTexto();if(Math.abs(d)>0.05)ponerPos(pos+d*(1-Math.exp(-dt*10)));}
+  function seguir(dt){if(!KT.length)return;
+    var d=alturaEn(seg)-guiaEnTexto();                    /* punto del texto que debe estar en la guía, según el tiempo */
+    if(Math.abs(d)>0.01)ponerPos(pos+d*(1-Math.exp(-Math.min(dt,0.1)*6)));}
   function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
   function paso(ts){
     if(!corre)return;
@@ -957,11 +970,11 @@ JS = r"""
       var k=empezadas(seg)-1,enPausa=k>=0&&seg>=INICIO[k]+HABLA[k];
       seg+=dt*(enPausa?1:mult);real+=dt;   /* la velocidad cambia la lectura, no las pausas */
       pintarPorTiempo();seguir(dt);}
-    reloj.textContent=mmss(real);
+    var r=mmss(real);if(r!==relojVisto){relojVisto=r;reloj.textContent=r;}
     if(seg>=DURACION){parar();bPlay.textContent="Terminó";}
     else raf=requestAnimationFrame(paso);
   }
-  function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
+  function arrancar(){if(!KT.length)prepararCurva();corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
   function aplicarTam(){var r=pos/Math.max(1,interior.offsetHeight);caja.style.fontSize=tam+"px";limites();ponerPos(r*interior.offsetHeight);}
   function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";limites();
