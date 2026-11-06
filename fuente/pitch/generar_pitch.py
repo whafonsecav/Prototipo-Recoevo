@@ -746,8 +746,8 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .q.top::before{content:"Respuesta más probable";display:inline-block;font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:.8px;text-transform:uppercase;background:var(--sol);color:var(--monte);border-radius:999px;padding:3px 10px;margin-bottom:6px}
 .q[hidden],.grupo-t[hidden]{display:none!important}
 .filtros{display:grid;gap:12px;background:var(--papel);border:1px solid var(--linea);border-radius:20px;padding:14px}
-.f-top{display:flex;flex-wrap:wrap;gap:8px}
-.f-grupo{display:grid;gap:6px;border-top:1px solid var(--linea);padding-top:10px}
+.f-grupo{display:grid;gap:6px}
+.f-grupo+.f-grupo{border-top:1px solid var(--linea);padding-top:10px}
 .f-g{font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:var(--evo)}
 .f-chips{display:flex;flex-wrap:wrap;gap:6px}
 .filtros button,.q-tags button{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--linea);background:var(--crema);color:var(--monte);border-radius:999px;padding:6px 11px;cursor:pointer;line-height:1.2}
@@ -785,18 +785,20 @@ JS = r"""
   var $=function(id){return document.getElementById(id);};
   var lista=$("q-lista"), estado=$("q-estado"), filtros=$("filtros");
   if(lista&&filtros){
-    var tarj=[].slice.call(lista.querySelectorAll(".q"));
+    var tarj=[].slice.call(lista.querySelectorAll(".q")), titulos=[].slice.call(lista.querySelectorAll(".grupo-t")), actual="";
     var filtrar=function(k,desplazar){
-      var n=0;
-      tarj.forEach(function(t){var ver=k==="*"||t.getAttribute("data-k").indexOf("|"+k+"|")>=0;t.hidden=!ver;if(ver)n++;});
-      [].forEach.call(filtros.querySelectorAll("button"),function(b){b.classList.toggle("activo",b.getAttribute("data-k")===k);});
-      estado.textContent=(k==="*"?"Todas las preguntas":"Tema: "+k)+" · "+n+(n===1?" pregunta":" preguntas");
+      actual=k;var n=0;
+      tarj.forEach(function(t){var ver=!k||t.getAttribute("data-k").indexOf("|"+k+"|")>=0;t.hidden=!ver;if(ver)n++;});
+      titulos.forEach(function(h){h.hidden=!!k;});
+      [].forEach.call(filtros.querySelectorAll("button"),function(b){b.classList.toggle("activo",!!k&&b.getAttribute("data-k")===k);});
+      estado.textContent=k?("Tema: "+k+" · "+n+(n===1?" pregunta":" preguntas")+" (toque el tema otra vez para ver todas)"):(n+" preguntas, organizadas por grupo");
       if(desplazar){estado.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
     };
-    filtros.addEventListener("click",function(e){var b=e.target.closest("button");if(b)filtrar(b.getAttribute("data-k"),true);});
-    lista.addEventListener("click",function(e){var b=e.target.closest(".q-tags button");if(b)filtrar(b.getAttribute("data-k"),true);});
-    filtrar(filtros.querySelector("button.activo").getAttribute("data-k"),false);
-    window.filtrarPreguntas=function(k){filtrar(k,false);return tarj.filter(function(t){return !t.hidden;}).map(function(t){return t.querySelector(".q-p").textContent;});};
+    var tocar=function(k){filtrar(actual===k?"":k,true);};
+    filtros.addEventListener("click",function(e){var b=e.target.closest("button");if(b)tocar(b.getAttribute("data-k"));});
+    lista.addEventListener("click",function(e){var b=e.target.closest(".q-tags button");if(b)tocar(b.getAttribute("data-k"));});
+    filtrar("",false);
+    window.filtrarPreguntas=function(k){filtrar(k==="*"?"":k,false);return tarj.filter(function(t){return !t.hidden;}).map(function(t){return t.querySelector(".q-p").textContent;});};
   }
 
   /* ---------- teleprompter ---------- */
@@ -892,19 +894,28 @@ def pagina(modo_suelto=False, web=None):
         partes_html.append(f'<div class="parte"><span class="lbl">{e(nombre)}</span><ol>{items}</ol></div>')
     indice = '<div class="orden"><span class="lbl titulo">El orden de los temas</span>' + "".join(partes_html) + '</div>'
     import json as _json
+    import re as _re
+    grupo_de = {k: g for g, ks in GRUPOS.items() for k in ks}
+    filas = []
+    for n, (ks, q, r, sencillo, calc) in enumerate(BANCO):
+        ks = [k for k in ks if k != PROFE]
+        filas.append((grupo_de[ks[0]], ks, _re.sub(r"^\d+\.\s*", "", q), r, sencillo, calc, n))
     tarjetas = []
-    for ks, q, r, sencillo, calc in BANCO:
-        sencillo, *calc = con_uaesp([sencillo] + list(calc))
-        r = con_uaesp([r])[0]
-        li = "".join(f"<li>{e(x)}</li>" for x in calc)
-        etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks if k != PROFE)
-        tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
-                        f'<p class="q-s"><b>En sencillo:</b> {e(sencillo)}</p>'
-                        f'<div class="q-c"><b>Cómo se calculó o de dónde sale:</b><ul>{li}</ul></div>'
-                        f'<p class="q-tags">{etiquetas}</p></article>')
+    for g in sorted(GRUPOS, key=orden):
+        de_g = sorted([f for f in filas if f[0] == g], key=lambda f: (orden(f[1][0]), f[6]))
+        if not de_g: continue
+        tarjetas.append(f'<h3 class="grupo-t">{e(g)}</h3>')
+        for _, ks, q, r, sencillo, calc, _n in de_g:
+            sencillo, *calc = con_uaesp([sencillo] + list(calc))
+            r = con_uaesp([r])[0]
+            li = "".join(f"<li>{e(x)}</li>" for x in calc)
+            etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks)
+            tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
+                            f'<p class="q-s"><b>En sencillo:</b> {e(sencillo)}</p>'
+                            f'<div class="q-c"><b>Cómo se calculó o de dónde sale:</b><ul>{li}</ul></div>'
+                            f'<p class="q-tags">{etiquetas}</p></article>')
     def cuantas(k): return sum(1 for ks, *_ in BANCO if k in ks)
-    filtros = [f'<div class="f-top"><button type="button" class="activo" data-k="{e(PROFE)}">{e(PROFE)} <span>{cuantas(PROFE)}</span></button>'
-               f'<button type="button" data-k="*">Todas <span>{len(BANCO)}</span></button></div>']
+    filtros = []
     for g in sorted(GRUPOS, key=orden):
         chips = "".join(f'<button type="button" data-k="{e(k)}">{e(k)} <span>{cuantas(k)}</span></button>' for k in sorted(GRUPOS[g], key=orden))
         filtros.append(f'<div class="f-grupo"><span class="f-g">{e(g)}</span><div class="f-chips">{chips}</div></div>')
@@ -964,7 +975,7 @@ def pagina(modo_suelto=False, web=None):
 
   <section id="preguntas">
     <h2 class="sec">Preguntas del jurado</h2>
-    <p class="sec-sub">Toque un tema y aparecen todas sus preguntas, cada una con la respuesta, la explicación en sencillo y cómo se calculó. El número es cuántas preguntas tiene ese tema.</p>
+    <p class="sec-sub">Abajo están todas las preguntas, organizadas por grupo, cada una con la respuesta, la explicación en sencillo y cómo se calculó. Toque un tema para ver solo sus preguntas; tóquelo otra vez para volver a verlas todas. El número es cuántas preguntas tiene ese tema.</p>
     <div class="filtros" id="filtros">{"".join(filtros)}</div>
     <p class="q-estado" id="q-estado" aria-live="polite"></p>
     <div class="q-lista" id="q-lista">{"".join(tarjetas)}</div>
