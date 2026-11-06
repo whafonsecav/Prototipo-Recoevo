@@ -113,9 +113,11 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-texto .w{transition:color .12s}
 .tele-texto .w.leida{color:var(--brote)}
 .tele-texto .opc{color:#b9c2b8}
-.tele-guia{position:absolute;left:0;right:0;top:38vh;height:2px;background:rgba(242,178,39,.55);pointer-events:none}
-.tele-guia::before{content:"";position:absolute;left:6px;top:-7px;border:8px solid transparent;border-left:12px solid var(--sol)}
-.tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh - 70px);display:grid;gap:10px;z-index:2}
+.tele-guia{position:absolute;left:0;right:0;top:38vh;height:0;pointer-events:none;z-index:1}
+.tele-guia::before,.tele-guia::after{content:"";position:absolute;top:-9px;border:9px solid transparent}
+.tele-guia::before{left:max(4px,env(safe-area-inset-left));border-left:14px solid var(--sol)}
+.tele-guia::after{right:max(4px,env(safe-area-inset-right));border-right:14px solid var(--sol)}
+.tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh + 34px);display:grid;gap:10px;z-index:2}
 .tele-saltos button{display:grid;place-items:center;gap:2px;width:64px;height:64px;border-radius:18px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:11px;font-weight:600;padding:6px 0;touch-action:manipulation}
 .tele-saltos button:active{background:var(--sol);color:var(--monte)}
 .tele-saltos svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
@@ -262,8 +264,9 @@ body.con-panel{overflow:hidden}
   var marca=document.createElement("div");marca.className="tele-marca";interior.appendChild(marca);
   var palabras=[].filter.call(interior.querySelectorAll(".w"),function(w){if(w.closest("h4,.gesto")){w.classList.add("no-leer");return false;}return true;});
   var lineas=[],leidas=0,pendiente=false;
-  function medirLineas(){lineas=[];var act=null;palabras.forEach(function(w,i){var t=w.offsetTop;
-    if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;});}
+  var lineaDe=[];
+  function medirLineas(){lineas=[];lineaDe=[];var act=null;palabras.forEach(function(w,i){var t=w.offsetTop;
+    if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;lineaDe[i]=act;});}
   function pintarLectura(){pendiente=false;if(!lineas.length)return;
     var g=window.innerHeight*0.38-interior.getBoundingClientRect().top,k=0;
     for(var j=0;j<lineas.length;j++){var L=lineas[j];
@@ -313,8 +316,12 @@ body.con-panel{overflow:hidden}
   function pintarPorTiempo(){var k=empezadas(seg),a;
     if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
     leidas=k;}
-  function seguir(dt){var w=palabras[Math.max(0,leidas-1)];if(!w)return;
-    var d=w.getBoundingClientRect().top-(window.innerHeight*0.38+4);if(Math.abs(d)>1)caja.scrollTop+=d*(1-Math.exp(-dt*7));}
+  function seguir(dt){var c0=Math.max(0,leidas-1),L=lineaDe[c0];if(!L)return;
+    var fw=HABLA[c0]?Math.min(1,Math.max(0,(seg-INICIO[c0])/HABLA[c0])):1;
+    var avance=(c0-L.ini+fw)/(L.fin-L.ini+1);            /* cuánto de la línea ya se leyó */
+    var meta=L.top+avance*L.alto;                         /* punto del texto que debe estar en la guía */
+    var guia=window.innerHeight*0.38-interior.getBoundingClientRect().top;
+    var d=meta-guia;if(Math.abs(d)>0.3)caja.scrollTop+=d*(1-Math.exp(-dt*10));}
   function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
   function paso(ts){
     if(!corre)return;
