@@ -11,72 +11,85 @@ fuentes citadas en FUENTES_USME.
 """
 import base64, html, math, pathlib, re, sys
 
-RITMO = 2.6          # palabras habladas por segundo: ritmo tranquilo de presentación
+RITMO = 2.8          # palabras habladas por segundo: ritmo de conversación (unas 168 por minuto)
 PAUSA_INICIO = 2     # segundos de silencio antes de empezar
 RESPIRO = 0.5        # segundos entre bloques (un solo presentador: sin relevos)
 
 # ------------------------------------------------------------------ EL GUION (un presentador)
 GUION = [
-  dict(t="El gancho", ancla="Bolsa", poster="Póster 01 · cifras rosadas «En la ciudad»",
+  dict(t="El problema de la basura", ancla="Bolsas rotas, la comida que se entierra y Doña Juana.", poster="Póster 01 · cifras rosadas «En la ciudad»",
        pregunta="¿Con qué pregunta abre y qué cifras muestran el tamaño del problema?",
-       pistas=["bolsa rota en la calle", "líquido y olor", "es comida", "2024: 33.300 t al día", "1 de cada 5", "60 % comida", "Doña Juana 6.800 t", "licencia hasta 2029"],
-       p=["{Pausa. Mire al jurado antes de hablar.} ¿Quién de ustedes no ha visto una **bolsa de basura rota** en la calle? Desgarrada, con un líquido oscuro en el andén… y ese olor.",
-          "Lo que se riega casi nunca es plástico. **Es comida.**",
-          "{Señale las cifras rosadas.} En 2024, Colombia enterró [[33.300 toneladas]] de basura al día y solo aprovechó [[1 de cada 5]]; cerca del [[60 %]] es comida. Y hoy a **Doña Juana** llegan [[6.800]] toneladas diarias, con licencia solo hasta [[2029]]."]),
-  dict(t="Nos toca de cerca", ancla="Barrio", poster="Póster 01 · fotos del campo y «8 de 8»",
+       pistas=["bolsa rota en la calle", "líquido y ese olor", "no es plástico: es comida", "2024: 33.300 t al día", "60 % es comida", "Doña Juana: 6.800 t al día", "licencia hasta 2029"],
+       p=["{Pausa. Mire al jurado antes de hablar.} ¿Quién de ustedes no ha visto una **bolsa de basura rota** en la calle? Desgarrada, con un líquido oscuro regado por el andén… y ese olor que uno prefiere no respirar. Lo que se riega ahí casi nunca es plástico: **es comida**.",
+          "{Señale las cifras rosadas.} En 2024, Colombia enterró [[33.300 toneladas]] de basura al día, y cerca del [[60 %]] era comida. Solo a **Doña Juana** llegan [[6.800 toneladas]] diarias, y su licencia se vence en [[2029]]."]),
+  dict(t="Lo que vimos en Villa Rosita", ancla="El barrio de nuestro compañero y lo que nos contaron 8 vecinos.", poster="Póster 01 · fotos del campo y «8 de 8»",
        pregunta="¿Dónde nació la idea? ¿Qué vieron y qué les contaron los vecinos?",
-       pistas=["no nos es ajeno", "compañero de Villa Rosita, Usme", "septiembre: 8 vecinos", "los 8: el shut", "perrito e icopor", "6 de 8: perros, ratas, plagas", "5 de 8 mezclan", "«todo es un revoltijo»", "falta conciencia y una forma fácil"],
-       p=["Este problema no nos es ajeno. {Señale a su compañero.} Nuestro compañero vive en **Villa Rosita, en Usme**, y esta idea nació en su cuadra.",
-          "En septiembre escuchamos a [[8]] vecinos. **Los 8 señalaron el shut**: desbordado~, pese al aviso de multa~. Vimos un **perrito** comiendo de un icopor tirado. [[6 de 8]] hablaron de **perros, ratas o plagas**, y [[5 de 8]] **mezclan todo**: «Las cáscaras de la papa, el cartón, las cáscaras de huevo… **todo es un revoltijo**».",
-          "Falta conciencia, sí, pero nadie rechazó la idea: **falta una forma fácil**."]),
-  dict(t="La ironía", ancla="Ironía", poster="Póster 01 · «En el campo»",
+       pistas=["no es una cifra", "compañero de Villa Rosita, Usme: lo vive a diario", "septiembre: 8 vecinos", "los 8 señalaron el shut", "perrito buscando comida en un icopor", "«todo es un revoltijo»", "falta conciencia, pero sobre todo una forma fácil"],
+       p=["Para nosotros esto no es una cifra. {Señale a su compañero.} Nuestro compañero vive en **Villa Rosita, en Usme**. Él lo vive todos los días, y esta idea nació en su cuadra.",
+          "En septiembre fuimos a escuchar a [[ocho]] vecinos, y **los ocho nos señalaron el mismo shut**, desbordado~ a pesar del aviso de multa~. Vimos un **perrito** buscando comida en un icopor tirado. Y alguien nos lo dijo sin rodeos: «Las cáscaras de la papa, el cartón, las cáscaras de huevo… **todo es un revoltijo**».",
+          "Falta conciencia, sí. Pero nadie nos dijo que no a la idea: **lo que falta es una forma fácil**."]),
+  dict(t="El problema de los campesinos", ancla="La ironía: el abono que necesitan y lo caro que les sale.", poster="Póster 01 · «En el campo»",
        pregunta="¿Cuál es la ironía? ¿Qué podría hacer el campo con esos restos y qué hacemos nosotros?",
-       pistas=["a pocos kilómetros", "campesinos de la Sabana", "esos restos sirven de abono", "los mezclamos con todo", "terminan enterrados en el relleno", "94 % del fertilizante importado", "urea (abono químico): de 80.000 a 230.000 entre enero de 2021 y enero de 2022, +187 %", "la ciudad entierra la comida que el campo necesita"],
-       p=["Y lo más **irónico** es esto: a pocos kilómetros, los **campesinos de la Sabana** podrían usar esos restos como **abono**. Pero los mezclamos con todo y terminan **enterrados en el relleno**.",
-          "{Señale «En el campo».} Más del [[94 %]] del fertilizante del país es **importado**. Entre enero de 2021 y enero de 2022, el bulto de **urea** (el abono químico más usado) pasó de [[80.000 a 230.000 pesos]] (subió [[187 %]]). ~**La ciudad entierra la comida que el campo necesita.**~"]),
-  dict(t="La ley ya lo exige", ancla="Ley", poster="Póster 01 · recuadro azul del decreto",
+       pistas=["a pocos kilómetros, en la Sabana", "campesinos podrían usarlos como abono", "los mezclamos: terminan en el relleno", "el abono les sale caro", "urea = abono químico más usado", "enero 2021 → enero 2022: de 80.000 a 230.000", "subió 187 %"],
+       p=["Y aquí viene lo **irónico**: a pocos kilómetros de ese shut, en la Sabana, hay **campesinos** que podrían usar esos restos como **abono**. ~Incluso cuatro de esos ocho vecinos nos hablaron del abono.~ Pero los mezclamos con todo, y terminan **enterrados en el relleno**.",
+          "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
+  dict(t="La ley: Decreto 0772", ancla="Ya es obligatorio separar, pero en la cocina no hay cómo.", poster="Póster 01 · recuadro azul del decreto",
        pregunta="¿Qué obliga el Decreto 0772 de 2026 y qué falta?",
-       pistas=["desde julio", "Decreto 0772 de 2026", "separar los orgánicos", "ruta cada semana", "falta una forma limpia en la cocina", "nació RECOEVO"],
-       p=["{Señale el recuadro azul.} Y desde julio, el **Decreto 0772 de 2026** obliga a cada hogar a **separar los orgánicos**~ y crea una ruta que los recoge cada semana~. **La ley ya existe; falta una forma limpia de cumplirla en la cocina.** De ahí **nació RECOEVO**."]),
-  dict(t="Qué es y cómo funciona", ancla="Pedal", poster="Póster 02 y 03 · el código QR, el prototipo y «Así funciona»",
-       pregunta="¿Qué le pide al jurado antes de explicar? ¿Qué es RECOEVO y cómo se usa, paso a paso?",
-       pistas=["escaneen el QR", "página con todo el proyecto", "primer enlace: prototipo 3D", "moverlo, separar piezas", "prototipo inicial", "triturador de cocina a pedal", "sin luz y sin olor", "echa y pisa 20 segundos", "13 cuchillas", "bolsa compostable", "filtro de carbón"],
-       p=["{Señale el código QR.} Les pedimos el favor de **escanear este código QR**: ahí está toda la información del proyecto. El primer enlace es el **prototipo en 3D**, para moverlo y conocerlo **pieza por pieza**. Es un prototipo inicial.",
-          "{Señale el prototipo.} RECOEVO es un **triturador de cocina a pedal**, sin electricidad y sin olor. Usted **echa** las cáscaras y **pisa** [[20 segundos]] al día: [[13 cuchillas]] las cortan y caen a una **bolsa compostable**, y un **filtro de carbón** atrapa el olor."]),
-  dict(t="Por qué RECOEVO", ancla="Precio", poster="Póster 03 · precios frente al mercado y Value Proposition Canvas",
-       pregunta="¿Por qué RECOEVO y no otra marca? ¿Qué dolor resuelve cada parte?",
-       pistas=["caneca 119.900: solo guarda", "eléctrico: más de un millón", "RECOEVO 199.900", "huele → filtro", "perros → bolsa cerrada", "difícil → 20 segundos"],
-       p=["{Señale la barra de precios.} ~¿Y frente a las demás marcas?~ Una caneca con pedal cuesta [[119.900]] y solo guarda; un procesador eléctrico, más de [[un millón]]. RECOEVO cuesta [[199.900]]: **lo de una buena caneca, pero tritura y no huele.**",
-          "{Señale el Value Proposition Canvas.} Cada dolor que oímos tiene respuesta: ¿huele? **Filtro.** ¿Perros? **Bolsa cerrada.** ¿Difícil? **Veinte segundos.**"]),
-  dict(t="Lo que esperamos lograr", ancla="Usme", poster="Póster 03 · recuadro verde de 406.983 t",
-       pregunta="¿Por qué empezar en Usme? ¿Cuántos hogares de cuántos y cuántas toneladas salen del relleno?",
-       pistas=["validamos allá", "Doña Juana en el camino", "85 % campo, 17.000 campesinos", "135.000 hogares", "meta 7.300 (5,4 %)", "168 kilos por hogar al año", "1.200 t menos al año", "10 años: 407.000 t = 2 meses de Doña Juana"],
-       p=["Empezamos por **Usme**: allá **validamos**, **Doña Juana queda en el camino**, y el [[85 %]] es **campo**, con [[17.000 campesinos]]. ~Los dos problemas viven juntos.~",
-          "Usme tiene unos [[135.000 hogares]]; la meta: [[7.300]], el [[5,4 %]]. Cada hogar bota [[168 kilos]] de comida al año: [[1.200 toneladas]] menos para Doña Juana. {Señale el recuadro verde.} Y en 10 años, en el país, unas [[407.000 toneladas]]: **lo que recibe Doña Juana en dos meses**."]),
-  dict(t="Hoy y con RECOEVO", ancla="Recorrido", poster="Póster 04 · Customer Journey Map",
-       pregunta="¿Qué recorrido hace hoy una cáscara y cuál hace con RECOEVO?",
-       pistas=["hoy: bolsa mezclada → Doña Juana", "con RECOEVO: bolsa cerrada → ruta de orgánicos"],
-       p=["{Señale el bloque 04.} Hoy la cáscara va en bolsa mezclada a **Doña Juana**; con RECOEVO, va en **bolsa cerrada a la ruta de orgánicos**."]),
-  dict(t="Cómo gana dinero", ancla="Negocio", poster="Póster 05 · fuentes de ingreso, canales, clientes y ODS",
-       pregunta="¿Cómo gana dinero, a quién le vende, por dónde, y qué ODS ataca?",
-       pistas=["solo vende el producto", "hogares: internet y almacenes", "lotes a empresas, conjuntos y alcaldías", "ODS 12, 11 y 13", "comida enterrada es metano"],
-       p=["{Señale el bloque 05.} Ganamos **vendiendo el producto**: a **hogares**, en internet y en almacenes; y **por lotes** a empresas, conjuntos y alcaldías. Y atacamos tres **ODS**: [[12]], consumo responsable; [[11]], ciudades sostenibles; y [[13]], clima, porque **comida enterrada es metano**."]),
-  dict(t="Los números", ancla="Números", poster="Póster 06 · franja amarilla y seis recuadros",
-       pregunta="¿Cuánto se invierte, cuál es el equilibrio y cuándo se logra, cuándo se recupera y cuánto se gana?",
-       pistas=["inversión 5.954 millones", "de 100 pesos, 49 pagan fijos", "fijos ÷ margen = 2.380 al mes", "mes 17", "recuperamos en el mes 50", "utilidad neta 30.508 millones", "retorno 512 %", "20 de cada 100 vendidos", "29 por cada 100 gastados"],
-       p=["{Señale el bloque 06.} Los **números**, escenario realista a 10 años. **Inversión inicial:** [[5.954 millones]], en fábrica, arranque y respaldo de caja.",
-          "De cada [[100]] pesos que recibimos, [[49]] pagan los costos fijos: es el **margen de contribución**. Costos fijos entre ese margen da el **punto de equilibrio**: [[2.380]] productos al mes, que superamos en el mes [[17]].",
-          "**Recuperamos la inversión** en el mes [[50]]. **Utilidad neta**: [[30.508 millones]], un **retorno** de [[512 %]]. De cada 100 pesos vendidos quedan [[20]] de utilidad, y por cada 100 gastados ganamos [[29]]."]),
-  dict(t="El cierre", ancla="Mentoría", poster="Pie del póster",
+       pistas=["ya es ley", "desde julio: Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia", "de ahí nació RECOEVO"],
+       p=["{Señale el recuadro azul.} Y esto ya es ley: desde julio, el **Decreto 0772 de 2026** obliga a todos los hogares a **separar los orgánicos**. Pero en la cocina no hay una forma fácil y limpia de hacerlo. **De ahí nació RECOEVO.**"]),
+  dict(t="La solución: RECOEVO", ancla="El código QR, el prototipo en 3D y cómo se usa.", poster="Póster 02 y 03 · el código QR, el prototipo y «Así funciona»",
+       pregunta="¿Qué le pide al jurado antes de explicar? ¿Qué es RECOEVO y cómo se usa?",
+       pistas=["escanear el QR", "todo el proyecto", "primer enlace: prototipo 3D", "moverlo y desarmarlo pieza por pieza", "prototipo inicial", "triturador que funciona con el pie", "sin electricidad y sin olor", "pisar 20 segundos al día", "13 cuchillas", "bolsa compostable"],
+       p=["{Señale el código QR.} Antes de contarles cómo funciona, les pedimos el favor de **escanear este código QR**: ahí está todo el proyecto, y en el primer enlace pueden mover el **prototipo en 3D** y desarmarlo pieza por pieza. Es un prototipo inicial.",
+          "{Señale el prototipo.} RECOEVO es un **triturador de cocina que funciona con el pie**, sin electricidad y sin olor. Uno echa las cáscaras, pisa unos [[20 segundos]] al día, y [[trece cuchillas]] las cortan y las dejan en una **bolsa compostable**."]),
+  dict(t="Por qué RECOEVO y no otro", ancla="Frente a canecas y eléctricos, y cómo responde a cada dolor.", poster="Póster 03 · precios frente al mercado y Value Proposition Canvas",
+       pregunta="¿Qué lo hace diferente de lo que ya existe? ¿Cómo responde a lo que contaron los vecinos?",
+       pistas=["caneca con pedal: solo guarda", "eléctrico: más de un millón y gasta luz", "RECOEVO: 199.900 con IVA", "lo de una buena caneca, pero tritura y no huele", "si huele: filtro de carbón", "si los perros la rompen: queda cerrada en el balde", "si parece difícil: veinte segundos al día"],
+       p=["{Señale la barra de precios.} ¿Y qué lo hace diferente? Una caneca con pedal solo guarda la basura, y un procesador eléctrico cuesta más de [[un millón]] de pesos y gasta luz. RECOEVO cuesta [[199.900]] con IVA: lo que vale una buena caneca, pero **tritura y no huele**.",
+          "{Señale el Value Proposition Canvas.} Y lo diseñamos con lo que nos contaron los vecinos: si la bolsa huele, el **filtro de carbón** lo resuelve; si los perros la rompen, aquí queda **cerrada dentro del balde**; y si separar parece difícil, son **veinte segundos al día**."]),
+  dict(t="El impacto que esperamos", ancla="Usme, Bogotá, hogares, toneladas y porcentajes.", poster="Póster 03 · recuadro verde de 406.983 t · bloque 05 (mercado)",
+       pregunta="¿Por qué empezar en Usme? ¿Cuántos hogares de cuántos y cuánta comida sale de Doña Juana?",
+       pistas=["Usme: validamos, vía a Doña Juana, 85 % campo", "luego Bogotá: 2,9 millones de hogares", "10 años: 735.450 hogares, uno por hogar", "= 1 de cada 4 hogares de Bogotá", "medio kilo de restos por hogar al día (conservador)", "10 años: 407.000 t = 2 meses de Doña Juana", "1,6 % de lo que le llega en 10 años"],
+       p=["Vamos a empezar por **Usme**: allá validamos el problema, Doña Juana queda en la vía a Usme, y el [[85 %]] de Usme es campo~, con unos [[17.000 campesinos]]~. Ahí los dos problemas viven juntos.",
+          "Después seguimos con **Bogotá**, que tiene unos [[2,9 millones de hogares]], y luego con otras ciudades. La meta es que en diez años [[735.450 hogares]] tengan su RECOEVO: es como **uno de cada cuatro hogares de Bogotá**.",
+          "{Señale el recuadro verde.} Siendo conservadores, calculamos que cada hogar saca **medio kilo** de restos de comida al día. Así, en diez años serían [[407.000 toneladas]] que no llegan al relleno: **lo que recibe Doña Juana en dos meses**, el [[1,6 %]] de todo lo que le llegaría en esos diez años. ~Y en el año diez, [[288 toneladas]] menos cada día: el [[4 %]] de lo que entra hoy.~"]),
+  dict(t="Hoy y con RECOEVO", ancla="El camino de una cáscara antes y después.", poster="Póster 04 · Customer Journey Map",
+       pregunta="¿Qué camino hace hoy una cáscara y cuál hace con RECOEVO?",
+       pistas=["hoy: bolsa rota en la esquina → Doña Juana", "con RECOEVO: bolsa cerrada desde la cocina → ruta de orgánicos"],
+       p=["{Señale el bloque 04.} Piénsenlo así: hoy una cáscara termina en una bolsa rota en la esquina, y después en Doña Juana. Con RECOEVO, sale de la cocina en una **bolsa cerrada**, directo a la **ruta de orgánicos**."]),
+  dict(t="Cómo gana dinero", ancla="Los cuatro canales de venta, sus porcentajes y por qué.", poster="Póster 05 · fuentes de ingreso, canales de venta (dona) y clientes",
+       pregunta="¿Cómo gana dinero? ¿Por qué canales vende, en qué porcentaje y por qué?",
+       pistas=["vende el producto, por cuatro caminos", "35 % marketplaces: cobran ~14 %, llegan a todo el país", "35 % lotes: empresas, conjuntos y alcaldías; mejor precio, cientos a la vez; el decreto los obliga", "15 % tienda en línea: queda casi todo el precio, pero hay que pagar publicidad", "15 % grandes superficies: se quedan con ~40 % y pagan a 60 días"],
+       p=["{Señale la dona de canales.} ¿Y cómo gana dinero? **Vendiendo el producto**, por cuatro caminos. El [[35 %]] de las ventas, por **marketplaces** como Mercado Libre: cobran alrededor del [[14 %]] y llegan a todo el país. Otro [[35 %]], **por lotes** a empresas, conjuntos y alcaldías: les damos un mejor precio, pero compran cientos de una vez, y el decreto también los obliga a separar.",
+          "Un [[15 %]] en nuestra **tienda en línea**, donde nos queda casi todo el precio, aunque hay que pagar publicidad por cada venta. Y solo un [[15 %]] en **grandes superficies**, porque se quedan con cerca del [[40 %]] del precio~ y pagan a 60 días~."]),
+  dict(t="Los ODS", ancla="Por qué lo pensamos con tres Objetivos de Desarrollo Sostenible.", poster="Póster 05 · Objetivos de Desarrollo Sostenible (12, 11 y 13)",
+       pregunta="¿Para qué más sirve RECOEVO? ¿Con qué ODS se pensó y por qué?",
+       pistas=["lo pensamos con un propósito", "ODS 12: menos comida desperdiciada", "ODS 11: ciudades más limpias, sin bolsas rotas", "ODS 13: la comida enterrada produce metano"],
+       p=["Pero esto no es solo un negocio: lo pensamos con un propósito. Le apunta a tres **Objetivos de Desarrollo Sostenible**: al [[12]], porque reduce la comida que se desperdicia; al [[11]], porque deja ciudades más limpias, sin bolsas rotas en las esquinas; y al [[13]], porque la comida enterrada produce **metano**, un gas que calienta el planeta mucho más que el CO₂."]),
+  dict(t="Los números: lo que cuesta", ancla="Inversión, precio, costo por producto, costos fijos y variables.", poster="Póster 06 · franja amarilla y recuadros (también en el QR: página del presupuesto)",
+       pregunta="¿Cuánto hay que invertir? ¿A cuánto se vende y por qué? ¿Cuánto cuesta cada producto y cuáles son los costos fijos y variables?",
+       pistas=["también en el QR: página del presupuesto", "escenario realista, 10 años", "inversión: 5.954 millones (fábrica, arranque, respaldo)", "precio: 199.900 con IVA el año 1, lo de una buena caneca", "promedio de 10 años: 275.630 con IVA", "costo por producto: 144.319", "variables: unos 104.000 por producto", "fijos: 2.872 millones al año"],
+       p=["{Señale el bloque 06.} Ahora, los **números** del plan a diez años, en el escenario realista; también están en el QR, en la página del presupuesto.",
+          "Para empezar necesitamos una **inversión inicial** de [[5.954 millones]] de pesos: la fábrica, el arranque y un respaldo de caja que se recupera. El **precio** es de [[199.900]] con IVA el primer año, lo que una familia paga por una buena caneca; con la inflación, en promedio de los diez años queda en [[275.630]], también con IVA.",
+          "Cada producto nos **cuesta** en promedio [[144.319]] pesos, con todo incluido: unos [[104.000]] son **costos variables**, como los materiales y las comisiones; y los **costos fijos**, como la nómina y el arriendo, suman unos [[2.872 millones]] al año."]),
+  dict(t="Los números: lo que deja", ancla="Margen, punto de equilibrio, utilidad, retorno y rentabilidad.", poster="Póster 06 · recuadros de equilibrio, margen, recuperación, utilidad y TIR",
+       pregunta="¿Cuál es el margen de contribución, el punto de equilibrio y cuándo se alcanza? ¿Cuánto se gana, cuál es el retorno, cuándo se recupera y cuál es la rentabilidad?",
+       pistas=["margen de contribución: 49 %", "equilibrio = fijos ÷ margen = 2.380 al mes", "lo superamos en el mes 17", "utilidad neta 10 años: 30.508 millones", "retorno 512 %", "se recupera en el mes 50", "por cada 100 gastados, casi 29 (28,7 %)", "de cada 100 vendidos, casi 20 (19,9 %)"],
+       p=["De lo que nos llega por producto, el [[49 %]] queda libre para pagar esos costos fijos: es el **margen de contribución**. Dividiendo los costos fijos entre ese margen, el **punto de equilibrio** da [[2.380]] productos al mes, y lo superamos en el mes [[17]].",
+          "En diez años, la **utilidad neta**, ya pagados costos e impuestos, es de [[30.508 millones]]: un **retorno de la inversión** del [[512 %]], y la inversión se recupera en el mes [[50]].",
+          "Y la **rentabilidad**: por cada 100 pesos que gastamos ganamos casi 29, el [[28,7 %]]; y de cada 100 que vendemos nos quedan casi 20, el [[19,9 %]]. ~Y la TIR, lo que rinde al año el dinero invertido, es del [[33,9 %]].~"]),
+  dict(t="El cierre", ancla="Lo que nos ilusiona y la invitación a una mentoría.", poster="Pie del póster",
        pregunta="¿Qué sienten por esta idea y qué le piden al jurado?",
-       pistas=["nos ilusiona", "nació en la cuadra de un compañero", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "nos falta la mirada de quien ha creado empresa", "una conversación, una mentoría", "Menos relleno, más vida"],
-       p=["Esta idea **nos ilusiona**: nació en la cuadra de un compañero, pero esa bolsa rota la hemos visto todos.",
-          "Somos de **mercadeo e ingeniería de sistemas**, y nos falta la mirada de quien ya ha **creado empresa**. Por eso, quede o no seleccionada, les pedimos **una conversación, una mentoría**, para mejorarla con su experiencia.",
-          "Porque esa bolsa de la esquina **no tiene por qué seguir ahí**. **Menos relleno, más vida.** Gracias."]),
+       pistas=["nos ilusiona de verdad", "nació en la cuadra de un compañero", "esa bolsa la hemos visto todos", "mercadeo e ingeniería de sistemas", "posiblemente nos falte la mirada de quien ha creado empresa", "quede o no seleccionada: después del evento, una conversación, una posible mentoría", "afinar los números con su experiencia", "esa bolsa no tiene por qué seguir ahí", "eslogan: Menos relleno, más vida"],
+       p=["Esta idea **nos ilusiona** de verdad. Nació en la cuadra de un compañero, pero esa bolsa rota la hemos visto todos. ~Y nos emociona pensar que una cáscara puede volver a ser tierra viva.~",
+          "Somos estudiantes de **mercadeo y de ingeniería de sistemas**, y entendemos que posiblemente nos falte la mirada de quien ya ha creado empresa. Por eso, quede o no seleccionada esta idea, después de este evento nos gustaría llevar este proyecto a **una conversación con ustedes, una posible mentoría**, para afinar estos números con su experiencia.",
+          "Porque creemos que esa bolsa de la esquina no tiene por qué seguir ahí. Nuestro eslogan lo dice: **Menos relleno, más vida.** Muchas gracias."]),
 ]
 
 FRASE_CADENA = ("Una <b>bolsa</b> rota en el <b>barrio</b>; la <b>ironía</b> y la <b>ley</b>; un <b>pedal</b> a buen <b>precio</b>; "
-                "<b>Usme</b> cambia su <b>recorrido</b>; el <b>negocio</b> da <b>números</b>; y pedimos <b>mentoría</b>.")
+                "<b>Usme</b> cambia su <b>recorrido</b>; el <b>negocio</b> y los <b>ODS</b>; la <b>inversión</b> y la <b>utilidad</b>; y pedimos <b>mentoría</b>.")
+
+PARTES = [("El problema", 1, 4), ("La solución", 5, 8), ("El negocio", 9, 12), ("El cierre", 13, 13)]
 
 # ------------------------------------------------------------------ medición (cifras contadas como se pronuncian)
 MARCA = re.compile(r"(~)|\{([^}]*)\}|\*\*([^*]+)\*\*|\[\[([^\]]+)\]\]")
@@ -149,71 +162,67 @@ def html_parrafo(p):
 
 # ------------------------------------------------------------------ preguntas del jurado
 PROFE = [
-  ("¿Cuál es la inversión inicial?", "$5.954 millones",
+  ("1. ¿Cuánto dinero hay que poner para empezar? (inversión inicial)", "$5.954 millones",
    "Todo el dinero para empezar antes de vender el primer producto. Lo ponen los socios ($4.880 M) y un crédito del banco ($1.074 M).",
    ["Máquinas, moldes, planta y oficina: <b>$3.147 M</b> (97 máquinas $1.672 M; 13 moldes y troqueles $1.013 M; bodega, computadores y muebles $462 M).",
     "Gastos de arranque: <b>$484 M</b> (trámites, marca y patente, desarrollo del producto, puesta en marcha, lanzamiento, sueldos de montaje y 10 % de imprevistos).",
     "Dinero de respaldo, que se recupera: <b>$2.323 M</b> (capital de trabajo $1.171 M; IVA de las máquinas $598 M; colchón de caja $500 M; depósito del arriendo $54 M).",
     "3.147 + 484 + 2.323 = <b>$5.954 M</b>. Crédito al 19,5 % efectivo anual, a 5 años."]),
-  ("¿Cuál es el precio de venta y cómo llegaron a él?", "$199.900 con IVA",
-   "Al público. Por lotes a empresas, conjuntos y alcaldías: $142.000 + IVA. Se fijó entre un techo (lo que la gente paga por una buena caneca) y un piso (lo que cuesta hacer, vender y financiar cada producto).",
-   ["<b>Techo, el mercado:</b> menos de $200.000. Caneca con pedal $119.900 (solo guarda); eléctricos FoodCycler $1.265.000 y Lomi $1.737.000.",
-    "<b>Piso, el costo:</b> cada producto cuesta <b>$144.319</b> con todo incluido (promedio de 10 años).",
-    "<b>Lo que llega a la empresa:</b> $167.983 sin IVA hoy; descontando lo que cobran tiendas y cadenas, y con el precio subiendo con la inflación cada año, recibe en promedio <b>$205.185</b> por producto. Deja $60.866 antes de impuestos."]),
-  ("¿Cuál es el punto de equilibrio?", "2.380 productos al mes",
-   "28.554 al año. Es lo mínimo que hay que vender para no perder dinero: costos fijos ÷ margen de contribución.",
-   ["Lo que recibe la empresa por producto: <b>$205.185</b>.",
-    "Costo variable (materiales, operarios, energía, comisiones, anuncios, distribución, garantía e ICA): <b>$104.611</b>.",
-    "Margen de contribución: 205.185 − 104.611 = <b>$100.574</b> (49 %).",
-    "Costos fijos al año, promedio de 10 años: <b>$2.872 M</b>.",
-    "2.872 M ÷ 100.574 = 28.554 al año ÷ 12 = <b>2.380 al mes</b>."]),
-  ("¿Cuándo alcanzan el punto de equilibrio?", "Mes 17",
-   "Ese mes se venden 2.500 productos, por primera vez más que los 2.380 necesarios.",
-   ["Las ventas empiezan en 800 al mes, cierran el año 1 en 2.000 al mes y llegan a 9.500 al mes en el año 10.",
-    "El primer mes que pasa de 2.380 es el 17.",
-    "En años: el año 1 pierde $864 M; desde el año 2 hay utilidad ($136 M)."]),
-  ("¿Cuándo se recupera la inversión?", "Mes 50",
-   "4 años y 2 meses.",
-   ["Se suma mes a mes el dinero libre que deja el negocio: lo que entra menos todo lo que sale (también compras de máquinas, inventario y facturas por cobrar).",
-    "Al terminar el mes 1 la suma va en −$4.547 M por el montaje; el primer mes en que deja de ser negativa es el <b>50</b>."]),
-  ("¿Cuál es el retorno de la inversión (ROI)?", "512 %",
-   "En 10 años, por cada $100 invertidos se ganan $512: 5,1 veces lo invertido.",
-   ["Utilidad neta de 10 años $30.508 M ÷ inversión inicial $5.954 M = <b>5,12</b>."]),
-  ("¿Cuál es la rentabilidad?", "19,9 % sobre ventas · 28,7 % sobre costos",
-   "De cada $100 que se venden quedan $20 de utilidad neta; por cada $100 que se gastan se ganan $29. Ya pagado el impuesto de renta.",
-   ["Ventas 10 años $153.075 M − gasto completo $106.139 M = utilidad antes de impuestos <b>$46.936 M</b>.",
-    "Impuesto de renta 35 %: $16.428 M → utilidad neta <b>$30.508 M</b>.",
-    "Sobre ventas: 30.508 ÷ 153.075 = <b>19,9 %</b>. Sobre costos: 30.508 ÷ 106.139 = <b>28,7 %</b>.",
-    "Antes de impuestos: 30,7 % sobre ventas y 44,2 % sobre costos."]),
-  ("¿Cuál es el porcentaje de utilidad?", "19,9 %",
-   "La utilidad neta es el 19,9 % de las ventas. El margen de contribución (lo que deja cada producto para pagar los costos fijos) es 49 %.",
-   ["Utilidad neta ÷ ventas = 30.508 ÷ 153.075 = <b>19,9 %</b>.",
-    "Margen de contribución ÷ precio recibido = 100.574 ÷ 205.185 = <b>49 %</b>."]),
-  ("¿Cuánto es la utilidad del negocio?", "$30.508 millones",
-   "Utilidad neta en 10 años: unos $41.500 por producto. El año 1 pierde, desde el año 2 gana y el año 10 deja $6.489 M.",
-   ["Ventas − gasto completo − impuesto de renta.",
+  ("2. ¿A cuánto se vende y cómo llegaron a ese precio?", "$199.900 con IVA el año 1 · $275.630 con IVA en promedio de 10 años",
+   "El año 1 cuesta $199.900 con IVA; el precio sube con la inflación (5,7 % al año), así que en promedio de los 10 años el cliente paga $275.630, también con IVA. Por lotes a empresas, conjuntos y alcaldías: $142.000 + IVA. Se fijó entre un techo (lo que la gente paga por una buena caneca) y un piso (lo que cuesta hacer, vender y financiar cada producto).",
+   ["<b>Precio con IVA por año:</b> año 1 $199.900 · año 2 $211.244 · año 3 $223.232 · año 4 $235.901 · año 5 $249.288 · año 6 $263.435 · año 7 $278.385 · año 8 $294.184 · año 9 $310.879 · año 10 $328.521.",
+    "<b>Promedio de los 10 años: $275.630 con IVA.</b> Es el promedio de lo que pagan los clientes: cada venta pesa igual, y como en los últimos años se vende más, queda más cerca de los precios altos. Es la misma cuenta de la página del presupuesto.",
+    "<b>Techo, el mercado:</b> menos de $200.000 hoy. Caneca con pedal $119.900 (solo guarda); eléctricos FoodCycler $1.265.000 y Lomi $1.737.000.",
+    "<b>Piso, el costo:</b> cada producto cuesta <b>$144.319</b> con todo incluido (promedio de 10 años). Sin IVA, el precio de hoy es $167.983.",
+    "<b>Lo que llega a la empresa:</b> sin IVA y descontando lo que cobran tiendas y cadenas y el descuento por lote, recibe en promedio <b>$205.185</b> por producto en los 10 años."]),
+  ("3. ¿Cuánto cuesta hacer un producto?", "$144.319",
+   "Con todo incluido, en promedio de 10 años: fabricar $74.205 (de eso, materiales $58.081) y administrar y vender $63.868.",
+   ["Fabricar $74.205 = materiales $58.081 + energía $4.637 + planta $11.487.",
+    "Administrar y vender $63.868 = nómina de todos $29.310 + legales $1.149 + oficina e impuestos $3.269 + publicidad, comisiones, distribución y garantía $30.141.",
+    "Más máquinas que se van gastando $4.825, arranque $658 e intereses $762. Total <b>$144.319</b> (gasto de 10 años $106.139 M ÷ 735.450 productos)."]),
+  ("4. ¿Cuáles son los costos fijos y los variables?", "Variable $104.611 por producto · fijos $2.872 M al año",
+   "Variables: los que aparecen con cada producto (materiales, operarios, energía, comisiones, anuncios, distribución, garantía e ICA). Fijos: los que se pagan aunque no se venda nada (nómina de planta, comercial y administrativa, arriendo, legales, oficina, marketing fijo, intereses y máquinas).",
+   ["Costo variable por producto: <b>$104.611</b> (promedio de 10 años).",
+    "Costos fijos: <b>$2.872 M al año</b> (promedio de los años 1 a 10)."]),
+  ("5. ¿Cuál es la utilidad neta?", "$30.508 millones en 10 años",
+   "Ventas − gasto completo − impuesto de renta. Unos $41.500 por producto. El año 1 pierde; desde el año 2 gana; el año 10 deja $6.489 M.",
+   ["Ventas $153.075 M − gasto completo $106.139 M = <b>$46.936 M</b> antes de impuestos; impuesto de renta 35 %: $16.428 M → <b>$30.508 M</b>.",
     "Año 0 (montaje) −$486 M · año 1 −$864 M · año 2 +$136 M · año 3 +$1.454 M · año 5 +$2.836 M · año 10 +$6.489 M."]),
-  ("¿Cuánto cuesta hacer un producto?", "$144.319",
-   "Con todo incluido, promedio de 10 años: materiales $58.081; producción completa $74.205; administración, nómina y ventas $63.868.",
-   ["Producción $74.205 = materiales $58.081 + energía $4.637 + planta $11.487.",
-    "Administración $63.868 = nómina de todos $29.310 + legales $1.149 + oficina e impuestos $3.269 + publicidad, comisiones, distribución y garantía $30.141.",
-    "Más máquinas que se gastan $4.825, arranque $658 e intereses $762. Total <b>$144.319</b> (gasto de 10 años $106.139 M ÷ 735.450 productos)."]),
-  ("¿Qué es la TIR de 33,9 %?", "33,9 % al año",
+  ("6. ¿Cuál es el punto de equilibrio y cuándo se alcanza?", "2.380 productos al mes · mes 17",
+   "Costos fijos ÷ margen de contribución. El margen es el 49 % de lo que llega por producto. Las ventas arrancan en 800 al mes y pasan de 2.380 en el mes 17 (ese mes se venden 2.500).",
+   ["Lo que recibe la empresa por producto $205.185 − costo variable $104.611 = margen de contribución <b>$100.574</b> (49 %).",
+    "Costos fijos $2.872 M al año ÷ $100.574 = 28.554 al año ÷ 12 = <b>2.380 al mes</b>.",
+    "Ventas: 800 al mes al inicio, 2.000 al cerrar el año 1, 9.500 al mes en el año 10. El primer mes que pasa de 2.380 es el <b>17</b>."]),
+  ("7. ¿Cuál es el retorno de la inversión y cuándo se recupera?", "512 % · mes 50",
+   "En 10 años, por cada $100 invertidos se ganan $512: más de cinco veces lo invertido. La inversión se recupera en el mes 50, a los 4 años y 2 meses.",
+   ["ROI: utilidad neta $30.508 M ÷ inversión $5.954 M = <b>5,12</b>.",
+    "Mes de recuperación: se suma mes a mes el dinero libre que deja el negocio (lo que entra menos todo lo que sale, también máquinas, inventario y facturas por cobrar). Tras el mes 1 va en −$4.547 M; deja de ser negativo en el mes <b>50</b>."]),
+  ("8. ¿Cuál es la rentabilidad sobre los costos?", "28,7 %",
+   "Por cada $100 que se gastan, se ganan casi $29 de utilidad neta.",
+   ["Utilidad neta $30.508 M ÷ gasto completo $106.139 M = <b>28,7 %</b>. Antes de impuestos: 44,2 %."]),
+  ("9. ¿Cuál es la rentabilidad sobre las ventas (el porcentaje de utilidad)?", "19,9 %",
+   "De cada $100 que se venden, quedan casi $20 de utilidad neta.",
+   ["Utilidad neta $30.508 M ÷ ventas $153.075 M = <b>19,9 %</b>. Antes de impuestos: 30,7 %."]),
+  ("¿Y la TIR de 33,9 %?", "33,9 % al año",
    "Lo que rinde al año el dinero invertido en el proyecto, como el interés de un CDT, pero de este negocio.",
    ["Es la tasa con la que el valor de hoy de todo lo que entra y sale en 10 años da cero (plan financiero detallado, escenario realista)."]),
 ]
 
 OTRAS = [
-  ("¿Por qué Usme y no otra localidad?",
-   "Allá validamos el problema con los vecinos; Doña Juana queda en el camino a Usme (se entra por la vía al Llano); y el 85 % de Usme es campo, con unos 17.000 campesinos, la localidad con más campesinos de Bogotá. La basura de la ciudad y el abono del campo están en el mismo lugar."),
-  ("¿De dónde salen los 7.300 hogares y las 1.200 toneladas?",
-   "415.000 habitantes (Observatorio de Salud de Bogotá, 2024) ÷ 3,07 personas por hogar (DANE, Encuesta Multipropósito 2021) ≈ 135.000 hogares. Con la misma meta realista del plan (5,4 % = 735.450 ÷ 13,6 millones de hogares urbanos): ≈ 7.300 hogares. 7.300 × 0,46 kg al día × 365 ≈ 1.225 toneladas al año. El año 1 el plan vende 16.200 productos en Bogotá y alrededores, empezando por Usme."),
-  ("¿De dónde salen las 406.983 toneladas?",
-   "735.450 hogares en 10 años; cada uno saca 0,46 kg de restos al día; se suman los días en que cada producto está en uso. 406.983 t ÷ 6.800 t diarias de Doña Juana ≈ 60 días: dos meses."),
+  ("¿Por qué empezar en Usme?",
+   "Allá validamos el problema con los vecinos; Doña Juana queda en la vía a Usme (se entra por la vía al Llano); y el 85 % de Usme es campo, con unos 17.000 campesinos, la localidad con más campesinos de Bogotá. La basura de la ciudad y el abono del campo están en el mismo lugar. Después sigue Bogotá y luego otras ciudades."),
+  ("¿Cuántos hogares y qué porcentaje es?",
+   "735.450 productos en 10 años, uno por hogar. Bogotá tiene unos 2,9 millones de hogares (DANE, Encuesta Multipropósito 2025): 735.450 equivalen a uno de cada cuatro (25 %). Frente a los 13,6 millones de hogares urbanos del país, es el 5,4 %. El año 1 son 16.200 productos."),
+  ("¿De dónde sale el medio kilo de comida por hogar al día?",
+   "Es el supuesto del plan: 0,46 kg de restos de comida por hogar al día, y que el 85 % de los hogares lo usa a diario. Es conservador: con datos de la UAESP, los hogares de Bogotá sacan unas 3.440 toneladas de orgánicos al día, que entre 2,9 millones de hogares dan cerca de 1,2 kg por hogar."),
+  ("¿Cuánto representa frente a Doña Juana?",
+   "En 10 años, 406.983 toneladas fuera del relleno: lo que recibe Doña Juana en unos 60 días, el 1,6 % de lo que le llegaría en esos 10 años (6.800 t al día × 3.650 días). En el año 10, con todos los hogares: 735.450 × 0,46 kg × 85 % ≈ 288 t al día, el 4,2 % de lo que entra hoy cada día."),
+  ("¿Por qué esos porcentajes por canal?",
+   "Marketplaces 35 %: cobran alrededor del 14 % (Mercado Libre, Falabella.com, Éxito.com) y llegan a todo el país. Lotes 35 %: empresas, conjuntos y alcaldías compran cientos de una vez a $142.000 + IVA, y el decreto también los obliga a separar. Tienda propia 15 %: queda casi todo el precio (la pasarela de pago cobra cerca del 3 %), pero cada venta cuesta publicidad. Grandes superficies 15 %: se quedan con cerca del 40 % (margen de 30 a 35 % más cobros de 8 a 12 %) y pagan a 60 días o más."),
   ("¿RECOEVO produce abono?",
    "No. Tritura y guarda sin olor los restos en una bolsa compostable lista para la ruta de orgánicos o para compostar. Convertir las bolsas en abono para el campo es la fase 2, fuera de estas cifras."),
-  ("¿Hay que comprarles bolsas, aserrín o recargas?",
-   "No. Sirve cualquier bolsa compostable; el material seco (papel, hojas secas o aserrín) es opcional. No se venden recargas ni suscripciones."),
+  ("¿Hay que comprar bolsas especiales o aserrín?",
+   "No. Sirve cualquier bolsa compostable, y el material seco (papel, hojas secas o aserrín) es opcional."),
   ("¿Es seguro con niños?",
    "Sí: con la tapa abierta el pedal se bloquea, y una perilla de reversa destraba el eje si algo se atasca."),
   ("¿Quién es la competencia?",
@@ -231,6 +240,8 @@ FUENTES = [
   'Usme, 414.995 habitantes: Observatorio de Salud de Bogotá, «Usme +Bienestar 2024» (<a href="https://saludata.saludcapital.gov.co/osb/wp-content/uploads/2024/12/Usme_MasBienestar_2024_v1_2.pdf">saludata</a>).',
   'Usme, 3,07 personas por hogar: DANE, Encuesta Multipropósito 2021 (<a href="https://www.dane.gov.co/files/investigaciones/multi/Presentacion_EM_2021.pdf">dane.gov.co</a>).',
   'Usme, 85,9 % rural (18.477 de 21.507 ha): Universidad Santo Tomás (<a href="https://repository.usta.edu.co/items/18786bd5-dfd9-489f-a768-c6a314d7cc83">repositorio</a>). Unos 17.000 campesinos: Alcaldía de Bogotá (<a href="https://bogota.gov.co/mi-ciudad/desarrollo-economico/el-distrito-celebra-el-dia-del-campesino">bogota.gov.co</a>).',
+  'Bogotá, unos 2,9 millones de hogares: DANE, Encuesta Multipropósito 2025 (<a href="https://www.portafolio.co/economia/bogota-tiene-cada-vez-mas-hogares-unipersonales-el-promedio-de-personas-por-hogar-cayo-a-2-7-en-505292">Portafolio</a>). Orgánicos de los hogares de Bogotá, unas 3.440 t al día: UAESP (2022).',
+  'Comisiones por canal (marketplaces, cadenas, pasarelas de pago): informe RECOEVO B7, márgenes y canales 2026.',
   'Acceso a Doña Juana por la vía al Llano, antes de Usme: Blu Radio (<a href="https://www.bluradio.com/medio-ambiente/dona-juana-entienda-que-paso-y-como-funciona-el-relleno-sanitario-de-bogota">bluradio.com</a>).',
   "Método para memorizar: práctica de recuperación (Roediger y Karpicke, 2006); efecto de producción, decir en voz alta (MacLeod y otros, 2010); práctica espaciada (Cepeda y otros, 2006); pistas que desaparecen (Glisky, Schacter y Tulving, 1986); método de los lugares (Dresler y otros, 2017).",
 ]
@@ -257,7 +268,14 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .orden{background:var(--papel);border:1px solid var(--linea);border-radius:18px;padding:14px 16px;margin:6px 0 4px}
 .orden p{margin:0;font-size:16.5px}
 .orden .lbl{font-family:"Lexend";font-weight:700;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--evo);display:block;margin-bottom:4px}
-.orden b{color:var(--monte);background:linear-gradient(transparent 60%,var(--hl) 60%)}
+.orden .titulo{font-size:13px;margin-bottom:8px}
+.orden .parte{display:grid;gap:4px;padding:8px 0;border-top:1px solid var(--linea)}
+.orden .parte .lbl{color:var(--tierra);margin:0}
+.orden ol{margin:0;padding-left:1.6em;display:grid;gap:4px}
+.orden li{font-size:16px;line-height:1.4}
+.orden li a{text-decoration:none;color:var(--monte)}
+.orden li b{font-weight:800}
+.orden li span{color:var(--suave)}
 .leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--suave);margin:10px 0 0}
 .bloque{border-top:1px solid var(--linea);padding:20px 0 6px}
 .b-cab{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
@@ -363,12 +381,12 @@ JS = r"""
     $("tp-prog").style.width=((est.i+1)/DATOS.length*100)+"%";
     if(cad){
       $("tp-preg").textContent=d.n===1?"Diga el bloque 1 completo, en voz alta.":"Ahora diga seguido del bloque 1 al "+d.n+".";
-      $("tp-inst").textContent="Sin mirar. Si se traba, abra las pistas: son las anclas de cada bloque, en orden.";
+      $("tp-inst").textContent="Sin mirar. Si se traba, abra las pistas: son los temas, en orden.";
     } else {
       $("tp-preg").textContent=d.preg;
       $("tp-inst").textContent="Respóndala en voz alta, como si estuviera frente al jurado. Si se traba, abra las pistas; al final, compare con el guion.";
     }
-    var pistas = cad ? DATOS.slice(0,est.i+1).map(function(x){return x.n+". "+x.ancla;}) : d.pistas;
+    var pistas = cad ? DATOS.slice(0,est.i+1).map(function(x){return x.n+". "+x.t;}) : d.pistas;
     $("tp-pistas").innerHTML=pistas.map(function(p){return "<li>"+esc(p)+"</li>";}).join("");
     $("tp-pistas").hidden=nivel<1;
     var guion = cad ? DATOS.slice(0,est.i+1).map(function(x){return x.html;}).join("") : d.html;
@@ -396,6 +414,7 @@ JS = r"""
   var capa=$("tele"), caja=$("tele-texto"), reloj=$("tele-reloj"), bPlay=$("tele-play"), vel=$("tele-vel");
   var corre=false, mult=1, tam=34, ult=0, seg=0, raf=0, resto=0;
   caja.querySelector(".in").innerHTML=DATOS.map(function(d){return "<h4>"+d.n+" · "+esc(d.t)+"</h4>"+d.html;}).join("");
+  [].forEach.call(caja.querySelectorAll(".opc"),function(o){o.remove();});
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
   function paso(ts){
     if(!corre) return;
@@ -438,6 +457,11 @@ def pagina(modo_suelto=False, web=None):
             f'<article class="bloque" id="b{i}" data-n="{i}" data-ancla="{e(b["ancla"])}" data-pregunta="{e(b["pregunta"])}" data-pistas="{pistas_json}">'
             f'<div class="b-cab"><span class="b-n">{i}</span><h3>{e(b["t"])}</h3><span class="b-t">{mmss(f["ini"])} – {mmss(f["fin"])}</span>'
             f'<span class="b-p">{e(b["poster"])}</span></div><div class="b-texto">{texto}</div></article>')
+    partes_html = []
+    for nombre, ini, fin in PARTES:
+        items = "".join(f'<li value="{k}"><a href="#b{k}"><b>{e(GUION[k-1]["t"])}</b></a> <span>{e(GUION[k-1]["ancla"])}</span></li>' for k in range(ini, fin + 1))
+        partes_html.append(f'<div class="parte"><span class="lbl">{e(nombre)}</span><ol>{items}</ol></div>')
+    indice = '<div class="orden"><span class="lbl titulo">El orden de los temas</span>' + "".join(partes_html) + '</div>'
     profe = []
     for p, r, d, calc in PROFE:
         li = "".join(f"<li>{c}</li>" for c in calc)
@@ -466,7 +490,7 @@ def pagina(modo_suelto=False, web=None):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RECOEVO · Pitch de 5 minutos</title>
+<title>RECOEVO · Pitch del póster</title>
 <meta name="description" content="Guion del pitch de RECOEVO para el E-Fest 2026-2, con práctica guiada, teleprompter y respuestas para el jurado.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#154734">
@@ -474,14 +498,14 @@ def pagina(modo_suelto=False, web=None):
 {cabeza_css}
 <style>{CSS}</style>
 </head>
-<body data-total="{round(total)}">
+<body data-total="{round(sin_opc)}">
 {volver}
 <header class="barra"><img src="{logo}" alt="recoevo" width="832" height="273"></header>
 <main class="pitch">
   <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
   <h1>El pitch de RECOEVO</h1>
-  <p class="bajada">El guion completo para una persona, en el orden del póster. Abajo: cómo aprenderlo rápido, un teleprompter y las respuestas para el jurado.</p>
-  <ul class="datos"><li class="dest">≈ {mmss(sin_opc)} sin las frases ✂</li><li>{mmss(total)} con todas</li><li>11 bloques</li><li>1 presentador</li></ul>
+  <p class="bajada">El guion completo para una persona, conversado y en el orden del póster. Abajo: cómo aprenderlo rápido, un teleprompter y las respuestas para el jurado, en el mismo orden de la página del presupuesto.</p>
+  <ul class="datos"><li class="dest">≈ {mmss(sin_opc)} a ritmo de conversación</li><li>{mmss(total)} con las frases ✂</li><li>{len(GUION)} bloques</li><li>1 presentador</li></ul>
 
   <nav class="modos" aria-label="Secciones">
     <a href="#guion">Guion</a>
@@ -492,18 +516,18 @@ def pagina(modo_suelto=False, web=None):
 
   <section id="guion">
     <h2 class="sec">El guion</h2>
-    <div class="orden"><span class="lbl">El orden en una frase</span><p>{FRASE_CADENA}</p></div>
+    {indice}
     <p class="leyenda"><span><b class="num">33.300</b> cifra impresa en el póster</span><span><strong style="background:linear-gradient(transparent 60%,var(--hl) 60%)">palabra clave</strong></span><span><span class="gesto">qué señalar</span></span><span><span class="opc">se puede quitar si va largo</span></span></p>
     {"".join(bloques)}
-    <p class="total">Duración estimada: <b>{mmss(total)}</b> a un ritmo tranquilo; <b>{mmss(sin_opc)}</b> si quita las frases marcadas con ✂. El límite es 5:00.</p>
+    <p class="total">Duración estimada a ritmo de conversación (unas 2,8 palabras por segundo): <b>{mmss(sin_opc)}</b> sin las frases marcadas con ✂ y <b>{mmss(total)}</b> con todas. El equipo decidió pasar de 5 minutos para que quepa todo; si el jurado corta en 5:00, lo primero que se quita son las frases ✂. El teleprompter muestra la versión sin ✂.</p>
   </section>
 
   <section id="practicar">
     <h2 class="sec">Cómo aprenderlo rápido</h2>
     <p class="sec-sub">Funciona con el tiempo que tenga, sea mucho o poco: repita el ciclo cuantas veces pueda. Varias vueltas cortas rinden más que una larga.</p>
     <ol class="metodo">
-      <li><span><b>Escúchese una vez.</b> Lea el guion completo en voz alta con el <a href="#" data-tele>teleprompter</a>. Así sabe cómo suena y cuánto dura.</span></li>
-      <li><span><b>Apréndase el orden.</b> La frase de arriba tiene las 11 anclas en orden: bolsa, barrio, ironía, ley, pedal, precio, Usme, recorrido, negocio, números, mentoría.</span></li>
+      <li><span><b>Escúchese una vez.</b> Lea el guion completo en voz alta con el <a href="#" data-tele>teleprompter</a>: va a ritmo de conversación. Así sabe cómo suena y cuánto dura.</span></li>
+      <li><span><b>Apréndase el orden de los temas.</b> Son cuatro partes lógicas: primero <b>el problema</b> (la basura, lo que vimos en el barrio, los campesinos y la ley), después <b>la solución</b> (qué es RECOEVO, por qué él, el impacto y el camino de una cáscara), luego <b>el negocio</b> (canales, ODS y números) y al final <b>el cierre</b>. Si sabe en qué tema va, sabe qué sigue.</span></li>
       <li><span><b>Primera y última frase, palabra por palabra.</b> Lo demás, por ideas: si se olvida una palabra la cambia por otra, pero el arranque y el cierre tienen que salir solos.</span></li>
       <li><span><b>Practique con preguntas.</b> En la tarjeta de abajo, responda cada pregunta en voz alta. Solo si se traba, abra las pistas; al final, compare con el guion. Marque «Lo dije bien» o «Repasar».</span></li>
       <li><span><b>Encadene.</b> Cambie a «Encadenar»: diga del bloque 1 al 2, luego del 1 al 3… hasta el 11. Vuelva a los bloques amarillos.</span></li>
@@ -541,7 +565,7 @@ def pagina(modo_suelto=False, web=None):
 
   <section id="fuentes">
     <details class="fuentes"><summary>De dónde sale cada cifra</summary><ol>{fuentes}</ol>
-    <p>Cifras del pitch que no están en el póster: las de Usme (135.000 hogares, meta de 7.300, 1.200 t al año, 85 % campo, 17.000 campesinos), los 168 kilos por hogar al año, el mes 17, la rentabilidad de 19,9 % y 28,7 % y «dos meses de Doña Juana». Todas se explican en las preguntas de arriba.</p></details>
+    <p>Cifras del pitch que no están en el póster: los hogares de Bogotá y el «uno de cada cuatro», el medio kilo por hogar, el 1,6 % de Doña Juana, el promedio de $275.630, el desglose de la inversión, el costo por producto, los costos fijos y variables, el mes 17 y las rentabilidades. Todas se explican en las preguntas de arriba.</p></details>
   </section>
 </main>
 <footer class="pie"><p><b>Menos relleno, más vida.</b></p><p>Ricardo Beltrán · William Fonseca · Samuel Medina · Faber Ortiz · Camila Riaño</p><p>Docente: Ingrid Zoraida Sandoval Pérez · Proceso Administrativo · Politécnico Grancolombiano</p></footer>
