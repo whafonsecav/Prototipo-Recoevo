@@ -115,8 +115,8 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-texto .opc{color:#b9c2b8}
 .tele-guia{position:absolute;left:0;right:0;top:38vh;height:0;pointer-events:none;z-index:1}
 .tele-guia::before,.tele-guia::after{content:"";position:absolute;top:-9px;border:9px solid transparent}
-.tele-guia::before{left:max(4px,env(safe-area-inset-left));border-left:14px solid var(--sol)}
-.tele-guia::after{right:max(4px,env(safe-area-inset-right));border-right:14px solid var(--sol)}
+.tele-guia::before{left:var(--gi,4px);border-left:14px solid var(--sol)}
+.tele-guia::after{left:var(--gd,auto);border-right:14px solid var(--sol)}
 .tele-saltos{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(38vh + 34px);display:grid;gap:10px;z-index:2}
 .tele-saltos button{display:grid;place-items:center;gap:2px;width:64px;height:64px;border-radius:18px;border:1px solid rgba(255,255,255,.3);background:rgba(20,35,27,.85);color:#fff;cursor:pointer;font:inherit;font-family:"Lexend";font-size:11px;font-weight:600;padding:6px 0;touch-action:manipulation}
 .tele-saltos button:active{background:var(--sol);color:var(--monte)}
@@ -355,7 +355,10 @@ body.con-panel{overflow:hidden}
   function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
   function aplicarTam(){var r=caja.scrollTop/Math.max(1,caja.scrollHeight);caja.style.fontSize=tam+"px";caja.scrollTop=r*caja.scrollHeight;}
-  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";}
+  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";
+    /* triangulitos al lado de la columna de texto, no en el borde de la pantalla */
+    var r=interior.getBoundingClientRect(),cs=getComputedStyle(interior),izq=r.left+parseFloat(cs.paddingLeft),der=r.right-parseFloat(cs.paddingRight);
+    var gu=capa.querySelector(".tele-guia");if(gu){gu.style.setProperty("--gi",Math.max(2,izq-19)+"px");gu.style.setProperty("--gd",(der-5)+"px");}}
   window.addEventListener("resize",function(){alinear();repintar();});
   function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
   function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
