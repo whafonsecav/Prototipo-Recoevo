@@ -903,11 +903,26 @@ JS = r"""
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
   var INICIO=[],HABLA=[],DURACION=TOTAL,moviendo=false,real=0;
+  /* Cómo se dice en voz alta una cifra o un signo: «33.300» = «treinta y tres mil trescientos», «%» = «por ciento» */
+  var UN=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
+  var DE=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+  var CE=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos","setecientos","ochocientos","novecientos"];
+  function enLetras(n){if(n<30)return UN[n];if(n<100)return DE[Math.floor(n/10)]+(n%10?" y "+UN[n%10]:"");
+    if(n<1000)return(n===100?"cien":CE[Math.floor(n/100)])+(n%100?" "+enLetras(n%100):"");
+    if(n<1e6){var k=Math.floor(n/1000),r=n%1000;return(k===1?"mil":enLetras(k)+" mil")+(r?" "+enLetras(r):"");}
+    var m=Math.floor(n/1e6),r2=n%1e6;return(m===1?"un millón":enLetras(m)+" millones")+(r2?" "+enLetras(r2):"");}
+  var SIGNOS={"%":"por ciento","$":"pesos","+":"más","×":"por","≈":"cerca de","−":"menos","÷":"dividido entre"};
+  function hablado(tok){var t=tok.replace(/[«»"“”(),.;:!?¿¡…]+$/,"").replace(/^[«"“(¿¡]+/,"");
+    if(SIGNOS[t])return SIGNOS[t];
+    var m=t.match(/^(\$?)(\d[\d.]*)(?:,(\d+))?(%?)$/);if(!m)return tok;
+    var ent=m[2].replace(/\./g,""),dicho=(/^0\d/.test(ent)?"cero ":"")+enLetras(parseInt(ent,10)||0);
+    if(m[3])dicho+=" coma "+m[3].split("").map(function(d){return UN[+d];}).join(" ");
+    if(m[4])dicho+=" por ciento";if(m[1])dicho+=" pesos";return dicho;}
   (function calcularTiempos(){
     var base=[],suma=0,CIERRE=/["»”)\]]*$/;
     palabras.forEach(function(w,i){
-      var tx=w.textContent,letras=tx.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9]/g,"").length;
-      var d=/\d/.test(tx)?0.45+0.2*letras:0.12+0.05*letras,pausa=0,limpio=tx.replace(CIERRE,"");
+      var tx=w.textContent,letras=hablado(tx).replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g,"").length;
+      var d=0.12+0.05*letras,pausa=0,limpio=tx.replace(CIERRE,"");   /* las cifras y signos cuentan como se dicen */
       if(/(\.\.\.|…)$/.test(limpio))pausa=0.9;
       else if(/[.!?]$/.test(limpio))pausa=0.65;
       else if(/[,;:]$/.test(limpio))pausa=0.3;
