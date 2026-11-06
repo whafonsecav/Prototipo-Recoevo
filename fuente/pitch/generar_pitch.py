@@ -30,18 +30,19 @@ GUION = [
           "Falta conciencia, sí. Pero nadie rechazó la idea: **lo que falta es una forma fácil**."]),
   dict(t="El problema de los campesinos", ancla="La ironía: el abono que necesitan y lo caro que les sale.", poster="Póster 01 · «En el campo»",
        pregunta="¿Cuál es la ironía? ¿Qué podría hacer el campo con esos restos y qué hacemos nosotros?",
-       pistas=["a pocos kilómetros, en la Sabana", "campesinos podrían usarlos como abono", "los mezclamos: terminan en el relleno", "el abono les sale caro", "urea = abono químico más usado", "enero 2021 → enero 2022: de 80.000 a 230.000", "subió 187 %"],
+       pistas=["a pocos kilómetros, en la Sabana", "campesinos podrían usarlos como abono", "los mezclamos: terminan en el relleno", "el abono les sale caro", "urea = abono químico más usado", "enero 2021 → enero 2022: de 80.000 a 230.000", "subió 187 %", "después bajó, pero este año volvió a subir", "guerra con Irán y cierre de Ormuz", "en un mes: de 482 a 750 dólares la tonelada"],
        p=["Y aquí viene lo **irónico**: a pocos kilómetros de ese shut, en la Sabana, hay **campesinos** que podrían usar esos restos como **abono**. ~Incluso la mitad de los vecinos con los que hablamos nos mencionó el abono.~ Pero los mezclamos con todo, y terminan **enterrados en el relleno**.",
-          "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
+          "{Señale «En el campo».} Y a ellos el abono les sale caro: entre enero de 2021 y enero de 2022, el bulto de **urea**, el abono químico más usado, pasó de [[80.000 a 230.000 pesos]]: subió [[187 %]]. Y aunque después bajó, este año volvió a subir, por la guerra con Irán y el cierre del estrecho de Ormuz, por donde sale buena parte de la urea del mundo: en un solo mes, la tonelada pasó de [[482 a 750 dólares]]. ~Y más del [[94 %]] del fertilizante del país es importado.~"]),
   dict(t="La ley: Decreto 0772", ancla="Ya es obligatorio separar, pero en la cocina no hay cómo.", poster="Póster 01 · recuadro azul del decreto",
        pregunta="¿Qué obliga el Decreto 0772 de 2026 y qué falta?",
-       pistas=["conector: un dato importante", "desde julio ya existe una ley", "Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia", "de ahí nació RECOEVO"],
-       p=["{Señale el recuadro azul.} Y aquí hay un dato importante: en el tema de los residuos orgánicos, desde julio ya existe una ley. El **Decreto 0772 de 2026** obliga a todos los hogares a **separar los orgánicos**. O sea, separar ya no es opcional; el problema es que en la cocina no hay una forma fácil y limpia de hacerlo. **Y de ahí nació RECOEVO.**"]),
+       pistas=["conector: un dato importante", "desde julio ya existe una ley", "Decreto 0772 de 2026", "todos los hogares deben separar los orgánicos", "en la cocina no hay una forma fácil y limpia"],
+       p=["{Señale el recuadro azul.} Y aquí hay un dato importante: en el tema de los residuos orgánicos, desde julio ya existe una ley. El **Decreto 0772 de 2026** obliga a todos los hogares a **separar los orgánicos**. O sea, separar ya no es opcional; el problema es que en la cocina no hay una forma fácil y limpia de hacerlo."]),
 
-  dict(t="La solución: RECOEVO", ancla="El código QR, el prototipo en 3D y cómo se usa.", poster="Póster 02 y 03 · el código QR, el prototipo y «Así funciona»",
-       pregunta="¿Qué le pide al jurado antes de explicar? ¿Qué es RECOEVO y cómo se usa?",
-       pistas=["escanear el QR", "todo el proyecto", "primer enlace: prototipo 3D", "moverlo y desarmarlo pieza por pieza", "prototipo inicial", "triturador que funciona con el pie", "sin electricidad y sin olor", "pisar 20 segundos al día", "13 cuchillas", "bolsa compostable"],
-       p=["{Señale el código QR.} Antes de contarles cómo funciona, les pedimos el favor de **escanear este código QR**: ahí está todo el proyecto, y en el primer enlace pueden mover el **prototipo en 3D** y desarmarlo pieza por pieza. Es un prototipo inicial.",
+  dict(t="La solución: RECOEVO", ancla="Cómo nace RECOEVO, el código QR, el prototipo en 3D y cómo se usa.", poster="Póster 02 y 03 · el código QR, el prototipo y «Así funciona»",
+       pregunta="¿Cómo presenta RECOEVO? ¿A qué invita al jurado antes de explicar? ¿Qué es y cómo se usa?",
+       pistas=["la bolsa rota, el campesino, la ley: ahí nace RECOEVO", "idea sencilla, propósito grande", "que deje de ser basura y vuelva a ser vida", "los invitamos a escanear el QR", "todo el proyecto", "primer enlace: prototipo 3D", "moverlo y desarmarlo pieza por pieza", "prototipo inicial", "triturador que funciona con el pie", "sin electricidad y sin olor", "pisar 20 segundos al día", "13 cuchillas", "bolsa compostable"],
+       p=["{Haga una pausa y mire al jurado.} Y justo ahí, entre la **bolsa rota** de la esquina, el **campesino** que paga caro el abono y una **ley** que ya nos pide separar, nace **RECOEVO**. Una idea sencilla, pensada para la cocina de cualquier hogar, con un propósito grande: que lo que hoy botamos **deje de ser basura y vuelva a ser vida**.",
+          "{Señale el código QR.} Y antes de contarles cómo funciona, los invitamos a **escanear este código QR**: ahí está todo el proyecto, y en el primer enlace pueden mover el **prototipo en 3D** y desarmarlo pieza por pieza. Es un prototipo inicial.",
           "{Señale el prototipo.} RECOEVO es un **triturador de cocina que funciona con el pie**, sin electricidad y sin olor. Uno echa las cáscaras, pisa unos [[20 segundos]] al día, y [[trece cuchillas]] las cortan y las dejan en una **bolsa compostable**."]),
   dict(t="Por qué RECOEVO y no otro", ancla="Frente a canecas y eléctricos, y cómo responde a cada dolor.", poster="Póster 03 · precios frente al mercado y Value Proposition Canvas",
        pregunta="¿Qué lo hace diferente de lo que ya existe? ¿Cómo responde a lo que contaron los vecinos?",
@@ -339,7 +340,8 @@ BANCO = [
   (["Fertilizantes y urea"], "¿Por qué el abono les sale caro a los campesinos?", "Más del 94 % del fertilizante se importa, y la urea subió 187 %",
    "La urea es el abono químico más usado. Entre enero de 2021 y enero de 2022, el bulto de 50 kg pasó de $80.000 a $230.000.",
    ["(230.000 − 80.000) ÷ 80.000 = 187 %. Fuente: DANE-SIPSA vía U.S. Trade.gov.",
-    "El Colombiano, abril de 2026: más del 94 % se importa, y en 2026 la urea volvió a subir ($120.000–130.000 el bulto en Medellín)."]),
+    "Después bajó, pero en 2026 volvió a subir por la guerra con Irán y el cierre del estrecho de Ormuz: en un solo mes, la tonelada pasó de USD 482 (finales de febrero) a USD 750 (cierre de marzo), unos 56 % más (Qore; La República). La SAC (Sociedad de Agricultores de Colombia) habla de casi un 50 % más para el agricultor.",
+    "Más del 94 % del fertilizante del país se importa (El Colombiano, abril de 2026)."]),
   (["Fertilizantes y urea"], "¿Por qué subió tanto la urea en 2021 y 2022?", "Porque se disparó el gas natural, con el que se fabrica, y luego vino la guerra entre Rusia y Ucrania",
    "La urea se hace con gas natural: el gas es entre el 60 y el 90 % de lo que cuesta producirla. En 2021 el gas se encareció por una cadena de causas: el mundo reabrió después de la pandemia y pidió más energía de golpe; Europa llegó con sus depósitos de gas bajos tras un invierno frío; hubo poco viento, así que se quemó más gas para producir electricidad; Asia pagó más por los barcos de gas licuado y se los llevó; y Rusia le mandó a Europa menos gas que antes. Además, China, gran productor de urea, frenó sus exportaciones de fertilizantes para cuidar su mercado. En febrero de 2022 Rusia invadió Ucrania: Rusia es el mayor exportador de urea y gran proveedor de gas de Europa, y con la guerra y las sanciones bajó la oferta de ambos. Colombia importa más del 94 % de sus fertilizantes, así que el campesino pagó el precio mundial, y encima con un dólar más caro.",
    ["Colombia: el bulto de 50 kg pasó de $80.000 (enero de 2021) a $230.000 (enero de 2022): +187 % (DANE-SIPSA, vía U.S. Trade.gov).",
@@ -728,7 +730,7 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 /* teleprompter */
 .tele-capa{position:fixed;inset:0;z-index:2000;background:#0b1410;color:#f4f1e8;display:flex;flex-direction:column}
 .tele-capa[hidden]{display:none}
-.tele-texto{flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
+.tele-texto{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
 .tele-texto::-webkit-scrollbar{display:none}
 .tele-texto .in{max-width:900px;margin:0 auto;padding:38vh 0 60vh}
 .tele-texto h4{font-family:"Lexend";font-size:.45em;letter-spacing:2px;text-transform:uppercase;color:#7d8a82;margin:1.4em 0 .4em;border-top:1px solid rgba(255,255,255,.15);padding-top:.6em}
@@ -736,7 +738,6 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-texto strong{color:#fff;font-weight:800}
 .tele-texto .num{color:var(--sol)}
 .tele-texto .gesto{background:transparent;color:#7d8a82;font-size:.5em;padding:0}
-.tele-texto .w{transition:color .12s}
 .tele-texto .w.leida{color:var(--brote)}
 .tele-texto .opc{color:#b9c2b8}
 .tele-guia{position:absolute;left:0;right:0;top:38vh;height:0;pointer-events:none;z-index:1}
@@ -788,7 +789,7 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .q-tags button{font-size:12.5px;padding:3px 9px;background:var(--papel)}
 .tele-texto{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 .tele-texto.arrastrando{cursor:grabbing}
-.tele-texto .in{position:relative}
+.tele-texto .in{position:relative;will-change:transform}
 .tele-marca{position:absolute;left:-10px;right:-10px;top:0;height:0;border-radius:10px;background:rgba(242,178,39,.28);box-shadow:inset 4px 0 0 var(--sol);opacity:0;pointer-events:none;transition:opacity .25s}
 .tele-marca.ver{opacity:1}
 .tele-ayuda{flex-basis:100%;text-align:center;color:#b9c2b8;font-size:12.5px}
@@ -856,6 +857,12 @@ JS = r"""
   caja.querySelector(".in").innerHTML=DATOS.map(function(d){return "<h4>"+d.n+" · "+esc(d.t)+"</h4>"+d.html;}).join("");
   [].forEach.call(caja.querySelectorAll(".opc"),function(o){o.remove();});
   var interior=caja.querySelector(".in");
+  var pos=0,maxPos=0,base=0;
+  function limites(){maxPos=Math.max(0,interior.offsetHeight-caja.clientHeight);base=interior.getBoundingClientRect().top+pos;}
+  function guiaEnTexto(){return window.innerHeight*0.38-(base-pos);}
+  function ponerPos(v){pos=Math.max(0,Math.min(v,maxPos));interior.style.transform="translate3d(0,"+(-pos)+"px,0)";
+    if(corre&&!arrastre&&!moviendo)return;
+    if(!pendiente){pendiente=true;requestAnimationFrame(function(){pendiente=false;if(!arrastre&&!moviendo&&!corre)sincronizar();else pintarLectura();});}}
   (function envolver(){
     var tw=document.createTreeWalker(interior,NodeFilter.SHOW_TEXT),nodos=[];
     while(tw.nextNode())nodos.push(tw.currentNode);
@@ -875,7 +882,7 @@ JS = r"""
   function medirLineas(){lineas=[];lineaDe=[];var act=null;palabras.forEach(function(w,i){var t=w.offsetTop;
     if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;lineaDe[i]=act;});}
   function pintarLectura(){pendiente=false;if(!lineas.length)return;
-    var g=window.innerHeight*0.38-interior.getBoundingClientRect().top,k=0;
+    var g=guiaEnTexto(),k=0;
     for(var j=0;j<lineas.length;j++){var L=lineas[j];
       if(L.top+L.alto<=g){k=L.fin+1;continue;}
       if(L.top<=g){var f=Math.min(1,Math.max(0,(g-L.top)/L.alto));k=L.ini+Math.round(f*(L.fin-L.ini+1));}
@@ -883,8 +890,7 @@ JS = r"""
     var a;if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
     leidas=k;}
   function repintar(){medirLineas();leidas=palabras.length;palabras.forEach(function(w){w.classList.add("leida");});pintarLectura();}
-  caja.addEventListener("scroll",function(){if(corre&&!arrastre&&!moviendo)return;
-    if(!pendiente){pendiente=true;requestAnimationFrame(function(){if(!arrastre&&!moviendo&&!corre){sincronizar();pendiente=false;}else pintarLectura();});}});
+  caja.addEventListener("wheel",function(e){e.preventDefault();ponerPos(pos+e.deltaY);},{passive:false});
   var arrastre=null,tMarca=0;
   function marcar(w){if(!w)return;marca.style.top=(w.offsetTop-4)+"px";marca.style.height=(w.offsetHeight+8)+"px";marca.classList.add("ver");tMarca=Date.now();
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
@@ -895,9 +901,9 @@ JS = r"""
   function palabraEnGuia(){var r=caja.getBoundingClientRect(),y=window.innerHeight*0.38+6;
     for(var x=r.left+r.width*0.2;x<r.left+r.width*0.8;x+=12){var w=palabraEn(x,y);if(w)return w;}return null;}
   caja.addEventListener("pointerdown",function(e){if(e.button>0||e.target.closest("button"))return;
-    arrastre={y:e.clientY,s:caja.scrollTop};try{caja.setPointerCapture(e.pointerId);}catch(_){}
+    arrastre={y:e.clientY,s:pos};try{caja.setPointerCapture(e.pointerId);}catch(_){}
     caja.classList.add("arrastrando");marcar(palabraEn(e.clientX,e.clientY));});
-  caja.addEventListener("pointermove",function(e){if(!arrastre)return;caja.scrollTop=Math.max(0,arrastre.s-(e.clientY-arrastre.y));resto=0;});
+  caja.addEventListener("pointermove",function(e){if(!arrastre)return;ponerPos(arrastre.s-(e.clientY-arrastre.y));resto=0;});
   function soltar(){if(!arrastre)return;arrastre=null;caja.classList.remove("arrastrando");tMarca=Date.now();sincronizar();
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
@@ -942,8 +948,7 @@ JS = r"""
     var fw=HABLA[c0]?Math.min(1,Math.max(0,(seg-INICIO[c0])/HABLA[c0])):1;
     var avance=(c0-L.ini+fw)/(L.fin-L.ini+1);            /* cuánto de la línea ya se leyó */
     var meta=L.top+avance*L.alto;                         /* punto del texto que debe estar en la guía */
-    var guia=window.innerHeight*0.38-interior.getBoundingClientRect().top;
-    var d=meta-guia;if(Math.abs(d)>0.3)caja.scrollTop+=d*(1-Math.exp(-dt*10));}
+    var d=meta-guiaEnTexto();if(Math.abs(d)>0.05)ponerPos(pos+d*(1-Math.exp(-dt*10)));}
   function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
   function paso(ts){
     if(!corre)return;
@@ -958,13 +963,13 @@ JS = r"""
   }
   function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
-  function aplicarTam(){var r=caja.scrollTop/Math.max(1,caja.scrollHeight);caja.style.fontSize=tam+"px";caja.scrollTop=r*caja.scrollHeight;}
-  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";
+  function aplicarTam(){var r=pos/Math.max(1,interior.offsetHeight);caja.style.fontSize=tam+"px";limites();ponerPos(r*interior.offsetHeight);}
+  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";limites();
     /* triangulitos al lado de la columna de texto, no en el borde de la pantalla */
     var r=interior.getBoundingClientRect(),cs=getComputedStyle(interior),izq=r.left+parseFloat(cs.paddingLeft),der=r.right-parseFloat(cs.paddingRight);
     var gu=capa.querySelector(".tele-guia");if(gu){gu.style.setProperty("--gi",Math.max(2,izq-19)+"px");gu.style.setProperty("--gd",(der-5)+"px");}}
   window.addEventListener("resize",function(){alinear();repintar();});
-  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";ponerPos(0);seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
   function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
     if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
     capa.hidden=true;document.body.style.overflow="";}
@@ -974,12 +979,12 @@ JS = r"""
   $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
   $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();repintar();};
   $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();repintar();};
-  $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
-  function mover(n){var lh=tam*1.45,desde=caja.scrollTop,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
+  $("tele-reini").onclick=function(){parar();ponerPos(0);seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  function mover(n){var lh=tam*1.45,desde=pos,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
     var suave=!matchMedia("(prefers-reduced-motion: reduce)").matches;
     moviendo=true;
-    if(!suave){caja.scrollTop=hasta;moviendo=false;sincronizar();marcar(palabraEnGuia());return;}
-    function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/320);k=1-Math.pow(1-k,3);caja.scrollTop=desde+(hasta-desde)*k;
+    if(!suave){ponerPos(hasta);moviendo=false;sincronizar();marcar(palabraEnGuia());return;}
+    function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/320);k=1-Math.pow(1-k,3);ponerPos(desde+(hasta-desde)*k);
       if(k<1)requestAnimationFrame(f);else{moviendo=false;sincronizar();marcar(palabraEnGuia());}}
     requestAnimationFrame(f);}
   $("tele-atras").onclick=function(){mover(-2);};

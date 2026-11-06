@@ -102,7 +102,7 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 /* teleprompter */
 .tele-capa{position:fixed;inset:0;z-index:2000;background:#0b1410;color:#f4f1e8;display:flex;flex-direction:column}
 .tele-capa[hidden]{display:none}
-.tele-texto{flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
+.tele-texto{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));scrollbar-width:none}
 .tele-texto::-webkit-scrollbar{display:none}
 .tele-texto .in{max-width:900px;margin:0 auto;padding:38vh 0 60vh}
 .tele-texto h4{font-family:"Lexend";font-size:.45em;letter-spacing:2px;text-transform:uppercase;color:#7d8a82;margin:1.4em 0 .4em;border-top:1px solid rgba(255,255,255,.15);padding-top:.6em}
@@ -110,7 +110,6 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .tele-texto strong{color:#fff;font-weight:800}
 .tele-texto .num{color:var(--sol)}
 .tele-texto .gesto{background:transparent;color:#7d8a82;font-size:.5em;padding:0}
-.tele-texto .w{transition:color .12s}
 .tele-texto .w.leida{color:var(--brote)}
 .tele-texto .opc{color:#b9c2b8}
 .tele-guia{position:absolute;left:0;right:0;top:38vh;height:0;pointer-events:none;z-index:1}
@@ -162,7 +161,7 @@ h2.sec{font-size:clamp(24px,5.6vw,32px);margin:34px 0 4px}
 .q-tags button{font-size:12.5px;padding:3px 9px;background:var(--papel)}
 .tele-texto{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 .tele-texto.arrastrando{cursor:grabbing}
-.tele-texto .in{position:relative}
+.tele-texto .in{position:relative;will-change:transform}
 .tele-marca{position:absolute;left:-10px;right:-10px;top:0;height:0;border-radius:10px;background:rgba(242,178,39,.28);box-shadow:inset 4px 0 0 var(--sol);opacity:0;pointer-events:none;transition:opacity .25s}
 .tele-marca.ver{opacity:1}
 .tele-ayuda{flex-basis:100%;text-align:center;color:#b9c2b8;font-size:12.5px}
@@ -187,7 +186,7 @@ body.con-panel{overflow:hidden}
 @media print{.modos,.volver,#practicar .tarjeta-p,.tele-capa{display:none!important}.b-texto p{font-size:13pt}}
 </style>
 </head>
-<body data-vista="guion" data-total="532" data-salir="./">
+<body data-vista="guion" data-total="566" data-salir="./">
 <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
 <header class="barra"><img src="../assets/img/logo.svg" alt="recoevo" width="832" height="273"></header>
 <main class="pitch">
@@ -195,7 +194,7 @@ body.con-panel{overflow:hidden}
   <h1>El guion</h1>
   <nav class="modos" aria-label="Secciones"><a href="./" class="activa" aria-current="page">Guion</a><a href="teleprompter/">Teleprompter</a><a href="preguntas/">Preguntas</a></nav>
   <section id="guion">
-    <div class="orden"><span class="lbl titulo">El orden de los temas</span><div class="parte"><span class="lbl">El problema</span><ol><li value="1"><span data-b="1"><b>El problema de la basura</b></span> <span>Bolsas rotas, la comida que se entierra y Doña Juana.</span></li><li value="2"><span data-b="2"><b>Lo que vimos en Villa Rosita</b></span> <span>El barrio de nuestro compañero y lo que encontramos en el trabajo de campo.</span></li><li value="3"><span data-b="3"><b>El problema de los campesinos</b></span> <span>La ironía: el abono que necesitan y lo caro que les sale.</span></li><li value="4"><span data-b="4"><b>La ley: Decreto 0772</b></span> <span>Ya es obligatorio separar, pero en la cocina no hay cómo.</span></li></ol></div><div class="parte"><span class="lbl">La solución</span><ol><li value="5"><span data-b="5"><b>La solución: RECOEVO</b></span> <span>El código QR, el prototipo en 3D y cómo se usa.</span></li><li value="6"><span data-b="6"><b>Por qué RECOEVO y no otro</b></span> <span>Frente a canecas y eléctricos, y cómo responde a cada dolor.</span></li><li value="7"><span data-b="7"><b>El impacto que esperamos</b></span> <span>Usme, Bogotá, hogares, toneladas y porcentajes.</span></li><li value="8"><span data-b="8"><b>Hoy y con RECOEVO</b></span> <span>El camino de una cáscara antes y después.</span></li></ol></div><div class="parte"><span class="lbl">El negocio</span><ol><li value="9"><span data-b="9"><b>Cómo gana dinero</b></span> <span>Los cuatro canales de venta, sus porcentajes y por qué.</span></li><li value="10"><span data-b="10"><b>Los ODS</b></span> <span>Por qué lo pensamos con tres Objetivos de Desarrollo Sostenible.</span></li><li value="11"><span data-b="11"><b>Los números: lo que cuesta</b></span> <span>Inversión, precio, costo por producto, costos fijos y variables.</span></li><li value="12"><span data-b="12"><b>Los números: lo que deja</b></span> <span>Margen, punto de equilibrio, utilidad, retorno y rentabilidad.</span></li></ol></div><div class="parte"><span class="lbl">El cierre</span><ol><li value="13"><span data-b="13"><b>El cierre</b></span> <span>Lo que nos ilusiona y la invitación a una mentoría.</span></li></ol></div></div>
+    <div class="orden"><span class="lbl titulo">El orden de los temas</span><div class="parte"><span class="lbl">El problema</span><ol><li value="1"><span data-b="1"><b>El problema de la basura</b></span> <span>Bolsas rotas, la comida que se entierra y Doña Juana.</span></li><li value="2"><span data-b="2"><b>Lo que vimos en Villa Rosita</b></span> <span>El barrio de nuestro compañero y lo que encontramos en el trabajo de campo.</span></li><li value="3"><span data-b="3"><b>El problema de los campesinos</b></span> <span>La ironía: el abono que necesitan y lo caro que les sale.</span></li><li value="4"><span data-b="4"><b>La ley: Decreto 0772</b></span> <span>Ya es obligatorio separar, pero en la cocina no hay cómo.</span></li></ol></div><div class="parte"><span class="lbl">La solución</span><ol><li value="5"><span data-b="5"><b>La solución: RECOEVO</b></span> <span>Cómo nace RECOEVO, el código QR, el prototipo en 3D y cómo se usa.</span></li><li value="6"><span data-b="6"><b>Por qué RECOEVO y no otro</b></span> <span>Frente a canecas y eléctricos, y cómo responde a cada dolor.</span></li><li value="7"><span data-b="7"><b>El impacto que esperamos</b></span> <span>Usme, Bogotá, hogares, toneladas y porcentajes.</span></li><li value="8"><span data-b="8"><b>Hoy y con RECOEVO</b></span> <span>El camino de una cáscara antes y después.</span></li></ol></div><div class="parte"><span class="lbl">El negocio</span><ol><li value="9"><span data-b="9"><b>Cómo gana dinero</b></span> <span>Los cuatro canales de venta, sus porcentajes y por qué.</span></li><li value="10"><span data-b="10"><b>Los ODS</b></span> <span>Por qué lo pensamos con tres Objetivos de Desarrollo Sostenible.</span></li><li value="11"><span data-b="11"><b>Los números: lo que cuesta</b></span> <span>Inversión, precio, costo por producto, costos fijos y variables.</span></li><li value="12"><span data-b="12"><b>Los números: lo que deja</b></span> <span>Margen, punto de equilibrio, utilidad, retorno y rentabilidad.</span></li></ol></div><div class="parte"><span class="lbl">El cierre</span><ol><li value="13"><span data-b="13"><b>El cierre</b></span> <span>Lo que nos ilusiona y la invitación a una mentoría.</span></li></ol></div></div>
     <a class="ir-tele" href="teleprompter/">Abrir el teleprompter →</a>
   </section>
 </main>
@@ -243,6 +242,12 @@ body.con-panel{overflow:hidden}
   caja.querySelector(".in").innerHTML=DATOS.map(function(d){return "<h4>"+d.n+" · "+esc(d.t)+"</h4>"+d.html;}).join("");
   [].forEach.call(caja.querySelectorAll(".opc"),function(o){o.remove();});
   var interior=caja.querySelector(".in");
+  var pos=0,maxPos=0,base=0;
+  function limites(){maxPos=Math.max(0,interior.offsetHeight-caja.clientHeight);base=interior.getBoundingClientRect().top+pos;}
+  function guiaEnTexto(){return window.innerHeight*0.38-(base-pos);}
+  function ponerPos(v){pos=Math.max(0,Math.min(v,maxPos));interior.style.transform="translate3d(0,"+(-pos)+"px,0)";
+    if(corre&&!arrastre&&!moviendo)return;
+    if(!pendiente){pendiente=true;requestAnimationFrame(function(){pendiente=false;if(!arrastre&&!moviendo&&!corre)sincronizar();else pintarLectura();});}}
   (function envolver(){
     var tw=document.createTreeWalker(interior,NodeFilter.SHOW_TEXT),nodos=[];
     while(tw.nextNode())nodos.push(tw.currentNode);
@@ -262,7 +267,7 @@ body.con-panel{overflow:hidden}
   function medirLineas(){lineas=[];lineaDe=[];var act=null;palabras.forEach(function(w,i){var t=w.offsetTop;
     if(!act||Math.abs(t-act.top)>3){act={top:t,alto:w.offsetHeight,ini:i,fin:i};lineas.push(act);}else act.fin=i;lineaDe[i]=act;});}
   function pintarLectura(){pendiente=false;if(!lineas.length)return;
-    var g=window.innerHeight*0.38-interior.getBoundingClientRect().top,k=0;
+    var g=guiaEnTexto(),k=0;
     for(var j=0;j<lineas.length;j++){var L=lineas[j];
       if(L.top+L.alto<=g){k=L.fin+1;continue;}
       if(L.top<=g){var f=Math.min(1,Math.max(0,(g-L.top)/L.alto));k=L.ini+Math.round(f*(L.fin-L.ini+1));}
@@ -270,8 +275,7 @@ body.con-panel{overflow:hidden}
     var a;if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
     leidas=k;}
   function repintar(){medirLineas();leidas=palabras.length;palabras.forEach(function(w){w.classList.add("leida");});pintarLectura();}
-  caja.addEventListener("scroll",function(){if(corre&&!arrastre&&!moviendo)return;
-    if(!pendiente){pendiente=true;requestAnimationFrame(function(){if(!arrastre&&!moviendo&&!corre){sincronizar();pendiente=false;}else pintarLectura();});}});
+  caja.addEventListener("wheel",function(e){e.preventDefault();ponerPos(pos+e.deltaY);},{passive:false});
   var arrastre=null,tMarca=0;
   function marcar(w){if(!w)return;marca.style.top=(w.offsetTop-4)+"px";marca.style.height=(w.offsetHeight+8)+"px";marca.classList.add("ver");tMarca=Date.now();
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
@@ -282,9 +286,9 @@ body.con-panel{overflow:hidden}
   function palabraEnGuia(){var r=caja.getBoundingClientRect(),y=window.innerHeight*0.38+6;
     for(var x=r.left+r.width*0.2;x<r.left+r.width*0.8;x+=12){var w=palabraEn(x,y);if(w)return w;}return null;}
   caja.addEventListener("pointerdown",function(e){if(e.button>0||e.target.closest("button"))return;
-    arrastre={y:e.clientY,s:caja.scrollTop};try{caja.setPointerCapture(e.pointerId);}catch(_){}
+    arrastre={y:e.clientY,s:pos};try{caja.setPointerCapture(e.pointerId);}catch(_){}
     caja.classList.add("arrastrando");marcar(palabraEn(e.clientX,e.clientY));});
-  caja.addEventListener("pointermove",function(e){if(!arrastre)return;caja.scrollTop=Math.max(0,arrastre.s-(e.clientY-arrastre.y));resto=0;});
+  caja.addEventListener("pointermove",function(e){if(!arrastre)return;ponerPos(arrastre.s-(e.clientY-arrastre.y));resto=0;});
   function soltar(){if(!arrastre)return;arrastre=null;caja.classList.remove("arrastrando");tMarca=Date.now();sincronizar();
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
@@ -329,8 +333,7 @@ body.con-panel{overflow:hidden}
     var fw=HABLA[c0]?Math.min(1,Math.max(0,(seg-INICIO[c0])/HABLA[c0])):1;
     var avance=(c0-L.ini+fw)/(L.fin-L.ini+1);            /* cuánto de la línea ya se leyó */
     var meta=L.top+avance*L.alto;                         /* punto del texto que debe estar en la guía */
-    var guia=window.innerHeight*0.38-interior.getBoundingClientRect().top;
-    var d=meta-guia;if(Math.abs(d)>0.3)caja.scrollTop+=d*(1-Math.exp(-dt*10));}
+    var d=meta-guiaEnTexto();if(Math.abs(d)>0.05)ponerPos(pos+d*(1-Math.exp(-dt*10)));}
   function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
   function paso(ts){
     if(!corre)return;
@@ -345,13 +348,13 @@ body.con-panel{overflow:hidden}
   }
   function arrancar(){corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
   function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
-  function aplicarTam(){var r=caja.scrollTop/Math.max(1,caja.scrollHeight);caja.style.fontSize=tam+"px";caja.scrollTop=r*caja.scrollHeight;}
-  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";
+  function aplicarTam(){var r=pos/Math.max(1,interior.offsetHeight);caja.style.fontSize=tam+"px";limites();ponerPos(r*interior.offsetHeight);}
+  function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";limites();
     /* triangulitos al lado de la columna de texto, no en el borde de la pantalla */
     var r=interior.getBoundingClientRect(),cs=getComputedStyle(interior),izq=r.left+parseFloat(cs.paddingLeft),der=r.right-parseFloat(cs.paddingRight);
     var gu=capa.querySelector(".tele-guia");if(gu){gu.style.setProperty("--gi",Math.max(2,izq-19)+"px");gu.style.setProperty("--gd",(der-5)+"px");}}
   window.addEventListener("resize",function(){alinear();repintar();});
-  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";caja.scrollTop=0;seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function abrir(){capa.hidden=false;document.body.style.overflow="hidden";ponerPos(0);seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
   function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
     if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
     capa.hidden=true;document.body.style.overflow="";}
@@ -361,12 +364,12 @@ body.con-panel{overflow:hidden}
   $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
   $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();repintar();};
   $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();repintar();};
-  $("tele-reini").onclick=function(){parar();caja.scrollTop=0;seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
-  function mover(n){var lh=tam*1.45,desde=caja.scrollTop,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
+  $("tele-reini").onclick=function(){parar();ponerPos(0);seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  function mover(n){var lh=tam*1.45,desde=pos,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
     var suave=!matchMedia("(prefers-reduced-motion: reduce)").matches;
     moviendo=true;
-    if(!suave){caja.scrollTop=hasta;moviendo=false;sincronizar();marcar(palabraEnGuia());return;}
-    function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/320);k=1-Math.pow(1-k,3);caja.scrollTop=desde+(hasta-desde)*k;
+    if(!suave){ponerPos(hasta);moviendo=false;sincronizar();marcar(palabraEnGuia());return;}
+    function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/320);k=1-Math.pow(1-k,3);ponerPos(desde+(hasta-desde)*k);
       if(k<1)requestAnimationFrame(f);else{moviendo=false;sincronizar();marcar(palabraEnGuia());}}
     requestAnimationFrame(f);}
   $("tele-atras").onclick=function(){mover(-2);};
