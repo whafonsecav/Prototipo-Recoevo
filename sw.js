@@ -1,12 +1,13 @@
 /* RECOEVO · funcionamiento sin conexión.
    Primero la red (siempre lo más nuevo); si no hay internet, lo guardado. Los videos van siempre directo por la red. */
-const VERSION = "recoevo-web-2";
+const VERSION = "recoevo-web-3";
 const BASICOS = [
   "./", "index.html", "manifest.webmanifest", "assets/css/marca.css", "assets/css/prototipo.css",
   "assets/fonts/Lexend.woff2", "assets/fonts/Nunito.woff2", "assets/img/logo.svg", "assets/img/logo-negativo.svg",
   "assets/img/isotipo.svg", "assets/img/icono-192.png",
   "prototipo/", "assets/vendor/three.min.js", "assets/modelo/recoevo.glb",
-  "presupuesto/", "presupuesto/datos.js", "assets/css/presupuesto.css", "assets/js/presupuesto/app.js",
+  "presupuesto/", "presupuesto/datos.js", "presupuesto/mensual.js", "assets/css/presupuesto.css", "assets/css/presupuesto-respuestas.css",
+  "assets/js/presupuesto/app.js", "assets/js/presupuesto/respuestas.js",
   ...["partes", "glb", "controles", "app"].map(n => `assets/js/prototipo/${n}.js`),
   ...["olor", "filtro", "reciclado", "seguro", "balde", "pedal", "material_seco", "flecha", "ciclo", "cuchillas", "tiras", "check"]
     .map(i => `assets/img/iconos/icono_${i}.svg`)

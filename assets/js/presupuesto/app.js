@@ -112,6 +112,9 @@
     r.el.classList.add("resaltar");
   }
 
+  // color de cada tabla: 1 a 9 sale dinero (inversión y gastos), 10 entra dinero (ventas), 11 en adelante son cálculos
+  const tipoTabla = n => (+n <= 9 ? "t-sale" : +n === 10 ? "t-entra" : "t-calc");
+
   // ---------------------------------------------------------------- tablas que suman (1 a 11)
   const COLS = [["c-can", "Cantidad (10 años)"], ["c-uni", "Unidad"], ["c-pre", "Precio de cada unidad"],
                 ["c-tot", "Total 10 años"], ["c-pro", "Promedio por año"], ["c-pp", "Por producto"]];
@@ -154,7 +157,7 @@
     const cab = el("tr", {}, el("th", { scope: "col", class: "c-con" }, "Concepto"),
       COLS.map(([c, txt]) => el("th", { scope: "col", class: c }, txt)));
     const tabla = el("table", { class: "t-suma" }, el("caption", { class: "sr" }, `Tabla ${f.num}: ${f.titulo}`), el("thead", {}, cab), cuerpo);
-    return el("section", { class: "tabla", id: "tabla-" + f.num },
+    return el("section", { class: "tabla " + tipoTabla(f.num), id: "tabla-" + f.num },
       el("div", { class: "desliza", role: "region", "aria-label": `Tabla ${f.num}` }, tabla),
       t.nota ? el("p", { class: "nota-tabla" }, t.nota.replace(/^Nota de la tabla \d+:\s*/, "")) : null);
   }
@@ -193,7 +196,7 @@
       pasos.append(li);
     }
     dependientes.push({ el: pasos, padres: [f.id] });
-    return el("section", { class: "tabla calc", id: "tabla-" + f.num, "aria-label": `Tabla ${f.num}: ${f.titulo}` }, cab, pasos);
+    return el("section", { class: "tabla calc " + tipoTabla(f.num), id: "tabla-" + f.num, "aria-label": `Tabla ${f.num}: ${f.titulo}` }, cab, pasos);
   }
 
   // ---------------------------------------------------------------- tabla 0 (productos) y 0b (datos del plan)
@@ -283,6 +286,7 @@
   // ---------------------------------------------------------------- arriba: tarjetas y resumen ejecutivo
   function tarjetas() {
     const c = P.costo, boton = $("#costo");
+    if (!boton) return;                       // las respuestas de arriba las arma respuestas.js
     boton.dataset.ir = c.fila;
     boton.append(el("span", { class: "cu-etq" }, "Costo de un producto"), el("span", { class: "cu-valor" }, fmt(...c.valor, { completo: true })),
       el("span", { class: "cu-nota" }, c.nota), el("span", { class: "cu-mas" }, "Ver en la tabla 9 →"));

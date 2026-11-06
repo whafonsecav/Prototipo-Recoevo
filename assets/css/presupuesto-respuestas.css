@@ -1,0 +1,132 @@
+/* RECOEVO · presupuesto: las respuestas de arriba y los tres colores para leer rápido el dinero.
+   Rojo tierra = sale dinero (inversión y gastos) · azul = entra dinero (ventas) · morado = cálculos y resultados.
+   Se carga después de presupuesto.css. */
+:root {
+  --sale: #B4532A; --sale-bg: #FBEBE3; --sale-borde: #EBC2AE;
+  --entra: #1F6FB2; --entra-bg: #E4F0FB; --entra-borde: #B9D0EA;
+  --calc: #6A4C9C; --calc-bg: #EFEAF8; --calc-borde: #D3C6EA;
+}
+
+/* ---------------------------------------------------------------- colores de las tablas */
+.muestra.sale { background: var(--sale-bg); border: 2px solid var(--sale); }
+.muestra.entra { background: var(--entra-bg); border: 2px solid var(--entra); }
+.muestra.calc { background: var(--calc-bg); border: 2px solid var(--calc); }
+.tabla.t-sale { border-left: 6px solid var(--sale); }
+.tabla.t-entra { border-left: 6px solid var(--entra); }
+.tabla.t-calc { border-left: 6px solid var(--calc); }
+.tabla.t-sale tr.amarillo > *, .tabla.t-sale .t-suma tr.amarillo { background: var(--sale-bg); }
+.tabla.t-entra tr.amarillo > *, .tabla.t-entra tr.azul > *, .tabla.t-entra .t-suma tr.azul { background: var(--entra-bg); }
+.tabla.t-calc tr.amarillo > *, .tabla.t-calc tr.azul > *, .tabla.t-calc .t-suma tr.azul, .tabla.t-calc .t-suma tr.amarillo,
+.tabla.t-calc .calc-cab.amarillo { background: var(--calc-bg); }
+
+/* ---------------------------------------------------------------- las respuestas */
+.respuestas { margin-top: 6px; }
+.colores { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+.colores .c { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 8px; border-radius: 999px; font: 600 13.5px/1.2 "Lexend", sans-serif; }
+.colores .c i { width: 14px; height: 14px; border-radius: 4px; }
+.colores .sale { background: var(--sale-bg); color: var(--sale); }
+.colores .sale i { background: var(--sale); }
+.colores .entra { background: var(--entra-bg); color: var(--entra); }
+.colores .entra i { background: var(--entra); }
+.colores .calc { background: var(--calc-bg); color: var(--calc); }
+.colores .calc i { background: var(--calc); }
+.resp-intro { margin: 4px 2px 14px; font-size: 15.5px; color: var(--suave); }
+.resp-grid { display: grid; gap: 14px; }
+.resp {
+  min-width: 0; padding: 16px 16px 14px; border-radius: 20px; background: var(--papel); border: 1px solid var(--linea);
+  border-top: 6px solid var(--tono); box-shadow: 0 4px 14px rgba(21, 71, 52, .06);
+}
+.resp.sale { --tono: var(--sale); --fondo: var(--sale-bg); }
+.resp.entra { --tono: var(--entra); --fondo: var(--entra-bg); }
+.resp.calc { --tono: var(--calc); --fondo: var(--calc-bg); }
+.resp-tipo {
+  display: inline-block; margin: 0 0 6px; padding: 3px 10px; border-radius: 999px; background: var(--fondo); color: var(--tono);
+  font: 700 12px/1.3 "Lexend", sans-serif; letter-spacing: .6px; text-transform: uppercase;
+}
+.resp h3 { font-size: 18px; line-height: 1.25; }
+.resp-valor { margin: 8px 0 2px; font: 800 clamp(28px, 8vw, 38px)/1.05 "Lexend", sans-serif; color: var(--tono); letter-spacing: -.5px; overflow-wrap: anywhere; }
+.resp-valor small { font: 600 14px/1.3 "Nunito", sans-serif; color: var(--suave); letter-spacing: 0; }
+.resp-dice { margin: 6px 0 0; font-size: 15px; line-height: 1.45; color: var(--tinta); }
+.resp-sub { margin: 14px 0 6px; font: 700 12.5px/1.3 "Lexend", sans-serif; letter-spacing: .5px; text-transform: uppercase; color: var(--suave); }
+
+/* una cuenta paso a paso: signo | qué es | cuánto */
+.cuenta { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.linea {
+  display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: baseline; gap: 6px; padding: 7px 10px;
+  border-radius: 10px; font-size: 14.5px; line-height: 1.35;
+}
+.linea .signo { font: 800 16px/1 "Lexend", sans-serif; text-align: center; }
+.linea .cuanto { font: 700 14.5px/1.35 "Lexend", sans-serif; white-space: nowrap; text-align: right; }
+.linea.sale { background: var(--sale-bg); }
+.linea.sale .signo, .linea.sale .cuanto { color: var(--sale); }
+.linea.entra { background: var(--entra-bg); }
+.linea.entra .signo, .linea.entra .cuanto { color: var(--entra); }
+.linea.calc { background: var(--calc-bg); }
+.linea.calc .signo, .linea.calc .cuanto { color: var(--calc); }
+.linea.total { margin-top: 2px; border: 2px solid currentColor; font-weight: 800; }
+.linea.total.sale { color: var(--sale); }
+.linea.total.entra { color: var(--entra); }
+.linea.total.calc { color: var(--calc); }
+.linea.total .que { color: var(--tinta); }
+@media (max-width: 380px) {
+  .linea { grid-template-columns: 14px minmax(0, 1fr); }
+  .linea .cuanto { grid-column: 2; text-align: left; }
+}
+
+.resp-anios { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
+.resp-anios li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 10px; border-radius: 10px;
+  background: var(--fondo); font-size: 14.5px; line-height: 1.35;
+}
+.resp-anios b { font: 700 16px/1.2 "Lexend", sans-serif; color: var(--tono); white-space: nowrap; }
+.resp-mas { margin-top: 10px; font-size: 14.5px; }
+.resp-mas summary { cursor: pointer; font-weight: 700; color: var(--tono); padding: 6px 0; }
+.resp-mas p { margin: 4px 0 0; line-height: 1.5; }
+.resp-ir {
+  margin-top: 12px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 12px; background: var(--fondo); color: var(--tono);
+  font: 700 14.5px/1 "Lexend", sans-serif; cursor: pointer;
+}
+.resp-ir:focus-visible { outline: 3px solid var(--sol); outline-offset: 2px; }
+
+/* gráficas */
+.resp-graf { margin-top: 4px; }
+.fig { margin: 8px 0 0; }
+.fig figcaption { margin-top: 4px; font-size: 13px; color: var(--suave); }
+.graf { display: block; width: 100%; height: auto; font: 600 12px "Nunito", sans-serif; }
+.graf text { fill: var(--suave); }
+.graf .b-no { fill: var(--sale-borde); }
+.graf .b-ok { fill: var(--calc); }
+.graf .l-pe { stroke: var(--sale); stroke-width: 2.5; stroke-dasharray: 7 5; }
+.graf .t-pe { fill: var(--sale); font-weight: 800; }
+.graf .t-fuerte { fill: var(--calc); font-weight: 800; font-size: 13px; }
+.graf .l-cero { stroke: var(--linea); stroke-width: 2; }
+.graf .l-flujo { fill: none; stroke: var(--calc); stroke-width: 3; stroke-linejoin: round; }
+.graf .p-rec { fill: var(--calc); stroke: #fff; stroke-width: 3; }
+
+/* año por año: precio y costo */
+.bloque.anios { margin-top: 22px; }
+.anios-caja { margin-top: 10px; border-radius: 16px; border: 1px solid var(--linea); background: var(--papel); overflow-x: auto; }
+.t-anios { width: 100%; border-collapse: collapse; font-size: 14px; }
+.t-anios th, .t-anios td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--linea); }
+.t-anios th:first-child { text-align: left; }
+.t-anios thead th { font: 700 12.5px/1.25 "Lexend", sans-serif; white-space: normal; color: var(--monte); vertical-align: bottom; }
+.t-anios thead th.entra, .t-anios td.entra { color: var(--entra); }
+.t-anios thead th.sale, .t-anios td.sale { color: var(--sale); }
+.t-anios td.entra, .t-anios td.sale { font-weight: 700; }
+.t-anios tr.prom > * { background: var(--gris); font-weight: 800; }
+.t-anios tr.prom.total > * { background: var(--calc-bg); }
+.t-anios tbody th { white-space: normal; min-width: 64px; }
+@media (max-width: 560px) {
+  .t-anios { font-size: 12.5px; }
+  .t-anios th, .t-anios td { padding: 7px 5px; }
+  .t-anios thead th { font-size: 11.5px; }
+  .anios-caja { margin-left: -4px; margin-right: -4px; }
+}
+
+@media (min-width: 760px) {
+  .resp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .resp.ancho { grid-column: 1 / -1; }
+  .resp { padding: 20px 22px 18px; }
+  .resp h3 { font-size: 20px; }
+  .resp.ancho .resp-graf { max-width: 760px; }
+}

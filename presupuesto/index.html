@@ -10,6 +10,7 @@
   <link rel="preload" href="../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/marca.css">
   <link rel="stylesheet" href="../assets/css/presupuesto.css">
+  <link rel="stylesheet" href="../assets/css/presupuesto-respuestas.css">
 </head>
 <body>
   <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
@@ -19,8 +20,8 @@
     <p class="kicker">Presupuesto · escenario realista</p>
     <h1>¿Cuánto cuesta y cuánto deja RECOEVO?</h1>
 
-    <button class="costo-uno" id="costo" type="button"></button>
-    <ol class="preguntas" id="preguntas" aria-label="Las 8 preguntas del presupuesto"></ol>
+    <p class="bajada">El plan a 10 años en el escenario realista, explicado fácil: primero las respuestas con su cuenta, después cada tabla con todo el detalle.</p>
+    <section class="respuestas" id="respuestas" aria-label="Las respuestas del presupuesto"></section>
 
     <section class="bloque resumen" aria-labelledby="t-resumen">
       <h2 class="sub" id="t-resumen">Resumen ejecutivo</h2>
@@ -35,8 +36,9 @@
       <ul class="leyenda">
         <li><span class="muestra boton" aria-hidden="true">+</span>abre el detalle</li>
         <li><span class="muestra info" aria-hidden="true">i</span>dice qué es</li>
-        <li><span class="muestra amarillo" aria-hidden="true"></span>total de la tabla</li>
-        <li><span class="muestra azul" aria-hidden="true"></span>lo que entra</li>
+        <li><span class="muestra sale" aria-hidden="true"></span>sale dinero: inversión y gastos</li>
+        <li><span class="muestra entra" aria-hidden="true"></span>entra dinero: ventas</li>
+        <li><span class="muestra calc" aria-hidden="true"></span>cálculos y resultados</li>
         <li><span class="muestra letra" aria-hidden="true">M</span>millones de pesos, sin IVA</li>
       </ul>
 
@@ -70,6 +72,8 @@
 
   <noscript><p class="nota">Para ver el presupuesto hay que activar JavaScript en el navegador.</p></noscript>
   <script src="datos.js"></script>
+  <script src="mensual.js"></script>
   <script src="../assets/js/presupuesto/app.js"></script>
+  <script src="../assets/js/presupuesto/respuestas.js"></script>
 </body>
 </html>

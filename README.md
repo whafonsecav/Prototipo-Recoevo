@@ -40,7 +40,7 @@ balde de 10 L para cualquier bolsa compostable del supermercado (RECOEVO no vend
 | `index.html` | Menú principal |
 | `prototipo/` | Visor 3D (three.js r149 incluido, sin servidores externos) |
 | `video-pitch/`, `video-prototipo/` | Páginas de los videos |
-| `presupuesto/` | Presupuesto realista a 10 años, por rubros que se agrupan y desagrupan |
+| `presupuesto/` | Presupuesto realista a 10 años: arriba las respuestas con su cuenta (inversión, precio, costo de un producto, fijos y variables, utilidad, punto de equilibrio y cuándo, retorno, rentabilidades) y el precio y costo año por año; abajo las tablas por rubros que se agrupan y desagrupan. Colores: rojo tierra = sale dinero, azul = entra dinero, morado = cálculos. `datos.js` sale de `fuente/presupuesto/extraer_presupuesto.py` (presupuesto ejecutivo, hoja Realista) y `mensual.js` de `fuente/presupuesto/extraer_mensual.py` (hoja Proyección del plan realista) |
 | `estudio-campo/` | Presentación del estudio de campo (Villa Rosita, Usme) |
 | `assets/css/` | `marca.css` (menú y páginas) y `prototipo.css` (visor) |
 | `assets/js/prototipo/` | Visor: `partes.js` (fichas de cada pieza), `glb.js`, `controles.js`, `app.js` |
