@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RECOEVO · Planos para talleres</title>
+  <meta name="description" content="Planos de corte láser, archivos STL para impresión 3D y guía de armado del prototipo físico de RECOEVO.">
+  <meta name="theme-color" content="#154734">
+  <link rel="icon" href="../assets/img/icono-192.png">
+  <link rel="stylesheet" href="../assets/css/marca.css">
+  <style>
+    .descargas { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .descargas li { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); box-shadow: var(--sombra); padding: 18px 18px 16px; }
+    .descargas h2 { font-size: 18px; margin: 0 0 6px; }
+    .descargas p { margin: 0 0 12px; color: var(--suave); font-size: 15.5px; line-height: 1.45; }
+    .descargas .boton { display: inline-flex; align-items: center; gap: 8px; background: var(--evo); color: #fff; font-weight: 700; text-decoration: none; padding: 10px 16px; border-radius: 999px; font-size: 15px; }
+    .descargas .boton:hover, .descargas .boton:focus-visible { background: var(--monte); }
+    .descargas .peso { font-weight: 400; opacity: .85; }
+    .primero { border-color: var(--evo) !important; }
+    .etiqueta { display: inline-block; background: var(--sol); color: var(--tinta); font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; border-radius: 999px; padding: 3px 10px; margin: 0 0 8px; }
+    .notas { margin: 28px 0 0; background: var(--crema); border-radius: var(--radio); padding: 16px 18px; }
+    .notas h2 { font-size: 17px; margin: 0 0 8px; }
+    .notas ul { margin: 0; padding-left: 20px; color: var(--tinta); font-size: 15.5px; line-height: 1.5; }
+    .notas li + li { margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
+  <header class="barra"><a href="../" aria-label="RECOEVO, ir al menú"><img src="../assets/img/logo.svg" alt="recoevo" width="832" height="273"></a></header>
+
+  <main class="pagina" id="pagina">
+    <p class="kicker">Para talleres · Descargas</p>
+    <h1>Planos del prototipo</h1>
+    <p class="bajada">Todo lo que necesita un taller para fabricar el prototipo físico de RECOEVO a tamaño real (32 × 34 × 52 cm), sacado del <a href="../prototipo/">modelo 3D</a>: planos de corte láser, archivos para impresión 3D y una guía de armado.</p>
+
+    <ul class="descargas">
+      <li class="primero">
+        <span class="etiqueta">Empezar por aquí</span>
+        <h2>Planos y guía de armado (PDF)</h2>
+        <p>Medidas y colores, cómo funciona el mecanismo por dentro, lista de piezas, compras de ferretería, pasos de armado y las 5 hojas de corte.</p>
+        <a class="boton" href="RECOEVO_Planos_y_armado.pdf" download>Descargar PDF <span class="peso">· 241 KB</span></a>
+      </li>
+      <li>
+        <h2>Corte láser · MDF de 5,5 mm</h2>
+        <p>5 hojas de 90 × 60 cm, cada una en DXF y en PDF a tamaño real, más la guía. Rojo se corta; azul son flechas y números que se graban suave o no se cortan.</p>
+        <a class="boton" href="RECOEVO_Corte_laser_5.5mm.zip" download>Descargar ZIP <span class="peso">· 417 KB</span></a>
+      </li>
+      <li>
+        <h2>Corte láser · lámina de 3 mm</h2>
+        <p>Lo mismo, para MDF, acrílico o cartón de 3 mm. Si el taller usa otro grosor, escríbanos y se lo enviamos ajustado.</p>
+        <a class="boton" href="RECOEVO_Corte_laser_3mm.zip" download>Descargar ZIP <span class="peso">· 470 KB</span></a>
+      </li>
+      <li>
+        <h2>Impresión 3D · archivos STL</h2>
+        <p>Un STL por pieza (17), en milímetros y en su posición de armado, más el producto completo para ver o cotizar.</p>
+        <a class="boton" href="RECOEVO_STL_impresion_3D.zip" download>Descargar ZIP <span class="peso">· 1,9 MB</span></a>
+      </li>
+    </ul>
+
+    <section class="notas" aria-label="Antes de fabricar">
+      <h2>Antes de fabricar</h2>
+      <ul>
+        <li>El prototipo de corte láser es una caja con uniones dentadas. Al pisar el pedal derecho, una barra con dientes hace girar el eje con 13 cuchillas sin filo.</li>
+        <li>Los planos no compensan el grosor del corte del láser: si las uniones quedan flojas, se pegan; si quedan duras, se lijan.</li>
+        <li>Los STL vienen de un modelo hecho para presentar, no para fabricar: conviene revisar el grosor de las paredes antes de imprimir.</li>
+        <li>Este prototipo todavía no se ha armado: cualquier ajuste que nos recomienden es bienvenido.</li>
+      </ul>
+    </section>
+
+    <nav class="otros" aria-label="Más secciones">
+      <h2>Sigue explorando</h2>
+      <ul>
+        <li><a href="../prototipo/">Ver el prototipo en 3D</a></li>
+        <li><a href="../video-prototipo/">Video del prototipo explicado</a></li>
+        <li><a href="../">Todo el proyecto</a></li>
+      </ul>
+    </nav>
+  </main>
+  <footer class="pie"><p><b>RECOEVO</b> · Politécnico Grancolombiano · E-Fest 2026-2</p></footer>
+</body>
+</html>
