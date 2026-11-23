@@ -56,7 +56,7 @@
     ["sale", "−", "Costos variables", "variables", "Crecen con cada producto: materiales, operarios, energía, comisiones, anuncios, distribución, garantía e ICA («ica», impuesto de industria y comercio)."],
     ["calc", "=", "Margen de contribución", "margen", "Lo que dejan los productos para pagar todo lo demás."],
     ["sale", "−", "Costos fijos", "fijos", "Se pagan aunque no se venda: nómina de planta, comercial y administrativa, arriendo, máquinas, oficina, legales, marketing fijo y el arranque del año 0."],
-    ["calc", "=", "Utilidad operativa", "operativa", "Lo que deja el negocio con su operación, antes de pagar los intereses del banco y el impuesto."],
+    ["calc", "=", "Utilidad operativa", "operativa", "Lo que deja el negocio con su operación, antes del impuesto de renta."],
     ["sale", "−", "Intereses del crédito", "intereses", "Lo que cuesta el préstamo del banco (el crédito se paga en 5 años)."],
     ["calc", "=", "Utilidad antes de impuestos", "antes", ""],
     ["sale", "−", "Impuesto de renta", "impuesto", "35 % de la utilidad; las pérdidas de los primeros años se descuentan después."],
@@ -66,6 +66,7 @@
     const d = t === "total" ? T : anios[t];
     cuerpo.textContent = "";
     for (const [tipo, signo, nombre, k, explica] of RENGLONES) {
+      if (k === "intereses" && !T.intereses) continue;
       const valor = d[k], p = d.ventas ? valor / d.ventas : null;
       const total = k === "neta";
       cuerpo.append(el("li", { class: `linea con-pct ${tipo}${signo === "=" ? " parcial" : ""}${total ? " total" : ""}` },
@@ -77,7 +78,7 @@
     const cuando = t === "total" ? "En los 10 años" : `En el año ${t}`;
     if (t === 0) quePasa.innerHTML = `En el año 0 todavía no se vende nada: se pagan ${mill(-d.neta)} de gastos de arranque y de puesta en marcha, que quedan como pérdida y se recuperan después.`;
     else if (d.neta < 0) quePasa.innerHTML = `${cuando} todavía se pierde: se venden ${miles(vendidos[t])} productos y el margen de contribución (${mill(d.margen)}) no alcanza para pagar los costos fijos (${mill(d.fijos)}).`;
-    else quePasa.innerHTML = `${cuando} los clientes pagan ${mill(d.ventas)}. Después de pagar los costos variables, los fijos, los intereses y el impuesto, quedan <b>${mill(d.neta)}</b> de utilidad neta: el <b>${pct(d.neta / d.ventas)}</b> de lo vendido.`;
+    else quePasa.innerHTML = `${cuando} los clientes pagan ${mill(d.ventas)}. Después de pagar los costos variables, los fijos y el impuesto, quedan <b>${mill(d.neta)}</b> de utilidad neta: el <b>${pct(d.neta / d.ventas)}</b> de lo vendido.`;
     selector.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.anio === String(t)));
   }
   const selector = el("div", { class: "anio-sel", role: "group", "aria-label": "Ver los 10 años o un año" },
@@ -96,7 +97,7 @@
   const indicadores = el("div", { class: "ind-grid" },
     indicador("calc", "Margen de contribución", pesos(mcUno) + " por producto · " + pct(mcUno / recibe),
       `${pesos(recibe)} que recibe la empresa − ${pesos(recibe - mcUno)} de costo variable = <b>${pesos(mcUno)}</b>; ${pesos(mcUno)} ÷ ${pesos(recibe)} = <b>${pct(mcUno / recibe)}</b>`,
-      `Cada producto, después de pagar lo que cuesta hacerlo y venderlo, deja ${pesos(mcUno)} para pagar la planta, la nómina fija, las máquinas y los intereses. Con los ${miles(N)} productos de los 10 años son ${mill(mcUno * N)}. (En la cascada da ${pct(T.margen / T.ventas)} porque ahí también entra lo que queda de los envíos.)`),
+      `Cada producto, después de pagar lo que cuesta hacerlo y venderlo, deja ${pesos(mcUno)} para pagar la planta, la nómina fija y las máquinas. Con los ${miles(N)} productos de los 10 años son ${mill(mcUno * N)}. (En la cascada da ${pct(T.margen / T.ventas)} porque ahí también entra lo que queda de los envíos.)`),
     indicador("calc", "Rentabilidad sobre la venta = porcentaje de utilidad (margen neto)", pct(T.neta / T.ventas),
       `${mill(T.neta)} de utilidad neta ÷ ${mill(T.ventas)} de ventas = <b>${pct(T.neta / T.ventas)}</b>`,
       `De todo lo que pagan los clientes en 10 años, ${mill(T.neta)} terminan siendo de los socios; el resto se va en hacer, vender y administrar, en intereses y en el impuesto.`),
@@ -130,7 +131,8 @@
     `<li>En el <b>año 0</b> no se vende: solo se gasta en el arranque (${mill(anios[0].neta)}).</li>` +
     `<li>En el <b>año 1</b> se venden ${miles(vendidos[1])} productos y el margen (${mill(anios[1].margen)}) todavía no alcanza para los costos fijos (${mill(anios[1].fijos)}): se pierden ${mill(-anios[1].neta)}.</li>` +
     `<li>Desde el <b>año ${primero}</b> hay ganancia y crece cada año: las ventas suben de ${miles(vendidos[1])} a ${miles(vendidos[10])} productos, mientras los costos fijos crecen mucho más despacio (de ${mill(anios[1].fijos)} a ${mill(anios[10].fijos)}).</li>` +
-    `<li>Los <b>intereses</b> se acaban en el año ${sinInteres}, cuando se termina de pagar el crédito, y el <b>impuesto de renta</b> aparece en el año ${conImpuesto}, cuando ya se descontaron las pérdidas del principio.</li></ul>`));
+    (T.intereses ? `<li>Los <b>intereses</b> se acaban en el año ${sinInteres}, cuando se termina de pagar el crédito, y el <b>impuesto de renta</b> aparece en el año ${conImpuesto}, cuando ya se descontaron las pérdidas del principio.</li></ul>`
+      : `<li>No hay <b>intereses</b>: el plan no usa crédito. El <b>impuesto de renta</b> aparece en el año ${conImpuesto}, cuando ya se descontaron las pérdidas del principio.</li></ul>`)));
 
   // ---------------------------------------------------------------- a la página: al comienzo de la parte C
   const bloque = el("section", { class: "cascada", id: "paso-a-paso", "aria-labelledby": "t-paso" },

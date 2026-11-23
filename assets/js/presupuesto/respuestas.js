@@ -67,7 +67,7 @@
   // ---------------------------------------------------------------- cifras del presupuesto (sin cambiar nada)
   const N = P.nprod;
   const inv = val("r55"), maq = val("r56"), arr = val("r57"), resp = val("r58");
-  const socios = (fila.r55.como.match(/socios \(\$([\d.]+)\)/) || [])[1];
+  const socios = (fila.r55.como.match(/socios(?: e inversionistas)? \(\$([\d.]+)\)/) || [])[1];
   const credito = (fila.r55.como.match(/crédito del banco \(\$([\d.]+)/) || [])[1];
   const gasto = val("r108"), ventas = val("r117"), impuesto = -val("r133"), utilidad = val("r130");
   const costo10 = pp("r108");
@@ -106,7 +106,7 @@
       ["sale", "+", "Gastos de arranque (trámites, desarrollo, puesta en marcha, lanzamiento)", mill(arr)],
       ["sale", "+", "Dinero de respaldo (IVA de las máquinas, depósito, capital de trabajo, colchón): <i>vuelve después</i>", mill(resp)],
     ], ["sale", "Inversión inicial", mill(inv)]),
-    mas: socios && credito ? `<p><b>¿Quién lo pone?</b> Los socios, $${miles(+socios.replace(/\./g, "") / 1e6)} millones, y un crédito del banco de $${miles(+credito.replace(/\./g, "") / 1e6)} millones (19,5 % efectivo anual a 5 años). Los intereses del crédito están en los gastos (tabla 8).</p>` : null,
+    mas: socios && !credito ? `<p><b>¿Quién lo pone?</b> Socios e inversionistas, $${miles(+socios.replace(/\./g, "") / 1e6)} millones, <b>sin crédito</b>: no hay intereses ni cuotas. El dinero entra por etapas: primero se valida el producto con familias reales, después la preserie y al final la fábrica.</p>` : socios && credito ? `<p><b>¿Quién lo pone?</b> Los socios, $${miles(+socios.replace(/\./g, "") / 1e6)} millones, y un crédito del banco de $${miles(+credito.replace(/\./g, "") / 1e6)} millones (19,5 % efectivo anual a 5 años). Los intereses del crédito están en los gastos (tabla 8).</p>` : null,
     ir: "r55", irTexto: "Ver en la tabla 4 →",
   }));
 
@@ -129,13 +129,13 @@
   grid.append(tarjeta({
     tipo: "sale", pregunta: "3. ¿Cuánto cuesta hacer un producto?",
     valor: pesos(costo10), unidad: "promedio de los 10 años",
-    dice: "Todo incluido: máquinas, arranque, fabricación, nómina, ventas e intereses, <b>repartido entre los " + miles(N) + " productos</b> de los 10 años.",
+    dice: "Todo incluido: máquinas, arranque, fabricación, nómina" + (pp("r113") ? ", ventas e intereses" : " y ventas") + ", <b>repartido entre los " + miles(N) + " productos</b> de los 10 años.",
     cuentaEl: cuenta([
       ["sale", "", "Fabricar: materiales, energía y planta", pesos(pp("r111"))],
       ["sale", "+", "Administrar y vender: nómina de todos, legales, oficina, publicidad y comisiones", pesos(pp("r112"))],
       ["sale", "+", "Máquinas y moldes (repartidos en los años que duran)", pesos(pp("r109"))],
       ["sale", "+", "Gastos de arranque", pesos(pp("r110"))],
-      ["sale", "+", "Intereses del crédito", pesos(pp("r113"))],
+      ...(pp("r113") ? [["sale", "+", "Intereses del crédito", pesos(pp("r113"))]] : []),
     ], ["sale", "Costo de un producto (gasto completo ÷ productos vendidos)", pesos(costo10)]),
     extra: el("ul", { class: "resp-anios" },
       el("li", {}, el("span", {}, "Año 1: se venden pocos (" + miles(vendidos[1]) + ") y los costos fijos se reparten entre menos"), el("b", {}, pesos(costo1))),
@@ -159,7 +159,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "5. ¿Cuál es la utilidad neta? (cuánto entra y cuánto queda en los 10 años)",
     valor: "$" + miles(utilidad / 1e6), unidad: `millones · el ${pct(utilidad / ventas)} de las ventas`,
-    dice: "<b>La utilidad neta es la ganancia limpia</b>: lo que les queda a los socios después de pagar absolutamente todo (materiales, sueldos, arriendo, máquinas, publicidad e intereses) y también el impuesto de renta.",
+    dice: "<b>La utilidad neta es la ganancia limpia</b>: lo que les queda a los socios después de pagar absolutamente todo (materiales, sueldos, arriendo, máquinas y publicidad) y también el impuesto de renta.",
     cuentaEl: cuenta([
       ["entra", "", "Ventas (sin IVA)", mill(ventas)],
       ["sale", "−", "Gasto completo (todo lo de la pregunta 3)", mill(gasto)],
@@ -219,7 +219,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "8. ¿Cuál es la rentabilidad sobre los costos?",
     valor: pct(utilidad / gasto), unidad: "",
-    dice: `En 10 años el negocio gasta <b>${mill(gasto)}</b> (fabricar, administrar, vender, máquinas e intereses) y, además de pagar todo eso y el impuesto, deja <b>${mill(utilidad)}</b> de utilidad neta: una ganancia de más de la cuarta parte de todo lo gastado. El precio cubre los costos con holgura.`,
+    dice: `En 10 años el negocio gasta <b>${mill(gasto)}</b> (fabricar, administrar, vender y máquinas) y, además de pagar todo eso y el impuesto, deja <b>${mill(utilidad)}</b> de utilidad neta: una ganancia de más de la cuarta parte de todo lo gastado. El precio cubre los costos con holgura.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["sale", "÷", "Gasto completo de los 10 años", mill(gasto)],
@@ -230,7 +230,7 @@
   grid.append(tarjeta({
     tipo: "calc", pregunta: "9. ¿Cuál es la rentabilidad sobre las ventas (el porcentaje de utilidad final)?",
     valor: pct(utilidad / ventas), unidad: "",
-    dice: `De los <b>${mill(ventas)}</b> que pagan los clientes en 10 años, <b>${mill(utilidad)}</b> quedan como ganancia limpia para los socios, ya pagado todo e incluido el impuesto. Alcanza para pagar el crédito del banco, devolverles a los socios lo que pusieron y reinvertir en el negocio.`,
+    dice: `De los <b>${mill(ventas)}</b> que pagan los clientes en 10 años, <b>${mill(utilidad)}</b> quedan como ganancia limpia para los socios, ya pagado todo e incluido el impuesto. Alcanza para devolverles a los socios lo que pusieron y reinvertir en el negocio.`,
     cuentaEl: cuenta([
       ["calc", "", "Utilidad neta de los 10 años", mill(utilidad)],
       ["entra", "÷", "Ventas de los 10 años", mill(ventas)],
