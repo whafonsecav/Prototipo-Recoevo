@@ -22,12 +22,42 @@ VOZ = "es-CO-SalomeNeural"
 NOMBRE = "RECOEVO_guion_final.mp3"
 INICIO, FRASE, CLIC, PANTALLA, FINAL = 0.6, 0.45, 1.0, 1.6, 0.8   # segundos de silencio
 
-# Cómo debe decirse en voz alta lo que la voz leería mal
+# Cómo debe decirse en voz alta lo que la voz leería mal (revisado con una transcripción automática del audio)
 DICCION = [
-    (r"\bRECOEVO\b", "Recoevo"),
+    (r"\bRECOEVO\b", "Reco Evo"),          # si no, suena «recuevo»
     (r"\b0772\b", "cero setecientos setenta y dos"),
+    (r"\bIVA\b", "iva"),
 ]
 FIN_FRASE = re.compile(r"[.!?…][»\"”)\]]*$")
+
+# Las cifras se le dan a la voz en letras, para que no se coma ninguna parte («199.900» = «ciento noventa y nueve mil novecientos»)
+UN = ("cero uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece catorce quince dieciséis diecisiete "
+      "dieciocho diecinueve veinte veintiuno veintidós veintitrés veinticuatro veinticinco veintiséis veintisiete "
+      "veintiocho veintinueve").split()
+DE = ["", "", "", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"]
+CE = ["", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"]
+
+
+def letras(n):
+    if n < 30: return UN[n]
+    if n < 100: return DE[n // 10] + (" y " + UN[n % 10] if n % 10 else "")
+    if n < 1000: return ("cien" if n == 100 else CE[n // 100]) + (" " + letras(n % 100) if n % 100 else "")
+    if n < 10 ** 6:
+        k, r = divmod(n, 1000)
+        return ("mil" if k == 1 else apocope(letras(k)) + " mil") + (" " + letras(r) if r else "")
+    m, r = divmod(n, 10 ** 6)
+    return ("un millón" if m == 1 else apocope(letras(m)) + " millones") + (" " + letras(r) if r else "")
+
+
+def apocope(s):  # «cuarenta y uno mil» → «cuarenta y un mil»
+    return re.sub(r"veintiuno$", "veintiún", re.sub(r"(?<![a-zé])uno$", "un", s))
+
+
+def cifra_en_letras(m):
+    ent, dec = m.group(1).replace(".", ""), m.group(2)
+    dicho = ("cero " if re.match(r"0\d", ent) else "") + letras(int(ent))
+    if dec: dicho += " coma " + letras(int(dec)) if not dec.startswith("0") else " coma " + " ".join(UN[int(d)] for d in dec)
+    return dicho
 
 
 def texto_hablado(p):
@@ -49,6 +79,8 @@ def frases(s):
 
 def para_voz(f):
     for a, b in DICCION: f = re.sub(a, b, f)
+    f = re.sub(r"(?<![\d.,])(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d+))?(?![\d])", cifra_en_letras, f)
+    f = re.sub(r"\s*%", " por ciento", f)
     return f
 
 
