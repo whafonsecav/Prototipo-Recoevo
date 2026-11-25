@@ -126,8 +126,21 @@ def estructura():
 async def generar_todo(est, voz, tasa, cache):
     hilos = os.cpu_count() or 4
     sem = asyncio.Semaphore(max(2, min(8, hilos)))   # el trabajo es de red: unas pocas a la vez
-    tareas = [sintetizar(para_voz(f), voz, tasa, cache, sem) for _, _, fs in est for f in fs]
-    return await asyncio.gather(*tareas)
+    textos = [para_voz(f) for _, _, fs in est for f in fs]
+    rutas = await asyncio.gather(*[sintetizar(t, voz, tasa, cache, sem) for t in textos])
+    # El servicio a veces devuelve una frase cortada (pasó con «Y esa forma fácil…», 25-nov): si un audio dura mucho
+    # menos de lo que debería por su largo, se borra y se pide otra vez.
+    for ronda in range(4):
+        cortas = [i for i, (t, r) in enumerate(zip(textos, rutas)) if len(recortar(decodificar(r))) / SR < 0.5 * len(t) / 15]
+        if not cortas: break
+        for i in cortas:
+            print(f"  frase cortada, se repite (ronda {ronda + 1}): {textos[i][:50]}")
+            rutas[i].unlink(missing_ok=True)
+        nuevas = await asyncio.gather(*[sintetizar(textos[i], voz, tasa, cache, sem) for i in cortas])
+        for i, r in zip(cortas, nuevas): rutas[i] = r
+    else:
+        raise SystemExit("ERROR: hay frases que siguen saliendo cortadas; no se escribe el audio")
+    return rutas
 
 
 def armar(est, rutas):
