@@ -10,10 +10,12 @@
   if (!P || !caja) return;
 
   // ---------------------------------------------------------------- lo que no está en el Excel (decisiones del equipo)
-  const PEDIDO = 55e6;          // lo que se pide hoy
-  const PARTE = 0.10;           // a cambio del 10 % de RECOEVO
-  const VPN = 2766e6;           // valor presente neto del plan sin crédito (plan detallado realista, hoja «11 Resultados»)
-  const MESES = [3, 4, 6];      // duración de cada etapa (la 2 y la 3 son aproximadas)
+  const PEDIDO = 63e6;          // lo que se pide hoy (etapa 1 = $62,8 M, redondeado)
+  const PARTE = 0.10;           // lo que se ofrece: sale de la valoración de abajo, no al revés
+  const VPN = 2758622323;           // valor presente neto del plan sin crédito (plan detallado realista, hoja «11 Resultados»)
+  const PROB = 0.20;            // probabilidad de que hoy, sin ventas, el plan se cumpla: 0,6 × 0,6 × 0,55 ≈ 1 de cada 5 (supuesto prudente)
+  const EBITDA10 = 10224108443, MULT = 5, CAJA10 = 32746579807;  // año 10: lo que deja la operación, múltiplo de venta y caja (hoja 11)
+  const MESES = [4, 4, 6];      // duración de cada etapa: 1 mes para hacer los prototipos + 3 de prueba; la 2 y la 3 son aproximadas
 
   // ---------------------------------------------------------------- filas del presupuesto por id
   const fila = {};
@@ -29,6 +31,7 @@
     return (n < 0 ? "−" : "") + e.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (d ? "," + d : "");
   };
   const mill = (n, dec = 1) => "$" + miles(n / 1e6, dec) + " millones";
+  const pct = (n, dec = 1) => miles(n * 100, dec) + " %";
   const M = (n, dec = 1) => "$" + miles(n / 1e6, dec) + " M";
 
   function el(tag, attrs = {}, ...hijos) {
@@ -67,13 +70,13 @@
 
   const ETAPAS = [
     {
-      n: 1, nombre: "Validar", total: e1, meses: "3 meses",
-      titulo: "Validar: 10 familias de Tihuaque prueban 5 prototipos",
-      dice: "<b>Sin fábrica.</b> Talleres de Bogotá hacen las piezas (impresión 3D, corte láser y metalmecánica) y el equipo arma los 5 prototipos. Rotan entre 10 familias en dos turnos de 6 semanas.",
+      n: 1, nombre: "Validar", total: e1, meses: "4 meses",
+      titulo: "Validar: 10 familias de Tihuaque usan RECOEVO durante 3 meses",
+      dice: "<b>Sin fábrica.</b> En el primer mes, talleres de Bogotá hacen las piezas (impresión 3D, corte láser y metalmecánica) y el equipo arma <b>10 prototipos, uno por familia</b>. Después vienen <b>3 meses de prueba</b> con las 10 familias a la vez, porque un hábito nuevo tarda en promedio 66 días en volverse automático. El equipo recoge las bolsas cada semana, las pesa y las lleva a compostar.",
       meta: "8 de cada 10 familias lo usan todos los días.", metaTxt: "Para pasar a la siguiente: ",
       partes: [
         ["r41-1", "Ajuste del diseño para fabricar en inyección (planos y simulación de los moldes)"],
-        ["r41-2", "5 prototipos funcionales impresos en 3D"],
+        ["r41-2", "10 prototipos funcionales impresos en 3D, uno por familia"],
         ["r41-4", "Pruebas: 20.000 pisadas del pedal y del seguro, corte, olor y caída de la caja"],
         ["r41-5", "Muestras y validación de proveedores (resina, fleje, carbón activado)"],
         [legales, "Registro de la marca, el modelo de utilidad y el diseño, con abogado y búsqueda de patentes"],
@@ -106,7 +109,7 @@
     },
   ];
 
-  // ---------------------------------------------------------------- barra de los $5.520 M con las tres partes
+  // ---------------------------------------------------------------- barra de la inversión inicial con las tres partes
   const barra = el("div", { class: "et-barra", role: "img",
     "aria-label": `Inversión de ${mill(inv, 0)} en tres etapas: ` + ETAPAS.map(e => `${e.nombre} ${mill(e.total)}`).join(", ") });
   ETAPAS.forEach(e => barra.append(el("span", { class: "et-seg s" + e.n, style: `flex-grow:${(e.total / inv).toFixed(4)}` },
@@ -120,24 +123,28 @@
     ETAPAS.map(e => el("li", { class: "s" + e.n }, el("b", {}, e.meses), el("span", {}, `Etapa ${e.n}: ${e.nombre.toLowerCase()}`))),
     el("li", { class: "venta" }, el("b", {}, "Año 1"), el("span", {}, anio1 ? `Ventas: ${miles(anio1)} productos` : "Empiezan las ventas")));
 
-  // ---------------------------------------------------------------- tarjeta del pedido
-  const valorEmpresa = PEDIDO / PARTE;
+  // ---------------------------------------------------------------- tarjeta del pedido: primero cuánto vale la empresa, después el porcentaje
+  const PRE = VPN * PROB, POST = PRE + PEDIDO;
   const pedido = el("article", { class: "resp calc ancho et-pedido" },
     el("p", { class: "resp-tipo" }, "Lo que pedimos hoy"),
-    el("h3", {}, "¿Cuánto pedimos y a cambio de qué?"),
+    el("h3", {}, "¿Cuánto pedimos, cuánto vale RECOEVO y qué parte ofrecemos?"),
     el("p", { class: "resp-valor" }, "$" + miles(PEDIDO / 1e6) + " millones", el("small", {}, " por el " + miles(PARTE * 100) + " % de RECOEVO")),
     el("p", { class: "resp-dice" }, html(`Es <b>solo la etapa 1</b>: validar el producto con 10 familias. Es <b>parte de los ${mill(inv, 0)}</b>, no algo aparte. El resto se pide después, etapa por etapa, con datos en la mano.`)),
-    el("p", { class: "resp-sub" }, "Cómo se llega a esa cifra"),
+    el("p", { class: "resp-sub" }, "1. Cuánto vale RECOEVO hoy, antes del dinero"),
     cuenta([
-      ["sale", "", "Lo que cuesta la etapa 1 (validar)", mill(e1)],
-    ], ["calc", "Lo que pedimos, redondeado", mill(PEDIDO, 0)]),
-    el("p", { class: "resp-sub" }, "Cuánto vale RECOEVO con ese pedido"),
+      ["calc", "", "Lo que el plan gana por encima de todo el dinero invertido, en pesos de hoy (VPN, se dice «ve-pe-ene»)", mill(VPN, 0)],
+      ["calc", "×", "Probabilidad de que hoy, sin ventas, el plan se cumpla: 1 de cada 5", pct(PROB, 0)],
+    ], ["calc", "Valor de RECOEVO hoy", mill(PRE, 0)]),
+    el("p", { class: "resp-sub" }, "2. Qué parte de la empresa corresponde a lo que pedimos"),
     cuenta([
-      ["calc", "", "Lo que pedimos", mill(PEDIDO, 0)],
-      ["calc", "÷", "Parte de RECOEVO para quien invierte", miles(PARTE * 100) + " %"],
-    ], ["calc", "Valor de RECOEVO con ese dinero adentro", mill(valorEmpresa, 0)]),
-    el("details", { class: "resp-mas" }, el("summary", {}, "¿Por qué el 10 %?"),
-      html(`<p>Todo el plan, llevado a pesos de hoy, vale <b>${mill(VPN, 0)}</b> (es el <b>VPN</b>, se dice «ve-pe-ene»: valor presente neto, lo que valen hoy todas las ganancias futuras después de descontar lo que cuesta el dinero). Nuestro pedido valora a RECOEVO en <b>${mill(valorEmpresa, 0)}</b>, cerca del ${miles(valorEmpresa / VPN * 100)} % de eso. La diferencia es el riesgo: la empresa todavía no vende. Quien invierta hoy tiene la primera opción para invertir en las etapas siguientes.</p>`)));
+      ["calc", "", "Valor de RECOEVO hoy", mill(PRE, 0)],
+      ["entra", "+", "Lo que pedimos", mill(PEDIDO, 0)],
+      ["calc", "=", "Valor con el dinero adentro", mill(POST, 0)],
+      ["calc", "", "Lo que pedimos ÷ valor con el dinero adentro", pct(PEDIDO / POST)],
+    ], ["calc", "Lo que ofrecemos, redondeado", pct(PARTE, 0)]),
+    el("details", { class: "resp-mas" }, el("summary", {}, "¿Por qué 1 de cada 5? ¿Y cuánto valdría en el año 10?"),
+      html(`<p>Hoy RECOEVO no vende. Tiene que pasar tres pruebas: que las familias lo usen (etapa 1), que haya preventas (etapa 2) y que la fábrica venda lo que dice el plan (etapa 3). Si cada una sale bien más o menos 6 de cada 10 veces, las tres juntas salen 1 de cada 5 (0,6 × 0,6 × 0,55 ≈ 0,2). Es un supuesto prudente: con 1 de cada 4 el porcentaje bajaría a ${pct(PEDIDO / (VPN * 0.25 + PEDIDO), 0)}; con 15 % subiría a ${pct(PEDIDO / (VPN * 0.15 + PEDIDO), 0)}.</p>` +
+           `<p><b>Si el plan se cumple</b>, en el año 10 la empresa valdría unos <b>${mill(EBITDA10 * MULT, 0)}</b> (lo que deja la operación ese año, ${mill(EBITDA10, 0)}, por ${MULT}, un múltiplo prudente para fábricas), más <b>${mill(CAJA10, 0)}</b> en caja y sin deudas. Las etapas 2 y 3 se negocian después, con un valor más alto porque ya hay pruebas, y quien invierta hoy tiene la primera opción para seguir invirtiendo.</p>`)));
 
   // ---------------------------------------------------------------- tarjetas de las etapas
   const grid = el("div", { class: "resp-grid et-grid" });
