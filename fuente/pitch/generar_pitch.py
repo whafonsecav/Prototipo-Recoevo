@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Genera la página del pitch de RECOEVO (E-Fest 2026-2) para la web oficial: pitch/index.html.
+"""Genera las páginas del pitch de RECOEVO para la web oficial: pitch/ (guion), pitch/teleprompter/ y pitch/preguntas/.
 
 Uso:  python generar_pitch.py <carpeta_web>            -> escribe <carpeta_web>/pitch/index.html
       python generar_pitch.py <carpeta_web> --medir    -> solo imprime la duración de cada bloque
       python generar_pitch.py <carpeta_web> --suelto <archivo.html>  -> versión que abre sin la web (para Drive)
+      python generar_pitch.py <carpeta_web> --verificar <Recoevo2/index.html>  -> compara el guion con las notas de la presentación
 
-El guion vive en GUION (abajo). Marcas: **clave**  [[cifra]]  {gesto}  ~frase que se puede quitar~
-Todas las cifras salen del póster y del presupuesto ejecutivo realista (3-nov-2026); las de Usme, de las
+Desde el 24-nov-2026 se publica el guion de la ronda 2 (25-nov): GUION_FINAL, en guion_final.py (al lado de este archivo).
+GUION_EFEST (abajo) es el guion del póster del E-Fest (6-nov-2026); se deja como historia.
+Marcas: **clave**  [[cifra]]  {gesto}  ~frase que se puede quitar~
+Las cifras del E-Fest salen del póster y del presupuesto ejecutivo realista (3-nov-2026); las de Usme, de las
 fuentes citadas en FUENTES_USME.
 """
 import base64, html, math, pathlib, re, sys
@@ -15,8 +18,8 @@ RITMO = 2.8          # palabras habladas por segundo: ritmo de conversación (un
 PAUSA_INICIO = 2     # segundos de silencio antes de empezar
 RESPIRO = 0.5        # segundos entre bloques (un solo presentador: sin relevos)
 
-# ------------------------------------------------------------------ EL GUION (un presentador)
-GUION = [
+# ------------------------------------------------------------------ EL GUION DEL E-FEST (6-nov-2026, un presentador; ya no se publica)
+GUION_EFEST = [
   dict(t="El problema de la basura", ancla="Bolsas rotas, la comida que se entierra y Doña Juana.", poster="Póster 01 · cifras rosadas «En la ciudad»",
        pregunta="¿Con qué pregunta abre y qué cifras muestran el tamaño del problema?",
        pistas=["bolsa rota en la calle", "líquido y ese olor", "no es plástico: es comida", "2024: 33.300 t al día", "60 % es comida", "Doña Juana: 6.800 t al día", "licencia hasta 2029"],
@@ -93,7 +96,15 @@ GUION = [
 FRASE_CADENA = ("Una <b>bolsa</b> rota en el <b>barrio</b>; la <b>ironía</b> y la <b>ley</b>; un <b>pedal</b> a buen <b>precio</b>; "
                 "<b>Usme</b> cambia su <b>recorrido</b>; el <b>negocio</b> y los <b>ODS</b>; la <b>inversión</b> y la <b>utilidad</b>; y pedimos <b>mentoría</b>.")
 
-PARTES = [("El problema", 1, 4), ("La solución", 5, 8), ("El negocio", 9, 12), ("El cierre", 13, 13)]
+PARTES_EFEST = [("El problema", 1, 4), ("La solución", 5, 8), ("El negocio", 9, 12), ("El cierre", 13, 13)]
+
+# ------------------------------------------------------------------ EL GUION QUE SE PUBLICA: ronda 2, 25-nov-2026
+from guion_final import GUION_FINAL, PARTES_FINAL, verificar
+GUION, PARTES = GUION_FINAL, PARTES_FINAL
+KICKER = "Ronda 2 · 25 de noviembre de 2026 · Pitch de 5 minutos"
+KICKER_PREG = "E-Fest 2026-2 · Preguntas del póster"
+AVISO_PREG = ("Ojo: estas respuestas tienen las cifras del E-Fest (6 de noviembre, con crédito). Las cifras vigentes para el "
+              "25 de noviembre (sin crédito, por etapas) están en la presentación, tecla Q, y en la página del presupuesto.")
 
 # ------------------------------------------------------------------ medición (cifras contadas como se pronuncian)
 MARCA = re.compile(r"(~)|\{([^}]*)\}|\*\*([^*]+)\*\*|\[\[([^\]]+)\]\]")
@@ -1161,14 +1172,14 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
     pestanas = tab("guion", "Guion") + tab("tele", "Teleprompter") + tab("preg", "Preguntas")
     titulos = {"guion": "Guion", "tele": "Teleprompter", "preg": "Preguntas"}
     pie = ('<footer class="pie"><p><b>Menos relleno, más vida.</b></p><p>Ricardo Beltrán · William Fonseca · Samuel Medina · Faber Ortiz · Camila Riaño</p>'
-           '<p>Docente: Ingrid Zoraida Sandoval Pérez · Proceso Administrativo · Politécnico Grancolombiano</p></footer>')
+           '<p>Politécnico Grancolombiano · 2026-2</p></footer>')
     cabecera = f'{volver}\n<header class="barra"><img src="{logo}" alt="recoevo" width="832" height="273"></header>'
 
     if vista == "guion":
         indice_simple = indice.replace('<a href="#b', '<span data-b="').replace('</b></a>', '</b></span>')
         cuerpo = f"""{cabecera}
 <main class="pitch">
-  <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
+  <p class="kicker">{e(KICKER)}</p>
   <h1>El guion</h1>
   <nav class="modos" aria-label="Secciones">{pestanas}</nav>
   <section id="guion">
@@ -1198,9 +1209,10 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
     else:
         cuerpo = f"""{cabecera}
 <main class="pitch">
-  <p class="kicker">E-Fest 2026-2 · Pitch del póster</p>
+  <p class="kicker">{e(KICKER_PREG)}</p>
   <h1>Preguntas del jurado</h1>
   <nav class="modos" aria-label="Secciones">{pestanas}</nav>
+  <p class="sec-sub"><b>{e(AVISO_PREG)}</b></p>
   <p class="sec-sub">Toque un tema y se abren todas sus preguntas, cada una con la respuesta, la explicación en sencillo y cómo se calculó. El número es cuántas preguntas tiene ese tema.</p>
   <div class="filtros" id="filtros">{"".join(filtros)}</div>
   <section id="fuentes">
@@ -1223,7 +1235,7 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RECOEVO · Pitch · {titulos[vista]}</title>
-<meta name="description" content="Pitch de RECOEVO para el E-Fest 2026-2: guion, teleprompter y preguntas del jurado por temas.">
+<meta name="description" content="Pitch de RECOEVO para el 25 de noviembre de 2026: guion, teleprompter y preguntas del jurado por temas.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#154734">
 {icono}
@@ -1241,6 +1253,10 @@ VISTAS = {"guion": "", "tele": "teleprompter", "preg": "preguntas"}
 
 if __name__ == "__main__":
     web = pathlib.Path(sys.argv[1])
+    if "--verificar" in sys.argv:
+        errores = verificar(sys.argv[sys.argv.index("--verificar") + 1])
+        print(chr(10).join(errores) if errores else f"el guion coincide palabra por palabra con las notas ({len(GUION)} pantallas)")
+        sys.exit(1 if errores else 0)
     filas, total, sin_opc = medir()
     if "--medir" in sys.argv:
         for i, (b, f) in enumerate(zip(GUION, filas), 1):
