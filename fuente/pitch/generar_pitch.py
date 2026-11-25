@@ -4,7 +4,7 @@
 Uso:  python generar_pitch.py <carpeta_web>            -> escribe <carpeta_web>/pitch/index.html
       python generar_pitch.py <carpeta_web> --medir    -> solo imprime la duración de cada bloque
       python generar_pitch.py <carpeta_web> --suelto <archivo.html>  -> versión que abre sin la web (para Drive)
-      python generar_pitch.py <carpeta_web> --verificar <Recoevo2/index.html>  -> compara el guion con las notas de la presentación
+      python generar_pitch.py <carpeta_web> --verificar <Recoevo2/index.html>  -> comprueba que el guion siga las láminas (un párrafo por clic)
 
 Desde el 24-nov-2026 se publica el guion de la ronda 2 (25-nov): GUION_FINAL, en guion_final.py (al lado de este archivo).
 GUION_EFEST (abajo) es el guion del póster del E-Fest (6-nov-2026); se deja como historia.
@@ -1293,7 +1293,7 @@ if __name__ == "__main__":
     web = pathlib.Path(sys.argv[1])
     if "--verificar" in sys.argv:
         errores = verificar(sys.argv[sys.argv.index("--verificar") + 1])
-        print(chr(10).join(errores) if errores else f"el guion coincide palabra por palabra con las notas ({len(GUION)} pantallas)")
+        print(chr(10).join(errores) if errores else f"el guion sigue las láminas: {len(GUION)} pantallas, en orden, y un párrafo por cada clic")
         sys.exit(1 if errores else 0)
     filas, total, sin_opc = medir()
     if "--medir" in sys.argv:
