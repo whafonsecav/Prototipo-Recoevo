@@ -102,9 +102,7 @@ PARTES_EFEST = [("El problema", 1, 4), ("La solución", 5, 8), ("El negocio", 9,
 from guion_final import GUION_FINAL, PARTES_FINAL, verificar
 GUION, PARTES = GUION_FINAL, PARTES_FINAL
 KICKER = "Ronda 2 · 25 de noviembre de 2026 · Pitch de 5 minutos"
-KICKER_PREG = "E-Fest 2026-2 · Preguntas del póster"
-AVISO_PREG = ("Ojo: estas respuestas tienen las cifras del E-Fest (6 de noviembre, con crédito). Las cifras vigentes para el "
-              "25 de noviembre (sin crédito, por etapas) están en la presentación, tecla Q, y en la página del presupuesto.")
+KICKER_PREG = "Ronda 2 · 25 de noviembre de 2026 · Preguntas del jurado"
 
 # ------------------------------------------------------------------ medición (cifras contadas como se pronuncian)
 MARCA = re.compile(r"(~)|\{([^}]*)\}|\*\*([^*]+)\*\*|\[\[([^\]]+)\]\]")
@@ -638,6 +636,46 @@ FUENTES = [
   "Método para memorizar: práctica de recuperación (Roediger y Karpicke, 2006); efecto de producción, decir en voz alta (MacLeod y otros, 2010); práctica espaciada (Cepeda y otros, 2006); pistas que desaparecen (Glisky, Schacter y Tulving, 1986); método de los lugares (Dresler y otros, 2017).",
 ]
 
+# ------------------------------------------------------------------ LAS PREGUNTAS QUE SE PUBLICAN: banco de la ronda 2 (25-nov-2026)
+# Es el banco de la presentación de esa ronda (repo Recoevo2, assets/js/preguntas.js): plan sin crédito por etapas,
+# pedido de $55 M por el 10 %, impacto con 0,87 kg por hogar al día, Tihuaque, comodato, mentores y marco legal.
+# Se guarda en banco_final.json (al lado de este archivo). Para traer una versión nueva de la presentación:
+#     python generar_pitch.py <carpeta_web> --traer-banco <Recoevo2/assets/js/preguntas.js>
+# Sus textos ya traen las siglas explicadas, así que no se les vuelve a aplicar con_siglas().
+# BANCO_EFEST, GRUPOS_EFEST y FUENTES_EFEST (el banco del 6-nov, con crédito) quedan como historia.
+import json as _json
+_AQUI = pathlib.Path(__file__).resolve().parent
+if "--traer-banco" in sys.argv:
+    _src = open(sys.argv[sys.argv.index("--traer-banco") + 1], encoding="utf-8").read()
+    _bf = _json.loads(re.search(r"window\.BANCO\s*=\s*(\{.*\})\s*;", _src, re.S).group(1))
+    (_AQUI / "banco_final.json").write_text(_json.dumps(_bf, ensure_ascii=False, indent=1) + chr(10), encoding="utf-8")
+    print(f"banco_final.json: {len(_bf['banco'])} preguntas, {len(_bf['grupos'])} grupos")
+    sys.exit()
+BANCO_EFEST, GRUPOS_EFEST, FUENTES_EFEST = BANCO, GRUPOS, FUENTES
+_bf = _json.loads((_AQUI / "banco_final.json").read_text(encoding="utf-8"))
+BANCO = [(c["k"], c["q"], c["r"], c["s"], c["c"]) for c in _bf["banco"]]
+GRUPOS = _bf["grupos"]
+SIGLAS_YA_EXPLICADAS = True
+_sin_grupo = sorted({k for ks, *_ in BANCO for k in ks} - {k for ks in GRUPOS.values() for k in ks})
+assert not _sin_grupo, f"temas sin grupo: {_sin_grupo}"
+FUENTES = [
+  "Presentación del 25 de noviembre de 2026 (11 pantallas, con «Más datos» en cada una): "
+  '<a href="https://whafonsecav.github.io/Recoevo2/">whafonsecav.github.io/Recoevo2</a>.',
+  "Plan detallado realista y presupuesto ejecutivo recalculados sin crédito (22 y 23-nov-2026): tablas 1 a 14 y hoja «11 Resultados» "
+  '(VPN, TIR y WACC). Están explicados en la <a href="../../presupuesto/">página del presupuesto</a>.',
+  "Plan sin crédito, por etapas, y marco legal (23-nov-2026): validar $54,8 M → preserie $1.039,8 M → fábrica $4.425,4 M; "
+  "pedido de $55 M por el 10 %, confirmado por el equipo.",
+  "Impacto con datos oficiales: UAESP y Consorcio NCU, caracterización de los residuos de Bogotá (2017), 0,434 kg de orgánicos "
+  "por persona al día; UAESP, guía técnica para el aprovechamiento de residuos orgánicos (74 % sale de los hogares); DANE, "
+  "Encuesta Multipropósito 2025 (2,71 personas por hogar). Resultado: 0,87 kg por hogar al día.",
+  'Ley: Decreto 0772 de 2026, Ministerio de Vivienda (<a href="https://normas.cra.gov.co/gestor/docs/decreto_0772_2026.htm">normas.cra.gov.co</a>); '
+  "Decreto 0670 de 2025 (Basura Cero); Resolución CRA 720 de 2015; Ley 142 de 1994, art. 99.9; Código Civil, art. 2200 (comodato); "
+  "Resoluciones ICA 150 de 2003 y 68370 de 2020; NTC 5167; Decisión Andina 486.",
+  "El problema: Superservicios (2024), 33.300 t de basura enterradas al día; UAESP (Doña Juana); urea: Banco Mundial (2021–2022) "
+  "y SIPSA, el sistema de precios del agro del DANE (2026).",
+  "Trabajo de campo en Tihuaque, Usme (19-sep-2026): entrevistas a vecinos, observación y 220 frases analizadas.",
+] + FUENTES_EFEST[3:10]
+
 # ------------------------------------------------------------------ filtros de preguntas
 import unicodedata
 UAESP = "UAESP (la entidad de la Alcaldía de Bogotá que maneja el aseo y Doña Juana)"
@@ -1130,7 +1168,8 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
     for n, (ks, q, r, sencillo, calc) in enumerate(BANCO):
         ks = [k for k in ks if k != PROFE]
         q = _re.sub(r"^\d+\.\s*", "", q)
-        r, sencillo, *calc = con_siglas([r, sencillo] + list(calc))
+        if SIGLAS_YA_EXPLICADAS: calc = list(calc)
+        else: r, sencillo, *calc = con_siglas([r, sencillo] + list(calc))
         li = "".join(f"<li>{e(x)}</li>" for x in calc)
         etiquetas = "".join(f'<button type="button" data-k="{e(k)}">{e(k)}</button>' for k in ks)
         tarjetas.append(f'<article class="q" data-k="|{e("|".join(ks))}|"><p class="q-p">{e(q)}</p><p class="q-r">{e(r)}</p>'
@@ -1212,7 +1251,6 @@ def pagina(modo_suelto=False, web=None, vista="guion"):
   <p class="kicker">{e(KICKER_PREG)}</p>
   <h1>Preguntas del jurado</h1>
   <nav class="modos" aria-label="Secciones">{pestanas}</nav>
-  <p class="sec-sub"><b>{e(AVISO_PREG)}</b></p>
   <p class="sec-sub">Toque un tema y se abren todas sus preguntas, cada una con la respuesta, la explicación en sencillo y cómo se calculó. El número es cuántas preguntas tiene ese tema.</p>
   <div class="filtros" id="filtros">{"".join(filtros)}</div>
   <section id="fuentes">
