@@ -49,13 +49,13 @@ GUION_FINAL = [
 
   dict(t="RECOEVO: cómo funciona", ancla="Qué es y sus cuatro pasos: echar, pisar y cortar, sin olor, entregar.", poster="Pantalla 5 · La solución en 3D",
        pregunta="¿Qué es RECOEVO y cómo funciona, paso a paso?",
-       pistas=["esa forma fácil es RECOEVO", "triturador que funciona con el pie", "primero: se echan las cáscaras; tapa abierta = pedal bloqueado", "segundo: se pisa; cremallera y piñón, sin motor", "13 cuchillas; 20 pisadas = menos de 40 segundos", "tercero: sin olor; filtro de carbón, medio año", "cuarto: bolsa cerrada cada 5 días", "prototipo digital a escala real"],
+       pistas=["esa forma fácil es RECOEVO", "triturador que funciona con el pie", "primero: se echan las cáscaras; tapa abierta = pedal bloqueado", "segundo: se pisa; cremallera y piñón, sin motor", "13 cuchillas; 20 pisadas = menos de 40 segundos", "tercero: sin olor; filtro de carbón, medio año", "cuarto: balde de 10 L (7,5 útiles), se llena en ≈ 5 días → bolsa cerrada", "prototipo digital a escala real"],
        p=["{Clic} Y esa forma fácil es **RECOEVO**: un triturador de cocina que funciona **con el pie**, sin electricidad y sin olor.",
           "{Clic} Funciona en cuatro pasos. **Primero, se echan las cáscaras;** con la tapa abierta, el pedal se bloquea.",
           "{Clic} **Segundo, se pisa.** Una cremallera y un piñón hacen girar el eje, sin motor.",
           "{Clic} El eje mueve [[13 cuchillas]] de acero que cortan los restos en tiras. Bastan unas [[20 pisadas]] al día, es decir, menos de [[40 segundos]].",
           "{Clic} **Tercero, sin olor:** un filtro de carbón en la tapa atrapa los olores durante medio año.",
-          "{Clic} **Y cuarto, se entrega:** cada cinco días sale una **bolsa compostable cerrada**, lista para la ruta de orgánicos.",
+          "{Clic} **Y cuarto, se entrega:** abajo hay un **balde de 10 litros**, con 7,5 útiles; lo que bota un hogar lo llena en unos cinco días, y sale una **bolsa compostable cerrada**, lista para la ruta de orgánicos.",
           "{Clic} Lo que ven es el **prototipo digital a escala real**; el primer dinero que pedimos es para fabricar los físicos."]),
 
   dict(t="Sin luz y a precio de caneca", ancla="Cero energía y el precio frente a una caneca y a los eléctricos.", poster="Pantalla 6 · Por qué RECOEVO",
