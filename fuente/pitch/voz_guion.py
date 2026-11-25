@@ -27,6 +27,7 @@ DICCION = [
     (r"\bRECOEVO\b", "Reco Evo"),          # si no, suena «recuevo»
     (r"\b0772\b", "cero setecientos setenta y dos"),
     (r"\bIVA\b", "iva"),
+    (r"CO₂", "ce o dos"),
 ]
 FIN_FRASE = re.compile(r"[.!?…][»\"”)\]]*$")
 
