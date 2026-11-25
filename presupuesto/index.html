@@ -3,24 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>RECOEVO · Presupuesto realista</title>
-  <meta name="description" content="El presupuesto de RECOEVO a 10 años, escenario realista: inversión, costos, ventas, utilidad, punto de equilibrio y retorno de la inversión.">
+  <title>RECOEVO · Presupuesto realista sin crédito</title>
+  <meta name="description" content="El presupuesto de RECOEVO a 10 años, escenario realista y sin crédito: el plan por etapas, lo que pedimos, inversión, costos, ventas, utilidad, punto de equilibrio y retorno de la inversión.">
   <meta name="theme-color" content="#154734">
   <link rel="icon" href="../assets/img/icono-192.png">
   <link rel="preload" href="../assets/fonts/Lexend.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/marca.css">
   <link rel="stylesheet" href="../assets/css/presupuesto.css">
   <link rel="stylesheet" href="../assets/css/presupuesto-respuestas.css">
+  <link rel="stylesheet" href="../assets/css/presupuesto-etapas.css">
 </head>
 <body>
   <a class="volver" href="../" aria-label="Volver al menú principal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Menú</a>
   <header class="barra"><a href="../" aria-label="RECOEVO, ir al menú"><img src="../assets/img/logo.svg" alt="recoevo" width="832" height="273"></a></header>
 
   <main class="pagina presupuesto" id="pagina">
-    <p class="kicker">Presupuesto · escenario realista</p>
+    <p class="kicker">Presupuesto · escenario realista · sin crédito</p>
     <h1>¿Cuánto cuesta y cuánto deja RECOEVO?</h1>
 
-    <p class="bajada">El plan a 10 años en el escenario realista, explicado fácil: primero las respuestas con su cuenta, después cada tabla con todo el detalle.</p>
+    <p class="bajada">El plan a 10 años en el escenario realista, sin crédito, explicado fácil: primero las etapas y lo que pedimos, después las respuestas con su cuenta y al final cada tabla con todo el detalle.</p>
+    <section class="etapas" id="etapas" aria-labelledby="t-etapas"></section>
     <section class="respuestas" id="respuestas" aria-label="Las respuestas del presupuesto"></section>
 
     <section class="bloque resumen" aria-labelledby="t-resumen">
@@ -76,6 +78,7 @@
   <script src="../assets/js/presupuesto/textos.js"></script>
   <script src="../assets/js/presupuesto/app.js"></script>
   <script src="../assets/js/presupuesto/respuestas.js"></script>
+  <script src="../assets/js/presupuesto/etapas.js"></script>
   <script src="../assets/js/presupuesto/resultados.js"></script>
 </body>
 </html>

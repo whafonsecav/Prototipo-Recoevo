@@ -1,0 +1,60 @@
+/* RECOEVO · presupuesto: el plan por etapas y lo que pedimos. Se carga después de presupuesto-respuestas.css.
+   Las tres etapas usan tonos del rojo tierra (sale dinero), del más claro al más fuerte. */
+.etapas { --e1: #E39A74; --e2: #C8693F; --e3: #8E3D1C; margin: 6px 0 22px; }
+.etapas .et-intro { margin: 2px 2px 12px; font-size: 15.5px; }
+.et-barra {
+  display: flex; gap: 3px; height: 46px; padding: 4px; border-radius: 16px; background: var(--papel); border: 1px solid var(--linea);
+  box-shadow: 0 4px 14px rgba(21, 71, 52, .06);
+}
+.et-seg { min-width: 30px; flex-basis: 0; border-radius: 11px; display: grid; place-items: center; }
+.et-seg b { font: 800 15px/1 "Lexend", sans-serif; color: #fff; }
+.et-seg.s1 { background: var(--e1); }
+.et-seg.s2 { background: var(--e2); }
+.et-seg.s3 { background: var(--e3); }
+.et-leyenda { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.et-leyenda li {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; align-items: baseline; gap: 8px; padding: 8px 12px;
+  border-radius: 12px; background: var(--sale-bg); font-size: 14.5px; line-height: 1.35;
+}
+.et-leyenda i { width: 14px; height: 14px; border-radius: 4px; align-self: center; }
+.et-leyenda .s1 i { background: var(--e1); }
+.et-leyenda .s2 i { background: var(--e2); }
+.et-leyenda .s3 i { background: var(--e3); }
+.et-leyenda .tot { background: transparent; border: 2px solid var(--sale); }
+.et-leyenda .tot i { background: linear-gradient(90deg, var(--e1), var(--e2), var(--e3)); }
+.et-leyenda strong { font: 800 16px/1.2 "Lexend", sans-serif; color: var(--sale); white-space: nowrap; }
+
+/* línea de tiempo: etapa 1 → 2 → 3 → año 1 */
+.et-tiempo { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.et-tiempo li {
+  position: relative; padding: 10px 8px 9px; border-radius: 12px; background: var(--papel); border: 1px solid var(--linea);
+  border-top: 5px solid var(--sale); text-align: center; min-width: 0;
+}
+.et-tiempo .s1 { border-top-color: var(--e1); }
+.et-tiempo .s2 { border-top-color: var(--e2); }
+.et-tiempo .s3 { border-top-color: var(--e3); }
+.et-tiempo .venta { border-top-color: var(--entra); background: var(--entra-bg); }
+.et-tiempo b { display: block; font: 800 16px/1.15 "Lexend", sans-serif; color: var(--tinta); }
+.et-tiempo span { display: block; margin-top: 3px; font-size: 12.5px; line-height: 1.3; color: var(--suave); overflow-wrap: anywhere; }
+.et-tiempo li:not(:last-child)::after {
+  content: "›"; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); z-index: 1;
+  font: 800 16px/1 "Lexend", sans-serif; color: var(--suave);
+}
+.et-fuente { margin: 8px 2px 14px; }
+
+.et-pedido { margin-bottom: 14px; }
+.et-pedido .resp-valor { font-size: clamp(32px, 10vw, 46px); }
+.et-pedido .resp-valor small { display: block; margin-top: 4px; font: 700 17px/1.3 "Lexend", sans-serif; color: var(--calc); }
+.et-etapa.s1 { border-top-color: var(--e1); }
+.et-etapa.s2 { border-top-color: var(--e2); }
+.et-etapa.s3 { border-top-color: var(--e3); }
+.et-meta { margin: 12px 0 0; padding: 9px 12px; border-radius: 12px; background: var(--crema); font-size: 14.5px; line-height: 1.4; }
+.et-meta b { color: var(--monte); }
+
+@media (min-width: 900px) {
+  .et-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 380px) {
+  .et-tiempo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .et-tiempo li:nth-child(2)::after { content: none; }
+}
