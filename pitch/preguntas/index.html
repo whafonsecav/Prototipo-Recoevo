@@ -123,7 +123,7 @@ html:has(body[data-vista="tele"]),body[data-vista="tele"]{overflow:hidden;oversc
 .tele-saltos button:active{background:var(--sol);color:var(--monte)}
 .tele-saltos svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .tele-texto .in{padding-right:58px}
-.tele-ctl{flex:none;display:grid;grid-template-columns:96px 1fr auto;grid-template-areas:"play reloj vel" "reini . letra";align-items:center;column-gap:10px;row-gap:6px;
+.tele-ctl{flex:none;display:grid;grid-template-columns:96px 1fr auto;grid-template-areas:"play reloj vel" "reini voz letra";align-items:center;column-gap:10px;row-gap:6px;
   padding:8px max(12px,env(safe-area-inset-right),calc((100% - 540px)/2)) calc(8px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left),calc((100% - 540px)/2));
   background:#14231b;border-top:1px solid rgba(255,255,255,.12)}
 .tele-ctl button{font:inherit;font-family:"Lexend";font-weight:600;font-size:14px;line-height:1;height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:0 10px;cursor:pointer;min-width:34px;touch-action:manipulation}
@@ -180,6 +180,14 @@ html:has(body[data-vista="tele"]),body[data-vista="tele"]{overflow:hidden;oversc
 .tele-marca.ver{opacity:1}
 .tele-ayuda{flex-basis:100%;text-align:center;color:#b9c2b8;font-size:12.5px}
 .modos a.activa{background:var(--monte);color:#fff;border-color:var(--monte)}
+.tele-ctl .voz{grid-area:voz;justify-self:center;white-space:nowrap}
+@media (max-width:480px){.ctl-letra span{display:none}}
+.tele-ctl .voz[aria-pressed="false"]{color:#b9c2b8;border-style:dashed}
+.escuchar{background:var(--papel);border:1px solid var(--linea);border-radius:18px;padding:14px 16px;margin:6px 0 10px}
+.escuchar h2{font-family:"Lexend",system-ui,sans-serif;font-size:18px;margin:0 0 4px;color:var(--monte)}
+.escuchar p{margin:0 0 10px;font-size:15.5px;color:var(--suave)}
+.escuchar audio{width:100%;display:block}
+.escuchar .descargar{display:inline-block;margin-top:10px;font-weight:700;color:var(--monte)}
 .ir-tele{display:inline-block;margin:12px 0;font-family:"Lexend",system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;background:var(--monte);color:#fff;border-radius:999px;padding:11px 18px}
 .tele-tabs{flex:none;display:flex;gap:6px;justify-content:center;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:#14231b;border-bottom:1px solid rgba(255,255,255,.12)}
 .tele-tabs a{color:#fff;text-decoration:none;font-family:"Lexend";font-weight:600;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25)}
@@ -333,7 +341,7 @@ body.con-panel{overflow:hidden}
     setTimeout(function(){if(!arrastre&&Date.now()-tMarca>=2900)marca.classList.remove("ver");},3000);}
   caja.addEventListener("pointerup",soltar);caja.addEventListener("pointercancel",soltar);
   function pxSeg(){return (caja.scrollHeight-caja.clientHeight)/TOTAL*mult;}
-  var INICIO=[],HABLA=[],DURACION=TOTAL,moviendo=false,real=0,relojVisto="";
+  var INICIO=[],HABLA=[],PESO=[],DURACION=TOTAL,moviendo=false,real=0,relojVisto="";
   /* Cómo se dice en voz alta una cifra o un signo: «33.300» = «treinta y tres mil trescientos», «%» = «por ciento» */
   var UN=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
   var DE=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
@@ -360,11 +368,51 @@ body.con-panel{overflow:hidden}
       var sig=palabras[i+1],pa=w.closest("p"),ps=sig&&sig.closest("p");
       if(!sig||ps!==pa){pausa=Math.max(pausa,0.9);
         if(ps&&ps.previousElementSibling&&ps.previousElementSibling.tagName==="H4")pausa=Math.max(pausa,1.4);}
-      base.push([d,pausa]);});
+      base.push([d,pausa]);PESO.push(d);});
     var sh=0,sp=0;base.forEach(function(b){sh+=b[0];sp+=b[1];});
     var esc=Math.max(0.3,(TOTAL-sp)/sh),acc=0;   /* solo se ajusta el tiempo de hablar; las pausas quedan fijas */
     base.forEach(function(b){INICIO.push(acc);HABLA.push(b[0]*esc);acc+=b[0]*esc+b[1];});DURACION=acc;
   })();
+  /* ---------- la voz: el audio del guion marca el ritmo ----------
+     voz_guion.py da el inicio y el fin de cada frase en el audio; aquí cada palabra toma su parte de su frase.
+     Si algo no cuadra (otro número de párrafos), el teleprompter sigue como antes, sin voz. */
+  var VOZ=null,audio=null,vozFalla=false,silenciada=false,bVoz=$("tele-voz");
+  try{VOZ=JSON.parse(document.body.getAttribute("data-voz")||"null");}catch(_){VOZ=null;}
+  (function tiemposDeVoz(){
+    if(!VOZ||!VOZ.parrafos)return;
+    var ps=[],grupos=[];
+    palabras.forEach(function(w,i){var p=w.closest("p");if(ps[ps.length-1]!==p){ps.push(p);grupos.push([]);}grupos[grupos.length-1].push(i);});
+    if(ps.length!==VOZ.parrafos.length){VOZ=null;return;}
+    var FIN=/[.!?…][»"”)\]]*$/,I2=[],H2=[];
+    grupos.forEach(function(g,j){
+      var anclas=VOZ.parrafos[j],frases=[],act=[];
+      g.forEach(function(i){act.push(i);if(FIN.test(palabras[i].textContent)){frases.push(act);act=[];}});
+      if(act.length)frases.push(act);
+      if(frases.length!==anclas.length){frases=[g];anclas=[[anclas[0][0],anclas[anclas.length-1][1]]];}
+      frases.forEach(function(f,k){var a=anclas[k][0],b=anclas[k][1],tot=0,acc=0;f.forEach(function(i){tot+=PESO[i];});
+        f.forEach(function(i){I2[i]=a+(b-a)*acc/tot;H2[i]=(b-a)*PESO[i]/tot;acc+=PESO[i];});});
+    });
+    INICIO=I2;HABLA=H2;DURACION=VOZ.duracion;
+  })();
+  function pintarVoz(){if(!bVoz)return;bVoz.textContent=silenciada?"🔇 Sin voz":"🔊 Voz";bVoz.setAttribute("aria-pressed",String(!silenciada));
+    bVoz.setAttribute("aria-label",silenciada?"La voz está silenciada: tocar para oírla":"La voz suena: tocar para silenciarla");}
+  if(VOZ){
+    audio=new Audio();audio.preload="auto";audio.src=VOZ.src;
+    try{silenciada=localStorage.getItem("recoevo-tele-voz")==="no";}catch(_){}
+    audio.muted=silenciada;
+    audio.addEventListener("ended",function(){parar();seg=DURACION;bPlay.textContent="Terminó";});
+    audio.addEventListener("pause",function(){if(corre&&!audio.ended)parar();});   /* pausado desde la pantalla bloqueada */
+    audio.addEventListener("play",function(){if(!corre)arrancar();});
+    audio.addEventListener("error",function(){vozFalla=true;if(bVoz)bVoz.hidden=true;});
+    try{if("mediaSession" in navigator){
+      navigator.mediaSession.metadata=new MediaMetadata({title:"Guion de la final",artist:"RECOEVO",album:"Ronda 2 · 25 de noviembre de 2026"});
+      navigator.mediaSession.setActionHandler("play",function(){if(!corre)arrancar();});
+      navigator.mediaSession.setActionHandler("pause",function(){if(corre)parar();});}}catch(_){}
+    if(bVoz){pintarVoz();bVoz.onclick=function(){silenciada=!silenciada;audio.muted=silenciada;pintarVoz();
+      try{localStorage.setItem("recoevo-tele-voz",silenciada?"no":"si");}catch(_){}};}
+  }else if(bVoz){bVoz.hidden=true;}
+  function conAudio(){return audio&&!vozFalla;}
+  function audioA(t){if(!conAudio())return;try{audio.currentTime=Math.max(0,Math.min(t,DURACION-0.05));}catch(_){}}
   function empezadas(t){var lo=0,hi=INICIO.length;while(lo<hi){var m=(lo+hi)>>1;if(INICIO[m]<=t)lo=m+1;else hi=m;}return lo;}
   function pintarPorTiempo(){var k=empezadas(seg),a;
     if(k>leidas){for(a=leidas;a<k;a++)palabras[a].classList.add("leida");}else{for(a=k;a<leidas;a++)palabras[a].classList.remove("leida");}
@@ -372,13 +420,14 @@ body.con-panel{overflow:hidden}
   function seguir(dt){if(!KT.length)return;
     var d=alturaEn(seg)-guiaEnTexto();                    /* punto del texto que debe estar en la guía, según el tiempo */
     if(Math.abs(d)>0.01)ponerPos(pos+d*(1-Math.exp(-Math.min(dt,0.1)*6)));}
-  function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;}
+  function sincronizar(){pintarLectura();seg=leidas<INICIO.length?INICIO[leidas]:DURACION;audioA(seg);}
   function paso(ts){
     if(!corre)return;
     var dt=ult?(ts-ult)/1000:0;ult=ts;
     if(!arrastre&&!moviendo){
-      var k=empezadas(seg)-1,enPausa=k>=0&&seg>=INICIO[k]+HABLA[k];
-      seg+=dt*(enPausa?1:mult);real+=dt;   /* la velocidad cambia la lectura, no las pausas */
+      if(conAudio()){seg=audio.currentTime;real=seg;}   /* con voz, el reloj es el audio (si se demora en cargar, el texto espera) */
+      else{var k=empezadas(seg)-1,enPausa=k>=0&&seg>=INICIO[k]+HABLA[k];
+        seg+=dt*(enPausa?1:mult);real+=dt;}   /* la velocidad cambia la lectura, no las pausas */
       pintarPorTiempo();seguir(dt);}
     var r=mmss(real);if(r!==relojVisto){relojVisto=r;reloj.textContent=r;}
     if(seg>=DURACION){parar();bPlay.textContent="Terminó";}
@@ -396,25 +445,27 @@ body.con-panel{overflow:hidden}
     try{navigator.wakeLock.request("screen").then(function(l){bloqueo=l;l.addEventListener("release",function(){bloqueo=null;});}).catch(function(){videoDespierto();});}
     catch(_){videoDespierto();}}
   document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"&&!capa.hidden)mantenerPantalla();});
-  function arrancar(){mantenerPantalla();if(!KT.length)prepararCurva();corre=true;ult=0;bPlay.textContent="Pausa";raf=requestAnimationFrame(paso);}
-  function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";}
+  function arrancar(){mantenerPantalla();if(!KT.length)prepararCurva();if(seg>=DURACION){seg=0;real=0;}corre=true;ult=0;bPlay.textContent="Pausa";
+    if(conAudio()){audioA(seg);audio.playbackRate=mult;try{var pr=audio.play();if(pr&&pr.catch)pr.catch(function(){vozFalla=true;if(bVoz)bVoz.hidden=true;});}catch(_){vozFalla=true;}}
+    cancelAnimationFrame(raf);raf=requestAnimationFrame(paso);}
+  function parar(){corre=false;cancelAnimationFrame(raf);bPlay.textContent="Seguir";if(audio&&!audio.paused)audio.pause();}
   function aplicarTam(){var r=pos/Math.max(1,interior.offsetHeight);caja.style.fontSize=tam+"px";limites();ponerPos(r*interior.offsetHeight);}
   function alinear(){var g=window.innerHeight*0.38,t=caja.getBoundingClientRect().top;interior.style.paddingTop=Math.max(0,g-t-6)+"px";limites();
     /* triangulitos al lado de la columna de texto, no en el borde de la pantalla */
     var r=interior.getBoundingClientRect(),cs=getComputedStyle(interior),izq=r.left+parseFloat(cs.paddingLeft),der=r.right-parseFloat(cs.paddingRight);
     var gu=capa.querySelector(".tele-guia");if(gu){gu.style.setProperty("--gi",Math.max(2,izq-19)+"px");gu.style.setProperty("--gd",(der-5)+"px");}}
   window.addEventListener("resize",function(){alinear();repintar();});
-  function abrir(){capa.hidden=false;mantenerPantalla();document.body.style.overflow="hidden";ponerPos(0);seg=0;reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
+  function abrir(){capa.hidden=false;mantenerPantalla();document.body.style.overflow="hidden";ponerPos(0);seg=0;audioA(0);reloj.textContent="0:00";bPlay.textContent="Iniciar";tam=window.innerWidth<600?28:38;aplicarTam();alinear();repintar();try{capa.requestFullscreen&&capa.requestFullscreen().catch(function(){});}catch(e){}}
   function cerrar(){parar();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}
     if(document.body.getAttribute("data-vista")==="tele"){location.href=document.body.getAttribute("data-salir");return;}
     capa.hidden=true;document.body.style.overflow="";}
   [].forEach.call(document.querySelectorAll("[data-tele]"),function(b){b.addEventListener("click",function(e){e.preventDefault();abrir();});});
   bPlay.onclick=function(){corre?parar():arrancar();};
-  $("tele-mas").onclick=function(){mult=Math.min(2,Math.round((mult+0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
-  $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";};
+  $("tele-mas").onclick=function(){mult=Math.min(2,Math.round((mult+0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";if(audio)audio.playbackRate=mult;};
+  $("tele-menos").onclick=function(){mult=Math.max(0.5,Math.round((mult-0.1)*10)/10);vel.textContent=mult.toFixed(1)+"×";if(audio)audio.playbackRate=mult;};
   $("tele-amas").onclick=function(){tam=Math.min(64,tam+4);aplicarTam();repintar();};
   $("tele-amenos").onclick=function(){tam=Math.max(20,tam-4);aplicarTam();repintar();};
-  $("tele-reini").onclick=function(){parar();ponerPos(0);seg=0;real=0;pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
+  $("tele-reini").onclick=function(){parar();ponerPos(0);seg=0;real=0;audioA(0);pintarPorTiempo();reloj.textContent="0:00";bPlay.textContent="Iniciar";};
   function mover(n){var lh=tam*1.45,desde=pos,hasta=Math.max(0,desde+n*lh),t0=0;resto=0;
     var suave=!matchMedia("(prefers-reduced-motion: reduce)").matches;
     moviendo=true;
