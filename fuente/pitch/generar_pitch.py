@@ -661,10 +661,10 @@ assert not _sin_grupo, f"temas sin grupo: {_sin_grupo}"
 FUENTES = [
   "Presentación del 25 de noviembre de 2026 (11 pantallas, con «Más datos» en cada una): "
   '<a href="https://whafonsecav.github.io/Recoevo2/">whafonsecav.github.io/Recoevo2</a>.',
-  "Plan detallado realista y presupuesto ejecutivo recalculados sin crédito (22 y 23-nov-2026): tablas 1 a 14 y hoja «11 Resultados» "
+  "Plan detallado realista y presupuesto ejecutivo recalculados sin crédito (22 y 23-nov-2026) y con 10 prototipos (25-nov-2026): tablas 1 a 14 y hoja «11 Resultados» "
   '(VPN, TIR y WACC). Están explicados en la <a href="../../presupuesto/">página del presupuesto</a>.',
-  "Plan sin crédito, por etapas, y marco legal (23-nov-2026): validar $54,8 M → preserie $1.039,8 M → fábrica $4.425,4 M; "
-  "pedido de $55 M por el 10 %, confirmado por el equipo.",
+  "Plan sin crédito, por etapas, y marco legal (25-nov-2026): validar $62,8 M → preserie $1.039,8 M → fábrica $4.427,4 M; "
+  "pedido de $63 M por el 10 %: RECOEVO vale hoy ≈ $552 M (VPN $2.759 M × 1 de cada 5) y ≈ $615 M con el dinero adentro.",
   "Impacto con datos oficiales: UAESP y Consorcio NCU, caracterización de los residuos de Bogotá (2017), 0,434 kg de orgánicos "
   "por persona al día; UAESP, guía técnica para el aprovechamiento de residuos orgánicos (74 % sale de los hogares); DANE, "
   "Encuesta Multipropósito 2025 (2,71 personas por hogar). Resultado: 0,87 kg por hogar al día.",
